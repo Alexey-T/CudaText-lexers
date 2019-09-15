@@ -3,7 +3,7 @@ import os
 import zipfile
 
 items = os.listdir('.')
-items = [fn for fn in items if fn.endswith('zip')]
+items = [fn for fn in items if fn.endswith('.zip')]
 for fn in items:
     name = fn.split('.')[1].replace('_', ' ')
 
