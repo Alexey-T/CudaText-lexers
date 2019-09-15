@@ -1,0 +1,19 @@
+[comments]
+str1=/'
+str2='/
+styles_cmt=Comment
+styles_str=String,String desc
+
+[map]
+Comment=Comment
+Symbol=Symbol
+Number=Number
+Id=Id
+Id keyword=IdKeyword
+Directive=Id1
+NameColons=Id4
+String=String
+String desc=String2
+Color=Color
+Tag bound=TagBound
+Tag id=TagId

@@ -1,0 +1,19 @@
+[map]
+Comment=Comment
+Id=Id
+Id ops=IdKeyword
+Id ops delay=Id1
+Id register=Id2
+Id spec=IdVar
+Label=Label
+Number=Number
+String=String
+Symbol=Symbol
+Directive=Id4
+Macro BG=IncludeBG1
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

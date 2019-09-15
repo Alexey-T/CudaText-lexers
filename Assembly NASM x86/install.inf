@@ -1,0 +1,7 @@
+[info]
+title=Assembly NASM x86
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly NASM x86

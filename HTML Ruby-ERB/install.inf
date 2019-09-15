@@ -1,0 +1,11 @@
+[info]
+title=HTML Ruby-ERB
+type=lexer
+subdir=-
+
+[lexer1]
+file=HTML Ruby-ERB
+link1=CSS
+link2=JavaScript
+link3=JavaScript
+link4=Ruby

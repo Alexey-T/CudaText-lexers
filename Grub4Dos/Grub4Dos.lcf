@@ -1,0 +1,269 @@
+object SyntAnal43: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Filename'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '::.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 2
+      Expression = '%\w+%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 4
+      Expression = '[\+\*<>~!&\|:%\^\#\?\\=,;`\(\)\[\]\{\}@\^\$]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '0x[0-9a-f]+ | \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Filename'
+      StyleName = 'Filename'
+      TokenType = 2
+      Expression = '\w+\.\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'commands'
+      StyleName = 'Keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'background'
+            'blocklist'
+            'boot'
+            'calc'
+            'call'
+            'cat'
+            'cdrom'
+            'chainloader'
+            'checkrange'
+            'checktime'
+            'clear'
+            'cmp'
+            'color'
+            'command'
+            'commandline'
+            'configfile'
+            'dd'
+            'debug'
+            'default'
+            'delmod'
+            'displaymem'
+            'echo'
+            'endlocal'
+            'errnum'
+            'errorcheck'
+            'exist'
+            'exit'
+            'fallback'
+            'find'
+            'font'
+            'foreground'
+            'fstest'
+            'geometry'
+            'gfxmenu'
+            'goto'
+            'graphicsmode'
+            'halt'
+            'help'
+            'hiddenflag'
+            'hiddenmenu'
+            'hide'
+            'if'
+            'iftitle'
+            'initrd'
+            'insmod'
+            'is64bit'
+            'kernel'
+            'lock'
+            'ls'
+            'makeactive'
+            'map'
+            'md5crypt'
+            'module'
+            'modulenounzip'
+            'nul'
+            'outline'
+            'pager'
+            'partnew'
+            'parttype'
+            'password'
+            'pause'
+            'pxe'
+            'quit'
+            'read'
+            'reboot'
+            'root'
+            'rootnoverify'
+            'savedefault'
+            'serial'
+            'set'
+            'setkey'
+            'setlocal'
+            'setvbe'
+            'shift'
+            'splashimage'
+            'terminal'
+            'terminfo'
+            'testvbe'
+            'timeout'
+            'title'
+            'tpm'
+            'unhide'
+            'uuid'
+            'vbeprobe'
+            'write')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'title'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'title')
+          TokenTypes = 4
+        end>
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '# map the iso file as a virtual cd'
+    'map /savepart.iso (0xff)'
+    'map --hook'
+    'map /spartbdk.img (fd0)'
+    ''
+    'title Run Linux\nPress SHIFT+ENTER for safe mode'
+    
+      '/bios int=0x16 eax=0x00000200 > (md)0x300+1 && cat --skip=12 --l' +
+      'ength=2 (md)0x300+1 | set /a n=0x > nul'
+    'set /a n=%n% & 0x03 > nul && if %n%>=1 echo SHIFT PRESSED!'
+    'set sf='
+    
+      'if %n%>=1 set sf=acpi=off irqpoll noapic noapm nodma nomce nolap' +
+      'ic nosmp'
+    
+      'kernel /casper/vmlinuz file=/cdrom/preseed/ubuntu.seed boot=casp' +
+      'er %sf% splash'
+    'initrd /casper/initrd.img'
+    ''
+    'title WinPe v2'
+    'map /bootmgr (rd)'
+    'chainloader (rd)+1'
+    'root ()')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Label'
+    'Symbol'
+    'String'
+    'Number')
+  Extentions = 'lst'
+  LexerName = 'Grub4Dos'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

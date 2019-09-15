@@ -1,0 +1,7 @@
+[info]
+title=SynWrite acp files
+type=lexer
+subdir=-
+
+[lexer1]
+file=SynWrite acp files

@@ -1,0 +1,7 @@
+[info]
+title=V
+type=lexer
+subdir=-
+
+[lexer1]
+file=V

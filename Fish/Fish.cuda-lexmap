@@ -1,0 +1,14 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Symbol=Symbol
+Id=Id
+Id keyword=IdKeyword
+Number=Number
+Comment=Comment
+String=String
+Var=IdVar

@@ -1,0 +1,9 @@
+[info]
+title=nnCron
+type=lexer
+subdir=-
+
+[lexer1]
+file=nnCron
+link1=VBScript
+link2=JavaScript

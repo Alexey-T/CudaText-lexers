@@ -1,0 +1,7 @@
+[info]
+title=TakeCommand
+type=lexer
+subdir=-
+
+[lexer1]
+file=TakeCommand

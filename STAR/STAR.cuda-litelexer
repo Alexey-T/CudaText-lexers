@@ -1,0 +1,42 @@
+{
+  "about": "STAR (Self-defining Text Archive and Retrieval) lexer by Alexey T.",
+  "files": "*.star",
+  "cmt_line": "#",
+  "cmt_block_1": "",
+  "cmt_block_2": "",
+  "case_sens": false,
+  "rules": {
+    "cmt": {
+      "regex": "\\#.*",
+      "style": "Comment"
+    },
+    "num": {
+      "regex": "\\d+(\\.\\d+)?([eE][-\\+]?\\d+)?",
+      "style": "Number"
+    },
+    "str": {
+      "regex": "\\'.*?\\'",
+      "style": "String"
+    },
+    "str2": {
+      "regex": "\\\".*?\\\"",
+      "style": "String"
+    },
+    "symbol": {
+      "regex": "[\\-\\+\\*/\\(\\)\\[\\]\\{\\}\\|\\\\\\.,:;=~!@\\#\\$%\\^&\\?<>]",
+      "style": "Symbol"
+    },
+    "key": {
+      "regex": "\\b_[\\w\\.]+",
+      "style": "Id2"
+    },
+    "keyword": {
+      "regex": "loop_|data_[\\w\\.]+",
+      "style": "IdKeyword"
+    },
+    "id": {
+      "regex": "[a-zA-Z_][\\w\\.]*",
+      "style": "Id"
+    }
+  }
+}

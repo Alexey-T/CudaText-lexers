@@ -1,0 +1,7 @@
+[info]
+title=SynWrite snippets
+type=lexer
+subdir=-
+
+[lexer1]
+file=SynWrite snippets

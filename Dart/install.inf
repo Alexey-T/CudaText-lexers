@@ -1,0 +1,7 @@
+[info]
+title=Dart
+type=lexer
+subdir=-
+
+[lexer1]
+file=Dart

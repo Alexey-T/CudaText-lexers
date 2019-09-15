@@ -1,0 +1,7 @@
+[info]
+title=ZenScript (MineTweaker)
+type=lexer
+subdir=-
+
+[lexer1]
+file=ZenScript (MineTweaker)

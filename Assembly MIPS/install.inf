@@ -1,0 +1,7 @@
+[info]
+title=Assembly MIPS
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly MIPS

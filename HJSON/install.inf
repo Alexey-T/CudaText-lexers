@@ -1,0 +1,7 @@
+[info]
+title=HJSON
+type=lexer
+subdir=-
+
+[lexer1]
+file=HJSON

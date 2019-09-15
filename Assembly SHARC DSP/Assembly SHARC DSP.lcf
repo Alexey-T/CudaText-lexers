@@ -1,0 +1,412 @@
+object SyntAnal2: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id register'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id spec'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Directive'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 215
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id func'
+      StyleName = 'Id func'
+      TokenType = 2
+      Expression = 
+        '\b(jump|call|modify|bit (set|tgl|tst|clr|xor)|bitrev|push|pop|no' +
+        'p|idle|cjump|rframe|[dp]m|if|else|do|until|EQ|NE|GT|LT|GE|LE|(NO' +
+        'T )?A[CV]|(NOT )?M[VS]|(NOT )?S[VZ]|(NOT )?TF|(NOT )?FLAG[0-3]_I' +
+        'N|(NOT )?BM|(NOT )?LCE|FOREVER|TRUE|compu?|abs|pass|fix|logb|man' +
+        't|rnd|scalb|float|by|trunc|recips|rsqrts|copysign|min|max|clip|a' +
+        'nd|or|xor|lshift|ashift|rot|bclr|bset|btgl|btst|fdep|fext|exp|le' +
+        'ft[zo]|fpack|funpack|rt[si]|offsetof|sizeof|toggle)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id spec'
+      StyleName = 'Id spec'
+      TokenType = 2
+      Expression = 
+        '\b(PWM[0-3]EN|FLG[0-3]EN|IRQ[0-2]EN|TMREXPEN|[PS]PFLGS|IMDW[0-3]' +
+        '|SRST|IIVT|DCPR|MTMDMA[01]ACT|MTMFLUSH|MTMDENX|PPODIS|PPCHEN|PP[' +
+        'DB]S|PPCHS|PPFLMD|PPALEPL|PPBHD|PPS|PPTRAN|PPDEN|PPEN|PPDUR|PPBH' +
+        'C|PP16|DXS_[AB]|DERR_[AB]|SPTRAN|BHD|LA?FS|S[DP]EN_[AB]|SCHEN_[A' +
+        'B]|FS_BOTH|D?IFS|FSR|CKRE|OPMODE|SPEN_[AB]|DTYPE|LSBF|SLEN([04-9' +
+        ']|[12][0-9]?|3[0-2])|PACK|ICLK|DXS_[AB]|DERR_[AB]|FRFS|LAFS|SDEN' +
+        '_[AB]|MSTR|[RT]XS(_[AB])?|ROVF(_[AB])?|LMFS|IMFS|TUVF_[AB]|LTDV|' +
+        'MCE[AB]|MFD([02-9]|1[0-5]?)|NCH|SPL|CHNL|DMAS[0-5][AB]|DMACH[0-5' +
+        '][AB]|SPIFE|TXCOL|SPIF|MME|TUNF|DS[0-3]EN|ISSS|SPIFLG[0-3]|TIMOD' +
+        '[12]?|SENDZ|GM|ISSEN|DMISO|WL|MSBF|CPHASE|CLKPL|SPIMS|OPD|SPIEN|' +
+        'PACKEN|SGN|SMLS|TXFLSH|RXFLSH|ILPBK|BAUDR|SPIDEN|SPIRCV|INTEN|SP' +
+        'ICHEN|FIFOFLSH|INTERR|SPIOVF|SPIUNF|SPIMME|SPIS[01]|SPIERRS|SPID' +
+        'MAS|SPICHS|IDP_NSET|IDP_BHD|IDP_CLROVR|IDP_ENABLE|IDP_SMODE[0-7]' +
+        '|IDP_(DMA_)?EN[0-7]?|IDP_PING[0-7]|IDP_FFCLR|LR_STAT|IDP_P(0[1-9' +
+        ']|1[0-9]|20)_PDAPMASK|IDP_PDAP_(EN|RESET|CLKEDGE|PACKINGX|SELECT' +
+        ')|SRC[0-3]_(((HARD|AUTO)_MUTE)|SMODE(IN|OUT)|BYPASS|DEEMPHASIS|S' +
+        'OFTMUTE|DITHER|LENOUT|MPHASE|ENABLE|MUTEOUT|RATIO([02-9]|1[0-5]?' +
+        '))|SPORT[0-5]_CLK_([IO]P_)?[IO]|IDP[0-7]_CLK_I|DIT_(HF)?CLK_I|PC' +
+        'G_SYNC_CLK[AB]_I|SPIB_CLK_I|SPDIF_EXTPLLCLK_I|PCG_EXT[AB]_I|DAI_' +
+        'PB(0[1-9]|1[0-9]|20)_([IO]|PULLUP)|DIR_(TDM)?CLK_O|PCG_CLK[AB]_O' +
+        '|(LOGIC_LEVEL_)?(LOW|HIGH)|SPORT[0-5]_D[AB]_[IO]|SRC[0-3]_DAT_[I' +
+        'O]P_[IO]|DIR_DAT_O|SPORT[0-5]_FS_[IO]|SRC[0-3]_FS_[IO]P_I|PCG_FS' +
+        '[AB]_O|SPDIF_[RT]X_FS_I|IDP[0-7]_FS_I|TIMER[0-2]_O|FLAG1[0-5]_O|' +
+        'PDAP_STRB_O|SPIB_(MISO|MOSI|CLK|FLG[0-3])_O|DIR_LRCLK_(FB|REF)|M' +
+        'ISC[AB][0-5]_I(NVERT)?|SPIB_DS_I|DAI_INT_(3[01]|2[2-9])|PBEN(0[1' +
+        '-9]|1[0-9]|20)_I|IDP_FIFOSZ|IDP_DMA[0-7]_(STAT|INT)|IDP_(OVF|PIN' +
+        'G)[0-7]_STAT|SRU_EXTMISC(A[0-3]|B[0-5])|SRC[0-3]_MUTE_INT|IDP_FI' +
+        'FO_(OVR|GTN)_INT|SPDIF_RX_(VALID|LOCK|START|NO_STREAM|CRC_ERROR|' +
+        'NON_AUDIO|EMPHASIS|PARITY_ERROR|CH_STAT_CHNG)|EN(CLK|FS)[AB]|FS[' +
+        'AB]DIV|FS[AB]PHASE_(HI|LO)|CLKSOURCE|STROBE[AB]|INVFS[AB]|PWFS[A' +
+        'B]|PWM_(SYNC)?(EN|DIS)[0-3]|PWM_STAT[0-3]|PWM_(ALIGN|PAIR|UPDATE' +
+        '|IRQEN|PHASE|PAIRSTAT|(STAT|POL[01])?[AB][HL])|DIT(CTL|CHANL|CHA' +
+        'NR)|DIR(CTL|STAT|CHANL|CHANR)|DIT_(AUTO|B[0-4]CHAN[LR][0-7]|EN|F' +
+        'REQ[01]|FREQ(256|512|384|768)|IN_(I2S|LJ|RJ16|RJ18|RJ20|RJ24|TDM' +
+        ')|MUTE|SCDF(_LR)?|SMODEIN[012]|VALID[LR]|BLKSTS)|DIR_(B[0-4]CHAN' +
+        '[LR][0-7]|BIPHASE[01]|BIPHASEERROR|CRCERROR_INT|EMPHASIS_INT|ERR' +
+        'OR_INT|LOCK[01]|LOCK_INT|MUTE|NOAUDIO_INT|NOAUDIO(LR?|R)|NOSTREA' +
+        'M(_INT)?|PARITYERROR|PLLDIS|RESET|SCDF(_LR)?|STATCNG_INT|VALID(_' +
+        'INT)?)|TMRPDN|SP[I0-3]PDN|CRAT|SRCPDN|PPPDN|PLLBP|CLKOUTEN|PLLM(' +
+        '[07-9]|[1-5][0-9]?|6[0-4])|PLLD[1248]|INDIV|DIVEN|ENBIO[XY]|UMOD' +
+        'E|ANDBKP|ENBEP|ENB[IDP]A|NEGIA[1-4]|NEGIO1|NEGEP1|PA1MODE|DA[12]' +
+        'MODE|IO1MODE|EP1MODE|STATPA|STATDA[01]|STATIA[0-3]|STATIO0|STATE' +
+        'P|EEMUOUT(IRQEN|RDY|FULL)|EEMUINFULL|EEMUENS|OSPIDENS|EEMUINENS|' +
+        'STATIO1|P[0-5]I[0-4]?|P1[023578]I([0-4]|MSK?)?|P[6-9]I([0-4]|MSK' +
+        '?)?|PIB?|WL(8|16|32)|BR[08]|SRCU|SRD[12][HL]|SRRF[HL]|NESTM|IRPT' +
+        'EN|ALUSAT|SSE|TRUNCATE|RND32|CSEL|PEYEN|SIMD|BDCST[91]|CBUFEN|IR' +
+        'Q[0-2]E|CADIS|TIMEN|BUSLK|CAFRZ|IIRAE|U64MAE|SP[024]I(MSKP?)?|PP' +
+        'I(MSKP?)?|GPTMR1I(MSKP?)?|DAILI(MSKP?)?|GPTMR2I(MSKP?)?|SPILI(MS' +
+        'KP?)?|L_FIRST|DIR_FS_O|DIR_I)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id register'
+      StyleName = 'Id register'
+      TokenType = 2
+      Expression = 
+        '\b((I|M|L|B|R|F|SF?)([0-9]\b|1[0-5])|PC(STKP?)?|[FDL]ADDR|(CUR)?' +
+        'LCNTR|PX(1|2)?|TPERIOD|TCOUNT|MODE[12]|IRPTL|IMASK(P)?|MMASK|FLA' +
+        'GS|LIRPTL|ASTAT[xy]|STK[xy]|USTAT[1-4]|SYSCON|SYSTAT|WAIT|VIRPT|' +
+        'MR([0-2])?(F|B)?|SYSCTL|REVPID|EEMU(IN|STAT|OUT)|OSPID|BRKCTL|(P' +
+        'S|DM)A[1-4][ES]|PMDA[SE]|EMUN|IOA[SE]|PPCTL|[RT]XPP|[EI][IMC]PP|' +
+        '[RT]XSPIB?|SPIFLG|SPI(CTLB?|STAT|BAUDB?|MACB?)|I[IM]SPIB?|RXSPIB' +
+        '?_SHADOW|CP?SPIB?|TM[0-2](STAT|CTL|CNT|PRD|W)|PMCTL|I[IM]SP[0-5]' +
+        '[AB]|C(P)?SP[0-5][AB]|[RT]XSP[0-5][AB]|SPCTL[0-5]|DIV[0-5]|SPCNT' +
+        '[0-5]|MT[024]CC?S[0-3]|MR[135]CC?S[0-3]|SPMCTL(01|23|45)|SRU_(CL' +
+        'K|PIN(EN)?)[0-3]|SRU_DAT[0-4]|SRU_FS[0-2]|SRU(_EXT)?_MISC[AB]|SR' +
+        'U_PBEN[0-3]|PCG_CTL[AB][01]|PCG_PW|PCG_SYNC|PWMG(CTL|STAT)[0-3]?' +
+        '|PWMPERIOD[0-3]|PWMSEG[0-3]|PWMPOL[0-3]|PWM[AB]L?[0-3]|PWMDT[0-3' +
+        ']|IDP_CTL[01]|DAI_STAT|IDP_FIFO|IDP_DMA_[IMC][0-7]|IDP_DMA_PC[0-' +
+        '7]|IDP_PDAP_CTL|IDP_PP_CTL|DAI_PIN_PULLUP|DAI_PBIN_STAT|DAI_IRPT' +
+        'L_(H|L|PRI|[RF]E)|SRCCTL[01]|SRCMUTE|SRCRAT[01]|DIRCTL|DI[RT]CHA' +
+        'N[LR]|DIRCTL|DIRSTAT|PICR[0-3]|MTMCTL|a[xy][0-9]|ar|m[xy][0-9])\' +
+        'b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Directive'
+      StyleName = 'Directive'
+      TokenType = 2
+      Expression = 
+        '^\s*(__(ADI|DATE|FILE|LastSuffix|LINE|TIME)__|\.(ALIGN|ELIF|ELSE' +
+        '|ENDIF|EXTERN|FILE|FILE_ATTR|GLOBAL|IF|IMPORT|LEFTMARGIN|LIST|LI' +
+        'ST_DATA|LIST_DATFILE|LIST_DEFTAB|LIST_LOCTAB|LIST_WRAPDATA|NEWPA' +
+        'GE|NOLIST_DATA|NOLIST_DATFILE|NOLIST_WRAPDATA|PAGELENGTH|PAGEWID' +
+        'TH|PRECISION|ROUND_MINUS|ROUND_NEAREST|ROUND_PLUS|ROUND_ZERO|PRE' +
+        'VIOUS|SECTION|STRUCT|VAR|WEAK)|\#\x20*(include|define|elif|else|' +
+        'endif|error|if(n?def)?|line|pragma|undef|warning|\#))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '-? (\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'-? \d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[0-9a-f_]+ |'#13#10'b\#[01]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      Expression = '(\w+\.)? \w+:     '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(") (\\\\|\\\1|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\.,:\-\+\*\\/%@<>\(\)\[\]\{\}\?=!~\&\$\^`'#39';\|]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyw'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ADDRESS'
+            'HI'
+            'LENGTH'
+            'LO'
+            'SRU')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Label'
+      ConditionList = <
+        item
+          TokenTypes = 1
+        end>
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '/* ... */'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      StrictParent = True
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'do begin'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'do')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'do end'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'do...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'do end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'nop')
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 1
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '//Test'
+    'flg2en, irq0en'
+    '.section/pm program;'
+    ''
+    'start:'
+    #9'imask=0x001;'
+    #9'ena timer;'
+    ''
+    'again:   toggle fl1;'
+    #9'cntr = 0x5ff;'
+    #9
+    #9'do loop1 until ce;'
+    #9'   cntr = 0xfff;'
+    #9'   '
+    #9'      do loop2 until ce;'
+    #9'      nop;'
+    #9'      loop2: nop;'
+    #9'      '
+    #9'loop1: nop;'
+    #9
+    #9'jump again;')
+  TokenTypeNames.Strings = (
+    'Label'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Directive')
+  Extentions = 'asm'
+  LexerName = 'Assembly SHARC DSP'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (SynWrite)'
+    'Asm for Analog Devices SHARC DSP boards'
+    'RegEx'#39'es are from:'
+    'https://github.com/calculuswhiz/SHARC-assembly-Sublime-Syntax')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

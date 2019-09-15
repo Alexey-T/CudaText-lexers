@@ -1,0 +1,7 @@
+[info]
+title=Eiffel
+type=lexer
+subdir=-
+
+[lexer1]
+file=Eiffel

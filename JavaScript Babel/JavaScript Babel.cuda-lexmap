@@ -1,0 +1,20 @@
+[map]
+Symbol=Symbol
+Number=Number
+Comment=Comment
+String=String
+String alt=String2
+Id=Id
+Id keyword=IdKeyword
+Id standard=Id1
+Bracket bg=BracketBG
+Tag bracket=TagBound
+Tag name=TagId
+Tag param=TagProp
+Tag param bad=IdBad
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String,String alt

@@ -1,0 +1,14 @@
+[info]
+title=HTML Mustache
+type=lexer
+subdir=-
+
+[lexer1]
+file=HTML Mustache
+link1=CSS
+link2=VBScript
+link3=JavaScript
+link4=JavaScript
+link5=VBScript
+link6=PHP
+link7=PHP

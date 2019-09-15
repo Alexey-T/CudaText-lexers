@@ -1,0 +1,7 @@
+[info]
+title=MySQL SQL
+type=lexer
+subdir=-
+
+[lexer1]
+file=MySQL SQL

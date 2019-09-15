@@ -1,0 +1,13 @@
+[map]
+Identifier=Id
+String=String
+Symbol=Symbol
+Comment=Comment
+Tag=TagId
+Script BG=IncludeBG1
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

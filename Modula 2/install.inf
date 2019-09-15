@@ -1,0 +1,8 @@
+[info]
+title=Modula 2
+type=lexer
+subdir=-
+
+[lexer1]
+file=Modula 2
+link1=Assembler

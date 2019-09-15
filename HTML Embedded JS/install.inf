@@ -1,0 +1,16 @@
+[info]
+title=HTML Embedded JS
+type=lexer
+subdir=-
+
+[lexer1]
+file=HTML Embedded JS internal
+[lexer2]
+file=HTML Embedded JS
+link1=CSS
+link2=JavaScript
+link3=JavaScript
+link4=PHP
+link5=PHP
+link6=HTML Embedded JS internal
+link7=HTML Embedded JS internal

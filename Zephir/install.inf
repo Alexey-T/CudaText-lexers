@@ -1,0 +1,7 @@
+[info]
+title=Zephir
+type=lexer
+subdir=-
+
+[lexer1]
+file=Zephir

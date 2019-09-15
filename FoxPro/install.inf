@@ -1,0 +1,7 @@
+[info]
+title=FoxPro
+type=lexer
+subdir=-
+
+[lexer1]
+file=FoxPro

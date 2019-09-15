@@ -1,0 +1,274 @@
+object SyntAnal100: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Rules'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderColorLeft = clSilver
+      BorderColorTop = clSilver
+    end
+    item
+      DisplayName = 'Quoted terminals'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Terminals'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'CharSet'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'CharSet Const'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tree Group'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^!.*$'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 2
+      Expression = '".*?("|$)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Quoted terminals'
+      StyleName = 'Quoted terminals'
+      TokenType = 3
+      Expression = #39'.*?('#39'|$)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Terminals'
+      StyleName = 'Terminals'
+      TokenType = 3
+      Expression = '\w*'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Rule assign'
+      StyleName = 'Symbol'
+      TokenType = 5
+      Expression = '::='#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Rule name'
+      StyleName = 'Rules'
+      TokenType = 4
+      Expression = '<.*?>'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'CharSet'
+      StyleName = 'CharSet'
+      TokenType = 7
+      Expression = '\{.*?(\}|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'CharSet const'
+      StyleName = 'CharSet Const'
+      TokenType = 8
+      Expression = '\[.*?(\]|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = '[\|=\+\-\*\.]'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Header'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 64
+        end
+        item
+          TokenTypes = 4
+        end>
+      NameFmt = '%s0'
+      GroupFmt = 'Header'
+      HighlightPos = cpBound
+      NoEndRule = True
+      TreeItemStyle = 'Quoted terminals'
+      TreeGroupStyle = 'Tree Group'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CharSets'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 64
+        end
+        item
+          TokenTypes = 128
+        end>
+      NameFmt = '%s0'
+      GroupFmt = 'Sets'
+      HighlightPos = cpBound
+      NoEndRule = True
+      TreeItemStyle = 'CharSet'
+      TreeGroupStyle = 'Tree Group'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Terminals'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 64
+        end
+        item
+          TokenTypes = 8
+        end>
+      NameFmt = '%s0'
+      GroupFmt = 'Terminals'
+      HighlightPos = cpBound
+      NoEndRule = True
+      TreeItemStyle = 'Terminals'
+      TreeGroupStyle = 'Tree Group'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Rule end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 32
+        end>
+      BlockOffset = 2
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Rule start'
+      ConditionList = <
+        item
+          TokenTypes = 32
+        end
+        item
+          TokenTypes = 16
+        end>
+      IdentIndex = 1
+      BlockOffset = 1
+      BlockEnd = 'Rule end'
+      EndOfTextClose = True
+      GroupFmt = 'Rules'
+      HighlightPos = cpBound
+      CollapseFmt = '%s1 ...'
+      TreeGroupStyle = 'Tree Group'
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'String'
+    'Terminals'
+    'Rule'
+    'Rule assign'
+    'Symbol'
+    'CharSet'
+    'CharSet Const')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'grm'
+  LexerName = 'Gold Parser'
+  LineComment = '!'
+  Charset = DEFAULT_CHARSET
+end

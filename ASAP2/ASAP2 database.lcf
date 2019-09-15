@@ -1,0 +1,267 @@
+object SyntAnal67: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Sublexer BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Id block name'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Identifier'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '".*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block begin'
+      StyleName = 'Id keyword'
+      TokenType = 9
+      Expression = '/begin'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block end'
+      StyleName = 'Id keyword'
+      TokenType = 10
+      Expression = '/end'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 7
+      Expression = '0x[\da-f]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\d+\.?\d+e[\+\-]?\d+|'#13#10'\d+\.\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Reserver words'
+      StyleName = 'Id block name'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'A2ML'
+            'AXIS_PTS'
+            'CHARACTERISTIC'
+            'COMPU_METHOD'
+            'COMPU_TAB'
+            'COMPU_VTAB'
+            'COMPU_VTAB_RANGE'
+            'FRAME'
+            'FUNCTION'
+            'GROUP'
+            'HEADER'
+            'IF_DATA'
+            'MEASUREMENT'
+            'MOD_COMMON'
+            'MOD_PAR'
+            'PROJECT'
+            'RECORD_LAYOUT'
+            'UNIT'
+            'USER_RIGHTS'
+            'VARIANT_CODING')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Begin'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 512
+        end>
+      BlockOffset = 1
+      BlockEnd = 'End'
+      NameFmt = '%s-1'
+      GroupFmt = '%s0'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'End'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'A2ML begin'
+      StyleName = 'Sublexer BG'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'A2ML')
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 512
+        end>
+      BlockOffset = 1
+      BlockEnd = 'A2ML end'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'A2ML end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'A2ML')
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 1024
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'A2ML'
+      StyleName = 'Sublexer BG'
+      StartExpression = '(?i) /begin\s+a2ml'#13#10
+      EndExpression = '(?i) /end \s+ a2ml'#13#10
+      SyntAnalyzer = SyntAnal66
+    end>
+  SampleText.Strings = (
+    '/begin CHARACTERISTIC'
+    '      DPVLMS "Text here"'
+    '      CURVE 0x2010 ZF_KL111 0 p_uw 0.000000'
+    '      /begin AXIS_DESCR'
+    '        DEPOSIT ABSOLUTE'
+    '      /end AXIS_DESCR'
+    '      /begin IF_DATA ASAP1B_ETK'
+    '        DP_BLOB 0x2030 0x1A'
+    '      /end IF_DATA'
+    '      EXTENDED_LIMITS 0.000000'
+    '/end CHARACTERISTIC'
+    ''
+    '/begin a2ml'
+    '  sub text here'
+    '/end a2ml'
+    ''
+    '    ')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Block begin'
+    'Block end')
+  Extentions = 'a2l'
+  LexerName = 'ASAP2 database'
+  Notes.Strings = (
+    'Original from EControl SDK'
+    'Updated by Alexey (SynWrite)'
+    'Examples: http://www.ecuedit.com/a2l-for-dummies-t2133')
+  Charset = DEFAULT_CHARSET
+end

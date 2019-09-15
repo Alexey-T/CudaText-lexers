@@ -1,0 +1,636 @@
+object SyntAnal9: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 12180700
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag param'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id$'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tree item (attribute)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14155775
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Tree item (tag)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'CF keys'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'CF ident'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'CF symbol'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'CF symbol#'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'CF string'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'SQL bg'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 13689289
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Code bg'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15522265
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?ms)<!--.*?(-->|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment end'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '# for use in <SCRIPT>'#13#10'-->'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<'
+      StyleName = 'Symbol'
+      TokenType = 10
+      Expression = '<[/!\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '>'
+      StyleName = 'Symbol'
+      TokenType = 11
+      Expression = '>'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      Enabled = False
+      StyleName = 'Number'
+      TokenType = 7
+      Expression = '\#[a-f\d]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag param'
+      StyleName = 'Tag param'
+      BlockName = 'Tag'
+      TokenType = 2
+      Expression = '\w+ (?=\s*=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'string'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)".*?("|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '$id'
+      StyleName = 'Id$'
+      TokenType = 2
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'id'
+      StyleName = 'Id'
+      BlockName = 'Tag'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'symbol #'
+      StyleName = 'CF symbol#'
+      TokenType = 14
+      Expression = '\#'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[=\(\)\$\.,;\^%@\?!\[\]&\*\-\+]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Html entity'
+      StyleName = 'Tag key'
+      TokenType = 9
+      Expression = '&\w+;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      Enabled = False
+      StyleName = 'Text'
+      TokenType = 9
+      Expression = '[^\#<>]+?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Tag keys'
+      StyleName = 'Tag key'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '<'
+            '</')
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CF keys'
+      StyleName = 'CF keys'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'cf*')
+          CondType = tcMask
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<'
+            '</')
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CF keywords'
+      StyleName = 'CF symbol'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'AND'
+            'EQ'
+            'GT'
+            'IS'
+            'LT'
+            'NEQ'
+            'NOT'
+            'OR')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag'
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag end'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Simple tag block'
+      StyleName = 'Comment'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'br'
+            'cfparam'
+            'hr'
+            'image'
+            'img'
+            'link')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Simple tag block end'
+      DynHighlight = dhRange
+      HighlightPos = cpBound
+      CancelNextRules = True
+      TreeItemStyle = 'Tree item (tag)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Simple tag block end'
+      BlockName = 'Simple tag block'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag block begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'br'
+            'cfparam'
+            'hr'
+            'image'
+            'img'
+            'link')
+          CondType = tcNotEqual
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<'
+            '<!')
+          TokenTypes = 1024
+        end>
+      BlockOffset = 1
+      BlockEnd = 'Tag block end'
+      HighlightPos = cpBound
+      CollapseFmt = '< %s0 >'
+      TreeItemStyle = 'Tree item (tag)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '</')
+          TokenTypes = 1024
+        end>
+      BlockOffset = -1
+      SameIdent = True
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '# begin'
+      StyleName = 'Code bg'
+      BlockName = '# begin'
+      NotParent = True
+      ConditionList = <
+        item
+          TokenTypes = 16384
+        end>
+      BlockEnd = '# end'
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '# end'
+      BlockName = '# begin'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 16384
+        end>
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment begin'
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '<!--  ...  -->'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'CSS'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<style[^>]*> '#13#10
+      EndExpression = '</style>'#13#10
+      SyntAnalyzer = SyntAnalyzer10
+    end
+    item
+      DisplayName = 'VB script'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<script[^>]*vbscript[^>]*>\s*(<!--)?'#13#10
+      EndExpression = '(?i)(-->)?\s*</script>'#13#10
+      SyntAnalyzer = SyntAnal56
+    end
+    item
+      DisplayName = 'Javascript'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<script[^>]*javascript[^>]*>\s*(<!--)?'#13#10
+      EndExpression = '(?i)(//)?(-->)?\s*</script>'#13#10
+      SyntAnalyzer = SyntAnal38
+    end
+    item
+      DisplayName = 'ASP'
+      AlwaysEnabled = True
+      StartExpression = '<%'#13#10'#(?i)<%@[^>]*?vbscript[^>]*>'#13#10'#\s*<%'#13#10
+      EndExpression = '%>'#13#10
+      SyntAnalyzer = SyntAnal56
+    end
+    item
+      DisplayName = 'Javascript2'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<script>'#13#10
+      EndExpression = '(?i)(//)?(-->)?\s*</script>'#13#10
+      SyntAnalyzer = SyntAnal38
+    end
+    item
+      DisplayName = 'PHP'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<script[^>]*php[^>]*>\s*(<!--)?'#13#10
+      EndExpression = '(?i)(-->)?\s*</script>'#13#10
+      SyntAnalyzer = SyntAnal97
+    end
+    item
+      DisplayName = 'PHP 2'
+      AlwaysEnabled = True
+      StartExpression = '(?i)<\?(php)?'#13#10
+      EndExpression = '\?>'#13#10
+      SyntAnalyzer = SyntAnal97
+    end
+    item
+      DisplayName = 'SQL'
+      StyleName = 'SQL bg'
+      StartExpression = '(?s)<cfquery\b[^>]*?>'
+      EndExpression = '</cfquery>'
+      SyntAnalyzer = SyntAnal57
+    end>
+  SampleText.Strings = (
+    '<cfsetting requesttimeout="10000" showdebugoutput="false">'
+    '<cfparam name="params.type" default="core">'
+    '<cfif params.type NEQ "app">'
+    
+      #9'<cfset testResults = $createObjectFromRoot(path=application.whe' +
+      'els.wheelsComponentPath, fileName="Test", method="$WheelsRunner"' +
+      ', options=params)>'
+    '<cfelse>'
+    
+      #9'<cfset testResults = $createObjectFromRoot(path="tests", fileNa' +
+      'me="Test", method="$WheelsRunner", options=params)>'
+    '</cfif>'
+    
+      '<cfset linkParams = "?controller=wheels&action=wheels&view=tests' +
+      '&type=#params.type#">'
+    '<cfoutput>'
+    ''
+    '<h1>Test Results</h1>'
+    ''
+    '<cfif NOT isStruct(testResults)>'
+    ''
+    #9'<p style="margin-bottom: 50px;">Sorry, no tests were found.</p>'
+    ''
+    '<cfelse>'
+    ''
+    
+      #9'<p><a href="#linkParams#">Run All Tests</a> | <a href="#linkPar' +
+      'ams#&reload=true">Reload Test Data</a></p>'
+    ''
+    #9'<cfif testResults.numCases GT 1>'
+    #9#9'<table class="testing">'
+    #9#9#9'<tr>'
+    #9#9#9#9'<th>Package</th>'
+    #9#9#9#9'<th>Tests</th>'
+    #9#9#9'</tr>'
+    
+      #9#9#9'<cfloop from="1" to="#ArrayLen(testResults.summary)#" index="' +
+      'testIndex">'
+    #9#9#9#9'<cfset summary = testResults.summary[testIndex]>'
+    
+      #9#9#9#9'<tr class="<cfif summary.numFailures + summary.numErrors gt ' +
+      '0>errRow<cfelse>sRow</cfif>">'
+    #9#9#9#9#9'<td class="n">#summary.numTests#</td>'
+    
+      #9#9#9#9#9'<td class="n<cfif summary.numFailures neq 0> failed</cfif>"' +
+      '>#summary.numFailures#</td>'
+    #9#9#9#9'</tr>'
+    #9#9#9'</cfloop>'
+    #9#9'</table>'
+    #9'</cfif>'
+    ''
+    '</cfif>'
+    ''
+    '</cfoutput>'
+    ''
+    '<cfquery datasource="wheelstestdb">'
+    #9'create or replace view all_cons_columns as'
+    #9'select'
+    #9#9'table_schema as owner,'
+    #9#9'column_name,'
+    #9#9'constraint_name'
+    #9'from information_schema.indexes'
+    #9'where table_schema<>'#39'INFORMATION_SCHEMA'#39
+    '</cfquery>')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Text'
+    'Open Tag'
+    'Close Tag'
+    'CF ident'
+    'CF symbol'
+    'CF symbol#')
+  Extentions = 'cfm cfml cfc'
+  LexerName = 'ColdFusion'
+  Notes.Strings = (
+    'Reworked by Alexey'
+    'Samples- https://github.com/cfwheels/cfwheels')
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

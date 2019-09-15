@@ -1,0 +1,14 @@
+[map]
+Marked block=-
+Comment=Comment
+Chars=Symbol
+Id=Id
+Id Keyword=IdKeyword
+Preprocessor=Id3
+Num=Number
+DigitStr=Id1
+Str=String
+
+[comments]
+styles_cmt=Comment
+styles_str=Str

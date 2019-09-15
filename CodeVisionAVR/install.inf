@@ -1,0 +1,9 @@
+[info]
+title=CodeVisionAVR
+type=lexer
+subdir=-
+
+[lexer1]
+file=CodeVisionAVR
+link1=Assembler
+link2=Assembler

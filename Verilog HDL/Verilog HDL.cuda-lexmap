@@ -1,0 +1,17 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comm
+styles_str=Str
+
+[map]
+Marked block=-
+Comm=Comment
+Chars=Symbol
+Id=Id
+Id Keyword=IdKeyword
+Preprocessor=Id3
+Num=Number
+Num Time=Id2
+Str=String
+Id Func=Id1

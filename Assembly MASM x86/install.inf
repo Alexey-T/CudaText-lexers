@@ -1,0 +1,7 @@
+[info]
+title=Assembly MASM x86
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly MASM x86

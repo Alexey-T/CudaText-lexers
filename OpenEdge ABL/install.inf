@@ -1,0 +1,7 @@
+[info]
+title=OpenEdge ABL
+type=lexer
+subdir=-
+
+[lexer1]
+file=OpenEdge ABL

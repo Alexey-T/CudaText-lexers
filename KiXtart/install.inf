@@ -1,0 +1,7 @@
+[info]
+title=KiXtart
+type=lexer
+subdir=-
+
+[lexer1]
+file=KiXtart

@@ -1,0 +1,7 @@
+[info]
+title=Kotlin
+type=lexer
+subdir=-
+
+[lexer1]
+file=Kotlin

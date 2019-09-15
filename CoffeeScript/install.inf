@@ -1,0 +1,8 @@
+[info]
+title=CoffeeScript
+type=lexer
+subdir=-
+
+[lexer1]
+file=CoffeeScript
+link1=JavaScript

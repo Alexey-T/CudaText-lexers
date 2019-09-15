@@ -1,0 +1,7 @@
+[info]
+title=GDScript
+type=lexer
+subdir=-
+
+[lexer1]
+file=GDScript

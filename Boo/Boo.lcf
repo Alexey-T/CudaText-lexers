@@ -1,0 +1,549 @@
+object SyntAnal9: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id function'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Word1stTreeItem'
+      StyleName = 'Id keyword'
+      TokenType = 11
+      Expression = 
+        '^[\x20\x09]*(def|class|override\sdef|private\sdef|public\sdef|vi' +
+        'rtual\sdef|abstract\sdef)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Word1stKeyword'
+      StyleName = 'Id keyword'
+      TokenType = 10
+      Expression = 
+        '^[\x20\x09]*(if|else|elif|for|while|try|except|finally|switch|ca' +
+        'se|with)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Word1stInteger'
+      StyleName = 'Number'
+      TokenType = 9
+      Expression = '^[\x20\x09]* \d+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Word1stId'
+      StyleName = 'Identifier'
+      TokenType = 9
+      Expression = '^[\x20\x09]*\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Word1stAttrib'
+      StyleName = 'Symbol'
+      TokenType = 9
+      Expression = '^[\x20\x09]*@'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Word1stComment'
+      StyleName = 'Comment'
+      TokenType = 13
+      Expression = '^[\x20\x09]* \#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String raw'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = 'r('#39'|") .*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String """'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s) ("""|'#39#39#39') .*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String '#39
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)'#39' (\\.|.)*? ('#39'|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String "'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)" (\\.|.)*? ("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id __init__'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '__\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0[xbo][0-9a-f]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+(\.\d*)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment //'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol :'
+      StyleName = 'Symbol'
+      TokenType = 12
+      Expression = ':'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,\.;\(\)=<>\+\-\[\]\{\}\^@!%\\\|~&]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abstract'
+            'and'
+            'as'
+            'AST'
+            'break'
+            'callable'
+            'cast'
+            'char'
+            'class'
+            'constructor'
+            'continue'
+            'def'
+            'destructor'
+            'do'
+            'elif'
+            'else'
+            'ensure'
+            'enum'
+            'event'
+            'except'
+            'failure'
+            'false'
+            'final'
+            'for'
+            'from'
+            'get'
+            'given'
+            'goto'
+            'if'
+            'import'
+            'in'
+            'interface'
+            'internal'
+            'is'
+            'isa'
+            'namespace'
+            'not'
+            'null'
+            'of'
+            'or'
+            'otherwise'
+            'override'
+            'partial'
+            'pass'
+            'private'
+            'protected'
+            'public'
+            'raise'
+            'ref'
+            'retry'
+            'return'
+            'self'
+            'set'
+            'static'
+            'struct'
+            'success'
+            'super'
+            'transient'
+            'true'
+            'try'
+            'typeof'
+            'unless'
+            'virtual'
+            'when'
+            'while'
+            'yield')
+          TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Functions'
+      Enabled = False
+      StyleName = 'Id function'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs')
+          TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 8192
+        end>
+      BlockEnd = 'Block comment end'
+      EndOfTextClose = True
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      StrictParent = True
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 8192
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block for tree'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 4096
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 510
+        end
+        item
+          TokenTypes = 2048
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      GroupIndex = 20
+      CollapseFmt = '%s0 %s-1...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block for tree (ex)'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 4096
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 1022
+        end
+        item
+          TokenTypes = 2048
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%s0 %s-1...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 4096
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 510
+        end
+        item
+          TokenTypes = 1024
+        end>
+      EndOfTextClose = True
+      DisplayInTree = False
+      NameFmt = '"%s0"'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'import'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'from'
+            'import')
+          TokenTypes = 512
+        end>
+      NameFmt = '%sz0'
+      GroupFmt = '\imports'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '#region license'
+    
+      '// Copyright (c) 2003, 2004, Rodrigo B. de Oliveira (rbo@acm.org' +
+      ')'
+    '// All rights reserved.'
+    '// '
+    
+      '// Redistribution and use in source and binary forms, with or wi' +
+      'thout modification,'
+    '// are permitted provided that the following conditions are met:'
+    '// '
+    
+      '//     * Redistributions of source code must retain the above co' +
+      'pyright notice,'
+    '//     this list of conditions and the following disclaimer.'
+    
+      '//     * Redistributions in binary form must reproduce the above' +
+      ' copyright notice,'
+    
+      '//     this list of conditions and the following disclaimer in t' +
+      'he documentation'
+    '//     and/or other materials provided with the distribution.'
+    
+      '//     * Neither the name of Rodrigo B. de Oliveira nor the name' +
+      's of its'
+    
+      '//     contributors may be used to endorse or promote products d' +
+      'erived from this'
+    '//     software without specific prior written permission.'
+    '// '
+    
+      '// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRI' +
+      'BUTORS "AS IS" AND'
+    
+      '// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED' +
+      ' TO, THE IMPLIED'
+    
+      '// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PU' +
+      'RPOSE ARE'
+    
+      '// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBU' +
+      'TORS BE LIABLE'
+    
+      '// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR ' +
+      'CONSEQUENTIAL'
+    
+      '// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTI' +
+      'TUTE GOODS OR'
+    
+      '// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUP' +
+      'TION) HOWEVER'
+    
+      '// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, S' +
+      'TRICT LIABILITY,'
+    
+      '// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WA' +
+      'Y OUT OF THE USE OF'
+    
+      '// THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAM' +
+      'AGE.'
+    '#endregion'
+    ''
+    'import System'
+    'import Boo.Examples.Attributes'
+    ''
+    'class Foo(IDisposable):'
+    #9
+    #9'_disposed = false'
+    ''
+    #9'[async]'
+    #9'def Bar():'
+    #9#9'print "Foo.Bar"'
+    #9#9
+    #9'[async]'
+    #9'def Baz():'
+    #9#9'return "Foo.Baz"'
+    #9#9
+    #9'[async(_disposed)]'
+    #9'def Spam():'
+    #9#9'return "Foo.Spam"'
+    ''
+    #9'def Dispose():'
+    #9#9'_disposed = true'#9#9
+    #9#9
+    'f = Foo()'
+    'resultBar = f.BeginBar({ print "Bar ended" }, null)'
+    'resultBaz = f.BeginBaz({ print "Baz ended" }, null)'
+    'resultSpam = f.BeginSpam({ print "Spam ended" }, null)'
+    ''
+    'f.EndBar(resultBar)'
+    'print f.EndBaz(resultBaz)'
+    'print f.EndSpam(resultSpam)'
+    ''
+    'f.Dispose()'
+    'try:'
+    #9'f.BeginSpam(null, null)'
+    #9'print "should never got here!"'
+    'except x as ObjectDisposedException:'
+    #9'print x'
+    '')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    '1st word'
+    '1st keyword'
+    '1st word tree'
+    'Symbol :'
+    '1st comment')
+  Extentions = 'boo'
+  LexerName = 'Boo'
+  SkipSpaces = False
+  FullRefreshSize = 80000
+  Notes.Strings = (
+    'Alexey (Synwrite)'
+    'Ref: https://github.com/bamboo/boo/wiki')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

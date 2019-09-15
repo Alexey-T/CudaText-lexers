@@ -1,0 +1,9 @@
+[info]
+title=WSH script
+type=lexer
+subdir=-
+
+[lexer1]
+file=WSH script
+link1=JavaScript
+link2=VBScript

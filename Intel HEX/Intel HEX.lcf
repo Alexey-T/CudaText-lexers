@@ -1,0 +1,157 @@
+object SyntAnal70: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Error'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 7368939
+    end
+    item
+      DisplayName = 'Start'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'BytesNum'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'BytesAddr'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'BytesType'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'BytesData'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'BytesSum'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      Expression = '^\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Start'
+      StyleName = 'Start'
+      TokenType = 2
+      Expression = '^:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'BytesNum'
+      StyleName = 'BytesNum'
+      TokenType = 3
+      Expression = '(?<=:)[0-9a-f]{2}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'BytesAddr'
+      StyleName = 'BytesAddr'
+      TokenType = 3
+      Expression = '(?<=^.{3})[0-9a-f]{4}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'BytesType'
+      StyleName = 'BytesType'
+      TokenType = 3
+      Expression = '(?<=^.{7})[0-9a-f]{2}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'BytesData'
+      StyleName = 'BytesData'
+      TokenType = 3
+      Expression = '[0-9a-f]{2} (?=.)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'BytesSum'
+      StyleName = 'BytesSum'
+      TokenType = 3
+      Expression = '[0-9a-f]{2}$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Error'
+      StyleName = 'Error'
+      TokenType = 1
+      Expression = '.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '# ok lines'
+    ':100000000020002081060000AD060000AD060000C3'
+    ':00000001FF'
+    ''
+    '# incorrect lines           '
+    ':10002000AD06hi!0000AD060000AD06000004'
+    'Hello, world'
+    ':123456789')
+  TokenTypeNames.Strings = (
+    'Comment'
+    'Error'
+    'Start'
+    'Digits')
+  Extentions = 'hex'
+  LexerName = 'Intel HEX'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (Synwrite)'
+    'Test: https://github.com/seppestas/intel-hex-syntax')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

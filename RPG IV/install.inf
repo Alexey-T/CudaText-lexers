@@ -1,0 +1,11 @@
+[info]
+title=RPG/IV
+type=lexer
+subdir=-
+
+[lexer1]
+file=RPG_IV_(Free_Syntax)
+
+[lexer2]
+file=RPG_IV
+link1=RPG/IV (Free Syntax)

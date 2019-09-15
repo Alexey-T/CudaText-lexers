@@ -1,0 +1,13 @@
+[map]
+Section=Label
+Symbol=Symbol
+Comment=Comment
+Number=Number
+String=String
+Id=Id
+Id keyword=IdKeyword
+Time=Id3
+
+[comments]
+styles_cmt=Comment
+styles_str=String

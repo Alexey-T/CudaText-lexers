@@ -1,0 +1,7 @@
+[info]
+title=YAML
+type=lexer
+subdir=-
+
+[lexer1]
+file=YAML

@@ -1,0 +1,7 @@
+[info]
+title=ABC Notation
+type=lexer
+subdir=-
+
+[lexer1]
+file=ABC Notation

@@ -1,0 +1,7 @@
+[info]
+title=Org-mode
+type=lexer
+subdir=-
+
+[lexer1]
+file=Org-mode

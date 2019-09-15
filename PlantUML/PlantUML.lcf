@@ -1,0 +1,639 @@
+object SyntAnal31: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Directive'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'NameColons'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String desc'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Color'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag bound'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615680
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment 1'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/'#39'.*?('#39'/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = #39'.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(") (\\\1|\\\\|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag bound'
+      StyleName = 'Tag bound'
+      TokenType = 8
+      Expression = '(</?)|(/?>)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag id'
+      StyleName = 'Tag id'
+      TokenType = 9
+      Expression = '(?<=</?) \w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'NameColons'
+      StyleName = 'NameColons'
+      Expression = '^:.+?:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String desc'
+      StyleName = 'String desc'
+      TokenType = 6
+      Expression = ':\x20.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id@'
+      StyleName = 'Directive'
+      Expression = '[@!]\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\{\}\(\)\[\],;:/\+\-\*=<>&/\|\^\.!%@'#8722']+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Color'
+      StyleName = 'Color'
+      TokenType = 7
+      Expression = '\#\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abstract'
+            'activate'
+            'actor'
+            'again'
+            'also'
+            'alt'
+            'annotation'
+            'as'
+            'autonumber'
+            'bottom'
+            'boundary'
+            'box'
+            'break'
+            'caption'
+            'center'
+            'class'
+            'cloud'
+            'component'
+            'control'
+            'create'
+            'critical'
+            'database'
+            'deactivate'
+            'destroy'
+            'detatch'
+            'direction'
+            'down'
+            'else'
+            'elseif'
+            'end'
+            'endfooter'
+            'endheader'
+            'endif'
+            'endlegend'
+            'endwhile'
+            'entity'
+            'enum'
+            'floating'
+            'folder'
+            'footbox'
+            'footer'
+            'fork'
+            'frame'
+            'group'
+            'header'
+            'hide'
+            'if'
+            'interface'
+            'is'
+            'left'
+            'legend'
+            'link'
+            'loop'
+            'namespace'
+            'newpage'
+            'node'
+            'note'
+            'object'
+            'of'
+            'on'
+            'opt'
+            'over'
+            'package'
+            'page'
+            'par'
+            'participant'
+            'partition'
+            'ref'
+            'repeat'
+            'return'
+            'right'
+            'rotate'
+            'salt'
+            'scale'
+            'show'
+            'skin'
+            'skinparam'
+            'start'
+            'state'
+            'stop'
+            'then'
+            'title'
+            'to'
+            'top'
+            'up'
+            'usecase'
+            'while')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'colors'
+      StyleName = 'Color'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'AliceBlue'
+            'AntiqueWhite'
+            'Aqua'
+            'Aquamarine'
+            'Azure'
+            'Beige'
+            'Bisque'
+            'Black'
+            'BlanchedAlmond'
+            'Blue'
+            'BlueViolet'
+            'Brown'
+            'BurlyWood'
+            'CadetBlue'
+            'Chartreuse'
+            'Chocolate'
+            'Coral'
+            'CornflowerBlue'
+            'Cornsilk'
+            'Crimson'
+            'Cyan'
+            'DarkBlue'
+            'DarkCyan'
+            'DarkGoldenRod'
+            'DarkGray'
+            'DarkGreen'
+            'DarkGrey'
+            'DarkKhaki'
+            'DarkMagenta'
+            'DarkOliveGreen'
+            'Darkorange'
+            'DarkOrchid'
+            'DarkRed'
+            'DarkSalmon'
+            'DarkSeaGreen'
+            'DarkSlateBlue'
+            'DarkSlateGray'
+            'DarkSlateGrey'
+            'DarkTurquoise'
+            'DarkViolet'
+            'DeepPink'
+            'DeepSkyBlue'
+            'DimGray'
+            'DimGrey'
+            'DodgerBlue'
+            'FireBrick'
+            'FloralWhite'
+            'ForestGreen'
+            'Fuchsia'
+            'Gainsboro'
+            'GhostWhite'
+            'Gold'
+            'GoldenRod'
+            'Gray'
+            'Green'
+            'GreenYellow'
+            'Grey'
+            'HoneyDew'
+            'HotPink'
+            'IndianRed'
+            'Indigo'
+            'Ivory'
+            'Khaki'
+            'Lavender'
+            'LavenderBlush'
+            'LawnGreen'
+            'LemonChiffon'
+            'LightBlue'
+            'LightCoral'
+            'LightCyan'
+            'LightGoldenRodYellow'
+            'LightGray'
+            'LightGreen'
+            'LightGrey'
+            'LightPink'
+            'LightSalmon'
+            'LightSeaGreen'
+            'LightSkyBlue'
+            'LightSlateGray'
+            'LightSlateGrey'
+            'LightSteelBlue'
+            'LightYellow'
+            'Lime'
+            'LimeGreen'
+            'Linen'
+            'Magenta'
+            'Maroon'
+            'MediumAquaMarine'
+            'MediumBlue'
+            'MediumOrchid'
+            'MediumPurple'
+            'MediumSeaGreen'
+            'MediumSlateBlue'
+            'MediumSpringGreen'
+            'MediumTurquoise'
+            'MediumVioletRed'
+            'MidnightBlue'
+            'MintCream'
+            'MistyRose'
+            'Moccasin'
+            'NavajoWhite'
+            'Navy'
+            'OldLace'
+            'Olive'
+            'OliveDrab'
+            'Orange'
+            'OrangeRed'
+            'Orchid'
+            'PaleGoldenRod'
+            'PaleGreen'
+            'PaleTurquoise'
+            'PaleVioletRed'
+            'PapayaWhip'
+            'PeachPuff'
+            'Peru'
+            'Pink'
+            'Plum'
+            'PowderBlue'
+            'Purple'
+            'Red'
+            'RosyBrown'
+            'RoyalBlue'
+            'SaddleBrown'
+            'Salmon'
+            'SandyBrown'
+            'SeaGreen'
+            'SeaShell'
+            'Sienna'
+            'Silver'
+            'SkyBlue'
+            'SlateBlue'
+            'SlateGray'
+            'SlateGrey'
+            'Snow'
+            'SpringGreen'
+            'SteelBlue'
+            'Tan'
+            'Teal'
+            'Thistle'
+            'Tomato'
+            'Turquoise'
+            'Violet'
+            'Wheat'
+            'White'
+            'WhiteSmoke'
+            'Yellow'
+            'YellowGreen')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'start uml'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@startuml')
+          TokenTypes = 1
+        end>
+      BlockEnd = 'end uml'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '@startuml'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end uml'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@enduml')
+          TokenTypes = 1
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'if end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = 'if...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endif')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'while'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'while')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'while end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = 'while...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'while end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endwhile')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'repeat'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'while')
+          CondType = tcNotEqual
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'repeat')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'repeat end'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = 'repeat...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'repeat end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'while')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'repeat')
+          TokenTypes = 4
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    #39' Comment '
+    '@startuml'
+    ':actor1: --> (Usecase1)'
+    '!include name.uml '
+    'newpage '
+    'actor Bob #red '
+    'participant Alice '
+    'participant "Some name" as L #99FF99 '
+    '/'#39' Comment '
+    'here '
+    #39'/ '
+    'Alice->Bob: Authentication Request '
+    'Bob->L: Log transaction'
+    '@enduml'
+    ''
+    '<s>, <del>, <strike>'
+    '<font color="#AAAAAA">, <color:Yellow>')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'String desc'
+    'Color'
+    'Tag bound'
+    'Tag id')
+  Extentions = 'uml iuml wsd'
+  LexerName = 'PlantUML'
+  Notes.Strings = (
+    'Alexey (Synwrite)')
+  LineComment = #39
+  Charset = DEFAULT_CHARSET
+end

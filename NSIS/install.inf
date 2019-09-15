@@ -1,0 +1,7 @@
+[info]
+title=NSIS
+type=lexer
+subdir=-
+
+[lexer1]
+file=NSIS

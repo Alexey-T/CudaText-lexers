@@ -1,0 +1,15 @@
+[info]
+title=HTML Diafan
+type=lexer
+subdir=-
+
+[lexer1]
+file=HTML Diafan
+link1=CSS
+link2=PHP
+link3=PHP
+link4=PHP
+link5=JavaScript
+link6=VBScript
+link7=VBScript
+link8=CSS

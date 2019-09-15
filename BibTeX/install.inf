@@ -1,0 +1,7 @@
+[info]
+title=BibTeX
+type=lexer
+subdir=-
+
+[lexer1]
+file=BibTeX

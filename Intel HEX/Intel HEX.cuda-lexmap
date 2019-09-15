@@ -1,0 +1,13 @@
+[comments]
+styles_cmt=Comment
+styles_str=
+
+[map]
+Comment=Comment
+Error=LightBG1
+Start=Symbol
+BytesNum=Id1
+BytesAddr=Id3
+BytesType=Id2
+BytesData=Id
+BytesSum=Id4

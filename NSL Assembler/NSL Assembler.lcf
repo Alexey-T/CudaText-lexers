@@ -1,0 +1,961 @@
+object SyntAnal107: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Current block'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 13369046
+      FormatType = ftColor
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Function'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 13382400
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'KeyWord'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6956042
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Preprocessor'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 33023
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 11534512
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Variable'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 13260
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Any Name'
+      TokenType = 1
+      Expression = '[a-z_.!]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block Comment'
+      StyleName = 'Comment'
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hexadecimal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[\da-f]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 4
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Preprocessor'
+      TokenType = 7
+      Expression = '\#\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = '(?s)(["'#39'`])(\\\\1|.)*?\1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Single Symbol'
+      StyleName = 'Symbol'
+      TokenType = 2
+      Expression = '[\{\}\(\)\[\],;]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 2
+      Expression = '[/\+\-\*:=!<>&/\|\^\.]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Variable'
+      StyleName = 'Variable'
+      TokenType = 1
+      Expression = '\$\{?\w+\}?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Functions'
+      StyleName = 'Function'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Abort'
+            'AddBrandingImage'
+            'AddSize'
+            'AllowRootDirInstall'
+            'AllowSkipFiles'
+            'AutoCloseWindow'
+            'BGFont'
+            'BGGradient'
+            'BrandingText'
+            'BringToFront'
+            'Call'
+            'Caption'
+            'ChangeUI'
+            'CheckBitmap'
+            'ClearErrors'
+            'CompletedText'
+            'ComponentText'
+            'CopyFiles'
+            'CRCCheck'
+            'CreateDirectory'
+            'CreateFont'
+            'CreateShortCut'
+            'Custom'
+            'Delete'
+            'DeleteINISec'
+            'DeleteINIStr'
+            'DeleteRegKey'
+            'DeleteRegValue'
+            'DetailPrint'
+            'DetailsButtonText'
+            'DirText'
+            'DirVar'
+            'DirVerify'
+            'EnableWindow'
+            'EnumRegKey'
+            'EnumRegValue'
+            'Exch'
+            'Exec'
+            'ExecShell'
+            'ExecWait'
+            'ExpandEnvStrings'
+            'File'
+            'FileBufSize'
+            'FileClose'
+            'FileErrorText'
+            'FileOpen'
+            'FileRead'
+            'FileReadByte'
+            'FileRecursive'
+            'FileSeek'
+            'FileWrite'
+            'FileWriteByte'
+            'FindClose'
+            'FindFirst'
+            'FindNext'
+            'FindWindow'
+            'FlushINI'
+            'GetCurInstType'
+            'GetCurrentAddress'
+            'GetDlgItem'
+            'GetDLLVersion'
+            'GetDLLVersionLocal'
+            'GetErrorLevel'
+            'GetFileTime'
+            'GetFileTimeLocal'
+            'GetFunctionAddress'
+            'GetInstDirError'
+            'GetLabelAddress'
+            'GetTempFileName'
+            'HideWindow'
+            'Icon'
+            'IfAbort'
+            'IfErrors'
+            'IfFileExists'
+            'IfRebootFlag'
+            'IfSilent'
+            'InitPluginsDir'
+            'InstallButtonText'
+            'InstallColors'
+            'InstallDir'
+            'InstallDirRegKey'
+            'InstProgressFlags'
+            'InstType'
+            'InstTypeGetText'
+            'InstTypeSetText'
+            'IntFmt'
+            'IsWindow'
+            'LangString'
+            'LicenseBkColor'
+            'LicenseData'
+            'LicenseForceSelection'
+            'LicenseLangString'
+            'LicenseText'
+            'LoadLanguageFile'
+            'LockWindow'
+            'LogSet'
+            'LogText'
+            'MessageBox'
+            'MiscButtonText'
+            'Name'
+            'OutFile'
+            'Pop'
+            'Push'
+            'Quit'
+            'ReadEnvStr'
+            'ReadINIStr'
+            'ReadRegDWORD'
+            'ReadRegStr'
+            'Reboot'
+            'RegDLL'
+            'Rename'
+            'RequestExecutionLevel'
+            'ReserveFile'
+            'ReserveFileRecursive'
+            'RMDir'
+            'RMDirRecursive'
+            'SearchPath'
+            'SectionGetFlags'
+            'SectionGetInstTypes'
+            'SectionGetSize'
+            'SectionGetText'
+            'SectionIn'
+            'SectionSetFlags'
+            'SectionSetInstTypes'
+            'SectionSetSize'
+            'SectionSetText'
+            'SendMessage'
+            'SetAutoClose'
+            'SetBrandingImage'
+            'SetCompress'
+            'SetCompressor'
+            'SetCompressorDictSize'
+            'SetCtlColors'
+            'SetCurInstType'
+            'SetDatablockOptimize'
+            'SetDateSave'
+            'SetDetailsPrint'
+            'SetDetailsView'
+            'SetErrorLevel'
+            'SetErrors'
+            'SetFileAttributes'
+            'SetFont'
+            'SetOutPath'
+            'SetOverwrite'
+            'SetRebootFlag'
+            'SetRegView'
+            'SetShellVarContext'
+            'SetSilent'
+            'ShowInstDetails'
+            'ShowUninstDetails'
+            'ShowWindow'
+            'SilentInstall'
+            'SilentUninstall'
+            'Sleep'
+            'SpaceTexts'
+            'StrCmp'
+            'StrCmpS'
+            'StrCpy'
+            'StrLen'
+            'SubCaption'
+            'UninstallButtonText'
+            'UninstallCaption'
+            'UninstallIcon'
+            'UninstallSubCaption'
+            'UninstallText'
+            'UnRegDLL'
+            'VIAddVersionKey'
+            'VIProductVersion'
+            'WindowIcon'
+            'WriteINIStr'
+            'WriteRegBin'
+            'WriteRegDWORD'
+            'WriteRegExpandStr'
+            'WriteRegStr'
+            'WriteUninstaller'
+            'XPStyle')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'KeyWords'
+      StyleName = 'KeyWord'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'break'
+            'case'
+            'continue'
+            'default'
+            'defined'
+            'do'
+            'else'
+            'eval'
+            'false'
+            'for'
+            'format'
+            'function'
+            'if'
+            'length'
+            'nsisconst'
+            'page'
+            'return'
+            'Returns'
+            'returnvar'
+            'section'
+            'sectiongroup'
+            'switch'
+            'toint'
+            'true'
+            'type'
+            'uninstall'
+            'while')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Preprocessor'
+      StyleName = 'Preprocessor'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '#define'
+            '#else'
+            '#elseif'
+            '#endif'
+            '#error'
+            '#if'
+            '#include'
+            '#macro'
+            '#macroend'
+            '#nsis'
+            '#nsisend'
+            '#redefine'
+            '#return'
+            '#undef')
+          TokenTypes = 128
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#if'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '#if')
+          TokenTypes = 128
+        end>
+      BlockEnd = '#endif'
+      DisplayInTree = False
+      NameFmt = '%s0 %sz-1'
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %sz-1'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '#endif'
+    end
+    item
+      DisplayName = '#endif'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '#endif')
+          TokenTypes = 128
+        end>
+      BlockEnd = '#if'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#macro'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 4
+        end
+        item
+          CondType = tcSkip
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 2
+        end
+        item
+          TagList.Strings = (
+            '#macro')
+          TokenTypes = 128
+        end>
+      BlockEnd = '#macroend'
+      NameFmt = '%s0~s[)]'
+      RefToCondEnd = True
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTag
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '#macroend'
+    end
+    item
+      DisplayName = '#macroend'
+      BlockName = '#macro'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '#macroend')
+          TokenTypes = 128
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Inline NSIS start'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '#nsis')
+        end>
+      BlockEnd = 'Inline NSIS end'
+      RefToCondEnd = True
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTag
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '#nsisend'
+    end
+    item
+      DisplayName = 'Inline NSIS end'
+      BlockName = 'Inline NSIS start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '#nsisend')
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 4
+        end>
+      BlockEnd = ')'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTagBegin
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'uninstall module start'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 4
+        end
+        item
+          CondType = tcSkip
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 2
+        end
+        item
+          TagList.Strings = (
+            'function'
+            'section'
+            'sectiongroup')
+        end
+        item
+          TagList.Strings = (
+            'uninstall')
+        end>
+      BlockEnd = 'uninstall module end'
+      NameFmt = '%s0~s[)]'
+      RefToCondEnd = True
+      HighlightPos = cpBound
+      TreeItemImage = 8
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'uninstall module end'
+      BlockName = 'uninstall module start'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'module start'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 4
+        end
+        item
+          CondType = tcSkip
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 2
+        end
+        item
+          TagList.Strings = (
+            'function'
+            'section'
+            'sectiongroup')
+        end>
+      BlockEnd = 'module end'
+      NotCollapsed = True
+      NameFmt = '%s0~s[)]'
+      RefToCondEnd = True
+      HighlightPos = cpBound
+      TreeItemImage = 8
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'module end'
+      BlockName = 'module start'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      BlockEnd = '}'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end>
+  CodeTemplates = <
+    item
+      Name = 'if'
+      Description = 'if ( ) {...}'
+      Code.Strings = (
+        'if (<caret>)'
+        '{'
+        ''
+        '}')
+      Advanced = True
+    end
+    item
+      Name = 'function'
+      Description = 'function () {...}'
+      Code.Strings = (
+        'function <caret>()'
+        '{'
+        '  '
+        '  return;'
+        '}')
+      Advanced = True
+    end
+    item
+      Name = 'for'
+      Description = 'for ($i=0;$ i<x; $i++) {...}'
+      Code.Strings = (
+        'for($i=0;$i<<caret>;$i++)'
+        '{'
+        ''
+        '}')
+      Advanced = True
+    end
+    item
+      Name = 'while'
+      Description = 'while ( ) {...}'
+      Code.Strings = (
+        'while (<caret>)'
+        '{'
+        ''
+        '}')
+      Advanced = True
+    end
+    item
+      Name = 'do'
+      Description = 'do {...} while ( );'
+      Code.Strings = (
+        'do'
+        '{'
+        ''
+        '}'
+        'while (<caret>);')
+      Advanced = True
+    end
+    item
+      Name = 'switch'
+      Description = 'switch...case...'
+      Code.Strings = (
+        'switch (<caret>)'
+        '{'
+        '  case 0:'
+        ''
+        '    break;'
+        '  case 1:'
+        ''
+        '    break;'
+        '  case 2:'
+        ''
+        '    break;'
+        '  default:'
+        ''
+        '    break;'
+        '}')
+      Advanced = True
+    end
+    item
+      Name = 'if_else'
+      Description = 'if ( ) {...} else {...}'
+      Code.Strings = (
+        'if (<caret>)'
+        '{'
+        ''
+        '}'
+        'else'
+        '{'
+        ''
+        '}')
+      Advanced = True
+    end
+    item
+      Name = 'section'
+      Description = 'section () {...}'
+      Code.Strings = (
+        'section <caret>()'
+        '{'
+        '  '
+        '}')
+      Advanced = True
+    end
+    item
+      Name = 'sectiongroup'
+      Description = 'sectiongroup() {...}'
+      Code.Strings = (
+        'section <caret>()'
+        '{'
+        ''
+        '}')
+      Advanced = True
+    end>
+  SubAnalyzers = <
+    item
+      DisplayName = 'nsis section'
+      StartExpression = '\#nsis'#13#10
+      EndExpression = '\#nsisend'#13#10
+      SyntAnalyzer = SyntAnal26
+    end>
+  SampleText.Strings = (
+    '#define Version '#39'1.0.2'#39
+    ''
+    'Name("nsL Assembler ".Version." (Alpha)");'
+    'OutFile("nsL-Assembler-".Version.".exe");'
+    'XPStyle("on");'
+    'SetCompressor("lzma", true);'
+    'RequestExecutionLevel("admin");'
+    'ShowInstDetails("show");'
+    ''
+    'page Components();'
+    'page Directory();'
+    'page InstFiles();'
+    'uninstall page UninstConfirm();'
+    'uninstall page Custom InstFiles();'
+    ''
+    'function .onInit()'
+    '{'
+    '  $INSTDIR = ReadRegStr("HKLM", @"Software\NSIS", "");'
+    '  if (StrCmp($INSTDIR, ""))'
+    '  {'
+    
+      '    if (MessageBox("MB_YESNO|MB_ICONEXCLAMATION", "NSIS is not i' +
+      'nstalled on this machine. Would you like to continue anyway?") =' +
+      '= "IDNO")'
+    '      Abort();'
+    ''
+    '    $INSTDIR = $PROGRAMFILES.@"\NSIS";'
+    '  }'
+    '}'
+    ''
+    'section Install("nsL Assembler", true)'
+    '{'
+    '  // Extract the main JAR file.'
+    '  SetOutPath($INSTDIR."\\NSL");'
+    '  File(@"..\dist\nsL.jar");'
+    ''
+    '  // Extract documents.'
+    '  SetOutPath($INSTDIR."\\Docs\\NSL");'
+    '  File(@"..\docs\Reference.pdf");'
+    '  File(@"..\docs\functions.txt");'
+    ''
+    '  // Add the right click "Compile nsL Script" option.'
+    '  WriteRegStr("HKCR", ".nsl", "", "nsL.Script");'
+    '  WriteRegStr("HKCR", "nsL.Script", "", "nsL Script File");'
+    
+      '  WriteRegStr("HKCR", @"nsL.Script\DefaultIcon", "", $INSTDIR.@"' +
+      '\makensisw.exe,1");'
+    '  WriteRegStr("HKCR", @"nsL.Script\shell", "", "open");'
+    
+      '  WriteRegStr("HKCR", @"nsL.Script\shell\open\command", "", '#39'not' +
+      'epad.exe "%1"'#39');'
+    
+      '  WriteRegStr("HKCR", @"nsL.Script\shell\compile", "", "Compile ' +
+      'nsL Script");'
+    
+      '  WriteRegStr("HKCR", @"nsL.Script\shell\compile\command", "", '#39 +
+      '"'#39'.$INSTDIR.@'#39'\NSL\nsL.bat" "%1"'#39');'
+    ''
+    '  // Write our batch file that runs scripts.'
+    '  ClearErrors();'
+    '  $R0 = FileOpen($INSTDIR.@"\NSL\nsL.bat", "w");'
+    '  if (!Errors())'
+    '  {'
+    '    FileWrite($R0, "cd %~dp0\r\n");'
+    '    FileWrite($R0, "java.exe -jar nsL.jar %1\r\n");'
+    '    FileClose($R0);'
+    '  }'
+    '  DetailPrint("Wrote: ".$INSTDIR.@"\NSL\nsL.bat");'
+    ''
+    '  // Output the uninstall executable.'
+    '  WriteUninstaller($INSTDIR.@"\NSL\Uninstall.exe");'
+    ''
+    '  // Refresh Windows Explorer.'
+    '  #define SHCNE_ASSOCCHANGED 0x8000000'
+    '  #define SHCNF_IDLIST 0'
+    
+      '  System::Call(format("shell32::SHChangeNotify(i {0}, i {1}, i 0' +
+      ', i 0)", SHCNE_ASSOCCHANGED, SHCNF_IDLIST));'
+    '}'
+    ''
+    'section Examples("Example Scripts")'
+    '{'
+    '  SetOutPath($INSTDIR."\\Examples\\NSL");'
+    '  FileRecursive(@"..\examples\*.nsl");'
+    '}'
+    ''
+    'section Source("Java Source Code", false, true)'
+    '{'
+    '  SetOutPath($INSTDIR.@"\NSL\src");'
+    '  FileRecursive(@"..\nbproject");'
+    '  FileRecursive(@"..\src");'
+    '  FileRecursive(@"..\test");'
+    '  File(@"..\build.xml");'
+    '  File(@"..\manifest.mf");'
+    '  File(@"..\docs\Reference.docx");'
+    '}'
+    ''
+    'uninstall function .onInit()'
+    '{'
+    '  // Check we are uninstalling from the correct directory.'
+    '  if (!FileExists($INSTDIR."\\nsL.jar"))'
+    '  {'
+    
+      '    MessageBox("MB_OK|MB_ICONEXCLAMATION", "The files to uninsta' +
+      'll cannot be found. Setup will now exit.");'
+    '    Abort(); '
+    '  }'
+    '}'
+    ''
+    'uninstall section Uninstall()'
+    '{'
+    '  // Remove our files.'
+    '  RMDirRecursive($INSTDIR.@"\..\Docs\NSL");'
+    '  RMDirRecursive($INSTDIR);'
+    ''
+    '  // Delete our Windows registry entries.'
+    '  DeleteRegKey("HKCR", ".nsl");'
+    '  DeleteRegKey("HKCR", "nsL.Script");'
+    '}')
+  TokenTypeNames.Strings = (
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Hex const'
+    'Boolean const'
+    'Preprocessor')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'nsl'
+  LexerName = 'NSL Assembler'
+  Notes.Strings = (
+    'by V. Emmanuel'
+    'vicokoby (at) gmail.com')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

@@ -1,0 +1,11 @@
+[map]
+Comment=Comment
+Symbol=Symbol
+Prefix=Id1
+Text=Id
+Str Desc=String
+Str Quote=String2
+
+[comments]
+styles_cmt=Comment
+styles_str=

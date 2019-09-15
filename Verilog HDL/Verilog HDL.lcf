@@ -1,0 +1,451 @@
+object SyntAnal92: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Comm'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Chars'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id Keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Preprocessor'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Num'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Num Time'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Str'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id Func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comm'
+      StyleName = 'Comm'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comm2'
+      StyleName = 'Comm'
+      TokenType = 1
+      Expression = '(?s)/\*.*?\*/'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Chars'
+      StyleName = 'Chars'
+      TokenType = 3
+      Expression = '[\(\)\.,;:\[\]\{\}=<>@\|\~\?\-\+\*/\^!&]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z][\w\d\$]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'IdFunc'
+      StyleName = 'Id Func'
+      TokenType = 2
+      Expression = '\$[\w\d]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Preproc'
+      StyleName = 'Preprocessor'
+      TokenType = 7
+      Expression = '`\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'NumTime'
+      StyleName = 'Num Time'
+      TokenType = 5
+      Expression = '\#\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num'
+      StyleName = 'Num'
+      TokenType = 5
+      Expression = '\d* ('#39'[bodh])? [\dA-F_XZ]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str'
+      StyleName = 'Str'
+      TokenType = 4
+      Expression = '" (\\"|.)*? "'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Num'
+      TokenType = 6
+      Expression =
+        '#with exp. dot is optional '#13#10'(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'#wit' +
+        'hout exp. dot is required'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Words'
+      StyleName = 'Id Keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'always'
+            'and'
+            'assign'
+            'automatic'
+            'begin'
+            'buf'
+            'bufif0'
+            'bufif1'
+            'case'
+            'casex'
+            'casez'
+            'cell'
+            'cmos'
+            'config'
+            'deassign'
+            'default'
+            'defparam'
+            'disable'
+            'edge'
+            'else'
+            'end'
+            'endcase'
+            'endconfig'
+            'endfunction'
+            'endgenerate'
+            'endmodule'
+            'endprimitive'
+            'endspecify'
+            'endtable'
+            'endtask'
+            'event'
+            'for'
+            'force'
+            'forever'
+            'fork'
+            'function'
+            'generate'
+            'genvar'
+            'highz0'
+            'highz1'
+            'if'
+            'ifnone'
+            'incdir'
+            'include'
+            'initial'
+            'inout'
+            'input'
+            'instance'
+            'integer'
+            'join'
+            'large'
+            'liblist'
+            'library'
+            'localparam'
+            'macromodule'
+            'medium'
+            'module'
+            'nand'
+            'negedge'
+            'nmos'
+            'nor'
+            'noshowcancelled'
+            'not'
+            'notif0'
+            'notif1'
+            'or'
+            'output'
+            'parameter'
+            'pmos'
+            'posedge'
+            'primitive'
+            'pull0'
+            'pull1'
+            'pulldown'
+            'pullup'
+            'pulsestyle_ondetect'
+            'pulsestyle_onevent'
+            'rcmos'
+            'real'
+            'realtime'
+            'reg'
+            'release'
+            'repeat'
+            'rnmos'
+            'rpmos'
+            'rtran'
+            'rtranif0'
+            'rtranif1'
+            'scalared'
+            'showcancelled'
+            'signed'
+            'small'
+            'specify'
+            'specparam'
+            'strong0'
+            'strong1'
+            'supply0'
+            'supply1'
+            'table'
+            'task'
+            'time'
+            'tran'
+            'tranif0'
+            'tranif1'
+            'tri'
+            'tri0'
+            'tri1'
+            'triand'
+            'trior'
+            'trireg'
+            'unsigned'
+            'use'
+            'vectored'
+            'wait'
+            'wand'
+            'weak0'
+            'weak1'
+            'while'
+            'wire'
+            'wor'
+            'xnor'
+            'xor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'func_end'
+      NameFmt = 'function %s-6'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func_end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endfunction')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'begin')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'task'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'task')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'task_end'
+      NameFmt = 'task %s-1'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'task_end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endtask')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'module Dev (a,b);'
+    ''
+    '//State register'
+    'always @ (posedge i$Clock or posedge i$Reset)'
+    #9'if (i$Reset)'
+    #9#9'r$State <= p$s0;'
+    #9'else'
+    #9#9'r$State <= r$NextState;'
+    ''
+    'assign ROMWord = ROM[State];'
+    'assign {InputSelect,PolarityBit,CNState,X,Y,Z} = ROMWord;'
+    'initial begin'
+    '    ROM[3'#39'b011] <= { 8'#39'hAA + '#39'hF + 16'#39'bZ };'
+    #9'ROM[3'#39'b000] <= { 10'#39'b_111_1_xxx_100 };'
+    #9'ROM[3'#39'b001] <= { 10'#39'b_000_1_001_000 };'
+    'end'
+    ''
+    'initial $display("\"Test\"...");'
+    ''
+    '//Func'
+    'function [3:0] CountTheOnes;'
+    #9'input [7:0] value;'
+    #9'integer k, acc;'
+    'endfunction'
+    ''
+    '//Test task'
+    'task CycleB;'
+    #9'input [3:0] cnt;'
+    #9'integer k;'
+    #9'begin'
+    #9#9'for (k=0; k<cnt; k=k+1) begin'
+    #9#9#9'#5 b=1;'
+    #9#9#9'#5 b=0;'
+    #9#9'end'
+    #9'end'
+    'endtask'
+    ''
+    'endmodule')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Preprocessor')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'v'
+  LexerName = 'Verilog HDL'
+  Notes.Strings = (
+    'Author: Alex, uvviewsoft.com'
+    'Test:'
+
+      'http://www.rose-hulman.edu/~doering/PLD_Oasis/verilog_examples.h' +
+      'tm'
+    'Keywords:'
+
+      'http://quartushelp.altera.com/current/mergedProjects/hdl/vlog/vl' +
+      'og_file_reserved_words.htm')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

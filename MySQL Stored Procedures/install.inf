@@ -1,0 +1,7 @@
+[info]
+title=MySQL Stored Procedures
+type=lexer
+subdir=-
+
+[lexer1]
+file=MySQL_Stored_Procedures

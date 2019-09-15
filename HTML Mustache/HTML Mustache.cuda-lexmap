@@ -1,0 +1,34 @@
+[ref]
+0=CSS
+1=VBScript
+2=JavaScript
+3=JavaScript
+4=VBScript
+5=PHP
+6=PHP
+
+[map]
+Tag id=TagId
+Tag id - underlines=TagIdBad
+Text=Id
+Tag bound=TagBound
+Comment=Comment
+Tag attrib=TagProp
+Tag attrib - underlines=IdBad
+Tag param=String
+Unknown tag content=IdBad
+Tag Key=Symbol
+Number=Number
+Tree item (attribute)=-
+Tree item (tag)=-
+Current Block=BracketBG
+Current Tag=BracketBG
+Sublexer BG=IncludeBG1
+Sublexer BG spec=IncludeBG2
+Sublexer bracket=Symbol2
+
+[comments]
+str1=<!--
+str2=-->
+styles_cmt=Comment
+styles_str=Tag param

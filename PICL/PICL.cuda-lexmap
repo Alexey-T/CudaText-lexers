@@ -1,0 +1,18 @@
+[map]
+Comment=Comment
+Pragma=Comment2
+Id=Id
+Id keyword=IdKeyword
+Id type=Id1
+String=String
+Number=Number
+Symbol=Symbol
+Proc BG=SectionBG1
+Proc export BG=SectionBG2
+Module BG=SectionBG3
+
+[comments]
+str1=(*
+str2=*)
+styles_cmt=Comment
+styles_str=String

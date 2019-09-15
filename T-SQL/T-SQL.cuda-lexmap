@@ -1,0 +1,21 @@
+[map]
+Marked block=-
+Comment=Comment
+Symbol=Symbol
+Number=Number
+String=String
+Id=Id
+Id Func=Id1
+Id SysFunc=Id2
+Id Keyword=IdKeyword
+Id Operator=Symbol2
+Id SysObject=Id3
+Id Type=Id4
+Id @Param=IdVar
+:Line=Label
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

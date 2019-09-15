@@ -1,0 +1,157 @@
+object SyntAnal17: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Script BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clCream
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\* .*? \*/'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = #39'.* | //.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 3'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)<!-- .*? -->'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[;:=<>\./\?\(\)\[\]]'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '".*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag'
+      StyleName = 'Tag'
+      TokenType = 2
+      Expression = '(?<=<) \w+ |'#13#10'(?<=</) \w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'JavaScript'
+      StyleName = 'Script BG'
+      StartExpression = '(?i)<script \s .*? language="(JavaScript|JScript)">'
+      EndExpression = '(?i)</script>'
+      SyntAnalyzer = SyntAnal38
+    end
+    item
+      DisplayName = 'VB script'
+      StyleName = 'Script BG'
+      StartExpression = '(?i)<script \s+ language="VBScript">'
+      EndExpression = '(?i)</script>'
+      SyntAnalyzer = SyntAnal56
+    end>
+  SampleText.Strings = (
+    '/* Comment'
+    ' */'
+    '<job id="">'
+    '<script language="JavaScript">'
+    'if(WScript.Arguments) {'
+    #9'var str = WScript.Arguments(0);'
+    #9'var type = WScript.Arguments(1);'
+    #9'if(str) {'
+    '      //test'
+    #9'}'
+    ' }'
+    '</script>'
+    '</job>')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer')
+  Extentions = 'wsf'
+  LexerName = 'WSH script'
+  Notes.Strings = (
+    'Author: Alex (SynWrite)'
+    
+      'Test: http://www.microsoft.com/en-us/download/details.aspx?id=14' +
+      '536'
+    '')
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,826 @@
+object SyntAnal94: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderColorLeft = clGray
+      BorderColorTop = clGray
+      BorderColorRight = clGray
+      BorderColorBottom = clGray
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 'Tag bound'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'CDATA'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag Key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'ERROR content'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag ident'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag param'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag properties'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Current tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15987699
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Current Block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 15400927
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end
+    item
+      DisplayName = 'DTD element type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'DTD bound'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Tree item (attribute)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14155775
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Tree item (tag)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Wrong XSLT statement'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsUnderline]
+    end
+    item
+      DisplayName = 'XSLT statement'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 8388672
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'PI'
+      TokenType = 12
+      Expression = '(?s)<\?.*?(\?>|\Z)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)<!--.*?(-->|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'CDATA start'
+      StyleName = 'CDATA'
+      TokenType = 11
+      Expression = '<!\[CDATA\['#13#10'#(?s)<!\[CDATA\[.*?(\]\]>|\Z)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'CDATA Text'
+      StyleName = 'Text'
+      BlockName = 'CDATA begin'
+      Expression = '(?s)[^\]]*'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'CDATA end'
+      StyleName = 'Tag bound'
+      BlockName = 'CDATA begin'
+      TokenType = 14
+      Expression = '\]\]>'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<'
+      StyleName = 'Tag bound'
+      TokenType = 9
+      Expression = '<[/!\-\:\?]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '>'
+      StyleName = 'Tag bound'
+      TokenType = 10
+      Expression = '[/\?]?>'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'DTD Element type'
+      StyleName = 'DTD element type'
+      BlockName = 'DTD element start'
+      TokenType = 2
+      Expression = '(?s)\((\(.*?\)|.)*?\)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'DTD bounds: [ ] '
+      StyleName = 'DTD bound'
+      BlockName = 'DOCTYPE begin'
+      Expression = '[\[\]]'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag param'
+      StyleName = 'Tag param'
+      BlockName = 'Tag begin'
+      TokenType = 4
+      Expression = '(?s)".*?"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '='
+      StyleName = 'Tag bound'
+      TokenType = 3
+      Expression = '='#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'XSLT statement'
+      StyleName = 'Wrong XSLT statement'
+      BlockName = 'Tag begin'
+      TokenType = 2
+      Expression = 'xsl:[\w-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag ident'
+      StyleName = 'Tag ident'
+      BlockName = 'Tag begin'
+      TokenType = 2
+      Expression = '[^>=\?\s/]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Error content'
+      StyleName = 'ERROR content'
+      BlockName = 'Tag begin'
+      Expression = '[^>\s]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '&...'
+      StyleName = 'Tag Key'
+      TokenType = 4
+      Expression = '&\w+;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      BlockName = 'CDATA begin'
+      NotParent = True
+      TokenType = 4
+      Expression = '[^<&]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Tag begin'
+      StyleName = 'Current tag'
+      ConditionList = <
+        item
+          TokenTypes = 512
+        end>
+      BlockEnd = 'Tag end'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRangeNoBound
+      HighlightPos = cpRange
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DTD element start'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'DOCTYPE')
+          CondType = tcNotEqual
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<!')
+          TokenTypes = 512
+        end>
+      BlockOffset = 1
+      BlockEnd = 'DTD element end'
+      NameFmt = '%s-1'
+      HighlightPos = cpBound
+      CollapseFmt = '< %s0 %s-1 >'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DTD element end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpBound
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DOCTYPE begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'DOCTYPE')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<!')
+          TokenTypes = 512
+        end>
+      BlockOffset = 1
+      BlockEnd = 'DOCTYPE end'
+      NameFmt = 'Document structure'
+      HighlightPos = cpBound
+      CollapseFmt = 'Document structure'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DOCTYPE end'
+      BlockName = 'DOCTYPE begin'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '>')
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag keys'
+      StyleName = 'Tag Key'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 512
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag block begin'
+      StyleName = 'Current Block'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 512
+        end>
+      BlockEnd = 'Tag block end'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = ' %s0 >'
+      TreeItemStyle = 'Tree item (tag)'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseOpened
+      AutoCloseText = '</%s0>'
+    end
+    item
+      DisplayName = 'Tag block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '</')
+          TokenTypes = 512
+        end>
+      SameIdent = True
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'End of simple tag'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/>')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag block begin'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment begin'
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CDATA end'
+      BlockName = 'CDATA begin'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 16384
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CDATA begin'
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      BlockEnd = 'CDATA end'
+      NameFmt = '%s-1'
+      HighlightPos = cpBound
+      CollapseFmt = 'CDATA'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag attribute'
+      StyleName = 'Tag param'
+      BlockName = 'Tag begin'
+      ConditionList = <
+        item
+          TokenTypes = 16
+        end
+        item
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      NameFmt = '%s0 %s-1 %s-2'
+      RefToCondEnd = True
+      HighlightPos = cpBound
+      NoEndRule = True
+      TreeItemStyle = 'Tree item (attribute)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'XSLT statements'
+      StyleName = 'XSLT statement'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'xsl:apply-imports'
+            'xsl:apply-templates'
+            'xsl:attribute'
+            'xsl:attribute-set'
+            'xsl:call-template'
+            'xsl:choose'
+            'xsl:comment'
+            'xsl:copy'
+            'xsl:copy-of'
+            'xsl:decimal-format'
+            'xsl:element'
+            'xsl:fallback'
+            'xsl:for-each'
+            'xsl:if'
+            'xsl:import'
+            'xsl:include'
+            'xsl:key'
+            'xsl:message'
+            'xsl:namespace-alias'
+            'xsl:number'
+            'xsl:otherwise'
+            'xsl:output'
+            'xsl:param'
+            'xsl:preserve-space'
+            'xsl:processing-instruction'
+            'xsl:sort'
+            'xsl:strip-space'
+            'xsl:stylesheet'
+            'xsl:template'
+            'xsl:text'
+            'xsl:transform'
+            'xsl:value-of'
+            'xsl:variable'
+            'xsl:when'
+            'xsl:with-param')
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '<?xml version="1.0" encoding="ISO-8859-1" ?>'
+    ''
+    '<!DOCTYPE web-app ['
+    
+      '  <!ELEMENT web-app (icon?, display-name?, description?, distrib' +
+      'utable?,'
+    '  context-param*, filter*, filter-mapping*, listener*, servlet*,'
+    
+      '  servlet-mapping*, session-config?, mime-mapping*, welcome-file' +
+      '-list?,'
+    
+      '  error-page*, taglib*, resource-env-ref*, resource-ref*, securi' +
+      'ty-constraint*,'
+    
+      '  login-config?, security-role*, env-entry*, ejb-ref*,  ejb-loca' +
+      'l-ref*)>'
+    '  <!ELEMENT auth-constraint (description?, role-name*)>'
+    '  <!ELEMENT auth-method (#PCDATA)>'
+    
+      '  <!ELEMENT context-param (param-name, param-value, description?' +
+      ')>'
+    '  <!ELEMENT description (#PCDATA)>'
+    '  <!ELEMENT display-name (#PCDATA)>'
+    '  <!ELEMENT distributable EMPTY>'
+    '  <!ELEMENT ejb-link (#PCDATA)>'
+    
+      '  <!ELEMENT ejb-local-ref (description?, ejb-ref-name, ejb-ref-t' +
+      'ype,local-home, local, ejb-link?)>'
+    
+      '  <!ELEMENT ejb-ref (description?, ejb-ref-name, ejb-ref-type,ho' +
+      'me, remote, ejb-link?)>'
+    '  <!ELEMENT ejb-ref-name (#PCDATA)>'
+    '  <!ELEMENT ejb-ref-type (#PCDATA)>'
+    
+      '  <!ELEMENT env-entry (description?, env-entry-name, env-entry-v' +
+      'alue?,env-entry-type)>'
+    '  <!ELEMENT env-entry-name (#PCDATA)>'
+    '  <!ELEMENT env-entry-type (#PCDATA)>'
+    '  <!ELEMENT env-entry-value (#PCDATA)>'
+    '  <!ELEMENT error-code (#PCDATA)>'
+    
+      '  <!ELEMENT error-page ((error-code | exception-type), location)' +
+      '>'
+    '  <!ELEMENT exception-type (#PCDATA)>'
+    '  <!ELEMENT extension (#PCDATA)>'
+    
+      '  <!ELEMENT filter (icon?, filter-name, display-name?, descripti' +
+      'on?,filter-class, init-param*)>'
+    '  <!ELEMENT filter-class (#PCDATA)>'
+    
+      '  <!ELEMENT filter-mapping (filter-name, (url-pattern | servlet-' +
+      'name))>'
+    '  <!ELEMENT filter-name (#PCDATA)>'
+    '  <!ELEMENT form-error-page (#PCDATA)>'
+    
+      '  <!ELEMENT form-login-config (form-login-page, form-error-page)' +
+      '>'
+    '  <!ELEMENT form-login-page (#PCDATA)>'
+    '  <!ELEMENT home (#PCDATA)>'
+    '  <!ELEMENT http-method (#PCDATA)>'
+    '  <!ELEMENT icon (small-icon?, large-icon?)>'
+    '  <!ELEMENT init-param (param-name, param-value, description?)>'
+    '  <!ELEMENT jsp-file (#PCDATA)>'
+    '  <!ELEMENT large-icon (#PCDATA)>'
+    '  <!ELEMENT listener (listener-class)>'
+    '  <!ELEMENT listener-class (#PCDATA)>'
+    '  <!ELEMENT load-on-startup (#PCDATA)>'
+    '  <!ELEMENT local (#PCDATA)>'
+    '  <!ELEMENT local-home (#PCDATA)>'
+    '  <!ELEMENT location (#PCDATA)>'
+    
+      '  <!ELEMENT login-config (auth-method?, realm-name?, form-login-' +
+      'config?)>'
+    '  <!ELEMENT mime-mapping (extension, mime-type)>'
+    '  <!ELEMENT mime-type (#PCDATA)>'
+    '  <!ELEMENT param-name (#PCDATA)>'
+    '  <!ELEMENT param-value (#PCDATA)>'
+    '  <!ELEMENT realm-name (#PCDATA)>'
+    '  <!ELEMENT remote (#PCDATA)>'
+    '  <!ELEMENT res-auth (#PCDATA)>'
+    '  <!ELEMENT res-ref-name (#PCDATA)>'
+    '  <!ELEMENT res-sharing-scope (#PCDATA)>'
+    '  <!ELEMENT res-type (#PCDATA)>'
+    
+      '  <!ELEMENT resource-env-ref (description?, resource-env-ref-nam' +
+      'e,resource-env-ref-type)>'
+    '  <!ELEMENT resource-env-ref-name (#PCDATA)>'
+    '  <!ELEMENT resource-env-ref-type (#PCDATA)>'
+    
+      '  <!ELEMENT resource-ref (description?, res-ref-name, res-type, ' +
+      'res-auth,res-sharing-scope?)>'
+    '  <!ELEMENT role-link (#PCDATA)>'
+    '  <!ELEMENT role-name (#PCDATA)>'
+    '  <!ELEMENT run-as (description?, role-name)>'
+    
+      '  <!ELEMENT security-constraint (display-name?, web-resource-col' +
+      'lection+,auth-constraint?, user-data-constraint?)>'
+    '  <!ELEMENT security-role (description?, role-name)>'
+    
+      '  <!ELEMENT security-role-ref (description?, role-name, role-lin' +
+      'k?)>'
+    
+      '  <!ELEMENT servlet (icon?, servlet-name, display-name?, descrip' +
+      'tion?,'
+    
+      '    (servlet-class|jsp-file), init-param*, load-on-startup?, run' +
+      '-as?, security-role-ref*)>'
+    '  <!ELEMENT servlet-class (#PCDATA)>'
+    '  <!ELEMENT servlet-mapping (servlet-name, url-pattern)>'
+    '  <!ELEMENT servlet-name (#PCDATA)>'
+    '  <!ELEMENT session-config (session-timeout?)>'
+    '  <!ELEMENT session-timeout (#PCDATA)>'
+    '  <!ELEMENT small-icon (#PCDATA)>'
+    '  <!ELEMENT taglib (taglib-uri, taglib-location)>'
+    '  <!ELEMENT taglib-location (#PCDATA)>'
+    '  <!ELEMENT taglib-uri (#PCDATA)>'
+    '  <!ELEMENT transport-guarantee (#PCDATA)>'
+    '  <!ELEMENT url-pattern (#PCDATA)>'
+    
+      '  <!ELEMENT user-data-constraint (description?, transport-guaran' +
+      'tee)>'
+    
+      '  <!ELEMENT web-resource-collection (web-resource-name, descript' +
+      'ion?,url-pattern*, http-method*)>'
+    '  <!ELEMENT web-resource-name (#PCDATA)>'
+    '  <!ELEMENT welcome-file (#PCDATA)>'
+    '  <!ELEMENT welcome-file-list (welcome-file+)>'
+    '  <!ATTLIST auth-constraint id ID #IMPLIED>'
+    '  <!ATTLIST auth-method id ID #IMPLIED>'
+    '  <!ATTLIST context-param id ID #IMPLIED>'
+    '  <!ATTLIST description id ID #IMPLIED>'
+    '  <!ATTLIST display-name id ID #IMPLIED>'
+    '  <!ATTLIST distributable id ID #IMPLIED>'
+    '  <!ATTLIST ejb-link id ID #IMPLIED>'
+    '  <!ATTLIST ejb-local-ref id ID #IMPLIED>'
+    '  <!ATTLIST ejb-ref id ID #IMPLIED>'
+    '  <!ATTLIST ejb-ref-name id ID #IMPLIED>'
+    '  <!ATTLIST ejb-ref-type id ID #IMPLIED>'
+    '  <!ATTLIST env-entry id ID #IMPLIED>'
+    '  <!ATTLIST env-entry-name id ID #IMPLIED>'
+    '  <!ATTLIST env-entry-type id ID #IMPLIED>'
+    '  <!ATTLIST env-entry-value id ID #IMPLIED>'
+    '  <!ATTLIST error-code id ID #IMPLIED>'
+    '  <!ATTLIST error-page id ID #IMPLIED>'
+    '  <!ATTLIST exception-type id ID #IMPLIED>'
+    '  <!ATTLIST extension id ID #IMPLIED>'
+    '  <!ATTLIST filter id ID #IMPLIED>'
+    '  <!ATTLIST filter-class id ID #IMPLIED>'
+    '  <!ATTLIST filter-mapping id ID #IMPLIED>'
+    '  <!ATTLIST filter-name id ID #IMPLIED>'
+    '  <!ATTLIST form-error-page id ID #IMPLIED>'
+    '  <!ATTLIST form-login-config id ID #IMPLIED>'
+    '  <!ATTLIST form-login-page id ID #IMPLIED>'
+    '  <!ATTLIST home id ID #IMPLIED>'
+    '  <!ATTLIST http-method id ID #IMPLIED>'
+    '  <!ATTLIST icon id ID #IMPLIED>'
+    '  <!ATTLIST init-param id ID #IMPLIED>'
+    '  <!ATTLIST jsp-file id ID #IMPLIED>'
+    '  <!ATTLIST large-icon id ID #IMPLIED>'
+    '  <!ATTLIST listener id ID #IMPLIED>'
+    '  <!ATTLIST listener-class id ID #IMPLIED>'
+    '  <!ATTLIST load-on-startup id ID #IMPLIED>'
+    '  <!ATTLIST local id ID #IMPLIED>'
+    '  <!ATTLIST local-home id ID #IMPLIED>'
+    '  <!ATTLIST location id ID #IMPLIED>'
+    '  <!ATTLIST login-config id ID #IMPLIED>'
+    '  <!ATTLIST mime-mapping id ID #IMPLIED>'
+    '  <!ATTLIST mime-type id ID #IMPLIED>'
+    '  <!ATTLIST param-name id ID #IMPLIED>'
+    '  <!ATTLIST param-value id ID #IMPLIED>'
+    '  <!ATTLIST realm-name id ID #IMPLIED>'
+    '  <!ATTLIST remote id ID #IMPLIED>'
+    '  <!ATTLIST res-auth id ID #IMPLIED>'
+    '  <!ATTLIST res-ref-name id ID #IMPLIED>'
+    '  <!ATTLIST res-sharing-scope id ID #IMPLIED>'
+    '  <!ATTLIST res-type id ID #IMPLIED>'
+    '  <!ATTLIST resource-env-ref id ID #IMPLIED>'
+    '  <!ATTLIST resource-env-ref-name id ID #IMPLIED>'
+    '  <!ATTLIST resource-env-ref-type id ID #IMPLIED>'
+    '  <!ATTLIST resource-ref id ID #IMPLIED>'
+    '  <!ATTLIST role-link id ID #IMPLIED>'
+    '  <!ATTLIST role-name id ID #IMPLIED>'
+    '  <!ATTLIST run-as id ID #IMPLIED>'
+    '  <!ATTLIST security-constraint id ID #IMPLIED>'
+    '  <!ATTLIST security-role id ID #IMPLIED>'
+    '  <!ATTLIST security-role-ref id ID #IMPLIED>'
+    '  <!ATTLIST servlet id ID #IMPLIED>'
+    '  <!ATTLIST servlet-class id ID #IMPLIED>'
+    '  <!ATTLIST servlet-mapping id ID #IMPLIED>'
+    '  <!ATTLIST servlet-name id ID #IMPLIED>'
+    '  <!ATTLIST session-config id ID #IMPLIED>'
+    '  <!ATTLIST session-timeout id ID #IMPLIED>'
+    '  <!ATTLIST small-icon id ID #IMPLIED>'
+    '  <!ATTLIST taglib id ID #IMPLIED>'
+    '  <!ATTLIST taglib-location id ID #IMPLIED>'
+    '  <!ATTLIST taglib-uri id ID #IMPLIED>'
+    '  <!ATTLIST transport-guarantee id ID #IMPLIED>'
+    '  <!ATTLIST url-pattern id ID #IMPLIED>'
+    '  <!ATTLIST url-pattern beep ID #IMPLIED>'
+    '  <!ATTLIST user-data-constraint id ID #IMPLIED>'
+    '  <!ATTLIST web-app id ID #IMPLIED>'
+    '  <!ATTLIST web-resource-collection id ID #IMPLIED>'
+    '  <!ATTLIST web-resource-name id ID #IMPLIED>'
+    '  <!ATTLIST welcome-file id ID #IMPLIED>'
+    '  <!ATTLIST welcome-file-list id ID #IMPLIED>'
+    ']>'
+    ''
+    '<web-app>'
+    '    <display-name abc="123" '
+    '    def="true"></display-name>'
+    '    <description></description>'
+    '    <filter-mapping>'
+    '        <filter-name></filter-name>'
+    '        <url-pattern></url-pattern>'
+    '    </filter-mapping>'
+    '    <xsl:for-each/>'
+    '    <xsl:foreach/>'
+    '</web-app>'
+    '')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Tag Open'
+    'Tag Close'
+    'CDATA'
+    'PI'
+    'Attrib. value'
+    'CDATA end')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'xsl xslt'
+  LexerName = 'XSLT'
+  Charset = DEFAULT_CHARSET
+  Left = 140
+  Top = 160
+end

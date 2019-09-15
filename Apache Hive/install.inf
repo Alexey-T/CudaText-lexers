@@ -1,0 +1,7 @@
+[info]
+title=Apache Hive
+type=lexer
+subdir=-
+
+[lexer1]
+file=Apache Hive

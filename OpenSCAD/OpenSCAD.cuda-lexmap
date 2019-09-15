@@ -1,0 +1,35 @@
+[map]
+Marked block=-
+s_{...}=SectionBG2
+s_mod {...}=SectionBG1
+s_func eq...;=LightBG5
+s_let(...=SectionBG3
+s_cmt=Comment
+s_sym=Symbol
+s_id_function=LightBG2
+s_id_openscad_reserved=IdKeyword
+s_id_openscad_buildin_core=Id2
+s_id_openscad_builtin_action=Id3
+s_id_openscad_builtin_obj=Id4
+s_sect //.=IncludeBG2
+s_inFuncSect //:=IncludeBG1
+s_funcname=Id1
+s_modname=String2
+s_num=Number
+s_str=String
+s_bool=String3
+s_tree_func=-
+s_tree_mod=-
+s_[...]=LightBG2
+s_const=IdVar
+s_blk_sep=LightBG2
+s_curline=-
+s_invalid=IdBad
+s_inModSect //.=IncludeBG3
+s_folded=-
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=s_cmt
+styles_str=s_str

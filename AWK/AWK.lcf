@@ -1,0 +1,267 @@
+object SyntAnal4: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String regex'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Id var'
+      TokenType = 2
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 5
+      Expression = '(") (\\\1|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 4
+      Expression = '0x[\da-f]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 4
+      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 4
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String Regex'
+      StyleName = 'String regex'
+      TokenType = 5
+      Expression = '(?!=\w) / (\\/|\\\\|\[.+?\]|.)*? /'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\+\-\*\(\)\[\]\{\}\<>\.,~!&\|;:=%\^\#\$\?\\/]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BEGIN'
+            'break'
+            'continue'
+            'delete'
+            'do'
+            'else'
+            'END'
+            'exit'
+            'for'
+            'func'
+            'function'
+            'if'
+            'in'
+            'next'
+            'nextfile'
+            'return'
+            'while')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
+        end>
+      NameFmt = 'func %s-1'
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin/end'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BEGIN'
+            'END')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'BEGIN {'
+    #9're = /begin.*end/'
+    '    dashes = sp45 = sprintf("%45s", " ")'
+    '}'
+    ''
+    'NF != 3 || $2 >= 0xF0 {        # illegal data'
+    '    printf("\nline %d", NR, $0)'
+    '    next'
+    '}'
+    ''
+    'function numtowords(n,   cents, dols) { # n has 2 decimal places'
+    '    if (dols == 0)'
+    '        return "zero dollars and " cents " cents exactly"'
+    
+      '    return intowords(dols) " dollars and " cents " cents exactly' +
+      '"'
+    '}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'Number'
+    'String')
+  Extentions = 'awk'
+  LexerName = 'AWK'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Ref http://www.math.utah.edu/docs/info/gawk_22.html'
+    'Examples https://github.com/mfherbst/awk-course')
+  RestartFromLineStart = True
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

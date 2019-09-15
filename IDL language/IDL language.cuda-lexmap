@@ -1,0 +1,11 @@
+[map]
+Marked block=-
+Cmt=Comment
+Int=Number
+ResWord=IdKeyword
+Symb=Symbol
+Str=String
+
+[comments]
+styles_cmt=Cmt
+styles_str=Str

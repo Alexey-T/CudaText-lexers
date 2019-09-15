@@ -1,0 +1,395 @@
+object SyntAnal2: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id commands'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id registers'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id directives'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = ';.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Labels'
+      StyleName = 'Label'
+      Expression = '[\w\$\#@~\.\?]+:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Labels 2'
+      StyleName = 'Label'
+      Expression = '@[fb]\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[0-9a-f]+\b | [0-9][0-9a-f]*h\b | [01]+b\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id commands'
+      StyleName = 'Id commands'
+      TokenType = 2
+      Expression = 
+        '\b(v)?(aaa|aad|aam|aas|adc|add|addpd|addps|addsd|addss|addsubpd|' +
+        'addsubps|aesdec|aesdeclast|aesenc|aesenclast|aesimc|aeskeygenass' +
+        'ist|and|andpd|andps|andnpd|andnps|arpl|blendpd|bmi|blendps|blend' +
+        'vpd|blendvps|bound|bsf|bsr|bswap|bt|btc|btr|bts|cbw|cwde|cdqe|cl' +
+        'c|cld|cflush|clts|cmc|cmov(n?e|ge?|ae?|le?|be?|n?o|n?z)|cmp|cmpp' +
+        'd|cmpps|cmps|cnpsb|cmpsw|cmpsd|cmpsq|cmpss|cmpxchg|cmpxchg8b|cmp' +
+        'xchg16b|comisd|comiss|cpuid|crc32|cvtdq2pd|cvtdq2ps|cvtpd2dq|cvt' +
+        'pd2pi|cvtpd2ps|cvtpi2pd|cvtpi2ps|cvtps2dq|cvtps2pd|cvtps2pi|cvts' +
+        'd2si|cvtsd2ss|cvts2sd|cvtsi2ss|cvtss2sd|cvtss2si|cvttpd2dq|cvtpd' +
+        '2pi|cvttps2dq|cvttps2pi|cvttps2dq|cvttps2pi|cvttsd2si|cvttss2si|' +
+        'cwd|cdq|cqo|daa|das|dec|div|divpd|divps|divsd|divss|dppd|dpps|em' +
+        'ms|enter|extractps|f2xm1|fabs|fadd|faddp|fiadd|fbld|fbstp|fchs|f' +
+        'clex|fnclex|fcmov(n?e|ge?|ae?|le?|be?|n?o|n?z)|fcom|fcmop|fcompp' +
+        '|fcomi|fcomip|fucomi|fucomip|fcos|fdecstp|fdiv|fdivp|fidiv|fdivr' +
+        '|fdivrp|fidivr|ffree|ficom|ficomp|fild|fincstp|finit|fnint|fist|' +
+        'fistp|fisttp|fld|fld1|fldl2t|fldl2e|fldpi|fldlg2|fldln2|fldz|fld' +
+        'cw|fldenv|fmul|fmulp|fimul|fnop|fpatan|fprem|fprem1|fptan|frndin' +
+        't|frstor|fsave|fnsave|fscale|fsin|fsincos|fsqrt|fst|fstp|fstcw|f' +
+        'nstcw|fstenv|fnstenv|fsts(w?)|fnstsw|fsub|fsubp|fisub|fsubr|fsub' +
+        'rp|fisubr|ftst|fucom|fucomp|fucompp|fxam|fxch|fxrstor|fxsave|fxt' +
+        'ract|fyl2x|fyl2xp1|haddpd|haddps|husbpd|hsubps|idiv|imul|in|inc|' +
+        'ins|insb|insw|insd|insertps|int|into|invd|invlpg|invpcid|iret|ir' +
+        'etd|iretq|lahf|lar|lddqu|ldmxcsr|lds|les|lfs|lgs|lss|lea|leave|l' +
+        'fence|lgdt|lidt|llgdt|lmsw|lock|lods|lodsb|lodsw|lodsd|lodsq|lsl' +
+        '|ltr|maskmovdqu|maskmovq|maxpd|maxps|maxsd|maxss|mfence|minpd|mi' +
+        'nps|minsd|minss|monitor|mov|movapd|movaps|movbe|movd|movq|movddu' +
+        'p|movdqa|movdqu|movq2q|movhlps|movhpd|movhps|movlhps|movlpd|movl' +
+        'ps|movmskpd|movmskps|movntdqa|movntdq|movnti|movntpd|movntps|mov' +
+        'ntq|movq|movq2dq|movs|movsb|movsw|movsd|movsq|movsd|movshdup|mov' +
+        'sldup|movss|movsx|movsxd|movupd|movups|movzx|mpsadbw|mul|mulpd|m' +
+        'ulps|mulsd|mulss|mwait|neg|not|or|orpd|orps|out|outs|outsb|outsw' +
+        '|outsd|pabsb|pabsw|pabsd|packsswb|packssdw|packusdw|packuswb|pad' +
+        'db|paddw|paddd|paddq|paddsb|paddsw|paddusb|paddusw|palignr|pand|' +
+        'pandn|pause|pavgb|pavgw|pblendvb|pblendw|pclmulqdq|pcmpeqb|pcmpe' +
+        'qw|pcmpeqd|pcmpeqq|pcmpestri|pcmpestrm|pcmptb|pcmptgw|pcmpgtd|pc' +
+        'mpgtq|pcmpistri|pcmpisrm|pdep|pext|pextrb|pextrd|pextrq|pextrw|p' +
+        'haddw|phaddd|phaddsw|phinposuw|phsubw|phsubd|phsubsw|pinsrb|pins' +
+        'rd|pinsrq|pinsrw|pmaddubsw|pmadddwd|pmaxsb|pmaxsd|pmaxsw|pmaxsw|' +
+        'pmaxub|pmaxud|pmaxuw|pminsb|pminsd|pminsw|pminub|pminud|pminuw|p' +
+        'movmskb|pmovsx|pmovzx|pmuldq|pmulhrsw|pmulhuw|pmulhw|pmulld|pmul' +
+        'lw|pmuludw|pop|popa|popad|popcnt|popf|popfd|popfq|por|prefetch|p' +
+        'sadbw|pshufb|pshufd|pshufhw|pshuflw|pshufw|psignb|psignw|psignd|' +
+        'pslldq|psllw|pslld|psllq|psraw|psrad|psrldq|psrlw|psrld|psrlq|ps' +
+        'ubb|psubw|psubd|psubq|psubsb|psubsw|psubusb|psubusw|test|ptest|p' +
+        'unpckhbw|punpckhwd|punpckhdq|punpckhddq|punpcklbw|punpcklwd|punp' +
+        'ckldq|punpckldqd|push|pusha|pushad|pushf|pushfd|pxor|prcl|rcr|ro' +
+        'l|ror|rcpps|rcpss|rdfsbase|rdgsbase|rdmsr|rdpmc|rdrand|rdtsc|rdt' +
+        'scp|rep|repe|repz|repne|repnz|roundpd|roundps|roundsd|roundss|rs' +
+        'm|rsqrps|rsqrtss|sahf|sal|sar|shl|shr|sbb|scas|scasb|scasw|scasd' +
+        '|set(n?e|ge?|ae?|le?|be?|n?o|n?z)|sfence|sgdt|shld|shrd|shufpd|s' +
+        'hufps|sidt|sldt|smsw|sqrtpd|sqrtps|sqrtsd|sqrtss|stc|std|stmxcsr' +
+        '|stos|stosb|stosw|stosd|stosq|str|sub|subpd|subps|subsd|subss|sw' +
+        'apgs|syscall|sysenter|sysexit|sysret|teset|ucomisd|ucomiss|ud2|u' +
+        'npckhpd|unpckhps|unpcklpd|unpcklps|vbroadcast|vcvtph2ps|vcvtp2sp' +
+        'h|verr|verw|vextractf128|vinsertf128|vmaskmov|vpermilpd|vpermilp' +
+        's|vperm2f128|vtestpd|vzeroall|vzeroupper|wait|fwait|wbinvd|wrfsb' +
+        'ase|wrgsbase|wrmsr|xadd|xchg|xgetbv|xlat|xlatb|xor|xorpd|xorps|x' +
+        'rstor|xsave|xsaveopt|xsetbv|lzcnt|extrq|insertq|movntsd|movntss|' +
+        'vfmaddpd|vfmaddps|vfmaddsd|vfmaddss|vfmaddsubbpd|vfmaddsubps|vfm' +
+        'subaddpd|vfmsubaddps|vfmsubpd|vfmsubps|vfmsubsd|vfnmaddpd|vfnmad' +
+        'dps|vfnmaddsd|vfnmaddss|vfnmsubpd|vfnmusbps|vfnmusbsd|vfnmusbss|' +
+        'vbroadcastss|vbroadcastsd|vbroadcastf128|vmaskmovps|vmaskmovpd|c' +
+        'vt|xor|cli|sti|hlt|nop|lock|wait|enter|leave|ret|loop(n?e|n?z)?|' +
+        'call|j(mp|n?e|n?ge?|n?ae?|le?|be?|n?o|n?z|n?c|n?p|n?b)|bnd|nobnd' +
+        '|xacquire|xrelease)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id registers'
+      StyleName = 'Id registers'
+      TokenType = 2
+      Expression = 
+        '\b(RBP|EBP|BP|CS|DS|ES|FS|GS|SS|RAX|EAX|RBX|EBX|RCX|ECX|RDX|EDX|' +
+        'RIP|EIP|IP|RSP|ESP|SP|RSI|ESI|SI|RDI|EDI|DI|RFLAGS|EFLAGS|FLAGS|' +
+        'R(8|9|10|11|12|13|14|15)(d|w|b)?|(Y|X)MM([0-9]|10|11|12|13|14|15' +
+        ')|(A|B|C|D)(X|H|L)|CR[0-4]|DR[0-7]|TR6|TR7|EFER)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id directives'
+      StyleName = 'Id directives'
+      TokenType = 2
+      Expression = 
+        '(?-i)(struc|endstruc|%macro|%endmacro|%define|%ifndef|%xdefine|%' +
+        'idefine|%undef|%assign|%defstr|%strcat|%strlen|%substr|%00|%0|%r' +
+        'otate|%rep|%endrep|%include|\\$\\$|\\$|%unmacro|%if|%elif|%else|' +
+        '%endif|%(el)?ifdef|%(el)?ifmacro|%(el)?ifctx|%(el)?ifidn|%(el)?i' +
+        'fidni|%(el)?ifid|%(el)?ifnum|%(el)?ifstr|%(el)?iftoken|%(el)?ife' +
+        'mpty|%(el)?ifenv|%pathsearch|%depend|%use|%push|%pop|%repl|%arg|' +
+        '%stacksize|%local|%error|%warning|%fatal|%line|%!|%comment|%endc' +
+        'omment|__NASM_VERSION_ID__|__NASM_VER__|__FILE__|__LINE__|__BITS' +
+        '__|__OUTPUT_FORMAT__|__DATE__|__TIME__|__DATE_NUM__|_TIME__NUM__' +
+        '|__UTC_DATE__|__UTC_TIME__|__UTC_DATE_NUM__|__UTC_TIME_NUM__|__P' +
+        'OSIX_TIME__|__PASS__|ISTRUC|AT|IEND|BITS 16|BITS 32|BITS 64|USE1' +
+        '6|USE32|__SECT__|ABSOLUTE|EXTERN|GLOBAL|COMMON|CPU|FLOAT|use16|u' +
+        'se32|use64|org|include|dup)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id types'
+      StyleName = 'Id types'
+      TokenType = 2
+      Expression = 
+        '\b(d(b|w|d|q|t|o|y|z)|res(b|w|d|q|t|o|y|z)|equ|times|align|align' +
+        'b|sectalign|section|ptr|byte|word|dword|qword|incbin)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '%?[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39').*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\.,:\-\+\*\\/%@<>\(\)\[\]\{\}\?=]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'struc begin'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'struc')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'struc end'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'struc end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endstruc')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'macro begin'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '%macro')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'macro end'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'macro end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '%endmacro')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'cmt begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '%comment')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'cmt end'
+      NameFmt = '%s0'
+      HighlightPos = cpAny
+      CollapseFmt = '%s0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'cmt end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '%endcomment')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    ';Comment'
+    #39'Test'#39', "Test", 0011b, 20, 0xFF, 0Fh, 1.2e3, 1.2e-3'
+    '__DATE__, %!, CPU, cpu, dword,  @f'
+    ''
+    'struc Name'
+    '  db 0'
+    'endstruc'
+    ''
+    '%macro Name'
+    '  mov ax, 0'
+    '  CMP dx, 0xFF'
+    '%endmacro'
+    ''
+    '%comment'
+    '  aa0_$#@~.?:   mov eax, 0 '
+    '  dt 0'
+    '%endcomment'
+    ''
+    '%define'
+    '%undef')
+  TokenTypeNames.Strings = (
+    'Label'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number')
+  Extentions = 'asm inc nasm'
+  LexerName = 'Assembly NASM x86'
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Regex'#39'es are cloned from Sublime Text lexer'
+    'https://github.com/Nessphoro/sublimeassembly')
+  LineComment = ';'
+  Charset = DEFAULT_CHARSET
+end

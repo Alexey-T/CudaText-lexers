@@ -1,0 +1,7 @@
+[info]
+title=Autoconf M4
+type=lexer
+subdir=-
+
+[lexer1]
+file=Autoconf M4

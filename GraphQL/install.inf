@@ -1,0 +1,7 @@
+[info]
+title=GraphQL
+type=lexer
+subdir=-
+
+[lexer1]
+file=GraphQL

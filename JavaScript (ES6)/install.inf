@@ -1,0 +1,7 @@
+[info]
+title=JavaScript (ES6)
+type=lexer
+subdir=-
+
+[lexer1]
+file=JavaScript (ES6)

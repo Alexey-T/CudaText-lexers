@@ -1,0 +1,547 @@
+object SyntAnal2: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Prop'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Block text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clSkyBlue
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Block listing'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 10467809
+    end
+    item
+      DisplayName = 'Block source'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+    end
+    item
+      DisplayName = 'Block literal'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14795746
+    end
+    item
+      DisplayName = 'Block open'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clYellow
+    end
+    item
+      DisplayName = 'Block pass'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clAqua
+    end
+    item
+      DisplayName = 'Block quote'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16755884
+    end
+    item
+      DisplayName = 'Block sidebar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clSilver
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Attrib'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Block3'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Block2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Block1'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Entity'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Term'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Pass'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'ListItem'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Header'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Link'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Title'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Text bold'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Text italic'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)^(/{4,})\x20*$ .+? ^\1\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Prop'
+      StyleName = 'Prop'
+      TokenType = 4
+      Expression = '^:\w[\w\-]*:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block text'
+      StyleName = 'Block text'
+      Expression = '(?s)^(={4,})\x20*$ .+? ^\1\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block listing'
+      StyleName = 'Block listing'
+      Expression = '(?s)^(\-{4,})\x20*$ .+? ^\1\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block source'
+      StyleName = 'Block source'
+      Expression = '(?s) ^```\w*\x20*$ .+? ^```\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block literal'
+      StyleName = 'Block literal'
+      Expression = '(?s)^(\.{4,})\x20*$ .+? ^\1\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block open'
+      StyleName = 'Block open'
+      Expression = '(?s)^\-\-\x20*$ .+? ^\-\-\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block pass'
+      StyleName = 'Block pass'
+      Expression = '(?s)^(\+{4,})\x20*$ .+? ^\1\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block quote'
+      StyleName = 'Block quote'
+      Expression = '(?s)^(_{4,})\x20*$ .+? ^\1\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block sidebar'
+      StyleName = 'Block sidebar'
+      Expression = '(?s)^(\*{4,})\x20*$ .+? ^\1\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      TokenType = 5
+      Expression = '<\d+> |'#13#10'<<.*?>>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label2'
+      StyleName = 'Label'
+      TokenType = 5
+      Expression = '^\w[\w\-\+\x20]*::'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label note'
+      StyleName = 'Label'
+      TokenType = 5
+      Expression = '^[A-Z]+:\x20'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Attrib'
+      StyleName = 'Attrib'
+      Expression = '\{\w[\w\-]*\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block3'
+      StyleName = 'Block3'
+      Expression = '\[\[\[[^\[]*?\]\]\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block2'
+      StyleName = 'Block2'
+      Expression = '\[\[[^\[]*?\]\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block1'
+      StyleName = 'Block1'
+      Expression = '\[[^\[]*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Entity'
+      StyleName = 'Entity'
+      Expression = '&\#x?[0-9a-fA-F]{2,4}; |'#13#10'&\w+;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Term'
+      StyleName = 'Term'
+      Expression = '\(\([^\(\x20]*?\)\) |'#13#10'\(\(\([^\(]*?\)\)\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Pass'
+      StyleName = 'Pass'
+      Expression = 'pass:{1,2}\S*\[.*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'List item'
+      StyleName = 'ListItem'
+      TokenType = 6
+      Expression = '^\x20* [\.\*\-\+]+\x20 | ^\+$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Header'
+      StyleName = 'Header'
+      TokenType = 7
+      Expression = '^=+\x20.+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Link'
+      StyleName = 'Link'
+      Expression = '(image|include|link|https?|ftp):+.*?\[.*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Title'
+      StyleName = 'Title'
+      Expression = '^\.\w.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Header 2'
+      StyleName = 'Header'
+      TokenType = 7
+      Expression = '^\w.*$\n={2,}$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      Expression = '\\[-`*_\#+.!\(\)\{\}\[\]\\>:\|] | '#39#39#39' | \| | ='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Line literal'
+      StyleName = 'Block literal'
+      Expression = '^$\z ^\x20+\w.*$ \z\z'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Line break'
+      StyleName = 'Block literal'
+      Expression = '+$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text bold'
+      StyleName = 'Text bold'
+      TokenType = 2
+      Expression = '\*[^\*\n]+?\* | \*\*\w+?\*\*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text italic'
+      StyleName = 'Text italic'
+      TokenType = 2
+      Expression = #39'(\\'#39'|[^'#39'\n])+?'#39' | __\w+?__'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      TokenType = 2
+      Expression = '.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Header'
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0'
+      SelfClose = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '////'
+    'comment'
+    '////'
+    
+      '<20> and <<Tst>> and {attr} &#x200A; and &#280; and &nbsp; and \' +
+      '# and \* '
+    'and ((Name)) and (((Name1, Name2)))  and pass::[Lorem ipsum]'
+    'and [[block2]] [block1] [[[block3]]] EOL: +'
+    '. Item'
+    '++ Item'
+    'Label here::'
+    'NOTE: text'
+    ''
+    '== Header'
+    '.Inline markup'
+    '* single quotes around a phrase place '#39'emphasis'#39
+    '* astericks around a phrase make the text *bold*'
+    
+      '* double astericks around one or more **l**etters in a word make' +
+      ' those letters bold'
+    
+      '* double underscore around a __sub__string in a word emphasize t' +
+      'hat substring'
+    '* and escaped: '#39'Here\'#39's Johnny!'#39
+    ''
+    '.Title'
+    'image::images/tiger.png[] and image:images/tiger.png[Tiger]'
+    ''
+    ' Literal line'
+    ''
+    '===='
+    'text block'
+    '===='
+    '----'
+    'listing'
+    '----'
+    '```rb'
+    'code'
+    '```'
+    '....'
+    'literal'
+    '....'
+    '--'
+    'open'
+    '--'
+    '++++'
+    'pass'
+    '++++'
+    '____'
+    'quote'
+    '____'
+    '****'
+    'sidebar'
+    '****'
+    '<24>')
+  TokenTypeNames.Strings = (
+    'Uknown'
+    'Comment'
+    'Text'
+    'Codeblock'
+    'Prop'
+    'Label'
+    'List'
+    'Header')
+  Extentions = 'adoc ad asciidoc'
+  LexerName = 'AsciiDoc'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,7 @@
+[info]
+title=VimL
+type=lexer
+subdir=-
+
+[lexer1]
+file=VimL

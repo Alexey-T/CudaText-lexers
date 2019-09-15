@@ -1,0 +1,68 @@
+object SyntAnal43: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftColor
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Word1st'
+      TokenType = 1
+      Expression = '^[\x20\x09]* .+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Word'
+      Expression = '.+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'block begin'
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      EndOfTextClose = True
+      DisplayInTree = False
+      NameFmt = '"%s0"'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      GroupIndex = 20
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'test'
+    '  test'
+    '    test'
+    '  #test tt'
+    '    test'
+    '    test'
+    '  @test tt'
+    '    test'
+    '    test   '
+    '    '
+    'test tt'
+    '  test tt'
+    '  test tt'
+    '       ')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    '1st word')
+  LexerName = 'Text with indentation'
+  SkipSpaces = False
+  FullRefreshSize = 40000
+  Notes.Strings = (
+    'Demo lexer to show indentation-based folding.')
+  Charset = DEFAULT_CHARSET
+end

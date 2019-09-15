@@ -1,0 +1,7 @@
+[info]
+title=Logfiles
+type=lexer
+subdir=-
+
+[lexer1]
+file=Logfiles

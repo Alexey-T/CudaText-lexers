@@ -1,0 +1,7 @@
+[info]
+title=Verilog HDL
+type=lexer
+subdir=-
+
+[lexer1]
+file=Verilog HDL

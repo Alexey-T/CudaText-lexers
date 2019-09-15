@@ -1,0 +1,7 @@
+[info]
+title=SQL
+type=lexer
+subdir=-
+
+[lexer1]
+file=SQL

@@ -1,0 +1,164 @@
+object SyntAnal116: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Modifiers'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsUnderline]
+    end
+    item
+      DisplayName = 'Key chars'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'block {}'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'block []'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Chars'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clLime
+    end
+    item
+      DisplayName = 'Repeaters'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Modifiers'
+      StyleName = 'Modifiers'
+      TokenType = 9
+      Expression = '\(\?.+?\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Block {}'
+      StyleName = 'block {}'
+      Expression = '\{.+?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Repeaters'
+      StyleName = 'Repeaters'
+      TokenType = 3
+      Expression = '[\+\*\?]\??'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '[]'
+      StyleName = 'block []'
+      Expression = '[\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Key chars'
+      StyleName = 'Key chars'
+      TokenType = 2
+      Expression = '[\.\|\$\^]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Key as char'
+      StyleName = 'Chars'
+      TokenType = 4
+      Expression = '\\.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Chars'
+      TokenType = 4
+      Expression = '[^()\[\]{}+*?-|$^.]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '# float definition example'
+    ''
+    '\d+\.?\d+e[\+\-]?\d+|\d+\.\d+')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Preprocessor')
+  MarkedBlockStyle = 'Marked block'
+  DefaultStyleName = 'Default'
+  LexerName = 'Regular expressions'
+  Charset = DEFAULT_CHARSET
+end

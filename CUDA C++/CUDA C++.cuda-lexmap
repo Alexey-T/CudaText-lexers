@@ -1,0 +1,19 @@
+[map]
+Symbol=Symbol
+Number=Number
+String=String
+Comment=Comment
+Id=Id
+Id keyword=IdKeyword
+Preprocessor=Id3
+Current block=BracketBG
+Id qualifier=Id4
+Id type=Id2
+Id var=IdVar
+Id func=Id1
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

@@ -1,0 +1,7 @@
+[info]
+title=Scilab
+type=lexer
+subdir=-
+
+[lexer1]
+file=Scilab

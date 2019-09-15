@@ -1,0 +1,14 @@
+[map]
+Comment=Comment
+String=String
+Symbol=Symbol
+Num=Number
+Tag=TagId
+Var=IdVar
+Id=Id
+Id keyw=IdKeyword
+Class=Id1
+
+[comments]
+styles_cmt=Comment
+styles_str=String

@@ -1,0 +1,8 @@
+[info]
+title=Harbour
+type=lexer
+subdir=-
+
+[lexer1]
+file=Harbour
+link1=C

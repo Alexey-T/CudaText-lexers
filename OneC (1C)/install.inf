@@ -1,0 +1,7 @@
+[info]
+title=OneC (1C)
+type=lexer
+subdir=-
+
+[lexer1]
+file=OneC (1C)

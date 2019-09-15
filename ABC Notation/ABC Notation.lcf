@@ -1,0 +1,146 @@
+object SyntAnal9: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Prefix'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Str Desc'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Str Quote'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      Expression = '%.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Prefix'
+      StyleName = 'Prefix'
+      TokenType = 1
+      Expression = '\b[a-z]:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str1'
+      StyleName = 'Str Desc'
+      TokenType = 2
+      Expression = '(?<=\b[a-z]:) .+? (?=[%\[\]])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str2'
+      StyleName = 'Str Desc'
+      TokenType = 2
+      Expression = '(?<=\b[a-z]:) .+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 4
+      Expression = '[\[\]\(\)\{\}/\|\:;\-\+,\.<>\\=~!'#39'`]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StrQuote'
+      StyleName = 'Str Quote'
+      TokenType = 2
+      Expression = '".+?"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      TokenType = 3
+      Expression = '.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '%abc-2.1'
+    'H:This file contains some example '
+    '% note that the comments '
+    ' X:1                   % tune no 1'
+    'C:Trad.               % traditional'
+    'R:DH                  % double hornpipe'
+    'K:G                   % key'
+    'B>cd BAG|FA Ac BA|B>cd BAG|DG GB AG:|'
+    'Bdd gfg|aA Ac BA|Bdd gfa|gG GB AG:|'
+    'P:(AB)2(AC)2A                 % play the parts in this order'
+    'M:6/8'
+    'K:G                        '
+    
+      '[P:A] D|"G"G2G GBd|"C"e2e "G"dBG|"D7"A2d "G"BAG|"C"E2"D7"F "G"G2' +
+      ':|'
+    
+      '[P:B] d|"G"e2d B2d|"C"gfe "G"d2d| "G"e2d    B2d|"C"gfe    "D7"d2' +
+      'c|'
+    
+      '        "G"B2B Bcd|"C"e2e "G"dBG|"D7"A2d "G"BAG|"C"E2"D7"F "G"G2' +
+      ':|'
+    'w: sol de-si-o_. % more lyrics'
+    '[V: 2] ABGA  |G2AA|GF=EF |(GF3/2=E//D//E)|1F2z2:|2F8|]')
+  TokenTypeNames.Strings = (
+    'Comment'
+    'Prefix'
+    'String'
+    'Text'
+    'Symbol')
+  Extentions = 'abc'
+  LexerName = 'ABC Notation'
+  Notes.Strings = (
+    'Alexey (Synwrite)'
+    'Test: https://github.com/jimhawkridge/SublimeABC')
+  Charset = DEFAULT_CHARSET
+end

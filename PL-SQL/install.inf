@@ -1,0 +1,7 @@
+[info]
+title=PL-SQL
+type=lexer
+subdir=-
+
+[lexer1]
+file=PL-SQL

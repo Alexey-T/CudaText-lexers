@@ -1,0 +1,1428 @@
+object SyntAnal66: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 's_{...}'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16777190
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 's_mod {...}'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16777212
+      FormatType = ftBackGround
+      BorderTypeLeft = blWavyLine
+      BorderColorLeft = clBlue
+      BorderTypeTop = blDot
+      BorderColorTop = clSkyBlue
+      BorderTypeRight = blWavyLine
+      BorderColorRight = clBlue
+      BorderTypeBottom = blDot
+      BorderColorBottom = clSkyBlue
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 's_func eq...;'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftBackGround
+      BorderColorLeft = clOlive
+      BorderTypeTop = blDot
+      BorderColorTop = 7929855
+      BorderTypeRight = blSolid2
+      BorderColorRight = clOlive
+      BorderTypeBottom = blDot
+      BorderColorBottom = 14483455
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 's_let(...'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15794175
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 's_cmt'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 's_sym'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 's_id_function'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2905686
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 's_id_openscad_reserved'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsUnderline]
+    end
+    item
+      DisplayName = 's_id_openscad_buildin_core'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 's_id_openscad_builtin_action'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 's_id_openscad_builtin_obj'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 16777205
+    end
+    item
+      DisplayName = 's_sect //.'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 13224338
+      Font.Height = -13
+      Font.Name = 'Liberation Sans'
+      Font.Style = [fsBold]
+      BgColor = clBlack
+      FormatType = ftCustomFont
+      BorderTypeLeft = blSolid
+      BorderTypeTop = blSolid
+      BorderTypeRight = blSolid
+      BorderTypeBottom = blSolid
+    end
+    item
+      DisplayName = 's_inFuncSect //:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsUnderline]
+      BgColor = 15658717
+    end
+    item
+      DisplayName = 's_funcname'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 25700
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsUnderline]
+      BgColor = clCream
+    end
+    item
+      DisplayName = 's_modname'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsUnderline]
+      BgColor = 16777210
+    end
+    item
+      DisplayName = 's_num'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 's_str'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 's_bool'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 's_tree_func'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'DejaVu Sans Mono'
+      Font.Style = []
+      BgColor = 15466495
+    end
+    item
+      DisplayName = 's_tree_mod'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'DejaVu Sans Mono'
+      Font.Style = []
+      BgColor = 16777195
+    end
+    item
+      DisplayName = 's_[...]'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftBackGround
+      BorderTypeTop = blDot
+      BorderColorTop = clSilver
+      BorderTypeRight = blSolid2
+      BorderTypeBottom = blDot
+      BorderColorBottom = clSilver
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 's_const'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 28637
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 's_blk_sep'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clBlue
+    end
+    item
+      DisplayName = 's_curline'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15856098
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 's_invalid'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 's_inModSect //.'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsUnderline]
+      BgColor = 15790305
+    end
+    item
+      DisplayName = 's_folded'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGrayText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'p_fname'
+      StyleName = 's_funcname'
+      TokenType = 2
+      Expression = '((?<=function\s)\w+|(?<=module\s)\w+)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_modname'
+      Enabled = False
+      StyleName = 's_modname'
+      TokenType = 2
+      Expression = '(?<=module\s)\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_funcname'
+      Enabled = False
+      StyleName = 's_tree_func'
+      TokenType = 2
+      Expression = '(?<=function\s)\w+'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_invalid_id'
+      StyleName = 's_invalid'
+      Expression = '(\w+\$\w*|false|NaN|undef)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_const'
+      StyleName = 's_const'
+      TokenType = 2
+      Expression = 
+        '(?-i)  # Turn off i flag, making it distinguish capitals'#13#10'\b?   ' +
+        ' # Start with word boundary'#13#10'\$?    # Start with $ or not'#13#10'[A-Z_' +
+        '0-9]*'#13#10'[A-Z]+     # At least one capital letter '#13#10'[A-Z_0-9]*'#13#10'(?' +
+        '!\() # Not followed by "(" '#39'cos it means'#13#10'       # func or mod n' +
+        'ame'#13#10'\b     # End with word boundary'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_bool'
+      StyleName = 's_num'
+      TokenType = 2
+      Expression = '#(true|false|NaN|undef)'#13#10'true'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_id'
+      TokenType = 2
+      Expression = 
+        '(\$[0-9]*|[0-9]*[A-Za-z_]+)[A-Za-z_0-9]*'#13#10'# For OpenSCAD, these ' +
+        'are valid identifiers: '#13#10'#   $123, 123ab_'#13#10'# These are not :'#13#10'# ' +
+        '  123, 123$a, abc$def '#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_sect //.'
+      StyleName = 's_sect //.'
+      TokenType = 6
+      Expression = 
+        '^//\.\s.*\z'#13#10'# This is the section header. The last char '#13#10'# BEF' +
+        'ORE this header must be recognizable by'#13#10'# a parser. In the code' +
+        ' below, it'#39's either a'#13#10'# text (p_id) or a symbol (p_sym)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_inModSect //.'
+      StyleName = 's_inModSect //.'
+      TokenType = 8
+      Expression = 
+        '(?<!(^|/)) # Must not preceded by a ^ (line begin)'#13#10'           #' +
+        ' or / (which makes it more than 3 ///)'#13#10'//\.\s.*    '#13#10'#\z       ' +
+        '# If \z, the highlighted background will'#13#10'          #   extend t' +
+        'o the right edge of editor'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_inFuncSect //:'
+      StyleName = 's_inFuncSect //:'
+      TokenType = 7
+      Expression = 
+        '(?<!(^|/)) # Must not preceded by a ^ (line begin)'#13#10'           #' +
+        ' or / (which makes it more than 3 ///)'#13#10'//\:\s.*    '#13#10'#\z       ' +
+        '# If \z, the highlighted background will'#13#10'          #   extend t' +
+        'o the right edge of editor'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_//'
+      StyleName = 's_cmt'
+      TokenType = 1
+      Expression = '(?x)//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_/**/'
+      StyleName = 's_cmt'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_num'
+      StyleName = 's_num'
+      TokenType = 10
+      Expression = '-?\d*\.?\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_sym'
+      StyleName = 's_sym'
+      TokenType = 3
+      Expression = '[\{\},\<\>;\#\(\)\[\]=\.\*\+\$-\?/&]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_str "..."'
+      StyleName = 's_str'
+      TokenType = 4
+      Expression = '(?s)"(\\"|.)*?("|\Z)'#13#10'#"(\\"|.)*?"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_id0'
+      Enabled = False
+      TokenType = 2
+      Expression = '\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'p_subsect //..'
+      Expression = '^//\.\.\s.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'r_sect //.'
+      ConditionList = <
+        item
+          TokenTypes = 2112
+        end>
+      EndOfTextClose = True
+      NameFmt = '%s0'
+      HighlightPos = cpBound
+      CollapseFmt = '%s0'
+      SelfClose = True
+      TreeItemStyle = 's_sect //.'
+      IgnoreAsParent = True
+    end
+    item
+      DisplayName = 'r_module <id>(...) {'
+      StyleName = 's_mod {...}'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2046
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'module')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'r...}'
+      EndOfTextClose = True
+      NameFmt = '%s-1 %s-2~s[)]'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%s0 %s-1(...) '
+      TreeItemStyle = 's_tree_mod'
+      Pen.Color = clSkyBlue
+      Pen.Style = psDot
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_inFuncSect //:'
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end>
+      BlockEnd = 'r_inFuncSect //: end'
+      EndOfTextClose = True
+      NameFmt = '%s0'
+      HighlightPos = cpAny
+      DynSelectMin = True
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%s0'
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_inModSect //.'
+      ConditionList = <
+        item
+          TokenTypes = 256
+        end>
+      BlockEnd = 'r_inModSect //. end'
+      EndOfTextClose = True
+      NameFmt = '%s0'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%s0'
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_;'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_id_openscad_reserved'
+      StyleName = 's_id_openscad_reserved'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'else'
+            'for'
+            'function'
+            'if'
+            'import'
+            'include'
+            'let'
+            'module'
+            'use')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r <Id>(...) {...'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 1599
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      BlockEnd = 'r...}'
+      EndOfTextClose = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '{...}'
+      Pen.Color = clSkyBlue
+      Pen.Style = psDot
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_inModSect //. end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 264
+        end>
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r else {...'
+      StyleName = 's_{...}'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'else')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'r...}'
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '{...}'
+      Pen.Color = clSkyBlue
+      Pen.Style = psDot
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r...}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_func <id>(...)=...'
+      Enabled = False
+      StyleName = 's_func =...;'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 1086
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'r_;'
+      EndOfTextClose = True
+      NameFmt = '%s-1 %s-2~s[)]'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%s0 %s-1(...) '
+      TreeItemStyle = 's_tree_func'
+      Pen.Color = clMoneyGreen
+      Pen.Style = psDot
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_blk_sep'
+      Enabled = False
+      StyleName = 's_blk_sep'
+      BlockName = 'r_module <id>(...) {'
+      BlockType = btLineBreak
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'module')
+          TokenTypes = 4
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_let(...'
+      StyleName = 's_let(...'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'let')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'r_)'
+      DisplayInTree = False
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = ' let(...)'
+      Pen.Color = clMoneyGreen
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_cmt_blockbeg'
+      StyleName = 's_cmt'
+      BlockName = 'r_cmt_blockbeg'
+      NotParent = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'r_cmt_blockend'
+      EndOfTextClose = True
+      DisplayInTree = False
+      RefToCondEnd = True
+      DynHighlight = dhRangeNoBound
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = ' //...'
+      SelfClose = True
+      Pen.Color = clMoneyGreen
+      Pen.Style = psDot
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_cmt_blockend'
+      BlockName = 'r_cmt_blockbeg'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 2
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_('
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'r_)'
+      EndOfTextClose = True
+      NotCollapsed = True
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DynSelectMin = True
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_)'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_id_openscad_builtin_core'
+      StyleName = 's_id_openscad_buildin_core'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '$children'
+            '$fa'
+            '$fn'
+            '$fs'
+            '$t'
+            '$vpd'
+            '$vpr'
+            '$vpt'
+            'abs'
+            'acos'
+            'asin'
+            'atan'
+            'atan2'
+            'ceil'
+            'children'
+            'chr'
+            'concat'
+            'cos'
+            'cross'
+            'echo'
+            'exp'
+            'floor'
+            'intersection_for'
+            'len'
+            'let'
+            'linear_extrude'
+            'ln'
+            'log'
+            'lookup'
+            'max'
+            'min'
+            'norm'
+            'parent_module'
+            'pow'
+            'rands'
+            'rotate_extrude'
+            'round'
+            'search'
+            'sign'
+            'sin'
+            'sqrt'
+            'str'
+            'tan'
+            'version'
+            'version_num')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_id_openscad_builtin_action'
+      StyleName = 's_id_openscad_builtin_action'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'color'
+            'difference'
+            'hull'
+            'intersection'
+            'minkowski'
+            'mirror'
+            'multmatrix'
+            'offset'
+            'resize'
+            'rotate'
+            'scale'
+            'translate'
+            'union')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_id_openscad_builtin_obj'
+      StyleName = 's_id_openscad_builtin_obj'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'circle'
+            'cube'
+            'cylinder'
+            'polygon'
+            'polyhedron'
+            'sphere'
+            'square'
+            'text')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_module<id>(~)<cmt>{'
+      StyleName = 's_mod {...}'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TagList.Strings = (
+            ')')
+          CondType = tcSkip
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2044
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'module')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'r...}'
+      EndOfTextClose = True
+      NameFmt = '%s-1 %s-2~s[)]'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '%0 %s-1(...) '
+      TreeItemStyle = 's_tree_mod'
+      Pen.Color = clSkyBlue
+      Pen.Style = psDot
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_[...'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'r_...]'
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = ' [...] '
+      Pen.Color = clSilver
+      Pen.Style = psInsideFrame
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_...]'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_func <id>('
+      StyleName = 's_func =...;'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'r_;'
+      NameFmt = '%s-1~s[)]'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DrawStaple = True
+      CollapseFmt = '%s0~s[)] '
+      TreeItemStyle = 's_tree_func'
+      Pen.Color = clOlive
+      Pen.Style = psInsideFrame
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'r_inFuncSect //: end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 136
+        end>
+      BlockOffset = 1
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '//. About'
+    
+      '// This is an OpenSCAD document to demo SynWrite OpenSCAD lexer ' +
+      'highlighting'
+    '// By: Runsun Pan, Dec 2015'
+    ''
+    '// Using "//. " at beginning of line for section'
+    '//       "//. " inside a module for in-module sections'
+    '//       "//: " inside a func for in-func section'
+    ''
+    '//. String, Symbol, Number, boolean'
+    '"abc", "What \"Solid\" means"'
+    ' { } , < > ; # ( ) [ ] = . * + $ - ? / &'
+    '123, 23.56, (-456), 0.0023, a-34, a - 34'
+    'true false, undef, NaN'
+    '//. Id'
+    
+      '// Id (Identifiers) are set up using: an <Identifier> token, a c' +
+      'omon '
+    '// id parser (p_id), specific parsers to match word pattern if '
+    '// needed (like, constant) and rules of type "Tag detector" '
+    
+      '// to list keywords if needed. They are styled with correspondin' +
+      'g styles'
+    ''
+    '// valid identifiers (function name, module name, variable)'
+    'abc, _abc, _12, abc12, 12abc, 12_, $abc  '
+    '// invalid identifiers :'
+    'a$bc 12$ A$bc '
+    '// constant (all capital)'
+    '_SCALE, UCONV_TABLE,  $ABC, _A12, 12A'
+    '// All cap followed by "(" is a mod or func name:'
+    'ABC(, BODY_ARM('
+    '//. Id: Reserved'
+    '// Reserved words, can'#39't be changed'
+    '// Define : Rules/r_id_openscad_reserved/Conditions'
+    '// style : Style/s_id_reserved'
+    'else for function if import include let module use'
+    '//. Id: Builtin.Core'
+    '// Builtins can be overwritten:'
+    
+      '$children $fa $fn $fs $t $vpd $vpr $vpt abs acos asin atan atan2' +
+      ' ceil children '
+    'chr concat'
+    '//. Id: Builtin.Actions'
+    '// OpenSCAD builtins representing an operation: '
+    
+      'color difference hull intersection minkowski mirror multmatrix o' +
+      'ffset resize '
+    'rotate scale translate union'
+    '/// Id - Builtin.Object'
+    
+      'circle cube cylinder polygon polyhedron sphere square text      ' +
+      ' '
+    '          '
+    '//. Blocks'
+    
+      '// Blocks are setup mainly using Rules (Rules have 4 types: Rang' +
+      'e Start,'
+    '// Range End, Tag Detector, and Line Separator). '
+    '// Some rules don'#39't have Range End.'
+    '            '
+    '//. Block: Comment'
+    ' a=3; // Continuous comments can be folded together:'
+    ''
+    '// line cmt2'
+    '/* '
+    '   multiline '
+    '   cmt'
+    '*/'
+    '// line 3 '
+    ''
+    '//. Block: Operation'
+    '// OpenSCAD operation block: '
+    '//   Start rule: r<id>(...){'
+    '//   End rule  : r...}'
+    ''
+    '    union(){   '
+    '       translate( pq[0])'
+    '       sphere( r= r*mm ); '
+    '               '
+    '       translate( pq[1])'
+    '       sphere( r= r*mm);          '
+    '    } '
+    ''
+    '//. Block: For/If loop'
+    '// Share same rules w/ the "Operation Block"'
+    ''
+    '    for(i=[0:3]){'
+    '      if(a==0){'
+    '        xxx;'
+    '      } else {'
+    '        bbb;'
+    '      }'
+    '      ddd;'
+    '    }'
+    '    '
+    '//. Block: Function    '
+    '// Function block:'
+    '//  Start_Rule: r_func <id>('
+    '//  End_Rule  : r_;'
+    ''
+    '// let() inside function is foldable'
+    '//    Start_Rule= r_let(, End_Rule = r_)'
+    ' function asc(c, n=0, m=get(4), d=[2,"a",false]) = '
+    ' (   '
+    '      let( a=b'
+    '         , c="dd"'
+    '         , d=get(3)'
+    '         )'
+    '      // line-comment in func '
+    '      c == chr(n) ? n : asc(c, n + 1)'
+    '      /* '
+    '         multiline comment '
+    '         in func'
+    '      */'
+    ' );                   '
+    ' '
+    '// Comment inside func is foldable  '
+    ' function hash(h,k, notfound)= '
+    ' ('
+    '  // Note the differnce:'
+    '  /* '
+    '     v= hash( h,k,3 )   // =3 when k not defined'
+    
+      '     v= or( hash(h,k), 3 )  // =3 when h[k]= false,undef,"",0 ..' +
+      '.'
+    '  */'
+    '  und( [ for(i=[0:2:len(h)-2])'
+    '          if( h[i]==k ) h[i+1] ][0], notfound )'
+    ');'
+    ''
+    '//. Block: In-Func Section'
+    
+      '// A //: inside a function is treated as an in-function section ' +
+      'header'
+    
+      '// Block rule: Start_Rule= r_inFuncSect //:, End_Rule= r_inFuncS' +
+      'ect //: end'
+    'function chaindata( pts, nside, nsidelast )='
+    '(   '
+    '    //: i=0 '
+    '   _i==0? '
+    '   '
+    '   let( //###################################### i = 0    '
+    '        opt = popt(opt) // handle sopt'
+    '      , rot= und(rot, hash(opt,"rot",0 ))         '
+    '      )'
+    '      chaindata( pts'
+    '               , nside=nside'
+    '               , nsidelast=nsidelast'
+    '               )'
+    '                                '
+    '   //: 0< i <last     '
+    '   : 0<_i && _i <len(pts)-1?'
+    '    '
+    '      chaindata( pts'
+    '               , nside=nside'
+    '               , nsidelast=nsidelast'
+    '               ) '
+    '               '
+    '  //: i=last'
+    '   :  '
+    '   '
+    '     let( '
+    '         // #################################### i = last'
+    '         // line 2'
+    '          dtwi = twist? twist/(len(pts)-1) :0'
+    '        , rs = _rs'
+    '        , k = '
+    '                     '
+    '     [ for( i=range(pts) )'
+    '              i==0 ? lofthead'
+    '              : i== len(pts)-1? lofttail'
+    '              : let( pts_unloft = newcuts[i]'
+    '                   , lofthead_at90i = '
+    
+      '                      // this is lofthead relocated to pl 90d to' +
+      ' (i-1,i)'
+    
+      '                      [for(xi= range(lofthead))                 ' +
+      '                   '
+    
+      '                         anglePt( [ pts[i-1], pts[i], pts_unloft' +
+      '[0] ])    '
+    '                      ]'
+    '                   , projected_loft_i = '
+    '                        [for(xi= range(lofttail))'
+    '                          let( phead= lofthead_at90i[xi]'
+    '                             , ptail= lofttail_at90i[xi]'
+    '                             )'
+    
+      '                        projPt( p90, p012( pts_unloft ),get(pts,' +
+      '[i-1,i]) )'
+    '                        ]'
+    '                     ) '
+    '              projected_loft_i '
+    '        ]'
+    '        : newcuts'
+    '        )'
+    
+      '      ["cuts", isarr(r) && r[0]==0? concat( [[pts[0]]], slice( c' +
+      'uts,1))'
+    '               :cuts'
+    '        ,"rs", rs'
+    '         ,"Rf", Rf '
+    '         '
+    '         ,"__<b>debug</b>__","==>"  '
+    '         ,"debug", _debug'
+    '      ]    '
+    '                '
+    '   );  // chaindata '
+    '            '
+    ' '
+    '//. Block: Module'
+    '// Module blocks have two Start_Rules and one End_Rule:'
+    '//   Start_Rule= r_module <id>(...){'
+    '//               r_module<id>(~)<cmt>{'
+    '//   End_rule=  r...}'
+    ''
+    'module Line0( pq  // two-pointer'
+    '            , opt=[]'
+    '            )'
+    '{   '
+    '    //echom("Line0");'
+    '    r = hash( opt, "r", 0.015 );'
+    '    fn = hash( opt, "fn", 6); '
+    '    '
+    '//    pqr= len(pq)==2?app(pq,randPt()):pq;'
+    '//    qpr= sel(pqr, [1,0,2]);'
+    ' '
+    '//    pts = concat( ptsP, ptsQ );'
+    ''
+    '    color( hash(opt, "color"), hash(opt, "transp",1) )  '
+    '    '
+    '    hull(1,2,3){   '
+    '       translate( pq[0])'
+    '       sphere( r= r*mm ); '
+    '               '
+    '       translate( pq[1])'
+    '       sphere( r= r*mm);          '
+    '    }        '
+    '    '
+    '    for(i=[0:3]){'
+    '      if(a==0){'
+    '        xxx;'
+    '      } else {'
+    '        bbb;'
+    '      }'
+    '      ddd;'
+    '    }'
+    '    '
+    '    abc def '
+    '}'
+    ''
+    '//rng = range(xi, d, xj+d);'
+    '//echo( rng=rng );'
+    '//echo( func2d(ybeg=2,yend=5));'
+    ''
+    '//. Block: In-Mod Section'
+    
+      '// A //. inside a module is treated as an in-module section head' +
+      'er'
+    
+      '// Block rule: Start_Rule= r_inModSect //., End_Rule= r_inModSec' +
+      't //. end'
+    'module ColorAxes( ops=[] ){'
+    ''
+    '  //. init'
+    #9'ops = concat( ops,'
+    #9'['
+    #9#9'"r",0.012'
+    #9#9',"len", 4.5'
+    #9#9',"xr",-1'
+    #9#9',"yr",-1'
+    #9#9',"zr",-1'
+    #9#9',"fontscale", 1'
+    #9#9',"xops", ["color","red", "transp",0.3]'
+    #9#9',"yops", ["color","green", "transp",0.3]'
+    #9#9',"zops", ["color","blue", "transp",0.3]'
+    #9']);'
+    #9'function ops(k)= hash(ops,k);'
+    #9'r = ops("r");'
+    #9'l = ops("len");'
+    ''
+    #9'fscale= ops("fontscale");'
+    #9'//echo( "fscale" , fscale);'
+    #9'//include <../others/TextGenerator.scad>'
+    #9'//. Set data'
+    #9'xr= hash( ops, "xr", if_v=-1, then_v=r) ;'
+    #9'yr= hash( ops, "yr", r, if_v=-1, then_v=r);'
+    #9'zr= hash( ops, "zr", r, if_v=-1, then_v=r);'
+    #9
+    #9'echo( "r",r, "xr", xr);'
+    ' '
+    '  //. Make Obj'
+    #9'translate( [l+0.2, -6*r,0]) '
+    #9#9'rotate($vpr) scale( fscale/15 ) '
+    #9#9'color(xc) text( "x" );'
+    #9'translate( [6*r, l+0.2, 0]) '
+    #9#9'rotate($vpr) scale( fscale/15 ) '
+    #9#9'color(yc) text( "y" );'
+    #9'translate( [0, 0, l+0.2]) '
+    #9#9'rotate($vpr) scale( fscale/15 ) '
+    #9#9'color(zc) text( "z" );'
+    '    '
+    '  //. Draw line'
+    #9'Line0( [[ l,0,0],[-l,0,0]], concat( ["r", xr], ops("xops") ));'
+    
+      #9'Line0( [[ 0, l,0],[0, -l,0]], concat( ["r", yr], ops("yops") ))' +
+      ';'
+    #9'Line0( [[ 0,0,l],[0,0,-l]], concat( ["r", zr], ops("zops") ));'
+    ''
+    #9'xc = hash(ops("xops"), "color");'
+    #9'yc = hash(ops("yops"), "color");'
+    #9'zc = hash(ops("zops"), "color");   '
+    '} '
+    ''
+    '                  '
+    'module ColorAxes_test(ops){ doctest( ColorAxes ,ops=ops);}'
+    ' '
+    '')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Number'
+    'Section'
+    'InFuncSect'
+    'InModSect')
+  Gramma.Gramma = #13#10
+  MarkedBlockStyle = 'Marked block'
+  CurrentLineStyle = 's_curline'
+  CollapseStyleName = 's_folded'
+  Extentions = 'scad'
+  LexerName = 'OpenSCAD'
+  Notes.Strings = (
+    'SynWrite lexer for OpenSCAD (v. 151231-2)'
+    'by Runsun Pan, Dec 2015'
+    '-----------------------------------------------------------'
+    ''
+    '//. BLOCKS '
+    ''
+    '-- if/else '
+    '-- for'
+    '-- OpenSCAD operation (rotate(){..}, resize(){..}, etc)'
+    '-- function, let'
+    '-- module '
+    '-- [..]'
+    '-- multiline comment (/*..*/)'
+    
+      '-- mixed comments( continuous comments of line- or multiline) (n' +
+      'ot perfect)'
+    '-- Section, In-Module section ( //. )'
+    '-- In-Function section ( //: )'
+    ''
+    '//. Keywords'
+    ''
+    '1) reserved: those can'#39't be modified by users (will cause error)'
+    '2) builtin : those come with OpenSCAD but you can overwrite it'
+    '   -- core  : core funcs'
+    '   -- action: rotate, resize ... etc'
+    '   -- obj   : sphere, cube, ... etc'
+    '   '
+    '//. Others'
+    '    '
+    'number, boolean, string    '
+    '      '
+    ''
+    '//. History:'
+    ''
+    '151231-1: Some minor style changes'
+    '151231-2: Minor color changes per Alexey for use in CubaText')
+  RestartFromLineStart = True
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

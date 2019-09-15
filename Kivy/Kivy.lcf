@@ -1,0 +1,371 @@
+object SyntAnal18: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id node'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id node class'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id spec'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = '1st Tree <item>'
+      StyleName = 'Id node class'
+      TokenType = 11
+      Expression = '^[\x20\x09]* (<.+?>| \[.+?\]) :?\x20* $'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Tree item'
+      StyleName = 'Id node'
+      TokenType = 11
+      Expression = '^[\x20\x09]* \w[\w\.]*: \x20* $'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Number'
+      StyleName = 'Number'
+      TokenType = 9
+      Expression = '^[\x20\x09]* \d+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s) ^[\x20\x09]* [rbu] ("""|'#39#39#39') .*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Id'
+      StyleName = 'Id'
+      TokenType = 9
+      Expression = '^[\x20\x09]*\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Attrib'
+      StyleName = 'Symbol'
+      TokenType = 9
+      Expression = '^[\x20\x09]*@'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Comment'
+      Enabled = False
+      StyleName = 'Comment'
+      TokenType = 13
+      Expression = '^[\x20\x09]* \#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String2'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s) [rbu]? ("""|'#39#39#39') .*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '[rbu]? ("|'#39') (\\.|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0[xbo][0-9a-f]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\.\d+ | \d+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,\.;\(\)=<>\+\-\[\]\{\}\^@!%\\\|~&:]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keywords kivy'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'app'
+            'args'
+            'root'
+            'self')
+          TokenTypes = 1540
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Keywords python'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'as'
+            'assert'
+            'async'
+            'await'
+            'break'
+            'class'
+            'continue'
+            'def'
+            'del'
+            'elif'
+            'else'
+            'except'
+            'exec'
+            'finally'
+            'for'
+            'from'
+            'global'
+            'if'
+            'import'
+            'in'
+            'is'
+            'lambda'
+            'nonlocal'
+            'not'
+            'or'
+            'pass'
+            'print'
+            'raise'
+            'return'
+            'try'
+            'while'
+            'with'
+            'yield')
+          TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id spec'
+      StyleName = 'Id spec'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'False'
+            'None'
+            'True')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      Enabled = False
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 8192
+        end>
+      BlockEnd = 'Block comment end'
+      EndOfTextClose = True
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      Enabled = False
+      BlockName = 'Block comment'
+      StrictParent = True
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 8192
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block begin'
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      EndOfTextClose = True
+      NameFmt = '%s0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '#:kivy 1.8.0'
+    '#:import datetime datetime'
+    ''
+    '<ColoredLabel@Label>:'
+    '    color: (.2, .2, .2, 1)'
+    '    canvas.before:'
+    '        Color:'
+    '            rgb: (.9, .9, .9)'
+    '        '
+    '[ContainerToggle@ToggleButton]:'
+    '    group: "container_toggle"'
+    '    value: True'
+    '        '
+    'RootWidget:'
+    '    # import container'
+    '    container: container'
+    ''
+    '    # fill the container'
+    '    BoxLayout:'
+    '        id: container'
+    '        orientation: '#39'vertical'#39
+    ''
+    '        BoxLayout:'
+    '            orientation: '#39'horizontal'#39
+    '            padding: 0'
+    ''
+    '            # weiter button'
+    '            Button:'
+    '                size_hint: 0.2, 1'
+    '                text: '#39'next'#39
+    '                on_release: app.next_screen('#39'3'#39')')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Number'
+    'Number2'
+    'Number3'
+    'String2'
+    '1st word'
+    '1st keyword'
+    '1st word tree'
+    'Symbol :'
+    '1st comment')
+  Extentions = 'kv'
+  LexerName = 'Kivy'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (Synwrite)')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

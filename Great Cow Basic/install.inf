@@ -1,0 +1,7 @@
+[info]
+title=Great Cow Basic
+type=lexer
+subdir=-
+
+[lexer1]
+file=Great Cow Basic

@@ -1,0 +1,597 @@
+object SyntAnal60: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      FormatFlags = [ffBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      FormatFlags = [ffBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatFlags = [ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatFlags = []
+    end
+    item
+      DisplayName = 'Statement'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ChangeCase = ccUpper
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Reserved word'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ChangeCase = ccUpper
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'model'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clYellow
+    end
+    item
+      DisplayName = 'Current Block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clAqua
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Description'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = cl3DDkShadow
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+      BorderColorLeft = clBlue
+      BorderTypeBottom = blDot
+      BorderColorBottom = clBlue
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Description Text'
+      Enabled = False
+      StyleName = 'Comment'
+      BlockName = 'Description text start'
+      TokenType = 1
+      Expression = '[^;\n\r/]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Any name'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_][\w-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '('#39'|").*?\1'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = 
+        '#with exp. dot is optional '#13#10'\d+ \.? \d+ e [\+\-]? \d+ |'#13#10'#witho' +
+        'ut exp. dot is required'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 1'
+      StyleName = 'Comment'
+      AlwaysEnabled = True
+      TokenType = 1
+      Expression = '^\*.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      AlwaysEnabled = True
+      TokenType = 1
+      Expression = '//.*'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 3'
+      StyleName = 'Comment'
+      AlwaysEnabled = True
+      TokenType = 1
+      Expression = '^\$on(text|echo)(?s).*?^\$off\1|(?-s)^\$.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,;:\(\)<>\+\-\[\]\$}{]|(\.\.)|(=([nlge]=)?)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'expltext'
+      Expression = '[-[.;/]]*?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'comma'
+      Expression = ','
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Line break'
+      TokenType = 8
+      Expression = '\z'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Description text start'
+      StyleName = 'Description'
+      BlockName = 'Description text start'
+      NotParent = True
+      ConditionList = <>
+      BlockOffset = -1
+      BlockEnd = 'Description text end'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpBound
+      GrammaRuleName = 'Cor_Ident'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Key words'
+      StyleName = 'Reserved word'
+      BlockName = 'Description text start'
+      NotParent = True
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ABORT'
+            'ACRONYM'
+            'ACRONYMS'
+            'ALIAS'
+            'ALL'
+            'AND'
+            'BINARY'
+            'CARD'
+            'DISPLAY'
+            'DO'
+            'ELSE'
+            'ELSEIF'
+            'ENDFOR'
+            'ENDIF'
+            'ENDLOOP'
+            'ENDWHILE'
+            'EPS'
+            'EQUATION'
+            'EQUATIONS'
+            'EXECUTE'
+            'EXECUTE_LOAD'
+            'EXECUTE_LOADHANDLE'
+            'EXECUTE_LOADPOINT'
+            'EXECUTE_UNLOAD'
+            'FILE'
+            'FILES'
+            'FOR'
+            'FREE'
+            'IF'
+            'INF'
+            'INTEGER'
+            'LOOP'
+            'MODEL'
+            'MODELS'
+            'NA'
+            'NEGATIVE'
+            'NO'
+            'NONNEGATIVE'
+            'NOT'
+            'OPTION'
+            'OPTIONS'
+            'OR'
+            'ORD'
+            'ORDASCII'
+            'ORDEBCDIC'
+            'PARAMETER'
+            'PARAMETERS'
+            'POSITIVE'
+            'PROCEDURE'
+            'PROCEDURES'
+            'PROD'
+            'PUT'
+            'PUT_UTILITIES'
+            'PUT_UTILITY'
+            'PUTCLEAR'
+            'PUTCLOSE'
+            'PUTFMCL'
+            'PUTHD'
+            'PUTHEADER'
+            'PUTPAGE'
+            'PUTTITLE'
+            'PUTTL'
+            'REPEAT'
+            'SCALAR'
+            'SCALARS'
+            'SEMICONT'
+            'SEMIINT'
+            'SET'
+            'SETS'
+            'SMAX'
+            'SMIN'
+            'SOLVE'
+            'SOS1'
+            'SOS2'
+            'SUM'
+            'SYSTEM'
+            'TABLE'
+            'THEN'
+            'UNDF'
+            'UNTIL'
+            'VARIABLE'
+            'VARIABLES'
+            'WHILE'
+            'XOR'
+            'YES')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      TokenType = 7
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      StrictParent = True
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      StyleName = 'Current Block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end>
+      BlockEnd = ')'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTagBegin
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      StyleName = 'Current Block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 8
+        end>
+      BlockEnd = ']'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTagBegin
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Model Statement'
+      Enabled = False
+      StyleName = 'model'
+      ConditionList = <>
+      NameFmt = '%s-1'
+      DynHighlight = dhRange
+      HighlightPos = cpBound
+      GrammaRuleName = 'ModelDefinition'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Statement end 2'
+      BlockName = 'Statement begin'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end
+        item
+          TokenTypes = 256
+        end>
+      BlockOffset = 2
+      BlockEnd = 'Statement begin'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Statement begin'
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end
+        item
+          TokenTypes = 256
+        end>
+      BlockEnd = 'Statement end'
+      NameFmt = '%s-1'
+      GroupFmt = '%s0'
+      HighlightPos = cpBound
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Statement end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Description text end'
+      BlockType = btRangeEnd
+      ConditionList = <>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      GrammaRuleName = 'DescEnd'
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '$Title  A Transportation Problem (TRNSPORT,SEQ=1)'
+    '$Ontext'
+    ''
+    'This problem finds a least cost shipping schedule that meets'
+    'requirements at markets and supplies at factories.'
+    ''
+    ''
+    'Dantzig, G B, Chapter 3.3. In Linear Programming and Extensions.'
+    'Princeton University Press, Princeton, New Jersey, 1963.'
+    ''
+    'This formulation is described in detail in:'
+    
+      'Rosenthal, R E, Chapter 2: A GAMS Tutorial. In GAMS: A User'#39's Gu' +
+      'ide.'
+    'The Scientific Press, Redwood City, California, 1988.'
+    ''
+    
+      'The line numbers will not match those in the book because of the' +
+      'se'
+    'comments.'
+    ''
+    '$Offtext'
+    ''
+    ''
+    '  Sets'
+    '       i   canning plants   / seattle, san-diego /'
+    '       j   markets          / new-york, chicago, topeka / ;'
+    ''
+    '  Parameters'
+    ''
+    '       a(i)  capacity of plant i in cases'
+    '         /    seattle     350'
+    '              san-diego   600  /'
+    ''
+    '       b(j)  demand at market j in cases'
+    '         /    new-york    325'
+    '              chicago     300'
+    '              topeka      275  / ;'
+    ''
+    '  Table d(i,j)  distance in thousands of miles'
+    '                    new-york       chicago      topeka'
+    '      seattle          2.5           1.7          1.8'
+    '      san-diego        2.5           1.8          1.4  ;'
+    ''
+    
+      '  Scalar f  freight in dollars per case per thousand miles  /90/' +
+      ' ;'
+    ''
+    
+      '  Parameter c(i,j)  transport cost in thousands of dollars per c' +
+      'ase ;'
+    ''
+    '            c(i,j) = f * d(i,j) / 1000 ;'
+    ''
+    '  Variables'
+    '       x(i,j)  shipment quantities in cases'
+    
+      '       z       total transportation costs in thousands of dollar' +
+      's ;'
+    ''
+    '  Positive Variable x ;'
+    ''
+    '  Equations'
+    '       cost        define objective function'
+    '       supply(i)   observe supply limit at plant i'
+    '       demand(j)   satisfy demand at market j ;'
+    ''
+    '  cost ..        z  =e=  sum((i,j), c(i,j)*x(i,j)) ;'
+    ''
+    '  supply(i) ..   sum(j, x(i,j))  =l=  a(i) ;'
+    ''
+    '  demand(j) ..   sum(i, x(i,j))  =g=  b(j) ;'
+    ''
+    '  Model transport /cost, supply, demand/ ;'
+    ''
+    '  Solve transport using lp minimizing z ;'
+    ''
+    '  Display x.l, x.m ;'
+    ''
+    'abc(i, '#39'xx'#39', "yy'#39'zz", ')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Statement'
+    'Line break'
+    'description')
+  Gramma.Gramma = 
+    'Skip = <Comment> ; '#13#10#13#10'ModelDefinition = ("MODEL"|"MODELS") Mode' +
+    'lDetail ( comma ModelDetail) * ;'#13#10'ModelDetail = ModelId expltext' +
+    ' ( '#39'/'#39' ModelList '#39'/'#39') ? ;'#13#10'ModelId = <Identifier> ;'#13#10'ModelList =' +
+    ' "ALL" | <Identifier> ( comma <Identifier> )* ;'#13#10'expltext = <Ide' +
+    'ntifier>*;'#13#10'comma = '#39','#39#13#10#13#10'SolveStatement = "SOLVE" ModelId ( "U' +
+    'SING" Process ( Direction <Identifier> )) |'#13#10'                   ' +
+    '              Direction <Identifier> "USING" Process ;'#13#10#13#10'Proces' +
+    's = "LP" | "NLP" | "DNLP" | "RMIP" | "MIP" | "RMIDNLP" | "MIDNLP' +
+    '" ;'#13#10'Direction = "MINIMIZING" | "MAXIMIZING" ;                  ' +
+    '              '#13#10'       '#13#10#13#10'// helper rules to extract decription' +
+    ' text '#13#10'before_ident = <Line break> | <Statement> | '#39','#39' | '#39'/'#39';'#13#10 +
+    #13#10'Cor_Ident = before_ident Ident; '#13#10#13#10#13#10'Ident = <Identifier> '#39'('#39 +
+    ' Param ('#39','#39' Param)* '#39')'#39' <Identifier> |'#13#10'        <Identifier> <Id' +
+    'entifier>;'#13#10'        '#13#10'Param = <Identifier> | '#39'*'#39';          '#13#10#13#10'D' +
+    'escEnd = <Line break> |'#13#10'          '#39','#39' |'#13#10'          '#39'/'#39' |'#13#10'     ' +
+    '     '#39';'#39'; '#13#10
+  Extentions = 'gms'
+  LexerName = 'GAMS'
+  ParseEndOfLine = True
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

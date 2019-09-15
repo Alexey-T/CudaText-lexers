@@ -1,0 +1,7 @@
+[info]
+title=Text Russian detector
+type=lexer
+subdir=-
+
+[lexer1]
+file=Text Russian detector

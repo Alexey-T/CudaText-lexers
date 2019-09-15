@@ -1,0 +1,7 @@
+[info]
+title=Virgil
+type=lexer
+subdir=-
+
+[lexer1]
+file=Virgil

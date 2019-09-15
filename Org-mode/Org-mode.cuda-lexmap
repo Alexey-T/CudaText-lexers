@@ -1,0 +1,25 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
+[map]
+Text=Id
+Comment=Comment
+Section=IdKeyword
+List=IncludeBG1
+Code=SectionBG1
+Commands=IncludeBG3
+Bold=TextBold
+Italic=TextItalic
+Bold-Italic=TextBoldItalic
+Crossed=TextCross
+Underline=TextItalic
+Var=IdVar
+Link=Label
+Table=IncludeBG2
+Footnote=String
+Quote=SectionBG3
+Time=Id2
+Escaped char=Symbol

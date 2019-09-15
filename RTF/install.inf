@@ -1,0 +1,7 @@
+[info]
+title=RTF
+type=lexer
+subdir=-
+
+[lexer1]
+file=RTF

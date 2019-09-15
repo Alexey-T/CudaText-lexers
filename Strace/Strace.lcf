@@ -1,0 +1,164 @@
+object SyntAnal36: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id const'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Time'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\-\+\*\(\)\[\]\{\}\<>\.,~!&\|;:=%\^\#\$\?\\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39') (\\\1|.)*? \1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Time'
+      StyleName = 'Time'
+      Expression = '^\d+:\d+:\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'TimeSec'
+      StyleName = 'Time'
+      Expression = '^\x20* \d+\.\d{4,}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[0-9a-f]+ |'#13#10'\d+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id func'
+      Enabled = False
+      TokenType = 2
+      Expression = '^[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id const'
+      StyleName = 'Id const'
+      TokenType = 2
+      Expression = '(?-i)[A-Z][A-Z0-9_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'execve("/bin/ls", ["ls"], [/* 21 vars */]) = 0'
+    'brk(0)                                  = 0x8c31000'
+    
+      'access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such fil' +
+      'e or directory)'
+    
+      'mmap2(NULL, 8192, PROT_READ, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) =' +
+      ' 0xb78c7000'
+    
+      'access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such fil' +
+      'e or directory)'
+    'open("/etc/ld.so.cache", O_RDONLY)      = 3'
+    'fstat64(3, {st_mode=S_IFREG|0644, st_size=65354, ...}) = 0'
+    ''
+    '20:40:00 open("/etc/ld.so.cache", O_RDONLY) = 3'
+    '     0.000000 execve("/bin/ls", ["ls"], [/*2 vars */]) = 0')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number')
+  Extentions = 'strace'
+  LexerName = 'Strace'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  RestartFromLineStart = True
+  Charset = DEFAULT_CHARSET
+end

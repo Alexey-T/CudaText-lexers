@@ -1,0 +1,8 @@
+[info]
+title=Twig
+type=lexer
+subdir=-
+
+[lexer1]
+file=Twig
+link1=HTML

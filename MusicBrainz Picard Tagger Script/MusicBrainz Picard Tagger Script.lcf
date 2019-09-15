@@ -1,0 +1,122 @@
+object SyntAnal18: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 1
+      Expression = '%[\w:]+%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Func'
+      StyleName = 'Func'
+      TokenType = 2
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '\\.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    
+      '$if($and($eq(%releasetype%,live),$not($in(%title%,\(live\)))),$s' +
+      'et(title,%title% \(live\)))'
+    
+      '$if($eq([non-album tracks],%album%),[non-album tracks]/%tracknum' +
+      'ber%. %artist% - ,%artist% - $if(%date%, $left(%date%,4) )- %alb' +
+      'um%/%tracknumber%.)%title%'
+    '$set(title,$rreplace(%title%,\\s\\\(feat. [^\)]+\\\),))')
+  TokenTypeNames.Strings = (
+    'Id'
+    'Var'
+    'Func'
+    'Symbol'
+    'String'
+    'Number')
+  LexerName = 'MusicBrainz Picard Tagger Script'
+  Notes.Strings = (
+    'https://picard.musicbrainz.org/docs/scripting/')
+  Charset = DEFAULT_CHARSET
+end

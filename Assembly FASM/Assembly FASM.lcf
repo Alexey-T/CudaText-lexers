@@ -1,0 +1,987 @@
+object SyntAnal2: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id Commands'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id Registers'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id Data decl'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = ';.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      Expression = '^[\x20\x09]* [a-z_\.][\.\w_]* :'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label temp'
+      StyleName = 'Label'
+      TokenType = 2
+      Expression = '@@: | @[fb]\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex 1'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '[0-9][0-9a-f]*h\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex 2'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\$[0-9a-f]+ \b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex 3'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[0-9a-f]* \b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Octal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '[0-7]+o \b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Binary'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '[01]+b \b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+d?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39') .*? \1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\.,:\-\+\*\\/%@<>\(\)\[\]\{\}\?=\#\^\|&~]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Registers'
+      StyleName = 'Id Registers'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ah'
+            'al'
+            'ax'
+            'bh'
+            'bl'
+            'bp'
+            'bx'
+            'ch'
+            'cl'
+            'cs'
+            'cx'
+            'dh'
+            'di'
+            'ds'
+            'dx'
+            'eax'
+            'ebp'
+            'ebx'
+            'ecx'
+            'edi'
+            'edx'
+            'eip'
+            'es'
+            'esc'
+            'esi'
+            'esp'
+            'r1'
+            'r10'
+            'r11'
+            'r12'
+            'r13'
+            'r14'
+            'r15'
+            'r16'
+            'r2'
+            'r3'
+            'r4'
+            'r5'
+            'r6'
+            'r7'
+            'r8'
+            'r9'
+            'rax'
+            'rbp'
+            'rbx'
+            'rcx'
+            'rdi'
+            'rdx'
+            'rsi'
+            'rsp'
+            'si'
+            'sp'
+            'ss'
+            'xmm0'
+            'xmm1'
+            'xmm10'
+            'xmm11'
+            'xmm12'
+            'xmm13'
+            'xmm14'
+            'xmm15'
+            'xmm2'
+            'xmm3'
+            'xmm4'
+            'xmm5'
+            'xmm6'
+            'xmm7'
+            'xmm8'
+            'xmm9')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Id Commands'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'aaa'
+            'aad'
+            'aam'
+            'aas'
+            'adc'
+            'add'
+            'align'
+            'and'
+            'arpl'
+            'assume'
+            'at'
+            'bound'
+            'bsf'
+            'bsr'
+            'bswap'
+            'bt'
+            'btc'
+            'btr'
+            'bts'
+            'byte'
+            'call'
+            'cbw'
+            'cdq'
+            'cinvoke'
+            'clc'
+            'cld'
+            'cli'
+            'clts'
+            'cmc'
+            'cmp'
+            'cmps'
+            'cmpsb'
+            'cmpsd'
+            'cmpsw'
+            'cmpxchg'
+            'code'
+            'comment'
+            'cpuid'
+            'cwd'
+            'cwde'
+            'daa'
+            'das'
+            'data'
+            'dec'
+            'dialog'
+            'directory'
+            'discardable'
+            'div'
+            'dl'
+            'dqword'
+            'dword'
+            'else'
+            'end'
+            'enddialog'
+            'endm'
+            'endmenu'
+            'endp'
+            'ends'
+            'enter'
+            'entry'
+            'executable'
+            'exitm'
+            'extrn'
+            'f2xm1'
+            'fabs'
+            'fadd'
+            'faddp'
+            'far'
+            'fbld'
+            'fbstp'
+            'fchs'
+            'fclex'
+            'fcom'
+            'fcomp'
+            'fcompp'
+            'fcos'
+            'fdecstp'
+            'fdisi'
+            'fdiv'
+            'fdivp'
+            'fdivr'
+            'fdivrp'
+            'feni'
+            'ffree'
+            'fiadd'
+            'ficom'
+            'ficomp'
+            'fidiv'
+            'fidivr'
+            'fild'
+            'fimul'
+            'fincstp'
+            'finit'
+            'fist'
+            'fistp'
+            'fisub'
+            'fisubr'
+            'fix'
+            'fld'
+            'fld1'
+            'fldcw'
+            'fldenv'
+            'fldl2e'
+            'fldl2t'
+            'fldlg2'
+            'fldln2'
+            'fldpi'
+            'fldz'
+            'fmul'
+            'fmulp'
+            'fnclex'
+            'fndisi'
+            'fneni'
+            'fninit'
+            'fnop'
+            'fnsave'
+            'fnstcw'
+            'fnstenv'
+            'fnstsw'
+            'format'
+            'fpatan'
+            'fprem'
+            'fprem1'
+            'fptan'
+            'frndint'
+            'frstor'
+            'fs'
+            'fsave'
+            'fscale'
+            'fsetpm'
+            'fsin'
+            'fsincos'
+            'fsqrt'
+            'fst'
+            'fstcw'
+            'fstenv'
+            'fstp'
+            'fstsw'
+            'fsub'
+            'fsubp'
+            'fsubr'
+            'fsubrp'
+            'ftst'
+            'fucom'
+            'fucomp'
+            'fucompp'
+            'fwait'
+            'fxam'
+            'fxch'
+            'fxtract'
+            'fyl2x'
+            'fyl2xp1'
+            'ge'
+            'group'
+            'gs'
+            'gt'
+            'high'
+            'hlt'
+            'idiv'
+            'if'
+            'import'
+            'imul'
+            'in'
+            'inc'
+            'incbin'
+            'include'
+            'insb'
+            'insd'
+            'insw'
+            'int'
+            'into'
+            'invd'
+            'invlpg'
+            'iret'
+            'iretd'
+            'ja'
+            'jae'
+            'jb'
+            'jbe'
+            'jc'
+            'jcxz'
+            'je'
+            'jecxz'
+            'jg'
+            'jge'
+            'jl'
+            'jle'
+            'jmp'
+            'jna'
+            'jnae'
+            'jnb'
+            'jnbe'
+            'jnc'
+            'jne'
+            'jng'
+            'jnge'
+            'jnl'
+            'jnle'
+            'jno'
+            'jnp'
+            'jns'
+            'jnz'
+            'jo'
+            'jp'
+            'jpe'
+            'jpo'
+            'js'
+            'jz'
+            'label'
+            'lahf'
+            'lar'
+            'large'
+            'lds'
+            'le'
+            'lea'
+            'leave'
+            'length'
+            'les'
+            'lfs'
+            'lgdt'
+            'lgs'
+            'library'
+            'lidt'
+            'lldt'
+            'lmsw'
+            'local'
+            'lock'
+            'lods'
+            'lodsb'
+            'lodsd'
+            'lodsw'
+            'loop'
+            'loopd'
+            'loopde'
+            'loopdne'
+            'loopdnz'
+            'loopdz'
+            'loope'
+            'loopne'
+            'loopnz'
+            'loopz'
+            'low'
+            'lsl'
+            'lss'
+            'lt'
+            'ltr'
+            'macro'
+            'mask'
+            'menu'
+            'menuitem'
+            'menuseparator'
+            'mod'
+            'mov'
+            'movs'
+            'movsb'
+            'movsd'
+            'movsw'
+            'movsx'
+            'movzx'
+            'mul'
+            'name'
+            'near'
+            'neg'
+            'nop'
+            'not'
+            'notpageable'
+            'offset'
+            'or'
+            'org'
+            'out'
+            'outsb'
+            'outsd'
+            'outsw'
+            'page'
+            'pop'
+            'popa'
+            'popad'
+            'popf'
+            'popfd'
+            'proc'
+            'ptr'
+            'public'
+            'purge'
+            'push'
+            'pusha'
+            'pushad'
+            'pushf'
+            'pushfd'
+            'qword'
+            'rcl'
+            'rcr'
+            'readable'
+            'record'
+            'rep'
+            'repe'
+            'repne'
+            'repnz'
+            'rept'
+            'repz'
+            'resource'
+            'restruc'
+            'ret'
+            'retf'
+            'retn'
+            'rol'
+            'ror'
+            'sahf'
+            'sal'
+            'sar'
+            'sbb'
+            'scas'
+            'scasb'
+            'scasd'
+            'scasw'
+            'section'
+            'seg'
+            'segcs'
+            'segds'
+            'seges'
+            'segfs'
+            'seggs'
+            'segment'
+            'segss'
+            'seta'
+            'setae'
+            'setb'
+            'setbe'
+            'setc'
+            'sete'
+            'setg'
+            'setge'
+            'setl'
+            'setle'
+            'setna'
+            'setnae'
+            'setnb'
+            'setnbe'
+            'setnc'
+            'setne'
+            'setng'
+            'setnge'
+            'setnl'
+            'setnle'
+            'setno'
+            'setnp'
+            'setns'
+            'setnz'
+            'seto'
+            'setp'
+            'setpe'
+            'setpo'
+            'sets'
+            'setz'
+            'sgdt'
+            'shareable'
+            'shl'
+            'shld'
+            'short'
+            'shr'
+            'shrd'
+            'sidt'
+            'size'
+            'sldt'
+            'small'
+            'smsw'
+            'st'
+            'stc'
+            'std'
+            'sti'
+            'stos'
+            'stosb'
+            'stosd'
+            'stosw'
+            'str'
+            'struc'
+            'sub'
+            'subttl'
+            'symtype'
+            'syscall'
+            'tbyte'
+            'TCHAR'
+            'test'
+            'this'
+            'title'
+            'tword'
+            'type'
+            'use16'
+            'use32'
+            'use64'
+            'verr'
+            'verw'
+            'virtual'
+            'wait'
+            'wbinvd'
+            'width'
+            'word'
+            'writeable'
+            'xadd'
+            'xchg'
+            'xlat'
+            'xor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DataDecl'
+      StyleName = 'Id Data decl'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'db'
+            'dd'
+            'dq'
+            'dt'
+            'dw'
+            'equ'
+            'rb'
+            'rd'
+            'resb'
+            'resd'
+            'resq'
+            'rest'
+            'resw'
+            'rq'
+            'rt'
+            'rw'
+            'times')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Operators'
+      StyleName = 'Symbol'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'seg'
+            'wrt')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'section'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'section')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      EndOfTextClose = True
+      NameFmt = '%s0 %s-1'
+      HighlightPos = cpAny
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'proc')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'proc end'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endp')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'macro'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'macro')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'macro end'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'macro end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'res'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'directory'
+            'menu')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      NameFmt = '%s0 %s-1'
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'dialog'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'dialog')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'dialog end'
+      NameFmt = '%s0 %s-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'dialog end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'enddialog')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'virtual'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'at')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'virtual')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'virtual end'
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'virtual end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '{ ... }'
+      GrammaRuleName = 'comments'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+          IgnoreCase = True
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'label'
+      ConditionList = <
+        item
+          TokenTypes = 1
+        end>
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '; Base Converter'
+    '; from Fasm site'
+    'format PE GUI 4.0'
+    'entry start'
+    ''
+    'include '#39'win32a.inc'#39
+    '    main.dd._loop:'
+    '    @@: , @f, @b  '
+    '    .ff:'
+    'dd dq db dw resb rest equ times'
+    'wrt seg'
+    '  '
+    'IDD_MAIN        = 100 + 20d + 0xFF10 + $FF10 + 10FFh'
+    'IDC_NUM         = 777q + 10101b'
+    ''
+    'section '#39'.data'#39' data readable writeable'
+    ''
+    '        current_base    dd ?'
+    '        buffer          rb 100h'
+    ''
+    'section '#39'.code'#39' code readable executable'
+    ''
+    '    start:'
+    '        invoke  GetModuleHandle,0'
+    '        mov     [hinstance],eax'
+    '    endp'
+    ''
+    '    proc EditCtl hwnd,msg,wparam,lparam'
+    '        push    ebx esi edi'
+    '        cmp     [msg],WM_PASTE'
+    '        je      .finish'
+    '      .finish:'
+    '        pop     edi esi ebx'
+    '        ret'
+    '    endp'
+    ''
+    'section '#39'.idata'#39' import data readable writeable'
+    ''
+    '        library kernel,'#39'KERNEL32.DLL'#39',\'
+    '                user,'#39'USER32.DLL'#39
+    ''
+    'section '#39'.rsrc'#39' resource data readable'
+    ''
+    '        directory RT_DIALOG,dialogs,\'
+    '                  RT_MENU,menus'
+    ''
+    
+      '        dialog main_dialog,'#39'Base Converter'#39',0,0,190,34,WS_CAPTIO' +
+      'N+WS_POPUP+WS_SYSMENU+DS_MODALFRAME+DS_CENTER,0,0,'#39'Verdana'#39',7'
+    
+      '          dialogitem '#39'EDIT'#39','#39'0'#39',IDC_NUM,2,2,186,30,WS_VISIBLE+WS' +
+      '_BORDER+WS_TABSTOP+ES_AUTOHSCROLL'
+    '        enddialog'
+    ''
+    '        menu main_menu'
+    '            menuitem '#39'Base'#39',0,MFR_POPUP+MFR_END'
+    '                menuitem '#39'Copy'#39',IDM_COPY,0'
+    '                menuitem '#39'Clear'#39',IDM_CLEAR,0'
+    '                menuseparator'
+    '                menuitem '#39'Characters'#39',IDM_CHAR,MFR_END')
+  TokenTypeNames.Strings = (
+    'Label'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number')
+  Extentions = 'asm fasm inc ash'
+  LexerName = 'Assembly FASM'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Tests: http://flatassembler.net/examples.php'
+    '')
+  LineComment = ';'
+  Charset = DEFAULT_CHARSET
+end

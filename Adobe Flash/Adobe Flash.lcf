@@ -1,0 +1,284 @@
+object SyntAnal95: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Default'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Reserved word'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Current block'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 13369046
+      FormatType = ftColor
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Any name'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String"'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\"|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'#39
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39'.*?('#39'|$)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 1'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Key words'
+      StyleName = 'Reserved word'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'import'
+            'var')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '/* ... */'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end>
+      BlockEnd = ')'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTagBegin
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 8
+        end>
+      BlockEnd = ']'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTagBegin
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '//comment1 single line'
+    '/*comment2'
+    'multiple lines'
+    '*/'
+    ''
+    'var x:int;'
+    'var y:String;'
+    ''
+    'y = '#39'string1'#39';'
+    'y = "string2";'
+    'y = '#39'string"3"'#39';'
+    'y = "string'#39'4'#39'";'
+    ''
+    'import flash.display;'
+    ''
+    'call(display, 12);')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const')
+  MarkedBlockStyle = 'Marked block'
+  DefaultStyleName = 'Default'
+  LexerName = 'Adobe Flash'
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

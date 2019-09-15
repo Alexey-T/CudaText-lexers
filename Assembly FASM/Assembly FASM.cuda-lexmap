@@ -1,0 +1,16 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+str1=
+str2=
+
+[map]
+Comment=Comment
+Symbol=Symbol
+Number=Number
+Id=Id
+Id Commands=Id1
+Id Registers=Id2
+Id Data decl=IdVar
+Label=Label
+String=String

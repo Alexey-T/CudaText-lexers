@@ -1,0 +1,21 @@
+[comments]
+str1=<!--
+str2=-->
+styles_cmt=Comment
+styles_str=
+
+[ref]
+0=XML
+1=JavaScript
+2=CSS
+
+[map]
+Template BG=SectionBG1
+Style BG=SectionBG2
+Script BG=SectionBG3
+Comment=Comment
+Number=Number
+Tag bound=TagBound
+Tag id=TagId
+Tag param=TagProp
+Tag string=String

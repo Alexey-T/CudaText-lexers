@@ -1,0 +1,35 @@
+[ref]
+0=CSS
+1=VBScript
+2=JavaScript
+3=VBScript
+4=JavaScript
+5=PHP
+6=PHP
+7=SQL
+
+[map]
+Id=Id
+Text=Id
+Symbol=TagBound
+Comment=Comment
+String=String
+Number=Number
+Tag key=TagId
+Tag param=TagProp
+Id$=IdVar
+Tree item (attribute)=-
+Tree item (tag)=-
+CF keys=Id1
+CF ident=Id2
+CF symbol=Id3
+CF symbol#=Symbol2
+CF string=String3
+SQL bg=SectionBG2
+Code bg=SectionBG1
+
+[comments]
+str1=<!--
+str2=-->
+styles_cmt=Comment
+styles_str=String

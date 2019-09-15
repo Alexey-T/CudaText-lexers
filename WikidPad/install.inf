@@ -1,0 +1,7 @@
+[info]
+title=WikidPad
+type=lexer
+subdir=-
+
+[lexer1]
+file=WikidPad

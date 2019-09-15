@@ -1,0 +1,7 @@
+[info]
+title=Swift
+type=lexer
+subdir=-
+
+[lexer1]
+file=Swift

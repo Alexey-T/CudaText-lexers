@@ -1,0 +1,7 @@
+[info]
+title=Grub4Dos
+type=lexer
+subdir=-
+
+[lexer1]
+file=Grub4Dos

@@ -1,0 +1,874 @@
+object SyntAnal17: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id1'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id3'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 1'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'File path'
+      StyleName = 'Id'
+      Expression = '[/\\][\w\.~\#\$\-\+\(\)@]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 7
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol single'
+      StyleName = 'Symbol'
+      TokenType = 4
+      Expression = '\. | [,;:`\(\)\[\]@/] | \$\( | \$\{'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol 2'
+      StyleName = 'Symbol2'
+      TokenType = 4
+      Expression = '=~ | [&\|=<>]=? | [/\-\+!\*\^:~%]='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 4
+      Expression = '[\+\*&%\#\?\\\$\-!\^~]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String 2'
+      StyleName = 'String'
+      TokenType = 5
+      Expression = '(?s)'#39#39'.*?'#39#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 5
+      Expression = '"(\\\\|\\\1|.)*? ("|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\b0x[a-f0-9]+\b | \b\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_][\w\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abort'
+            'assert'
+            'break'
+            'case'
+            'continue'
+            'declare'
+            'do'
+            'done'
+            'elif'
+            'else'
+            'esac'
+            'eval'
+            'exec'
+            'exit'
+            'export'
+            'fi'
+            'for'
+            'function'
+            'if'
+            'import'
+            'in'
+            'inherit'
+            'let'
+            'local'
+            'or'
+            'read'
+            'rec'
+            'return'
+            'select'
+            'shift'
+            'then'
+            'time'
+            'until'
+            'while'
+            'with')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id funcs lib'
+      StyleName = 'Id1'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'add'
+            'addContextFrom'
+            'addErrorContext'
+            'addErrorContextToAttrs'
+            'addMetaAttrs'
+            'all'
+            'and'
+            'any'
+            'appendToName'
+            'applyIfFunction'
+            'attrByPath'
+            'attrNames'
+            'attrNamesToStr'
+            'attrsets'
+            'attrVals'
+            'attrValues'
+            'bitAnd'
+            'bitNot'
+            'bitOr'
+            'bitXor'
+            'boolToString'
+            'callPackagesWith'
+            'callPackageWith'
+            'canCleanSource'
+            'catAttrs'
+            'checkFlag'
+            'checkReqs'
+            'chooseDevOutputs'
+            'cleanSource'
+            'cleanSourceFilter'
+            'cleanSourceWith'
+            'closeModules'
+            'closePropagation'
+            'collect'
+            'commitIdFromGitRepo'
+            'compare'
+            'compareLists'
+            'composedArgsAndFun'
+            'composeExtensions'
+            'concat'
+            'concatImapStrings'
+            'concatImapStringsSep'
+            'concatLists'
+            'concatMap'
+            'concatMapStrings'
+            'concatMapStringsSep'
+            'concatStrings'
+            'concatStringsSep'
+            'condConcat'
+            'const'
+            'count'
+            'crossLists'
+            'customisation'
+            'debug'
+            'deepSeq'
+            'defaultFunctor'
+            'defaultMerge'
+            'defaultMergeArg'
+            'defaultOverridableDelayableArgs'
+            'defaultTypeMerge'
+            'dischargeProperties'
+            'dontDistribute'
+            'doRename'
+            'drop'
+            'elem'
+            'elemAt'
+            'enableFeature'
+            'enableFeatureAs'
+            'escape'
+            'escapeShellArg'
+            'escapeShellArgs'
+            'evalModules'
+            'evalOptionValue'
+            'extend'
+            'extendDerivation'
+            'extends'
+            'fetchers'
+            'fileContents'
+            'filesystem'
+            'filter'
+            'filterAttrs'
+            'filterAttrsRecursive'
+            'filterModules'
+            'filterOverrides'
+            'findFirst'
+            'findSingle'
+            'fix'
+            'fixedPoints'
+            'fixedWidthNumber'
+            'fixedWidthString'
+            'fixMergeModules'
+            'fixupOptionType'
+            'flatten'
+            'flip'
+            'fold'
+            'foldArgs'
+            'foldAttrs'
+            'foldl'
+            'foldr'
+            'fullDepEntry'
+            'functionArgs'
+            'genAttrs'
+            'generators'
+            'genericClosure'
+            'genList'
+            'getAttr'
+            'getAttrFromPath'
+            'getBin'
+            'getDev'
+            'getFiles'
+            'getLib'
+            'getOutput'
+            'getValue'
+            'getValues'
+            'getVersion'
+            'groupBy'
+            'hasAttr'
+            'hasAttrByPath'
+            'hasPrefix'
+            'hasSuffix'
+            'head'
+            'hiPrio'
+            'hiPrioSet'
+            'hydraJob'
+            'id'
+            'ifEnable'
+            'imap'
+            'imap0'
+            'imap1'
+            'importJSON'
+            'info'
+            'init'
+            'innerClosePropagation'
+            'innerModifySumArgs'
+            'inNixShell'
+            'intersectLists'
+            'intersperse'
+            'isAttrs'
+            'isBool'
+            'isDerivation'
+            'isFunction'
+            'isInt'
+            'isList'
+            'isOption'
+            'isOptionType'
+            'isStorePath'
+            'isString'
+            'isType'
+            'last'
+            'lazyGenericClosure'
+            'length'
+            'lessThan'
+            'licenses'
+            'listDfs'
+            'lists'
+            'listToAttrs'
+            'literalExample'
+            'lowerChars'
+            'lowPrio'
+            'lowPrioSet'
+            'maintainers'
+            'makeBinPath'
+            'makeExtensible'
+            'makeExtensibleWithCustomName'
+            'makeLibraryPath'
+            'makeOverridable'
+            'makePerlPath'
+            'makeScope'
+            'makeSearchPath'
+            'makeSearchPathOutput'
+            'mapAttrs'
+            'mapAttrsFlatten'
+            'mapAttrsRecursive'
+            'mapAttrsRecursiveCond'
+            'mapAttrsToList'
+            'mapDerivationAttrset'
+            'mapNullable'
+            'matchAttrs'
+            'max'
+            'maybeAttr'
+            'maybeAttrNullable'
+            'maybeEnv'
+            'mergeAttrBy'
+            'mergeAttrByFunc'
+            'mergeAttrs'
+            'mergeAttrsByFuncDefaults'
+            'mergeAttrsByFuncDefaultsClean'
+            'mergeAttrsConcatenateValues'
+            'mergeAttrsNoOverride'
+            'mergeAttrsWithFunc'
+            'mergeDefaultOption'
+            'mergeDefinitions'
+            'mergeEqualOption'
+            'mergeModules'
+            'mergeOneOption'
+            'mergeOptionDecls'
+            'meta'
+            'min'
+            'misc'
+            'mkAfter'
+            'mkAliasAndWrapDefinitions'
+            'mkAliasDefinitions'
+            'mkAliasOptionModule'
+            'mkAssert'
+            'mkBefore'
+            'mkChangedOptionModule'
+            'mkDefault'
+            'mkEnableOption'
+            'mkFixStrictness'
+            'mkForce'
+            'mkIf'
+            'mkMerge'
+            'mkMergedOptionModule'
+            'mkOption'
+            'mkOptionDefault'
+            'mkOptionType'
+            'mkOrder'
+            'mkOverride'
+            'mkRemovedOptionModule'
+            'mkRenamedOptionModule'
+            'mkSinkUndeclaredOptions'
+            'mkStrict'
+            'mkVMOverride'
+            'mod'
+            'modifySumArgs'
+            'modules'
+            'mutuallyExclusive'
+            'nameFromURL'
+            'nameValuePair'
+            'naturalSort'
+            'nixpkgsVersion'
+            'nixType'
+            'noDepEntry'
+            'nvs'
+            'optional'
+            'optionalAttrs'
+            'optionals'
+            'optionalString'
+            'optionAttrSetToDocList'
+            'options'
+            'or'
+            'overridableDelayableArgs'
+            'overrideDerivation'
+            'overrideExisting'
+            'packEntry'
+            'packSubmodule'
+            'partition'
+            'pathExists'
+            'pathHasContext'
+            'pathIsDirectory'
+            'pathType'
+            'platforms'
+            'prepareDerivationArgs'
+            'pushDownProperties'
+            'range'
+            'readFile'
+            'readPathsFromFile'
+            'recursiveUpdate'
+            'recursiveUpdateUntil'
+            'remove'
+            'removePrefix'
+            'removeSuffix'
+            'replaceChars'
+            'replaceStrings'
+            'reverseList'
+            'runTests'
+            'scrubOptionValue'
+            'seq'
+            'setAttr'
+            'setAttrByPath'
+            'setAttrMerge'
+            'setFunctionArgs'
+            'setName'
+            'setType'
+            'showFiles'
+            'showOption'
+            'showVal'
+            'singleton'
+            'sort'
+            'sortProperties'
+            'sourceByRegex'
+            'sourceFilesBySuffices'
+            'sources'
+            'splitByAndCompare'
+            'splitString'
+            'stringAfter'
+            'stringAsChars'
+            'stringLength'
+            'strings'
+            'stringsWithDeps'
+            'stringToCharacters'
+            'sub'
+            'sublist'
+            'substring'
+            'subtractLists'
+            'systems'
+            'tail'
+            'take'
+            'testAllTrue'
+            'textClosureList'
+            'textClosureMap'
+            'toDerivation'
+            'toInt'
+            'toList'
+            'toLower'
+            'toposort'
+            'toUpper'
+            'traceCall'
+            'traceCall2'
+            'traceCall3'
+            'traceCallXml'
+            'traceIf'
+            'traceSeq'
+            'traceSeqN'
+            'traceShowVal'
+            'traceShowValMarked'
+            'traceVal'
+            'traceValFn'
+            'traceValIfNot'
+            'traceValSeq'
+            'traceValSeqFn'
+            'traceValSeqN'
+            'traceValSeqNFn'
+            'traceXMLVal'
+            'traceXMLValMarked'
+            'trivial'
+            'types'
+            'unifyModuleSyntax'
+            'uniqList'
+            'uniqListExt'
+            'unique'
+            'unknownModule'
+            'unpackSubmodule'
+            'updateName'
+            'upperChars'
+            'version'
+            'versionAtLeast'
+            'versionOlder'
+            'versions'
+            'warn'
+            'withFeature'
+            'withFeatureAs'
+            'zip'
+            'zipAttrs'
+            'zipAttrsWith'
+            'zipAttrsWithNames'
+            'zipLists'
+            'zipListsWith'
+            'zipWithNames')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id funcs builtin'
+      StyleName = 'Id1'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abort'
+            'add'
+            'addErrorContext'
+            'all'
+            'any'
+            'attrNames'
+            'attrValues'
+            'baseNameOf'
+            'catAttrs'
+            'compareVersions'
+            'concatLists'
+            'concatStringsSep'
+            'currentSystem'
+            'currentTime'
+            'deepSeq'
+            'derivation'
+            'derivationStrict'
+            'dirOf'
+            'div'
+            'elem'
+            'elemAt'
+            'false'
+            'fetchGit'
+            'fetchMercurial'
+            'fetchTarball'
+            'fetchurl'
+            'filter'
+            'filterSource'
+            'findFile'
+            'foldl'
+            'fromJSON'
+            'functionArgs'
+            'genericClosure'
+            'genList'
+            'getAttr'
+            'getEnv'
+            'hasAttr'
+            'hasContext'
+            'hashString'
+            'head'
+            'import'
+            'intersectAttrs'
+            'isAttrs'
+            'isBool'
+            'isFloat'
+            'isFunction'
+            'isInt'
+            'isList'
+            'isNull'
+            'isString'
+            'langVersion'
+            'length'
+            'lessThan'
+            'listToAttrs'
+            'map'
+            'match'
+            'mul'
+            'nixPath'
+            'nixVersion'
+            'null'
+            'parseDrvName'
+            'partition'
+            'path'
+            'pathExists'
+            'placeholder'
+            'readDir'
+            'readFile'
+            'removeAttrs'
+            'replaceStrings'
+            'scopedImport'
+            'seq'
+            'sort'
+            'split'
+            'splitVersion'
+            'storeDir'
+            'storePath'
+            'stringLength'
+            'sub'
+            'substring'
+            'tail'
+            'throw'
+            'toFile'
+            'toJSON'
+            'toPath'
+            'toString'
+            'toXML'
+            'trace'
+            'true'
+            'tryEval'
+            'typeOf'
+            'unsafeDiscardOutputDependency'
+            'unsafeDiscardStringContext'
+            'unsafeGetAttrPos'
+            'valueSize')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id const'
+      StyleName = 'Id2'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'false'
+            'null'
+            'true')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id bash cmds'
+      StyleName = 'Id3'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'awk'
+            'cat'
+            'cd'
+            'chgrp'
+            'chmod'
+            'chown'
+            'cp'
+            'echo'
+            'env'
+            'grep'
+            'install'
+            'ln'
+            'make'
+            'mkdir'
+            'mv'
+            'popd'
+            'printf'
+            'pushd'
+            'rm'
+            'rmdir'
+            'sed'
+            'set'
+            'tar'
+            'touch'
+            'umask'
+            'unset')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{'
+            '${')
+          TokenTypes = 144
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 128
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 16
+        end>
+      BlockEnd = ']'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '[ ... ]'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 16
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Str'
+      BlockName = 'Str'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 32
+        end>
+      BlockEnd = 'Not Str'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = #39#39' ... '#39#39
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Not Str'
+      BlockName = 'Str'
+      StrictParent = True
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 32
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '# Comment'
+    'true, false, null, awk, sed, chmod, 10k + 20s + 0x20'
+    '$path = ../dir/w-1.23-name/misc/a.nix'
+    '/* Comment */'
+    '{'
+    'let go = path:'
+    '    isDir ='
+    '      let base = baseNameOf file;'
+    '          type = (builtins.readDir parent).${base} or null;'
+    '      in file == /. || type == "directory";'
+    'in go (if isDir then file else parent);'
+    '}'
+    '['
+    '...'
+    ']')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Label'
+    'Symbol'
+    'String'
+    'Number'
+    'Symbol {}')
+  Extentions = 'nix'
+  LexerName = 'Nix'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,9 @@
+[map]
+Default=Id
+Symbol=Symbol
+String=String
+Identifier=Id
+Section=IdKeyword
+Comment=Comment
+Reserved word=Label
+Options=IdVar

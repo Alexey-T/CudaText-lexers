@@ -1,0 +1,854 @@
+object SyntAnal13: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'MAIN'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -21
+      Font.Name = 'Consolas'
+      Font.Style = []
+      BgColor = 15790320
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 11579568
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16250871
+    end
+    item
+      DisplayName = 'GLOBAL_Objects'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615680
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderColorBottom = 4050029
+    end
+    item
+      DisplayName = 'GLOBAL_Propertis'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16755230
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'GLOBAL_Methods'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6711034
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderColorBottom = 4050029
+    end
+    item
+      DisplayName = 'ECMA_Instruction'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615680
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'ECMA_Globals'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Digits_Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Digits_Hex'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderTypeBottom = blSolid
+    end
+    item
+      DisplayName = 'Strings_String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 1871283
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+      BorderColorBottom = 2004670
+    end
+    item
+      DisplayName = 'Strings_RegExp'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2004670
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blSolid
+      BorderColorBottom = 2135738
+    end
+    item
+      DisplayName = 'Strings_Template'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2004670
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15134975
+      BorderColorBottom = clLime
+    end
+    item
+      DisplayName = 'Operators_Structure'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Operators_Syntax'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Operators_{}_back'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14473946
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Operators_{}_border'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clCream
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 12615680
+    end
+    item
+      DisplayName = 'Operators_()_back'
+      Enabled = False
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clNone
+      Font.Height = -27
+      Font.Name = 'Consolas'
+      Font.Style = []
+      BgColor = 16771797
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Operators_()_border'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 16760375
+    end
+    item
+      DisplayName = 'Operators_[]_back'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clWhite
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Tree_Standart'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -16
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tree_Bold'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -16
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'ID_actuall'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 40192
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderColorLeft = 4050029
+      BorderColorTop = 4050029
+      BorderColorRight = 4050029
+      BorderColorBottom = 4050029
+    end
+    item
+      DisplayName = 'ID'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4605510
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Spoiler'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 13409341
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clCream
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Token ` - ${'
+      StyleName = 'Strings_Template'
+      StatesAdd = 1
+      Expression = '(?s)(`)(.*?)((`)|(\$\{))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Token } - ${'
+      StyleName = 'Strings_Template'
+      StatesPresent = 1
+      Expression = '(?s)(\}{1}?((.)|[^`]*?)(\$\{))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Token } - `'
+      StyleName = 'Strings_Template'
+      StatesRemove = 1
+      StatesPresent = 1
+      Expression = '(?<=\$\{(.)*?)\}(\r|\n|.)*?(`)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment line'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*? (?=</script>) |'#13#10'//.* '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment block'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'ID_actuall'
+      StyleName = 'ID_actuall'
+      TokenType = 8
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Global_Methods'
+      TokenType = 10
+      Expression = '(?<=[\w\W]*\.)[a-z_\$]\w*(?=\()'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Global_Propertis'
+      TokenType = 11
+      Expression = '(?<=[\w\W]*\.)[a-z_\$]\w*(?=\W)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Global_Objects'
+      TokenType = 12
+      Expression = '[a-z_\$]\w*(?=[\.])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Strings_RegExp'
+      StyleName = 'Strings_RegExp'
+      TokenType = 6
+      Expression = '(?<=[=\(&!]\s*) / (\\/|\\\\|\[.+?\]|.)*? /[gimy]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Strings_String'
+      StyleName = 'Strings_String'
+      TokenType = 6
+      Expression = 
+        '(?s)(((?<=[^\\])'#39') (.)*? (((?<=[^\\])'#39')|\Z))|(((?<=[^\\])") (.)*' +
+        '? (((?<=[^\\])")|\Z))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Operators_Structure'
+      StyleName = 'Operators_Structure'
+      TokenType = 2
+      Expression = '[\.\{\}\(\)\[\],;\$]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Operators_Syntax'
+      StyleName = 'Operators_Syntax'
+      TokenType = 3
+      Expression = '[\?/\+\-\*:=<>&/\|\^~!%\#@]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Digits_Hex'
+      StyleName = 'Digits_Hex'
+      TokenType = 5
+      Expression = '0[xbo][\da-f]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Digits_Number'
+      StyleName = 'Digits_Number'
+      TokenType = 4
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'ID'
+      StyleName = 'ID'
+      TokenType = 9
+      Expression = '[a-z_\$]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Global_Objects'
+      StyleName = 'GLOBAL_Objects'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4096
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Global_Propertis'
+      StyleName = 'GLOBAL_Propertis'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 2048
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Global_Methods'
+      StyleName = 'GLOBAL_Methods'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ECMA_globals'
+      StyleName = 'ECMA_Globals'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'alert'
+            'clearInterval'
+            'clearTimeout'
+            'confirm'
+            'decodeURI'
+            'decodeURIComponent'
+            'encodeURI'
+            'encodeURIComponent'
+            'eval'
+            'false'
+            'Infinity'
+            'isFinite'
+            'isNaN'
+            'NaN'
+            'parseFloat'
+            'parseInt'
+            'prompt'
+            'setInterval'
+            'setTimeout'
+            'Symbol'
+            'true'
+            'undefined')
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ECMA_instructions'
+      StyleName = 'ECMA_Instruction'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'break'
+            'catch'
+            'class'
+            'const'
+            'continue'
+            'delete'
+            'do'
+            'else'
+            'export'
+            'extends'
+            'finally'
+            'for'
+            'function'
+            'get'
+            'if'
+            'import'
+            'in'
+            'instanceof'
+            'label'
+            'let'
+            'new'
+            'of'
+            'return'
+            'set'
+            'switch'
+            'throw'
+            'try'
+            'typeof'
+            'var'
+            'void'
+            'while'
+            'with')
+          TokenTypes = 512
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{ Block back'
+      StyleName = 'Operators_{}_back'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 4
+        end>
+      BlockEnd = '   Block back }'
+      NotCollapsed = True
+      Highlight = True
+      DisplayInTree = False
+      DynHighlight = dhRangeNoBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '   Block back }'
+      BlockName = '{ Block back'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 4
+        end>
+      BlockEnd = '{ Block back'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{ Block border'
+      StyleName = 'Operators_{}_border'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 4
+        end>
+      BlockEnd = '   Block border }'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = '{* * *}'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '   Block border }'
+      BlockName = '{ Block border'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 4
+        end>
+      BlockEnd = '{ Block border'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '( Union back'
+      StyleName = 'Operators_()_back'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 4
+        end>
+      BlockEnd = '  Union back )'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRangeNoBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '  Union back )'
+      BlockName = '( Union back'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 4
+        end>
+      BlockEnd = '( Union back'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '( Union border'
+      StyleName = 'Operators_()_border'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 4
+        end>
+      BlockEnd = '  Union border )'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '  Union border )'
+      BlockName = '( Union border'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 4
+        end>
+      BlockEnd = '( Union border'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '[ Array back'
+      StyleName = 'Operators_[]_back'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 4
+        end>
+      BlockEnd = '  Array back ]'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '  Array back ]'
+      BlockName = '[ Array back'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 4
+        end>
+      BlockEnd = '[ Array back'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree Var/Let/Const'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'const'
+            'let'
+            'var')
+          TokenTypes = 512
+          IgnoreCase = True
+        end>
+      NameFmt = '%s-1'
+      GroupFmt = 'value'
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemStyle = 'Tree_Standart'
+      TreeGroupStyle = 'Tree_Bold'
+      TreeItemImage = 6
+      TreeGroupImage = 6
+      IgnoreAsParent = True
+    end
+    item
+      DisplayName = 'tree class {'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'class')
+          IgnoreCase = True
+        end>
+      BlockEnd = 'tree class }'
+      NotCollapsed = True
+      NameFmt = '{ %s-1 }'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      TreeItemStyle = 'Tree_Bold'
+      TreeGroupStyle = 'Tree_Bold'
+      TreeItemImage = 4
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+    end
+    item
+      DisplayName = 'tree class }'
+      BlockName = 'tree class {'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      BlockEnd = 'tree class {'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx - { var and named'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 512
+        end
+        item
+          TagList.Strings = (
+            ','
+            ':'
+            '=')
+          TokenTypes = 12
+        end>
+      BlockEnd = 'tree fx -    var and named}'
+      NotCollapsed = True
+      NameFmt = '%s2'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx -    var and named}'
+      BlockName = 'tree fx - { var and named'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      BlockEnd = 'tree fx - { var and named'
+      HighlightPos = cpRange
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx - { constracted'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function')
+        end>
+      BlockEnd = 'tree fx -    constracted}'
+      NotCollapsed = True
+      NameFmt = '%s-1'
+      HighlightPos = cpAny
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx -    constracted}'
+      BlockName = 'tree fx - { constracted'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      BlockEnd = 'tree fx - { constracted'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx - { arrow'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '>')
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '=')
+        end
+        item
+          TagList.Strings = (
+            ')')
+        end
+        item
+          CondType = tcSkip
+        end
+        item
+          TagList.Strings = (
+            '(')
+        end>
+      BlockEnd = 'tree fx -    arrow }'
+      NotCollapsed = True
+      NameFmt = '%sl2'
+      HighlightPos = cpAny
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx -    arrow }'
+      BlockName = 'tree fx - { arrow'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      BlockEnd = 'tree fx - { arrow'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '                     '
+    ' //Comment'
+    ' /*  DocBlock  */'
+    ' '
+    ' !@#%^&*-=|/<>/?'
+    ' }{)(][.,;'
+    ' var id'#9#9#9'='#9'foo + $foo + 123 + 0o123 + '#39'text'#39';'
+    ' RegExp_'#9#9'='#9'/^<\/?\w.*?>/gi;'
+    ' G_prop'#9#9#9'='#9'my_obj.property;'
+    ' G_meth'#9#9#9'='#9'my_obj.method();'
+    
+      ' Template'#9#9'= '#9'`left_text ${left.inside} centr_text ${right.insid' +
+      'e} right_text'
+    ' '#9#9#9#9#9'secondline_text ${botom.inside} end_text` '
+    ''
+    ''
+    ' function multiply(x, y=3 )  {'
+    ' '#9
+    '    let inner = [a="a", b="b", c="c"]'
+    '    '
+    '    if ( x == true ) {'
+    #9#9'x++;'
+    #9'}'
+    ''
+    '   '#9'return x*y;             '#9#9#9
+    ' }'
+    ''
+    ''
+    'class SomeClass1 {'
+    #9'let prop = $prop;'
+    '    this.property = prop;'
+    '    method = function(e) {'
+    '    '#9'return e '
+    '    } '
+    '    this.arrow = (props, foo(), $boo) => {'
+    '    '#9'return props;'
+    '    }'
+    '};'
+    ''
+    ''
+    ' ')
+  TokenTypeNames.Strings = (
+    'unknown'
+    'comment'
+    'Operators_Structure'
+    'Operators_Syntax'
+    'digits_number'
+    'digits_hex'
+    'strings_string'
+    'strings_regExp'
+    'id_actual'
+    'id'
+    'Global_Methods'
+    'Global_Propertis'
+    'Global_Objects'
+    'strings_template')
+  DefaultStyleName = 'MAIN'
+  CollapseStyleName = 'Spoiler'
+  Extentions = 'js'
+  LexerName = 'JavaScript (ES6)L'
+  Notes.Strings = (
+    'Lexer JavaScript (ES6)L v1.04'
+    'Created by Developer'
+    
+      'forum http://synwrite.sourceforge.net/forums/viewtopic.php?f=6&t' +
+      '=2286')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

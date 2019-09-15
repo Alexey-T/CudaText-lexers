@@ -1,0 +1,867 @@
+object SyntAnal10: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Preprocessor'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Current block'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 13369046
+      FormatType = ftColor
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end
+    item
+      DisplayName = 'Id spec type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id spec macro'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword illegal'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id spec var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\"|\\\\|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      TokenType = 7
+      Expression = '\b(catch|else|for|if|switch|while)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[\da-f]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+ f?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Preprocessor'
+      StyleName = 'Preprocessor'
+      TokenType = 6
+      Expression = '\#\s*\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 1'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Single symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\{\}\(\)\[\],;:~]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String <path>'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?<=\#\w+\s+) <.+?>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\+\-\*=<>&/\|\^\.!\\\?%]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39'.*?('#39'|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'attribute'
+            'break'
+            'buffer'
+            'case'
+            'catch'
+            'centroid'
+            'class'
+            'coherent'
+            'const'
+            'continue'
+            'default'
+            'delete'
+            'discard'
+            'do'
+            'double'
+            'else'
+            'exit'
+            'explicit'
+            'export'
+            'flat'
+            'for'
+            'if'
+            'in'
+            'inout'
+            'invariant'
+            'layout'
+            'mutable'
+            'namespace'
+            'new'
+            'noperspective'
+            'operator'
+            'out'
+            'patch'
+            'private'
+            'protected'
+            'public'
+            'readonly'
+            'return'
+            'sampler'
+            'shared'
+            'sizeof'
+            'smooth'
+            'static'
+            'struct'
+            'switch'
+            'this'
+            'throw'
+            'try'
+            'uniform'
+            'using'
+            'varying'
+            'virtual'
+            'volatile'
+            'while'
+            'writeonly')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id spec type'
+      StyleName = 'Id spec type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'atomic_uint'
+            'bool'
+            'bvec2'
+            'bvec3'
+            'bvec4'
+            'dmat2'
+            'dmat2x2'
+            'dmat2x3'
+            'dmat2x4'
+            'dmat3'
+            'dmat3x2'
+            'dmat3x3'
+            'dmat3x4'
+            'dmat4'
+            'dmat4x2'
+            'dmat4x3'
+            'dmat4x4'
+            'double'
+            'dvec2'
+            'dvec3'
+            'dvec4'
+            'float'
+            'iimage1D'
+            'iimage1DArray'
+            'iimage2D'
+            'iimage2DArray'
+            'iimage2DMS'
+            'iimage2DMSArray'
+            'iimage2DRect'
+            'iimage3D'
+            'iimageBuffer'
+            'iimageCube'
+            'iimageCubeArray'
+            'image1D'
+            'image1DArray'
+            'image2D'
+            'image2DArray'
+            'image2DMS'
+            'image2DMSArray'
+            'image2DRect'
+            'image3D'
+            'imageBuffer'
+            'imageCube'
+            'imageCubeArray'
+            'int'
+            'isampler1D'
+            'isampler1DArray'
+            'isampler2D'
+            'isampler2DArray'
+            'isampler2DMS'
+            'isampler2DMSArray'
+            'isampler2DRect'
+            'isampler3D'
+            'isamplerBuffer'
+            'isamplerCube'
+            'isamplerCubeArray'
+            'ivec2'
+            'ivec3'
+            'ivec4'
+            'mat2'
+            'mat2x2'
+            'mat2x3'
+            'mat2x4'
+            'mat3'
+            'mat3x2'
+            'mat3x3'
+            'mat3x4'
+            'mat4'
+            'mat4x2'
+            'mat4x3'
+            'mat4x4'
+            'sampler1D'
+            'sampler1DArray'
+            'sampler1DArrayShadow'
+            'sampler1DShadow'
+            'sampler2D'
+            'sampler2DArray'
+            'sampler2DArrayShadow'
+            'sampler2DMS'
+            'sampler2DMSArray'
+            'sampler2DRect'
+            'sampler2DRectShadow'
+            'sampler2DShadow'
+            'sampler3D'
+            'samplerBuffer'
+            'samplerCube'
+            'samplerCubeArray'
+            'samplerCubeArrayShadow'
+            'samplerCubeShadow'
+            'string'
+            'uimage1D'
+            'uimage1DArray'
+            'uimage2D'
+            'uimage2DArray'
+            'uimage2DMS'
+            'uimage2DMSArray'
+            'uimage2DRect'
+            'uimage3D'
+            'uimageBuffer'
+            'uimageCube'
+            'uimageCubeArray'
+            'uint'
+            'usampler1D'
+            'usampler1DArray'
+            'usampler2D'
+            'usampler2DArray'
+            'usampler2DMS'
+            'usampler2DMSArray'
+            'usampler2DRect'
+            'usampler3D'
+            'usamplerBuffer'
+            'usamplerCube'
+            'usamplerCubeArray'
+            'uvec2'
+            'uvec3'
+            'uvec4'
+            'vec2'
+            'vec3'
+            'vec4'
+            'void')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id spec macro'
+      StyleName = 'Id spec macro'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '__FILE__'
+            '__LINE__'
+            '__VERSION__'
+            'GL_compatibility_profile'
+            'GL_core_profile'
+            'GL_es_profile'
+            'highp'
+            'lowp'
+            'mediump'
+            'precision')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id spec var'
+      StyleName = 'Id spec var'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'gl_BackColor'
+            'gl_BackLightModelProduct'
+            'gl_BackLightProduct'
+            'gl_BackMaterial'
+            'gl_BackSecondaryColor'
+            'gl_ClipDistance'
+            'gl_ClipPlane'
+            'gl_ClipVertex'
+            'gl_Color'
+            'gl_DepthRange'
+            'gl_DepthRangeParameters'
+            'gl_EyePlaneQ'
+            'gl_EyePlaneR'
+            'gl_EyePlaneS'
+            'gl_EyePlaneT'
+            'gl_Fog'
+            'gl_FogCoord'
+            'gl_FogFragCoord'
+            'gl_FogParameters'
+            'gl_FragColor'
+            'gl_FragCoord'
+            'gl_FragDat'
+            'gl_FragDept'
+            'gl_FrontColor'
+            'gl_FrontFacing'
+            'gl_FrontLightModelProduct'
+            'gl_FrontLightProduct'
+            'gl_FrontMaterial'
+            'gl_FrontSecondaryColor'
+            'gl_InstanceID'
+            'gl_Layer'
+            'gl_LightModel'
+            'gl_LightModelParameters'
+            'gl_LightModelProducts'
+            'gl_LightProducts'
+            'gl_LightSource'
+            'gl_LightSourceParameters'
+            'gl_MaterialParameters'
+            'gl_MaxClipPlanes'
+            'gl_MaxCombinedTextureImageUnits'
+            'gl_MaxDrawBuffers'
+            'gl_MaxFragmentUniformComponents'
+            'gl_MaxLights'
+            'gl_MaxTextureCoords'
+            'gl_MaxTextureImageUnits'
+            'gl_MaxTextureUnits'
+            'gl_MaxVaryingFloats'
+            'gl_MaxVertexAttribs'
+            'gl_MaxVertexTextureImageUnits'
+            'gl_MaxVertexUniformComponents'
+            'gl_ModelViewMatrix'
+            'gl_ModelViewMatrixInverse'
+            'gl_ModelViewMatrixInverseTranspose'
+            'gl_ModelViewMatrixTranspose'
+            'gl_ModelViewProjectionMatrix'
+            'gl_ModelViewProjectionMatrixInverse'
+            'gl_ModelViewProjectionMatrixInverseTranspose'
+            'gl_ModelViewProjectionMatrixTranspose'
+            'gl_MultiTexCoord'
+            'gl_Normal'
+            'gl_NormalMatrix'
+            'gl_NormalScale'
+            'gl_ObjectPlaneQ'
+            'gl_ObjectPlaneR'
+            'gl_ObjectPlaneS'
+            'gl_ObjectPlaneT'
+            'gl_Point'
+            'gl_PointCoord'
+            'gl_PointParameters'
+            'gl_PointSize'
+            'gl_Position'
+            'gl_PrimitiveIDIn'
+            'gl_ProjectionMatrix'
+            'gl_ProjectionMatrixInverse'
+            'gl_ProjectionMatrixInverseTranspose'
+            'gl_ProjectionMatrixTranspose'
+            'gl_SecondaryColor'
+            'gl_TexCoord'
+            'gl_TextureEnvColor'
+            'gl_TextureMatrix'
+            'gl_TextureMatrixInverse'
+            'gl_TextureMatrixInverseTranspose'
+            'gl_TextureMatrixTranspose'
+            'gl_Vertex'
+            'gl_VertexID')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id func'
+      StyleName = 'Id func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'acos'
+            'all'
+            'any'
+            'asin'
+            'atan'
+            'ceil'
+            'clamp'
+            'cos'
+            'cross'
+            'degrees'
+            'dFdx'
+            'dFdy'
+            'distance'
+            'dot'
+            'equal'
+            'exp'
+            'exp2'
+            'faceforward'
+            'floor'
+            'fract'
+            'ftransform'
+            'fwidth'
+            'greaterThan'
+            'greaterThanEqual'
+            'inversesqrt'
+            'length'
+            'lessThan'
+            'lessThanEqual'
+            'log'
+            'log2'
+            'matrixCompMult'
+            'max'
+            'min'
+            'mix'
+            'mod'
+            'noise'
+            'normalize'
+            'not'
+            'notEqual'
+            'outerProduct'
+            'pow'
+            'radians'
+            'reflect'
+            'refract'
+            'shadow1D'
+            'shadow1DLod'
+            'shadow1DProj'
+            'shadow1DProjLod'
+            'shadow2D'
+            'shadow2DLod'
+            'shadow2DProj'
+            'shadow2DProjLod'
+            'sign'
+            'sin'
+            'smoothstep'
+            'sqrt'
+            'step'
+            'tan'
+            'texture1D'
+            'texture1DLod'
+            'texture1DProj'
+            'texture1DProjLod'
+            'texture2D'
+            'texture2DLod'
+            'texture2DProj'
+            'texture2DProjLod'
+            'texture3D'
+            'texture3DLod'
+            'texture3DProj'
+            'texture3DProjLod'
+            'textureCube'
+            'textureCubeLod'
+            'transpose')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id keyword illegal'
+      StyleName = 'Id keyword illegal'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'asm'
+            'enum'
+            'extern'
+            'goto'
+            'inline'
+            'long'
+            'short'
+            'typedef'
+            'union'
+            'unsigned')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      NameFmt = '%sz-1'
+      RefToCondEnd = True
+      HighlightPos = cpBound
+      NoEndRule = True
+      IgnoreAsParent = False
+      AutoCloseText = '}'#13#10
+    end
+    item
+      DisplayName = 'func ::'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 4
+        end>
+      NameFmt = '%sz-4'
+      GroupFmt = '%s-1'
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '{ ... }'
+      GrammaRuleName = 'comments'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+          IgnoreCase = True
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'struct'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'struct')
+          TokenTypes = 4
+        end>
+      NameFmt = '%s0 %s-1'
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 4
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '#version 430'
+    '#include '#39'name.h'#39
+    '#include <some\path.h>'
+    '__FILE__, __LINE__, goto, typedef, gl_MaxClipPlanes'
+    ''
+    'layout (location = 0) in vec3 VertexPosition;'
+    'layout (location = 1) in vec3 VertexNormal;'
+    ''
+    'out vec3 Color;'
+    'uniform vec3 Ks;            // Specular reflectivity'
+    'uniform float Shininess;    // Specular shininess factor'
+    'uniform mat3 NormalMatrix;'
+    ''
+    'vec3 ads( vec4 position, vec3 norm )'
+    '{'
+    '    vec3 s;'
+    '    if( LightPosition.w == 0.0 )'
+    '      s = normalize(vec3(LightPosition));'
+    '    else'
+    '      s = normalize( vec3(LightPosition - position) );'
+    ''
+    '    return'
+    '        LightIntensity * ( Ka +'
+    '           Kd * max( dot(s, norm), 0.0 ) +'
+    '           Ks * pow( max( dot(r,v), 0.0 ), Shininess ) );'
+    '}'
+    ''
+    'void main()'
+    '{'
+    '    vec3 eyeNorm = normalize( NormalMatrix * VertexNormal);'
+    '    gl_Position = MVP * vec4(VertexPosition,1.0);'
+    '}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Preprocessor'
+    'Id keyword')
+  Extentions = 
+    'cpp cs vs fs gs vsh fsh gsh vshader fshader gshader vert frag ge' +
+    'om glsl tsc tes'
+  LexerName = 'GLSL'
+  Notes.Strings = (
+    'Alexey (SynWrite)'
+    'Test: https://github.com/daw42/glslcookbook'
+    'Keywords: https://github.com/euler0/sublime-glsl')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

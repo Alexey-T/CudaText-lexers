@@ -1,0 +1,7 @@
+[info]
+title=Fortran
+type=lexer
+subdir=-
+
+[lexer1]
+file=Fortran

@@ -1,0 +1,13 @@
+[info]
+title=HTML Django DTL
+type=lexer
+subdir=-
+
+[lexer1]
+file=HTML Django DTL internal
+[lexer2]
+file=HTML Django DTL
+link1=CSS
+link2=JavaScript
+link3=JavaScript
+link4=HTML Django DTL internal

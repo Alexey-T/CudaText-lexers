@@ -1,0 +1,16 @@
+[map]
+Marked block=-
+Symbol=Symbol
+Number=Number
+String=String
+String { }=String2
+Comment=Comment
+Id=Id
+Id Keyw=IdKeyword
+Id Func=Id1
+
+[comments]
+str1=#|
+str2=|#
+styles_cmt=Comment
+styles_str=String

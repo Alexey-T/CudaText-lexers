@@ -1,0 +1,302 @@
+object SyntAnal69: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Cmt'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Int'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'ResWord'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symb'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Str'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Cmt'
+      StyleName = 'Cmt'
+      TokenType = 1
+      Expression = ';.*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Int'
+      TokenType = 6
+      Expression = 
+        '#with exp. dot is optional '#13#10'\d* \.? \d+ [ED] [\+\-]? \d+ |'#13#10'#wi' +
+        'thout exp. dot is required'#13#10'\d+ \. \d+ |'#13#10'\d+ \. |'#13#10'\. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int'
+      StyleName = 'Int'
+      TokenType = 5
+      Expression = '\d+(B|S|ULL|LL|UL|US|U|L)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Int'
+      TokenType = 7
+      Expression = #39'[\dA-F]+'#39' (XULL|XLL|XUL|XL|XUS|XU|XS|XB|X)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Oct'
+      StyleName = 'Int'
+      TokenType = 7
+      Expression = #39'[0-7]+'#39' (OULL|OLL|OUL|OL|OUS|OU|OS|O)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Oct2'
+      StyleName = 'Int'
+      TokenType = 7
+      Expression = '"[0-7]+ (ULL|LL|UL|L|U|B)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symb'
+      StyleName = 'Symb'
+      TokenType = 3
+      Expression = '[\,\.\+\-\*/\(\)\[\]~\#\^\$@%&=<>:!\?]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str'
+      StyleName = 'Str'
+      TokenType = 4
+      Expression = '("|'#39').*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keyw'
+      StyleName = 'ResWord'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'AND'
+            'BEGIN'
+            'BREAK'
+            'CASE'
+            'COMMON'
+            'COMPILE_OPT'
+            'CONTINUE'
+            'DO'
+            'ELSE'
+            'END'
+            'ENDCASE'
+            'ENDELSE'
+            'ENDFOR'
+            'ENDIF'
+            'ENDREP'
+            'ENDSWITCH'
+            'ENDWHILE'
+            'EQ'
+            'FOR'
+            'FORWARD_FUNCTION'
+            'FUNCTION'
+            'GE'
+            'GOTO'
+            'GT'
+            'IF'
+            'INHERITS'
+            'LE'
+            'LT'
+            'MOD'
+            'NE'
+            'NOT'
+            'OF'
+            'ON_IOERROR'
+            'OR'
+            'PRO'
+            'REPEAT'
+            'SWITCH'
+            'THEN'
+            'UNTIL'
+            'WHILE'
+            'XOR')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Func'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'FUNCTION'
+            'PRO')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Func end'
+      NameFmt = '%s0 %s-1'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Func end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BEGIN')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ENDELSE'
+            'ENDFOR'
+            'ENDIF'
+            'ENDIFEND'
+            'ENDREP'
+            'ENDWHILE')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '; function'
+    'FUNCTION F, x, y'
+    'return, '#39'777'#39'OULL + '#39'777'#39'OUL + "12UL + "12'
+    'return, '#39'2E'#39'XB + '#39'FF'#39'XULL + '#39'0F'#39'XU'
+    'return, 102. + .102 + 1E-2 + .1E+12'
+    'return, sin(0.1 * x) * cos(0.1 * y)'
+    'END'
+    ''
+    '; subprogram'
+    'PRO INFO, a'#9#9'; array A'
+    #9'sz = size(A)'
+    #9'dim = sz[0]'#9'; dimension of array a'
+    #9'IF dim eq 0 THEN print, "Is a single number,", a'
+    #9'IF dim eq 1 THEN BEGIN'
+    #9#9'print, '#39'Is a 1-dimensional array of length'#39',sz[1]'
+    #9#9'm = min([sz[1],3])'
+    #9#9'print, '#39' starting with'#39',A[0:m]'
+    #9#9'ENDIF'
+    #9'IF dim gt 1 THEN BEGIN'
+    #9#9'print, '#39'Is an array of dimension'#39', dim'
+    #9#9'dims = sz[1:dim]'
+    #9#9'print, '#39'size:'#39', dims'
+    #9#9'if dim le 6 then print, '#39'corner values:'#39
+    #9#9'if dim eq 2 then print, a[0:1,0:1]'
+    #9#9'if dim eq 3 then print, a[0:1,0:1,0]'
+    #9#9'if dim eq 4 then print, a[0:1,0:1,0,0]'
+    #9#9'if dim eq 5 then print, a[0:1,0:1,0,0,0]'
+    #9#9'ENDIF'
+    #9'print'
+    'END'#9#9#9#9'; of pro INFO')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Preprocessor')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'pro'
+  LexerName = 'IDL language'
+  Notes.Strings = (
+    'Author: Alex, uvviewsoft.com'
+    'Inf:'
+    
+      'http://idlastro.gsfc.nasa.gov/idl_html_help/Defining_a_Function.' +
+      'html'
+    'http://idlastro.gsfc.nasa.gov/idl_html_help/BEGIN...END.html'
+    
+      'http://idlastro.gsfc.nasa.gov/idl_html_help/Defining_and_Using_C' +
+      'onstants.html'
+    '...')
+  LineComment = ';'
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,14 @@
+[map]
+Id=Id
+Id keyword=IdKeyword
+Id atom=Id1
+Id spec=Id2
+Symbol=Symbol
+Number=Number
+Comment=Comment
+String=String
+[comments]
+styles_cmt=Comment
+styles_str=String
+str1=
+str2=

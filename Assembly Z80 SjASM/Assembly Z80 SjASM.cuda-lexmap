@@ -1,0 +1,23 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+str1=/*
+str2=*/
+
+[ref]
+0=Lua
+
+[map]
+Label=Id3
+Number=Number
+Symbol=Symbol
+Reserved word=IdKeyword
+Mnemonics=Id1
+Registers=Id2
+Comment=Comment
+String=String
+InBrackets=SectionBG2
+Current Block=SectionBG1
+Default=Id
+Invalid symbol=IdBad
+LuaBG=IncludeBG1

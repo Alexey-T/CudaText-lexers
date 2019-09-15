@@ -1,0 +1,145 @@
+object SyntAnal47: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Value'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol eq'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Symbol eq 1st'
+      StyleName = 'Symbol eq'
+      TokenType = 5
+      Expression = '^ [\x20\x09]* ='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol key 1st'
+      StyleName = 'Symbol key'
+      TokenType = 5
+      Expression = '^ [\x20\x09]* [\?@\$\^&\+:,\.!\#%]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 1st'
+      StyleName = 'Comment'
+      TokenType = 6
+      Expression = '^ [\x20\x09]* \-\- .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Key 1st'
+      StyleName = 'Key'
+      TokenType = 1
+      Expression = '^ [\x20\x09]* \S+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Value'
+      StyleName = 'Value'
+      TokenType = 2
+      Expression = '(?<=\=) .+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Eq'
+      StyleName = 'Symbol eq'
+      TokenType = 4
+      Expression = '='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Key'
+      StyleName = 'Key'
+      Expression = '\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'block'
+      ConditionList = <
+        item
+          TokenTypes = 34
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      GroupIndex = 20
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'root1'
+    '    key =value'
+    '    spaces ='
+    '? root2'
+    '    very long hierarchy of nodes'
+    '        ?@ multiline-content'
+    '            =first'
+    '            =second'
+    '-- Comment'
+    '=root value'
+    '='
+    '    =root'
+    '    =value')
+  TokenTypeNames.Strings = (
+    'Key'
+    '1Key'
+    'Value'
+    'Symbol key'
+    'Symbol eq'
+    '1Symbol'
+    'Comment')
+  Extentions = 'tree'
+  LexerName = 'Tree'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alex (Synwrite)'
+    'Test: https://github.com/nin-jin/tree.d/tree/master/examples')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+end

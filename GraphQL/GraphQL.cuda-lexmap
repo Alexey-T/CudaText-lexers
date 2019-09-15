@@ -1,0 +1,17 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Comment=Comment
+Symbol=Symbol
+Number=Number
+String=String
+Id=Id
+Id keyword=IdKeyword
+Id argument=IdVar
+Id prop=Id1
+Id has args=Id2
+Id std types=Id3

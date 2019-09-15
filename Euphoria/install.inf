@@ -1,0 +1,7 @@
+[info]
+title=Euphoria
+type=lexer
+subdir=-
+
+[lexer1]
+file=Euphoria

@@ -1,0 +1,7 @@
+[info]
+title=Assembly AVR
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly AVR

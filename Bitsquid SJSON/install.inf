@@ -1,0 +1,7 @@
+[info]
+title=Bitsquid SJSON
+type=lexer
+subdir=-
+
+[lexer1]
+file=Bitsquid SJSON

@@ -1,0 +1,7 @@
+[info]
+title=Visual dBase
+type=lexer
+subdir=-
+
+[lexer1]
+file=Visual dBase

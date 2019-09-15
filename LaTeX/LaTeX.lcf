@@ -1,0 +1,793 @@
+object SyntAnal19: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment directive'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol cmd'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id braces'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Cmd'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 170
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Cmd item'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsUnderline]
+    end
+    item
+      DisplayName = 'Cmd preamble'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id param'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16512
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id units'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Str title'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+    end
+    item
+      DisplayName = 'Str section'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsUnderline]
+    end
+    item
+      DisplayName = 'Str verbatim'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Environment BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15532012
+      FormatType = ftBackGround
+      BorderTypeTop = blSolid
+      BorderColorTop = 13303754
+      BorderColorBottom = clLime
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 'In braces BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 9830293
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Document BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16449530
+      FormatType = ftBackGround
+      BorderColorTop = clLime
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 'Sublexer BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14998210
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Symbol math'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Math BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 12910591
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Str ref'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 12320699
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment directive'
+      StyleName = 'Comment directive'
+      Expression = '%[\x20\x09]+\!.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      Expression = '%.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Cmd item'
+      StyleName = 'Cmd item'
+      TokenType = 2
+      Expression = '\\item  |'#13#10'\\hline'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str title'
+      StyleName = 'Str title'
+      TokenType = 8
+      Expression = '(?<=\\title\{) .+? (?=\})'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str verbatim'
+      StyleName = 'Str verbatim'
+      TokenType = 10
+      Expression = '(?<=\\verb\|\s*) .+? (?=\|)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Cmd'
+      StyleName = 'Cmd'
+      TokenType = 2
+      Expression = '\\[a-z@\*]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol math'
+      StyleName = 'Symbol math'
+      TokenType = 11
+      Expression = '\$\$? | & | \\[\[\]\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\{\}\[\]\(\)\|=\*:\#~%\+\-\^\.,\\/]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str section'
+      StyleName = 'Str section'
+      TokenType = 7
+      Expression = 
+        '(?<=\\part\{)       .+? (?=\}) |'#13#10'(?<=\\chapter\{)    .+? (?=\})' +
+        ' |'#13#10'(?<=\\section\{)    .+? (?=\}) |'#13#10'(?<=\\subsection\{) .+? (?' +
+        '=\}) |'#13#10'(?<=\\part\*\{)     .+? (?=\}) |'#13#10'(?<=\\chapter\*\{)    ' +
+        '.+? (?=\}) |'#13#10'(?<=\\section\*\{)    .+? (?=\}) |'#13#10'(?<=\\subsecti' +
+        'on\*\{) .+? (?=\})'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\.\d+ |'#13#10'\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str ref'
+      StyleName = 'Str ref'
+      TokenType = 9
+      Expression = 
+        '(?<=\\label\{) .+? (?=\}) |'#13#10'(?<=\\ref\{)   .+? (?=\}) |'#13#10'(?<=\\' +
+        'eqref\{) .+? (?=\}) |'#13#10'(?<=\\cite\{)  .+? (?=\})'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id units'
+      StyleName = 'Id units'
+      TokenType = 9
+      Expression = '(?<=\d+)(pt|pc|cm|mm|ex|em) \b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id braces'
+      StyleName = 'Id braces'
+      StatesPresent = 2
+      TokenType = 6
+      Expression = '[a-z][\w\*]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id param'
+      StyleName = 'Id param'
+      StatesPresent = 1
+      TokenType = 4
+      Expression = '[a-z][\w\*]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str mathmode'
+      StyleName = 'Math BG'
+      TokenType = 12
+      Expression = '(?<=\$) .+? (?=\$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 4
+      Expression = '\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'begin{document}'
+      StyleName = 'Document BG'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'document')
+          TokenTypes = 64
+        end
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '\begin')
+          TokenTypes = 4
+        end>
+      IdentIndex = -2
+      BlockEnd = 'end{document}'
+      NameFmt = '{%s-2}'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '{%s-2}...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end{document}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'document')
+          TokenTypes = 64
+        end
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '\end')
+          TokenTypes = 4
+        end>
+      IdentIndex = -2
+      BlockOffset = -3
+      SameIdent = True
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin{any}'
+      StyleName = 'Environment BG'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'document')
+          CondType = tcNotEqual
+          TokenTypes = 64
+        end
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '\begin')
+          TokenTypes = 4
+        end>
+      IdentIndex = -2
+      BlockEnd = 'end{any}'
+      NameFmt = '{%s-2}'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = '{%s-2}...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end{any}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 64
+        end
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '\end')
+          TokenTypes = 4
+        end>
+      IdentIndex = -2
+      BlockOffset = -3
+      SameIdent = True
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      StyleName = 'In braces BG'
+      StatesAdd = 2
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpBound
+      CollapseFmt = '{...}'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      StatesRemove = 2
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'section'
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end>
+      NameFmt = '_{%s0}'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '{%s0}...'
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'cmd preamble'
+      StyleName = 'Cmd preamble'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '\documentclass'
+            '\title'
+            '\usepackage')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'math begin'
+      StyleName = 'Math BG'
+      StatesAdd = 4
+      StatesAbsent = 4
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '\('
+            '\[')
+        end>
+      BlockOffset = -1
+      BlockEnd = 'math end'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'math end'
+      StatesRemove = 4
+      StatesPresent = 4
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '\)'
+            '\]')
+          TokenTypes = 2048
+        end>
+      BlockOffset = 1
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      StatesAdd = 1
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 8
+        end>
+      BlockEnd = ']'
+      NotCollapsed = True
+      DisplayInTree = False
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      StatesRemove = 1
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'Lua'
+      StyleName = 'Sublexer BG'
+      StartExpression = '\\begin\{luacode\*?\}'
+      EndExpression = '\\end\{luacode\*?\}'
+      SyntAnalyzer = SyntAnal22
+    end
+    item
+      DisplayName = 'Python'
+      StyleName = 'Sublexer BG'
+      StartExpression = '\\begin\{py(console|code)\*?\}'
+      EndExpression = '\\end\{py(console|code)\*?\}'
+      SyntAnalyzer = SyntAnal31
+    end>
+  SampleText.Strings = (
+    '% !TeX program = lualatex'
+    '% !TeX encoding = utf8'
+    '% !TeX spellcheck = uk_UA'
+    '% !BIB program = bibtex8'
+    ''
+    '% The preamble is the first section of an input file.'
+    ''
+    '\documentclass[12pt, letterpaper, twoside]{article}'
+    '\usepackage[utf8]{inputenc} %codification of the document'
+    '\usepackage[demo]{graphicx}'
+    '\usepackage{luacode, pythontex} '
+    ''
+    '\title{\LaTeX Lexer for Synwrite/CudaText}'
+    ''
+    '\begin{document}'
+    '\maketitle'
+    ''
+    '\section*{Introduction}'
+    '\section{Lists}'
+    ''
+    
+      'The unordered (unnumbered) lists are produced by the itemize env' +
+      'ironment. Each entry must be preceded by the control sequence \s' +
+      'tring\item.'
+    ''
+    '\begin{itemize}'
+    
+      '  \item The individual entries are indicated with a black dot, a' +
+      ' so-called bullet.'
+    '  \item The text in the entries may be of any length.'
+    '\end{itemize}'
+    ''
+    '\section{Mathematics}'
+    ''
+    
+      '\LaTeX allows two writing modes for mathematical expressions: th' +
+      'e inline mode and the display mode. '
+    ''
+    'The well known Pythagorean theorem \(x^2 + y^2 = z^2\) was '
+    'proved to be invalid for other exponents. '
+    'Meaning the next equation has no integer solutions:'
+    ' '
+    '\[ x^n + y^n = z^n \]'
+    ''
+    'The mass-energy equivalence is described by the famous equation'
+    ' '
+    '$$E_0=mc^2$$'
+    ' '
+    'discovered in 1905 by Albert Einstein. '
+    ''
+    'The quantity $E_0$ caled \emph{rest energy}.'
+    ' '
+    
+      'The relativistic expressions for $E$ and $p$ obey the relativist' +
+      'ic energy'#8211'momentum relation:'
+    ''
+    '\begin{equation}'
+    '\label{key}'
+    'E^2 - (pc)^2 = (mc^2)^2 '
+    '\end{equation}'
+    ''
+    
+      'where the $m$ is the rest mass, or the invariant mass for system' +
+      's, and $E$ is the total energy.'
+    ''
+    
+      'The equation \eqref{key} is also valid for photons, which have $' +
+      'm = 0$:'
+    ''
+    '\begin{equation*}'
+    'E = pc'
+    '\end{equation*}'
+    '  '
+    '   '
+    '\section{Figures and tables}'
+    ''
+    '\subsection{Figures}'
+    
+      'If we want to further specify how \LaTeX should include our imag' +
+      'e in the document (length, height, etc), we can pass those setti' +
+      'ngs in the following format:'
+    ' '
+    '\begin{figure}[h!]'
+    ' \centering'
+    ' \includegraphics[draft, width=0.5\textwidth]{example-image-b}'
+    ' \caption{Example of a parametric plot ($\sin (x), \cos(x), x$)}'
+    '\end{figure}'
+    ''
+    '\subsection{Tables}'
+    'Below you can see the simplest working example of a table:'
+    '\begin{center}'
+    '\begin{tabular}{ |c|c|c| } '
+    ' \hline'
+    ' cell1 & cell2 & cell3 \\ '
+    ' cell4 & cell5 & cell6 \\ '
+    ' cell7 & cell8 & cell9 \\ '
+    ' \hline'
+    '\end{tabular}'
+    '\end{center}'
+    ''
+    '\section{The verbatim text}'
+    
+      'The default tool to display code in \LaTeX is verbatim, which ge' +
+      'nerates an output in monospaced font.'
+    ''
+    'For example:\\'
+    
+      '\verb|Text inside \verb is printed directly and all \LaTeX{} com' +
+      'mands are ignored.|'
+    ''
+    'And also standard verbatim environment do the same:'
+    '\begin{verbatim}'
+    'Text enclosed inside verbatim environment '
+    'is printed directly and all \LaTeX{} commands are ignored.'
+    '\end{verbatim}'
+    ''
+    '\section{Using Lua\LaTeX}'
+    ''
+    'The first job is, as ever, to have the Lua function at the ready'
+    '\begin{luacode}'
+    
+      '   -- '#39'mchoose'#39' is patterned after the posting in http://stackov' +
+      'erflow.com/a/15302448.'
+    '   -- Thanks, @egreg, for providing the pointer to this posting!'
+    '   function mchoose( n, k )'
+    '     if (k == 0 or k == n) then'
+    '       return 1 '
+    '     else '
+    '       return (n * mchoose(n - 1, k - 1)) / k '
+    '     end'
+    '   end'
+    ''
+    '   -- print an arbitrary length integer as formatted string'
+    '   function fwrite(z) '
+    '      tex.sprint ( string.format("%.0f",z) )'
+    '   end'
+    '\end{luacode}'
+    ''
+    '\section{Using Python}'
+    ''
+    '\begin{pycode}'
+    ''
+    'import numpy as np'
+    'import matplotlib.pyplot as plt'
+    'def f(t):'
+    '    return np.exp(-t) * np.cos(2*np.pi*t)'
+    ''
+    't1 = np.arange(0.0, 5.0, 0.1)'
+    't2 = np.arange(0.0, 5.0, 0.02)'
+    ''
+    'plt.figure(1)'
+    'plt.subplot(211)'
+    'plt.plot(t1, f(t1), '#39'bo'#39', t2, f(t2), '#39'k'#39')'
+    ''
+    'plt.subplot(212)'
+    'plt.plot(t2, np.cos(2*np.pi*t2), '#39'r--'#39')'
+    'plt.savefig('#39'myplot.pdf'#39', bbox_inches='#39'tight'#39')'
+    'plt.show()'
+    'print (r'#39'\includegraphics[width=\linewidth]{myplot.pdf}'#39')'
+    ''
+    '\end{pycode}'
+    ''
+    '\begin{pycode}'
+    'def fib(n): # nth Fibonacci value'
+    '     a, b = 0, 1'
+    '     for i in range(n):'
+    '         a, b = b, a + b'
+    '     return a'
+    '\end{pycode}'
+    ''
+    '\end{document}')
+  TokenTypeNames.Strings = (
+    'Comment'
+    'Cmd item'
+    'Cmd'
+    'Symbol'
+    'Id'
+    'Number'
+    'Id braces'
+    'Str section'
+    'Str title'
+    'Str ref'
+    'Id units'
+    'Str verbatim'
+    'Symbol math'
+    'Cmd math ')
+  Extentions = 'tex sty aux toc idx cls'
+  LexerName = 'LaTeX'
+  Notes.Strings = (
+    'by Alexey (SynWrite)'
+    'with help of sergiokapone (SynWrite forum)')
+  LineComment = '%'
+  Charset = DEFAULT_CHARSET
+end

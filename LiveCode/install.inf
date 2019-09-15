@@ -1,0 +1,7 @@
+[info]
+title=LiveCode
+type=lexer
+subdir=-
+
+[lexer1]
+file=LiveCode

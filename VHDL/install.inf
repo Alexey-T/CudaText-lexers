@@ -1,0 +1,7 @@
+[info]
+title=VHDL
+type=lexer
+subdir=-
+
+[lexer1]
+file=VHDL

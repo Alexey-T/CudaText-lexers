@@ -1,0 +1,17 @@
+[ref]
+0=ASAP2 Meta Language
+
+[map]
+Id=Id
+Id keyword=IdKeyword
+String=String
+Comment=Comment
+Number=Number
+Sublexer BG=SectionBG1
+Id block name=Id1
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

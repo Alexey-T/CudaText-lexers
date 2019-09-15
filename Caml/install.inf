@@ -1,0 +1,7 @@
+[info]
+title=Caml
+type=lexer
+subdir=-
+
+[lexer1]
+file=Caml

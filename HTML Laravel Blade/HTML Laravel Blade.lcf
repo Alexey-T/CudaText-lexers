@@ -1,0 +1,1391 @@
+object SyntAnal11: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Tag id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag id - underlines'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blWavyLine
+      BorderColorBottom = clRed
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clInfoBk
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 'Tag bound'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Tag attrib'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag attrib - underlines'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blWavyLine
+      BorderColorBottom = clRed
+    end
+    item
+      DisplayName = 'Tag param'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Unknown tag content'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsUnderline]
+    end
+    item
+      DisplayName = 'Tag Key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Tree item (attribute)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14155775
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Tree item (tag)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Current Block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 15400927
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end
+    item
+      DisplayName = 'Current Tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clSilver
+    end
+    item
+      DisplayName = 'Sublexer BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14410451
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Sublexer BG Blade'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clSkyBlue
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Blade cmd'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clSkyBlue
+    end
+    item
+      DisplayName = 'Blade symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clSkyBlue
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?ms)<!--.*?(-->|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment end'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '# for use in <SCRIPT>'#13#10'-->'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment Doctype'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)<!doctype .+? >'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<'
+      StyleName = 'Tag bound'
+      TokenType = 10
+      Expression = '<[/!\-%\?]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '>'
+      StyleName = 'Tag bound'
+      TokenType = 11
+      Expression = '[%\?/]?>'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      BlockName = 'Tag begin'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex code'
+      StyleName = 'Number'
+      BlockName = 'Tag begin'
+      TokenType = 7
+      Expression = '\#[a-f\d]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag param'
+      StyleName = 'Tag param'
+      BlockName = 'Tag begin'
+      TokenType = 4
+      Expression = '(?s) ("|'#39') (<\?.+?\?>|.)*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag ident'
+      StyleName = 'Tag id - underlines'
+      BlockName = 'Tag begin'
+      TokenType = 2
+      Expression = '[^\s=>/]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '='
+      StyleName = 'Tag bound'
+      BlockName = 'Tag begin'
+      TokenType = 3
+      Expression = '='#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Unknow tag content'
+      StyleName = 'Unknown tag content'
+      BlockName = 'Tag begin'
+      Expression = '[^>]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '&...'
+      StyleName = 'Tag Key'
+      TokenType = 9
+      Expression = '&\w+;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Blade id'
+      StyleName = 'Blade cmd'
+      TokenType = 2
+      Expression = '@\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Blade symb'
+      StyleName = 'Blade symbol'
+      TokenType = 3
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      TokenType = 9
+      Expression = '[^<&@\{\}]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Tag attrib/misc'
+      StyleName = 'Tag attrib'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'html'
+            'nowrap'
+            'public')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag id'
+      StyleName = 'Tag id'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'a'
+            'abbr'
+            'acronym'
+            'address'
+            'applet'
+            'area'
+            'article'
+            'aside'
+            'audio'
+            'b'
+            'base'
+            'basefont'
+            'bdi'
+            'bdo'
+            'bgsound'
+            'big'
+            'blink'
+            'blockquote'
+            'body'
+            'br'
+            'button'
+            'canvas'
+            'caption'
+            'center'
+            'cite'
+            'code'
+            'col'
+            'colgroup'
+            'command'
+            'comment'
+            'datalist'
+            'dd'
+            'del'
+            'details'
+            'dfn'
+            'dir'
+            'div'
+            'dl'
+            'doctype'
+            'dt'
+            'em'
+            'embed'
+            'fieldset'
+            'figcaption'
+            'figure'
+            'font'
+            'footer'
+            'form'
+            'frame'
+            'frameset'
+            'h1'
+            'h2'
+            'h3'
+            'h4'
+            'h5'
+            'h6'
+            'head'
+            'header'
+            'hgroup'
+            'hr'
+            'html'
+            'i'
+            'iframe'
+            'img'
+            'input'
+            'ins'
+            'isindex'
+            'kbd'
+            'keygen'
+            'label'
+            'legend'
+            'li'
+            'link'
+            'main'
+            'map'
+            'mark'
+            'marquee'
+            'menu'
+            'meta'
+            'meter'
+            'multicol'
+            'nav'
+            'nobr'
+            'noembed'
+            'noframes'
+            'noindex'
+            'noscript'
+            'object'
+            'ol'
+            'optgroup'
+            'option'
+            'output'
+            'p'
+            'param'
+            'php'
+            'picture'
+            'plaintext'
+            'pre'
+            'progress'
+            'q'
+            'rp'
+            'rt'
+            'ruby'
+            's'
+            'samp'
+            'script'
+            'section'
+            'select'
+            'small'
+            'source'
+            'spacer'
+            'span'
+            'strike'
+            'strong'
+            'style'
+            'sub'
+            'summary'
+            'sup'
+            'table'
+            'tbody'
+            'td'
+            'textarea'
+            'tfoot'
+            'th'
+            'thead'
+            'time'
+            'title'
+            'tr'
+            'track'
+            'tt'
+            'u'
+            'ul'
+            'var'
+            'video'
+            'wbr'
+            'xmp')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<'
+            '<!'
+            '</')
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag attrib incorrect'
+      StyleName = 'Tag attrib - underlines'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag attrib'
+      StyleName = 'Tag attrib'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'abbr'
+            'accept'
+            'accept-charset'
+            'accesskey'
+            'action'
+            'align'
+            'alink'
+            'alt'
+            'archive'
+            'axis'
+            'background'
+            'behavior'
+            'bgcolor'
+            'border'
+            'cellpadding'
+            'cellspacing'
+            'char'
+            'charoff'
+            'charset'
+            'checked'
+            'cite'
+            'class'
+            'classid'
+            'clear'
+            'code'
+            'codebase'
+            'codetype'
+            'color'
+            'cols'
+            'colspan'
+            'compact'
+            'content'
+            'contenteditable'
+            'contextmenu'
+            'controls'
+            'coords'
+            'data'
+            'datetime'
+            'declare'
+            'defer'
+            'dir'
+            'direction'
+            'disabled'
+            'doctype'
+            'draggable'
+            'enctype'
+            'equiv'
+            'face'
+            'for'
+            'frame'
+            'frameborder'
+            'headers'
+            'height'
+            'hidden'
+            'href'
+            'hreflang'
+            'hspace'
+            'html'
+            'http-equiv'
+            'id'
+            'ismap'
+            'item'
+            'itemprop'
+            'kind'
+            'label'
+            'lang'
+            'language'
+            'link'
+            'longdesc'
+            'loop'
+            'marginheight'
+            'marginwidth'
+            'max'
+            'maxlength'
+            'media'
+            'method'
+            'min'
+            'multiple'
+            'name'
+            'nohref'
+            'noresize'
+            'noshade'
+            'nowrap'
+            'object'
+            'onblur'
+            'onchange'
+            'onclick'
+            'ondblclick'
+            'onfocus'
+            'onkeydown'
+            'onkeypress'
+            'onkeyup'
+            'onload'
+            'onmousedown'
+            'onmousemove'
+            'onmouseout'
+            'onmouseover'
+            'onmouseup'
+            'onreset'
+            'onselect'
+            'onsubmit'
+            'onunload'
+            'placeholder'
+            'pluginspage'
+            'profile'
+            'prompt'
+            'public'
+            'readonly'
+            'rel'
+            'rev'
+            'rows'
+            'rowspan'
+            'rules'
+            'salign'
+            'scheme'
+            'scope'
+            'scrollamount'
+            'scrolldelay'
+            'scrolling'
+            'selected'
+            'shape'
+            'size'
+            'sizes'
+            'span'
+            'spellcheck'
+            'src'
+            'srclang'
+            'srcset'
+            'standby'
+            'start'
+            'style'
+            'subject'
+            'summary'
+            'tabindex'
+            'target'
+            'text'
+            'title'
+            'truespeed'
+            'type'
+            'usemap'
+            'valign'
+            'value'
+            'valuetype'
+            'version'
+            'vlink'
+            'vspace'
+            'width'
+            'wmode'
+            'xmlns')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      IdentIndex = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag attrib/data'
+      StyleName = 'Tag attrib'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'data\-\w+')
+          CondType = tcMask
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag attrib value'
+      StyleName = 'Tag param'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 20
+        end
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag begin'
+      StyleName = 'Current Tag'
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag end'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Simple tag block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'hr'
+            'image'
+            'img'
+            'input'
+            'link'
+            'meta')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Simple tag block end'
+      NameFmt = '%s0~s[>]1'
+      HighlightPos = cpBound
+      TreeItemStyle = 'Tree item (tag)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Simple tag block end'
+      BlockName = 'Simple tag block'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag block begin'
+      StyleName = 'Current Block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'br'
+            'hr'
+            'image'
+            'img'
+            'input'
+            'link'
+            'meta'
+            'source')
+          CondType = tcNotEqual
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<'
+            '<!')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag block end'
+      NameFmt = '%s0~s[>]1'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = '%s0'
+      TreeItemStyle = 'Tree item (tag)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '</')
+          TokenTypes = 1024
+        end>
+      SameIdent = True
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment begin'
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '<!--  ...  -->'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag img begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'img')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag img end'
+      NameFmt = '%s-1~s[>]1'
+      GroupFmt = '\Images'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag img end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/>'
+            '>')
+          TokenTypes = 2048
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag a begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'a')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag a end'
+      NameFmt = '%s-2~s[>]1'
+      GroupFmt = '\Links'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag a end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'a')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '</')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag a begin'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag form begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'form')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag form end'
+      NameFmt = '%s-1~s[>]1'
+      GroupFmt = '\Forms'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag form end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'form')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '</')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag form begin'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag css begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '"stylesheet"')
+          TokenTypes = 16
+        end
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'rel')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'link')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag css end'
+      NameFmt = '%s-1~s[>]1'
+      GroupFmt = '\Style sheets'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag css end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/>'
+            '>')
+          TokenTypes = 2048
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'attrib id'
+      ConditionList = <
+        item
+          TokenTypes = 16
+        end
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'id')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      NameFmt = '%s-2'
+      GroupFmt = '\IDs'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'attrib class'
+      ConditionList = <
+        item
+          TokenTypes = 16
+        end
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'class')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      NameFmt = '%s-2'
+      GroupFmt = '\Classes'
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag script begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'script')
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag script end'
+      NameFmt = '%s-1~s[>]1'
+      GroupFmt = '\Scripts'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag script end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'script')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '</')
+          TokenTypes = 1024
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@section'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@section')
+          TokenTypes = 4
+        end>
+      BlockEnd = '@stop'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '@section'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@stop'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@stop')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@if'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@if')
+          TokenTypes = 4
+        end>
+      BlockEnd = '@endif'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '@if'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@endif'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@endif')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@unless'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@unless')
+          TokenTypes = 4
+        end>
+      BlockEnd = '@endunless'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '@unless'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@endunless'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@endunless')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@for'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@for')
+          TokenTypes = 4
+        end>
+      BlockEnd = '@endfor'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@endfor'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@endfor')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@foreach'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@foreach')
+          TokenTypes = 4
+        end>
+      BlockEnd = '@endforeach'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@endforeach'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@endforeach')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@forelse'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@forelse')
+          TokenTypes = 4
+        end>
+      BlockEnd = '@endforelse'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@endforelse'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@endforelse')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@while'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@while')
+          TokenTypes = 4
+        end>
+      BlockEnd = '@endwhile'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '@endwhile'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@endwhile')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'Style sheet'
+      StyleName = 'Sublexer BG'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<style[^>]*>\s* '#13#10
+      EndExpression = '</style>'#13#10
+      SyntAnalyzer = SyntAnalyzer10
+    end
+    item
+      DisplayName = 'VB script'
+      StyleName = 'Sublexer BG'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<script[^>]*vbscript[^>]*>\s*(<!--)?'#13#10
+      EndExpression = '(?i)(-->)?\s*</script>'#13#10
+      SyntAnalyzer = SyntAnal56
+    end
+    item
+      DisplayName = 'Java script'
+      StyleName = 'Sublexer BG'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<script[^>]*javascript[^>]*>\s*(<!--)?'#13#10
+      EndExpression = '(?i)(//)?(-->)?</script>'#13#10
+      SyntAnalyzer = SyntAnal38
+    end
+    item
+      DisplayName = 'Default script'
+      StyleName = 'Sublexer BG'
+      StartExpression = '<\s*script\s*>'
+      EndExpression = '</\s*script\s*>'
+      SyntAnalyzer = SyntAnal38
+    end
+    item
+      DisplayName = 'ASP'
+      StyleName = 'Sublexer BG'
+      AlwaysEnabled = True
+      StartExpression = '<%'#13#10
+      EndExpression = '%>'#13#10
+      SyntAnalyzer = SyntAnal56
+    end
+    item
+      DisplayName = 'PHP'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<script[^>]*php[^>]*>\s*(<!--)?'#13#10
+      EndExpression = '(?i)(-->)?\s*</script>'#13#10
+      SyntAnalyzer = SyntAnal84
+    end
+    item
+      DisplayName = 'PHP 2'
+      AlwaysEnabled = True
+      StartExpression = '(?i)<\?(php)?'#13#10
+      EndExpression = '\?>'#13#10
+      SyntAnalyzer = SyntAnal84
+    end
+    item
+      DisplayName = 'Blade 1'
+      StyleName = 'Sublexer BG Blade'
+      StartExpression = '\{ {2,3}'
+      EndExpression = '\} {2,3}'
+      SyntAnalyzer = SyntAnal10
+    end
+    item
+      DisplayName = 'Blade 2'
+      StyleName = 'Sublexer BG Blade'
+      StartExpression = '@\w+'
+      EndExpression = '\z'
+      SyntAnalyzer = SyntAnal10
+    end>
+  SampleText.Strings = (
+    '<html>'
+    '    <body>'
+    '        @section('#39'sidebar'#39')'
+    '            This is the master sidebar.'
+    '        @stop'
+    ''
+    '        <div class="container">'
+    '            @yield('#39'content'#39')'
+    '        </div>  '
+    '        '
+    '        {{{ time() + $name }}} '
+    '        '
+    '    @for ($i = 0; $i < 10; $i++)'
+    '        The current value is {{ $i }}'
+    '    @endfor'
+    ''
+    '    @foreach ($users as $user)'
+    '        <p>This is user {{ $user->id }}</p>'
+    '    @endforeach'
+    ''
+    '    </body>'
+    '</html>')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Text'
+    'Open Tag'
+    'Close Tag')
+  Extentions = 'blade.php'
+  LexerName = 'HTML Laravel Blade'
+  Notes.Strings = (
+    'Alex (Synwrite)'
+    'Doc: http://laravel.com/docs/4.2/templates#blade-templating')
+  Charset = DEFAULT_CHARSET
+end

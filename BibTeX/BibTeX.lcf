@@ -1,0 +1,184 @@
+object SyntAnal11: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_][\w-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '" (\\"|\\\\|\{.+?\}|.)*? ("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+ \. \d+  | \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^%.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Keyword'
+      StyleName = 'Keyword'
+      TokenType = 6
+      Expression = '@\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\+\-\*=<>&/\|\^\.!%\{\}\(\)\[\]:,\.\#'#39'\\`]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = '@book{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 64
+        end>
+      BlockEnd = '}'
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '%Test'
+    '@string{ foo = "bar" }'
+    '  '
+    '@Article{key01,'
+    '    author = "Simon {"}the {saint"} Templar", '
+    '    }'
+    ''
+    '@book{dragon,'
+    #9'Address = {Some},'
+    #9'Booktitle = {Compilers: Principles, Techniques, and Tools},'
+    #9'Date-Modified = {2010-08-05 10:06:32 +0200},'
+    #9'Edition = {second},'
+    #9'Keywords = {compiler, lex, yacc},'
+    #9'Publisher = {Some},'
+    #9'Title = {Compilers: Principles, Techniques, and Tools},'
+    #9'Year = {2002}'
+    '}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Number'
+    'Keyword')
+  Extentions = 'bib'
+  LexerName = 'BibTeX'
+  Notes.Strings = (
+    'Alexey (SynWrite)'
+    'Test: https://github.com/inukshuk/bibtex-ruby ')
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,7 @@
+[info]
+title=Falcon
+type=lexer
+subdir=-
+
+[lexer1]
+file=Falcon

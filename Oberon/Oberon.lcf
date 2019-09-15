@@ -1,0 +1,456 @@
+object SyntAnal12: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Reserved word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Pragma'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '--.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = 
+        '#nested comment allowed: (* (*..*) *)'#13#10'(?s)\(\* ( \(\*.*?\*\) |.' +
+        ')*? (\*\)|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Pragma'
+      StyleName = 'Pragma'
+      TokenType = 9
+      Expression = '#nested "--...." comment can be'#13#10'(?s)<\* (--.*?$| .)*? \*>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39').*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '(\d+ \.)? \d* [ed] [\+\-]? \d+ |'#13#10'\d+ \. \d*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 8
+      Expression = '(?-i)\d[\dA-F]*X'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d[\dA-F]*H'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int'
+      StyleName = 'Number'
+      TokenType = 7
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]\^\#&~\{\}\|]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Key words'
+      StyleName = 'Reserved word'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ARRAY'
+            'BEGIN'
+            'BY'
+            'CASE'
+            'CONST'
+            'DIV'
+            'DO'
+            'ELSE'
+            'ELSIF'
+            'END'
+            'EXIT'
+            'FOR'
+            'IF'
+            'IMPORT'
+            'IN'
+            'INTEGER'
+            'IS'
+            'LOOP'
+            'MOD'
+            'MODULE'
+            'NEW'
+            'NIL'
+            'OF'
+            'OR'
+            'POINTER'
+            'PROCEDURE'
+            'RECORD'
+            'REPEAT'
+            'RETURN'
+            'SET'
+            'THEN'
+            'TO'
+            'TYPE'
+            'UNTIL'
+            'VAR'
+            'WHILE'
+            'WITH')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc with *'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '*')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'PROCEDURE')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'proc end'
+      NameFmt = 'proc %s-2'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = 'proc %s-2'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc simple'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'PROCEDURE')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'proc end'
+      NameFmt = 'proc %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = 'proc %s-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc with [..]'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+        end
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'PROCEDURE')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'proc end'
+      NameFmt = 'proc %s[\]]-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = 'proc %s[\]]-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc with (..)'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'PROCEDURE')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'proc end'
+      NameFmt = 'proc %s[)]-1'
+      RefToCondEnd = True
+      HighlightPos = cpBound
+      CollapseFmt = 'proc %s[)]-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'END')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BEGIN'
+            'CASE'
+            'IF'
+            'WHILE')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'END')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '{ ... }'
+      GrammaRuleName = 'comments'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+          IgnoreCase = True
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'MODULE OberonSample;'
+    ''
+    '<* compiler pragma -- *> *> comment'
+    '   pragma end *>'
+    '(* comment'
+    '   comment end *)'
+    '(*(**) this is still a comment *)'
+    ''
+    'CONST'
+    '  sqString* = '#39'this is a string within "a string" ...'#39';'
+    '  dqString* = "this is a string within '#39'a string'#39' ...";'
+    '  a = 0DH;'
+    '  a = 0DX;'
+    '  r = 1. + 1.E2 + 1.2 + 4.567E8 + 0.577D-6;'
+    '  '
+    '  const div case (* lower: not reserved *)   '
+    '   '
+    'PROCEDURE ['#39'C'#39'] getFuncsArray* (VAR nFuncs: LONGINT): LONGINT;'
+    'BEGIN'
+    '   RETURN SYSTEM.ADR (MI^)'
+    'END getFuncsArray;'
+    '  '
+    
+      '   PROCEDURE (self: Shape)rMoveTo*(deltax: INTEGER; deltay: INTE' +
+      'GER);'
+    '   BEGIN'
+    
+      '      self^.moveTo(self^.getX() + deltax, self^.getY() + deltay)' +
+      ';'
+    '   END rMoveTo;'
+    ''
+    '   (* abstract draw method *)'
+    '   PROCEDURE (self: Shape)draw*();'
+    '   BEGIN'
+    '   END draw;'
+    ''
+    '   (* allocate and initialize a new object instance *)'
+    
+      '   PROCEDURE Make*(x: INTEGER; y: INTEGER; radius: INTEGER): Cir' +
+      'cle;'
+    '   VAR self: Circle;'
+    '   BEGIN'
+    '      NEW(self);'
+    '      self^.moveTo(x, y);'
+    '      self^.setRadius(radius);'
+    '      RETURN self;'
+    '   END Make;'
+    ''
+    'END OberonSample.')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Preprocessor')
+  Extentions = 'ob2 mod'
+  LexerName = 'Oberon'
+  Notes.Strings = (
+    'Reworked by Alex (Synwrite)'
+    'See'
+    'http://oberonrevival.sourceforge.net/docs/xds/html/o2rep.html'
+    'N++ lexer written in Ob2:'
+    'http://sourceforge.net/projects/npp-plugins/files/Oberon2Lexer/')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

@@ -1,0 +1,510 @@
+object SyntAnal18: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id funcs'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id @word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)("|'#39') (\\\\|\\\1|.)*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id var'
+      StyleName = 'Id var'
+      TokenType = 2
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id @word'
+      StyleName = 'Id @word'
+      Expression = '@(text|json|html|uri|tsv|csv|sh|base64d?)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[0-9a-f]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+ (\.\d+)? e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol { }'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ( )'
+      StyleName = 'Symbol'
+      TokenType = 7
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol single'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\[\],;\.\?]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\+\-\*:=<>&/\|\^~!%\#@]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'id keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'as'
+            'def'
+            'elif'
+            'else'
+            'end'
+            'false'
+            'foreach'
+            'if'
+            'import'
+            'include'
+            'null'
+            'or'
+            'reduce'
+            'then'
+            'true'
+            'until'
+            'while')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'id funcs'
+      StyleName = 'Id funcs'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'acos'
+            'acosh'
+            'add'
+            'all'
+            'any'
+            'arrays'
+            'ascii_downcase'
+            'ascii_upcase'
+            'asin'
+            'asinh'
+            'atan'
+            'atan2'
+            'atanh'
+            'booleans'
+            'bsearch'
+            'builtins'
+            'capture'
+            'cbrt'
+            'ceil'
+            'combinations'
+            'contains'
+            'copysign'
+            'cos'
+            'cosh'
+            'debug'
+            'del'
+            'delpaths'
+            'drem'
+            'empty'
+            'endswith'
+            'env'
+            'erf'
+            'erfc'
+            'error'
+            'exp'
+            'exp10'
+            'exp2'
+            'explode'
+            'expm1'
+            'fabs'
+            'fdim'
+            'finites'
+            'first'
+            'flatten'
+            'floor'
+            'fma'
+            'fmax'
+            'fmin'
+            'fmod'
+            'format'
+            'frexp'
+            'from_entries'
+            'fromdate'
+            'fromdateiso8601'
+            'fromjson'
+            'fromstream'
+            'gamma'
+            'get_jq_origin'
+            'get_prog_origin'
+            'get_search_list'
+            'getpath'
+            'gmtime'
+            'group_by'
+            'gsub'
+            'halt'
+            'halt_error'
+            'has'
+            'hypot'
+            'implode'
+            'in'
+            'index'
+            'indices'
+            'infinite'
+            'input'
+            'input_filename'
+            'input_line_number'
+            'inputs'
+            'inside'
+            'isempty'
+            'isfinite'
+            'isinfinite'
+            'isnan'
+            'isnormal'
+            'iterables'
+            'j0'
+            'j1'
+            'jn'
+            'join'
+            'keys'
+            'keys_unsorted'
+            'last'
+            'ldexp'
+            'leaf_paths'
+            'length'
+            'lgamma'
+            'lgamma_r'
+            'limit'
+            'localtime'
+            'log'
+            'log10'
+            'log1p'
+            'log2'
+            'logb'
+            'ltrimstr'
+            'map'
+            'map_values'
+            'match'
+            'max'
+            'max_by'
+            'min'
+            'min_by'
+            'mktime'
+            'modf'
+            'modulemeta'
+            'nan'
+            'nearbyint'
+            'nextafter'
+            'nexttoward'
+            'normals'
+            'not'
+            'now'
+            'nth'
+            'nulls'
+            'numbers'
+            'objects'
+            'path'
+            'paths'
+            'pow'
+            'pow10'
+            'range'
+            'recurse'
+            'recurse_down'
+            'remainder'
+            'repeat'
+            'reverse'
+            'rindex'
+            'rint'
+            'round'
+            'rtrimstr'
+            'scalars'
+            'scalars_or_empty'
+            'scalb'
+            'scalbln'
+            'scan'
+            'select'
+            'setpath'
+            'significand'
+            'sin'
+            'sinh'
+            'sort'
+            'sort_by'
+            'split'
+            'splits'
+            'sqrt'
+            'startswith'
+            'stderr'
+            'strflocaltime'
+            'strftime'
+            'strings'
+            'strptime'
+            'sub'
+            'tan'
+            'tanh'
+            'test'
+            'tgamma'
+            'to_entries'
+            'todate'
+            'todateiso8601'
+            'tojson'
+            'tonumber'
+            'tostream'
+            'tostring'
+            'transpose'
+            'trunc'
+            'truncate_stream'
+            'type'
+            'unique'
+            'unique_by'
+            'utf8bytelength'
+            'values'
+            'walk'
+            'with_entries'
+            'y0'
+            'y1'
+            'yn')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'function'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'def')
+          TokenTypes = 4
+        end>
+      EndOfTextClose = True
+      NameFmt = 'func %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpBound
+      CancelNextRules = True
+      CollapseFmt = 'func %s-1'
+      SelfClose = True
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 256
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'import "../imported-file" ;'
+    ''
+    '# Comment'
+    'def weird($a; $b; $c):'
+    #9'[ $a, $b, $c ] | transpose | reduce .[][] as $item ('
+    #9#9'[];'
+    #9#9'. + $item.property'
+    #9')'
+    ';'
+    ''
+    '('
+    'if (. | contains("never") ) then'
+    #9'"Why yes"'
+    'else'
+    #9'12.23'
+    'end'
+    ''
+    ') as $never |'
+    ''
+    '{'
+    #9'hello,'
+    #9'why: "because",'
+    #9'hello: ( weird | ascii_upcase ),'
+    
+      #9'format_eg: ( . | @json "My json string \( . | this | part | jus' +
+      't | white | ascii_upcase | transpose)" ),'
+    #9'never: $never,'
+    #9'"literal_key": literal_value,'
+    #9'"this": 12.1e12,'
+    #9'"part": "almost"'
+    #9'"like": ['
+    #9#9'12,'
+    #9#9'2'
+    #9#9'"json"'
+    #9#9'{'
+    #9#9#9'"quite": {'
+    #9#9#9#9'similar: "but not quite"'
+    #9#9#9'}'
+    #9#9'}'
+    #9'],'
+    '} | ('
+    #9'"A string\n whith escaped characters \" because we can"'
+    ')')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'PHP tag'
+    'Symbol ( )'
+    'Symbol { }')
+  Extentions = 'jq'
+  LexerName = 'JQ'
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

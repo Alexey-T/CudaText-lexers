@@ -1,0 +1,10 @@
+[info]
+title=Java Velocity
+type=lexer
+subdir=-
+
+[lexer1]
+file=Java Velocity
+link1=CSS
+link2=JavaScript
+link3=JavaScript

@@ -1,0 +1,14 @@
+[map]
+Symbol=Symbol
+Number=Number
+String=String
+String L=String2
+String path=Id4
+Id=Id
+Id keyword=IdKeyword
+Comment=Comment
+Id spec=Id1
+
+[comments]
+styles_cmt=Comment
+styles_str=String

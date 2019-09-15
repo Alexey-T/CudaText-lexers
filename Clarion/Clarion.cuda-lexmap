@@ -1,0 +1,11 @@
+[map]
+Default=-
+String=String
+Identifier=Id
+Comment=Comment
+Symbol=Symbol
+Reserved word=IdKeyword
+
+[comments]
+styles_cmt=Comment
+styles_str=String

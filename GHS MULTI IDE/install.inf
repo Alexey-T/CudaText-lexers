@@ -1,0 +1,13 @@
+[info]
+title=GHS MULTI IDE - 3 lexers
+type=lexer
+subdir=-
+
+[lexer1]
+file=GHS Linker
+
+[lexer2]
+file=GHS Project
+
+[lexer3]
+file=GHS Script

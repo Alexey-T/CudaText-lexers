@@ -1,0 +1,29 @@
+[ref]
+0=R
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=
+
+[map]
+Heading=Symbol
+Comment=Comment
+Quote=Comment2
+Text=Id
+Codeblock=IncludeBG1
+Block=IncludeBG2
+Link=String
+Image=String2
+Reference=String3
+Footnote=CommentDoc
+HTML Code=IncludeBG3
+Bold=TextBold
+Italic=TextItalic
+Bold-Italic=TextBoldItalic
+Definition=Id2
+List=Id1
+Crossed out=TextCross
+R sublexer=IncludeBG4
+R metadata=Id3

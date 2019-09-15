@@ -1,0 +1,7 @@
+[info]
+title=AviSynth
+type=lexer
+subdir=-
+
+[lexer1]
+file=AviSynth

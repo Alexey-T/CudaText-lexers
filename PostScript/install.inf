@@ -1,0 +1,7 @@
+[info]
+title=PostScript
+type=lexer
+subdir=-
+
+[lexer1]
+file=PostScript

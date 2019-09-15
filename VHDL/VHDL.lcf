@@ -1,0 +1,544 @@
+object SyntAnal93: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Chars'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id Keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Preprocessor'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Num'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'DigitStr'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Str'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comm'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '--.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Bit'
+      StyleName = 'DigitStr'
+      TokenType = 4
+      Expression = #39'[01]'#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Chars'
+      StyleName = 'Chars'
+      TokenType = 3
+      Expression = '[\(\)\.,;:\[\]\{\}=<>@\|\~\?\-\+\*/\^!&'#39']'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'IdEntity'
+      StyleName = 'Id Keyword'
+      TokenType = 8
+      Expression = 
+        '\b (architecture | entity | function | package \s+ body | packag' +
+        'e | configuration) \b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z][\w\d]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Num'
+      TokenType = 6
+      Expression = 
+        '#with exp. dot is optional '#13#10'(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'#wit' +
+        'hout exp. dot is required'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num'
+      StyleName = 'Num'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str'
+      StyleName = 'Str'
+      TokenType = 4
+      Expression = '(?<=string'#39'\() " .*? ("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'DigitStr'
+      StyleName = 'DigitStr'
+      TokenType = 4
+      Expression = '" [\dA-F]* ("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Words'
+      StyleName = 'Id Keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'access'
+            'after'
+            'alias'
+            'all'
+            'and'
+            'architecture'
+            'array'
+            'assert'
+            'attribute'
+            'begin'
+            'block'
+            'body'
+            'buffer'
+            'bus'
+            'case'
+            'component'
+            'configuration'
+            'constant'
+            'disconnect'
+            'downto'
+            'else'
+            'elsif'
+            'end'
+            'entity'
+            'exit'
+            'file'
+            'for'
+            'function'
+            'generate'
+            'generic'
+            'group'
+            'guarded'
+            'if'
+            'impure'
+            'in'
+            'inertial'
+            'inout'
+            'is'
+            'label'
+            'library'
+            'linkage'
+            'literal'
+            'loop'
+            'map'
+            'mod'
+            'nand'
+            'new'
+            'next'
+            'nor'
+            'not'
+            'null'
+            'of'
+            'on'
+            'open'
+            'or'
+            'others'
+            'out'
+            'package'
+            'port'
+            'postponed'
+            'procedure'
+            'process'
+            'pure'
+            'range'
+            'record'
+            'register'
+            'reject'
+            'rem'
+            'report'
+            'return'
+            'rol'
+            'ror'
+            'select'
+            'severity'
+            'shared'
+            'signal'
+            'sla'
+            'sll'
+            'sra'
+            'srl'
+            'subtype'
+            'then'
+            'to'
+            'transport'
+            'type'
+            'unaffected'
+            'units'
+            'until'
+            'use'
+            'variable'
+            'wait'
+            'when'
+            'while'
+            'with'
+            'xnor'
+            'xor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end <entity>'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 256
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin <entity>'
+      SameIdent = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin <entity>'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 256
+          IgnoreCase = True
+        end>
+      IdentIndex = -1
+      BlockEnd = 'end <entity>'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseOpened
+      AutoCloseText = 'end %s0 %s-1;'
+    end
+    item
+      DisplayName = 'end if'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin if'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin if'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end if'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end loop'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'loop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin loop'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin loop'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'loop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end loop'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end comp'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'component')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin comp'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin comp'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'component')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end comp'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end process'
+      Enabled = False
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'process')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin process'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin process'
+      Enabled = False
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'process')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'postponed')
+          CondType = tcSkip
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end process'
+      NameFmt = 'proc %s0 %s1 %s2'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end for'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'for')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin for'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin for'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'for')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end for'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'Entity bshift is   -- barrel shifter'
+    '      port (left: in  std_logic; -- '#39'1'#39' for left, '#39'0'#39' for right'
+    '            input: in  std_logic_vector (31 downto 0);'
+    '            output: out std_logic_vector (31 downto 0) );'
+    '  Entity test is -- test for folding only'
+    'end entity bshift;'
+    '  end entity test;'
+    ''
+    ' if clk='#39'0'#39' then'
+    '   if cntr=x"000012" then '
+    '     write(my_line, string'#39'("md="));'
+    '     writeline(output, my_line);'
+    '   end if;'
+    ' end if;')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Preprocessor'
+    'Id Entity')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'vhdl'
+  LexerName = 'VHDL'
+  Notes.Strings = (
+    'Author: Alex, uvviewsoft.com'
+    'Test:'
+    'http://www.csee.umbc.edu/portal/help/VHDL/samples/samples.shtml'
+    'Keywords:'
+    'http://www.csee.umbc.edu/portal/help/VHDL/reserved.html')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

@@ -1,0 +1,19 @@
+[comments]
+str1=#|
+str2=|#
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Comment=Comment
+Brackets=Symbol2
+Symbol=Symbol
+Number=Number
+String=String
+Id=Id
+Id keyword=IdKeyword
+Id char=Id4
+Id var=IdVar
+Number hex=Number
+String regex=String2
+Lang word=CommentDoc

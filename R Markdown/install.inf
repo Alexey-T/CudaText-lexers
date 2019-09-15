@@ -1,0 +1,8 @@
+[info]
+title=R Markdown
+type=lexer
+subdir=-
+
+[lexer1]
+file=R Markdown
+link1=R

@@ -1,0 +1,35 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=
+full1=////
+full2=////
+
+[map]
+Text=Id
+Comment=Comment
+Prop=IdVar
+Block text=IncludeBG1
+Block listing=IncludeBG2
+Block source=IncludeBG3
+Block literal=IncludeBG4
+Block open=SectionBG1
+Block pass=SectionBG2
+Block quote=SectionBG3
+Block sidebar=SectionBG4
+Label=Label
+Attrib=Id4
+Block3=Id3
+Block2=Id2
+Block1=Id1
+Entity=Symbol2
+Symbol=Symbol
+Term=String
+Pass=String2
+ListItem=SectionBG2
+Header=IdKeyword
+Link=TagProp
+Title=TagId
+Text bold=TextBold
+Text italic=TextItalic

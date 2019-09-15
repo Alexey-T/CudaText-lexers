@@ -1,0 +1,658 @@
+object SyntAnal42: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Comment2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 11113799
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'DSCComment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615808
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Keywords'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'EvaluatedName'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'LiteralName'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Params'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'DSCComment2'
+      StyleName = 'Comment2'
+      TokenType = 1
+      Expression = '(?<=%%.*?\:).*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'DSCComment'
+      StyleName = 'DSCComment'
+      TokenType = 1
+      Expression = '(%%.*?\:)|(%%.*)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '%.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Dictionary'
+      StyleName = 'Default'
+      Expression = '(?s)<<.*?>>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StringDef'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = '(?s)\(.*?\)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StringHexASCII'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = '(?s)\<.*?\>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 4
+      Expression = '\b\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Keyword'
+      StyleName = 'Keywords'
+      TokenType = 2
+      Expression = '(\.)?\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'EvaluatedName'
+      StyleName = 'EvaluatedName'
+      Expression = '\/\/.*?(?=(\{|\s+|\(|\<|\[))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'LiteralName'
+      StyleName = 'LiteralName'
+      Expression = '\/.*?(?=(\{|\s+|\(|\<|\[))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 5
+      Expression = '[/\+\-\*:=<>&/\|\^\.,;!%~\^\?\{\}\[\]\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Key words'
+      StyleName = 'Keywords'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.begintransparencygroup'
+            '.begintransparencymask'
+            '.bytestring'
+            '.charboxpath'
+            '.currentaccuratecurves'
+            '.currentblendmode'
+            '.currentcurvejoin'
+            '.currentdashadapt'
+            '.currentdotlength'
+            '.currentfilladjust2'
+            '.currentlimitclamp'
+            '.currentopacityalpha'
+            '.currentoverprintmode'
+            '.currentrasterop'
+            '.currentshapealpha'
+            '.currentsourcetransparent'
+            '.currenttextknockout'
+            '.currenttexturetransparent'
+            '.dashpath'
+            '.dicttomark'
+            '.discardtransparencygroup'
+            '.discardtransparencymask'
+            '.endtransparencygroup'
+            '.endtransparencymask'
+            '.execn'
+            '.filename'
+            '.fileposition'
+            '.forceput'
+            '.forceundef'
+            '.forgetsave'
+            '.getbitsrect'
+            '.getdevice'
+            '.inittransparencymask'
+            '.knownget'
+            '.locksafe'
+            '.makeoperator'
+            '.namestring'
+            '.oserrno'
+            '.oserrorstring'
+            '.peekstring'
+            '.rectappend'
+            '.runandhide'
+            '.setaccuratecurves'
+            '.setblendmode'
+            '.setcurvejoin'
+            '.setdashadapt'
+            '.setdebug'
+            '.setdefaultmatrix'
+            '.setdotlength'
+            '.setfilladjust2'
+            '.setlimitclamp'
+            '.setmaxlength'
+            '.setopacityalpha'
+            '.setoverprintmode'
+            '.setrasterop'
+            '.setsafe'
+            '.setshapealpha'
+            '.setsourcetransparent'
+            '.settextknockout'
+            '.settexturetransparent'
+            '.stringbreak'
+            '.stringmatch'
+            '.tempfile'
+            '.type1decrypt'
+            '.type1encrypt'
+            '.type1execchar'
+            '.unread'
+            'abs'
+            'add'
+            'aload'
+            'anchorsearch'
+            'and'
+            'arc'
+            'arccos'
+            'arcn'
+            'arcsin'
+            'arct'
+            'arcto'
+            'array'
+            'ashow'
+            'astore'
+            'atan'
+            'awidthshow'
+            'begin'
+            'bind'
+            'bitshift'
+            'bytesavailable'
+            'cachestatus'
+            'ceiling'
+            'charpath'
+            'clear'
+            'cleardictstack'
+            'cleartomark'
+            'clip'
+            'clippath'
+            'cliprestore'
+            'clipsave'
+            'closefile'
+            'closepath'
+            'colorimage'
+            'composefont'
+            'concat'
+            'concatmatrix'
+            'copy'
+            'copydevice'
+            'copypage'
+            'copyscanlines'
+            'cos'
+            'count'
+            'countdictstack'
+            'countexecstack'
+            'counttomark'
+            'cshow'
+            'currentblackgeneration'
+            'currentcacheparams'
+            'currentcmykcolor'
+            'currentcolor'
+            'currentcolorrendering'
+            'currentcolorscreen'
+            'currentcolorspace'
+            'currentcolortransfer'
+            'currentdash'
+            'currentdevice'
+            'currentdevparams'
+            'currentdict'
+            'currentfile'
+            'currentflat'
+            'currentfont'
+            'currentglobal'
+            'currentgray'
+            'currentgstate'
+            'currenthalftone'
+            'currenthsbcolor'
+            'currentlinecap'
+            'currentlinejoin'
+            'currentlinewidth'
+            'currentmatrix'
+            'currentmiterlimit'
+            'currentobjectformat'
+            'currentoverprint'
+            'currentpacking'
+            'currentpagedevice'
+            'currentpoint'
+            'currentrgbcolor'
+            'currentscreen'
+            'currentshared'
+            'currentsmoothness'
+            'currentstrokeadjust'
+            'currentsystemparams'
+            'currenttransfer'
+            'currentundercolorremoval'
+            'currentuserparams'
+            'cvi'
+            'cvlit'
+            'cvn'
+            'cvr'
+            'cvrs'
+            'cvs'
+            'cvx'
+            'def'
+            'defaultmatrix'
+            'definefont'
+            'defineresource'
+            'defineuserobject'
+            'deletefile'
+            'dict'
+            'dictstack'
+            'div'
+            'dtransform'
+            'dup'
+            'echo'
+            'end'
+            'eoclip'
+            'eofill'
+            'eq'
+            'erasepage'
+            'errordict'
+            'exch'
+            'exec'
+            'execform'
+            'execstack'
+            'execuserobject'
+            'executeonly'
+            'executive'
+            'exit'
+            'exp'
+            'false'
+            'file'
+            'filenameforall'
+            'fileposition'
+            'fill'
+            'filter'
+            'findcolorrendering'
+            'finddevice'
+            'findencoding'
+            'findfont'
+            'findlibfile'
+            'findprotodevice'
+            'findresource'
+            'flattenpath'
+            'floor'
+            'flush'
+            'flushfile'
+            'flushpage'
+            'FontDirectory'
+            'for'
+            'forall'
+            'gcheck'
+            'ge'
+            'get'
+            'getdeviceprops'
+            'getenv'
+            'getinterval'
+            'globaldict'
+            'GlobalFontDirectory'
+            'glyphshow'
+            'grestore'
+            'grestoreall'
+            'gsave'
+            'gstate'
+            'gt'
+            'idetmatrix'
+            'idiv'
+            'idtransform'
+            'if'
+            'ifelse'
+            'image'
+            'imagemask'
+            'index'
+            'ineofill'
+            'infill'
+            'initclip'
+            'initgraphics'
+            'initmatrix'
+            'instroke'
+            'inueofill'
+            'inufill'
+            'inustroke'
+            'invertmatrix'
+            'ISOLatin1Encoding'
+            'itransform'
+            'known'
+            'kshow'
+            'languagelevel'
+            'le'
+            'length'
+            'lineto'
+            'ln'
+            'load'
+            'log'
+            'loop'
+            'lt'
+            'makefont'
+            'makeimagedevice'
+            'makepattern'
+            'makewordimagedevice'
+            'mark'
+            'matrix'
+            'max'
+            'maxlength'
+            'min'
+            'mod'
+            'moveto'
+            'mul'
+            'ne'
+            'neg'
+            'newpath'
+            'noaccess'
+            'nor'
+            'not'
+            'null'
+            'nulldevice'
+            'or'
+            'packedarray'
+            'pathbbox'
+            'pathforall'
+            'pop'
+            'print'
+            'printobject'
+            'product'
+            'prompt'
+            'pstack'
+            'put'
+            'putdeviceprops'
+            'putinterval'
+            'quit'
+            'rand'
+            'rcheck'
+            'rcurveto'
+            'read'
+            'readhexstring'
+            'readline'
+            'readonly'
+            'readstring'
+            'realtime'
+            'rectclip'
+            'rectfill'
+            'rectstroke'
+            'renamefile'
+            'repeat'
+            'resetfile'
+            'resourceforall'
+            'resourcestatus'
+            'restore'
+            'reversepath'
+            'revision'
+            'rlineto'
+            'rmoveto'
+            'roll'
+            'rootfont'
+            'rotate'
+            'round'
+            'rrand'
+            'run'
+            'save'
+            'scale'
+            'scalefont'
+            'scheck'
+            'search'
+            'selectfont'
+            'serialnumber'
+            'setbbox'
+            'setblackgeneration'
+            'setcachedevice'
+            'setcachedevice2'
+            'setcachelimit'
+            'setcacheparams'
+            'setcharwidth'
+            'setcmykcolor'
+            'setcolor'
+            'setcolorrendering'
+            'setcolorscreen'
+            'setcolorspace'
+            'setcolortranfer'
+            'setcolortransfer'
+            'setdash'
+            'setdevice'
+            'setdevparams'
+            'setfileposition'
+            'setflat'
+            'setfont'
+            'setglobal'
+            'setgray'
+            'setgstate'
+            'sethalftone'
+            'sethsbcolor'
+            'setlinecap'
+            'setlinejoin'
+            'setlinewidth'
+            'setmatrix'
+            'setmiterlimit'
+            'setobjectformat'
+            'setoverprint'
+            'setpacking'
+            'setpagedevice'
+            'setpattern'
+            'setrgbcolor'
+            'setscreen'
+            'setshared'
+            'setsmoothness'
+            'setstrokeadjust'
+            'setsystemparams'
+            'settransfer'
+            'setucacheparams'
+            'setundercolorremoval'
+            'setuserparams'
+            'setvmthreshold'
+            'shareddict'
+            'SharedFontDirectory'
+            'shfill'
+            'show'
+            'showpage'
+            'sin'
+            'sqrt'
+            'srand'
+            'stack'
+            'StandardEncoding'
+            'start'
+            'startjob'
+            'status'
+            'statusdict'
+            'stop'
+            'stopped'
+            'store'
+            'string'
+            'stringwidth'
+            'stroke'
+            'strokepath'
+            'sub'
+            'systemdict'
+            'token'
+            'transform'
+            'translate'
+            'true'
+            'truncate'
+            'type'
+            'uappend'
+            'ucache'
+            'ucachestatus'
+            'ueofill'
+            'ufill'
+            'undef'
+            'undefinefont'
+            'undefineresource'
+            'undefineuserobject'
+            'upath'
+            'userdict'
+            'UserObject'
+            'UserObjects'
+            'usertime'
+            'ustroke'
+            'ustrokepath'
+            'version'
+            'vmreclaim'
+            'vmstatus'
+            'wcheck'
+            'where'
+            'widthshow'
+            'write'
+            'writehexstring'
+            'writeobject'
+            'writestring'
+            'xcheck'
+            'xor'
+            'xshow'
+            'xyshow'
+            'yshow')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '%!PS-Adobe-2.0'
+    '%%Creator: dvipsk 5.58f Copyright 1986'
+    '%%Title: quizTEMPLATE.dvi'
+    '%%Pages: 1'
+    '%%PageOrder: Ascend'
+    '%%DocumentPaperSizes: Letter'
+    '%%EndComments'
+    '%DVIPSCommandLine: dvips -o quizTEMPLATE.ps quizTEMPLATE'
+    '%DVIPSParameters: dpi=300, comments removed'
+    '%%BeginProcSet: tex.pro'
+    
+      '/TeXDict 250 dict def TeXDict begin /N{def}def /B{bind def}N /S{' +
+      'exch}N'
+    
+      '/X{S N}B /TR{translate}N /isls false N /vsize 11 72 mul N /hsize' +
+      ' 8.5 72'
+    
+      'mul N /landplus90{false}def /@rigin{isls{[0 landplus90{1 -1}{-1 ' +
+      '1}'
+    'ifelse 0 0 0]concat}if 72 Resolution div 72')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'String'
+    'Number'
+    'Symbol')
+  Extentions = 'ps eps'
+  LexerName = 'PostScript'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Author: Matthias030 (SynWrite admin)'
+    'Updated: Alexey (SynWrite)'
+    'Test: http://www.math.duke.edu/computing/tex/templates.html')
+  LineComment = '%'
+  Charset = DEFAULT_CHARSET
+end

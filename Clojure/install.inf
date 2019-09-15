@@ -1,0 +1,7 @@
+[info]
+title=Clojure
+type=lexer
+subdir=-
+
+[lexer1]
+file=Clojure

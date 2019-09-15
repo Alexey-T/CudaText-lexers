@@ -1,0 +1,10 @@
+[info]
+title=Inno Setup
+type=lexer
+subdir=-
+
+[lexer1]
+file=Pascal script
+[lexer2]
+file=Inno Setup
+link1=Pascal script

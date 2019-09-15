@@ -1,0 +1,9 @@
+[info]
+title=MacroScript (Macro Sheduler)
+type=lexer
+subdir=-
+
+[lexer1]
+file=MacroScript (Macro Sheduler)
+link1=VBScript
+link2=

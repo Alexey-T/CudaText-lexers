@@ -1,0 +1,300 @@
+object SyntAnal9: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'styleHeader'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsUnderline]
+      BorderColorBottom = clNavy
+    end
+    item
+      DisplayName = 'styleCurrLine'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clCream
+      FormatType = ftBackGround
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffFontName, ffFontSize, ffFontCharset, ffVertAlign]
+    end
+    item
+      DisplayName = 'styleTag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      Hidden = True
+      ReadOnly = True
+    end
+    item
+      DisplayName = 'styleBold'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'styleBoldBlue'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clYellow
+    end
+    item
+      DisplayName = 'styleUnknown'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'styleBP'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderTypeBottom = blWavyLine
+      BorderColorBottom = clBlue
+    end
+    item
+      DisplayName = 'styleDate'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'styleBlue'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'styleDiagnose'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clWhite
+      BorderTypeBottom = blWavyLine
+      BorderColorBottom = clBlue
+    end
+    item
+      DisplayName = 'styleMaroon'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatFlags = [ffBold, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden, ffFontName, ffFontSize, ffFontCharset, ffVertAlign]
+    end
+    item
+      DisplayName = 'styleUnits'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'tokOpenTag'
+      StyleName = 'styleTag'
+      StatesRemove = 1
+      Expression = '\{'
+      ColumnFrom = 1
+      ColumnTo = 1
+    end
+    item
+      DisplayName = 'tokCloseTag'
+      StyleName = 'styleTag'
+      BlockName = 'Start header'
+      StatesRemove = 1
+      TokenType = 1
+      Expression = '\}'
+      ColumnFrom = 3
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokHeader'
+      StyleName = 'styleHeader'
+      BlockName = 'Start header'
+      StatesRemove = 1
+      TokenType = 2
+      Expression = '[^\}]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokDate'
+      StyleName = 'styleDate'
+      StatesRemove = 1
+      TokenType = 3
+      Expression = '\d{1,2}(\.|\/)\d{1,2}(\.|\/|\-)\d{2,4}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokBloodPressure'
+      StyleName = 'styleBP'
+      StatesRemove = 1
+      TokenType = 4
+      Expression = '\d{2,3}/\d{2,3}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokDiagnose'
+      StyleName = 'styleDiagnose'
+      StatesRemove = 1
+      TokenType = 8
+      Expression = '[A-Z]\d\d\.?\d\d?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokDxSpec'
+      StyleName = 'styleUnits'
+      StatesRemove = 1
+      TokenType = 9
+      Expression = 'ICD(\s|\-)?10'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokFloat'
+      StatesAdd = 1
+      TokenType = 5
+      Expression = '\d+ \. \d+ | '#13#10'\d+ \, \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokInteger'
+      StatesAdd = 1
+      TokenType = 6
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokSubheading'
+      StyleName = 'styleBold'
+      TokenType = 7
+      Expression = '^[ \w?oa?OA]+\: *\r | ^[\w?oa?OA]+:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokUnits'
+      StyleName = 'styleUnits'
+      StatesRemove = 1
+      StatesPresent = 1
+      TokenType = 10
+      Expression = 
+        '(kg|g|mg)\W|'#13#10'(mmol\/l|mmol|%|)\W|'#13#10'(mm|cm|m|)\W|'#13#10'(liter|grader' +
+        ')\W|'#13#10'(minutter|dager|timer|uker)\W'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'tokWord'
+      StatesRemove = 1
+      TokenType = 11
+      Expression = '(?r)\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Start header'
+      StyleName = 'styleHeader'
+      ConditionList = <
+        item
+          TokenTypes = 1
+        end>
+      BlockEnd = 'Stop header'
+      EndOfTextClose = True
+      InvertColors = True
+      NameFmt = '%s-1'
+      DynHighlight = dhRangeNoBound
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Stop header'
+      StyleName = 'styleHeader'
+      BlockName = 'Start header'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      Highlight = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '{Anamnese}'
+    'Dette er en test, ma gjore der jeg skriver blodtrykk.'
+    'Dette er 150/80 som er litt hoyt.  HbA1c 5%.'
+    'Vil ogsa ha med en dato, f.eks. 11.12.2003.'
+    ''
+    'Diagnosekoder ICD-10 E10.3 Diabetes'
+    ''
+    '{Funn}'
+    'Dette er en test test. Pas temp 37,3 grader.  '
+    'Han veier 80 kg. Kolesterol: 7.3 mmol/l.'
+    'Hvorfor blir dette 80kg. '
+    ''
+    'Test:'
+    'Dette er en numerisk verdi: 4,3.'
+    'Heltallsverdier er kun bold, flyttall med gull.'
+    ''
+    '{Pl?an}'
+    'Dette er en plan.  Accented chars ?????????????????'
+    ''
+    ''
+    '')
+  TokenTypeNames.Strings = (
+    'Open Tag'
+    'Close Tag'
+    'Header'
+    'Date'
+    'BP'
+    'Float'
+    'Integer'
+    'Subheading'
+    'Diagnose'
+    'Diagnose Type'
+    'Units'
+    'AnyWord'
+    'Unknown')
+  Extentions = 'crf'
+  LexerName = 'CRF'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Lexer from EControl free library, author unknown')
+  RestartFromLineStart = True
+  AlwaysSyncBlockAnal = True
+  Charset = BALTIC_CHARSET
+  Left = 144
+  Top = 184
+end

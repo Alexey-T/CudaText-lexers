@@ -1,0 +1,7 @@
+[info]
+title=Vala
+type=lexer
+subdir=-
+
+[lexer1]
+file=Vala

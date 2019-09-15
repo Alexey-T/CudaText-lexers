@@ -1,0 +1,7 @@
+[info]
+title=AutoHotkey
+type=lexer
+subdir=-
+
+[lexer1]
+file=AutoHotkey

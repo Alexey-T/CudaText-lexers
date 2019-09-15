@@ -1,0 +1,7 @@
+[info]
+title=Delphi resources
+type=lexer
+subdir=-
+
+[lexer1]
+file=Delphi resources

@@ -1,0 +1,285 @@
+object SyntAnal50: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id Reserved'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id Reserved 2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id Uppercase'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '--.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39')(.|\\\1)*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id Upcase'
+      StyleName = 'Id Uppercase'
+      TokenType = 2
+      Expression = '(?-i)[A-Z][A-Z_\d]{2,}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\{\}\(\)\[\],;\\/\+\-\*:=<>&/\|\^\.!\?]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keyw'
+      StyleName = 'Id Reserved'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'agent'
+            'alias'
+            'all'
+            'and'
+            'as'
+            'assign'
+            'attribute'
+            'check'
+            'class'
+            'convert'
+            'create'
+            'creation'
+            'debug'
+            'deferred'
+            'do'
+            'else'
+            'elseif'
+            'end'
+            'ensure'
+            'expanded'
+            'export'
+            'external'
+            'feature'
+            'from'
+            'frozen'
+            'if'
+            'implies'
+            'indexing'
+            'infix'
+            'inherit'
+            'inspect'
+            'invariant'
+            'is'
+            'like'
+            'local'
+            'loop'
+            'not'
+            'note'
+            'obsolete'
+            'old'
+            'once'
+            'only'
+            'or'
+            'prefix'
+            'redefine'
+            'rename'
+            'require'
+            'rescue'
+            'retry'
+            'select'
+            'separate'
+            'then'
+            'undefine'
+            'until'
+            'variant'
+            'when'
+            'xor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Keyw2'
+      StyleName = 'Id Reserved 2'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BIT'
+            'Current'
+            'False'
+            'Precursor'
+            'Result'
+            'Strip'
+            'True'
+            'TUPLE'
+            'Unique'
+            'Void')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'class'
+            'deferred'
+            'do'
+            'redefine')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'class'
+    '    APPLICATION'
+    'create'
+    '    make'
+    'feature'
+    '    make'
+    '            -- Demonstrate string reversal.'
+    '        do'
+    '            my_string := "Hello World!"'
+    '            my_string.mirror'
+    '            print (my_string)'
+    '        end'
+    '    my_string: STRING'
+    '            -- Used for reversal'
+    'end')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const')
+  Extentions = 'e'
+  LexerName = 'Eiffel'
+  Notes.Strings = (
+    'Author: Alex, uvviewsoft.com'
+    'Test:'
+    'http://docs.eiffel.com/book/examples'
+    'http://www.erenkrantz.com/Geeks/SourceCodeExample2.shtml')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+end

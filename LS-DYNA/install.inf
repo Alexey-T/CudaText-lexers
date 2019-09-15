@@ -1,0 +1,7 @@
+[info]
+title=LS-DYNA
+type=lexer
+subdir=-
+
+[lexer1]
+file=LS-DYNA

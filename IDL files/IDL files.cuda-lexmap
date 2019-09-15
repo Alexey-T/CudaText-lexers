@@ -1,0 +1,17 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Default=-
+uuid=Id4
+Keys=Id2
+Identifier=Id
+Comment=Comment
+Symbol=Symbol
+Int const=Id1
+String=String
+Marked block=-
+Preprocessor=Id3

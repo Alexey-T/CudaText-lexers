@@ -1,0 +1,30 @@
+[ref]
+0=CSS
+1=JavaScript
+2=C#
+3=VBScript
+
+[map]
+Tag id=TagId
+Tag id - underlines=TagIdBad
+Text=Id
+Tag bound=TagBound
+Comment=Comment
+Tag prop=TagProp
+Tag prop - underlines=TagPropBad
+Tag string=String
+Number=Number
+Tree item (attribute)=-
+Tree item (tag)=-
+Current block BG=BracketBG
+Current tag BG=BracketBG
+Code BG=SectionBG1
+Sublexer BG=IncludeBG1
+Escaped text=Symbol
+Color=Color
+
+[comments]
+str1=<!--
+str2=-->
+styles_cmt=Comment
+styles_str=Tag string

@@ -1,0 +1,7 @@
+[info]
+title=Clavier
+type=lexer
+subdir=-
+
+[lexer1]
+file=Clavier

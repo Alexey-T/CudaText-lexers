@@ -1,0 +1,270 @@
+object SyntAnal5: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Guid'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^Microsoft \s .+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment #'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^\# .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(") (\\\\|\\\1|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Guid'
+      StyleName = 'Guid'
+      TokenType = 6
+      Expression = '\{ [0-9a-f\-]{36} \}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/,\;:\(\)=<>\+\-&%\$\|]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Debug'
+            'EndGlobal'
+            'EndGlobalSection'
+            'EndProject'
+            'EndProjectSection'
+            'FALSE'
+            'Global'
+            'GlobalSection'
+            'Project'
+            'ProjectSection'
+            'Release'
+            'TRUE')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'glob'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Global')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'glob end'
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'glob end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'EndGlobal')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'glob-sec'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'GlobalSection')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'glob-sec end'
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'glob-sec end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'EndGlobalSection')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proj'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Project')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'proj end'
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proj end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'EndProject')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proj-ses'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ProjectSection')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'proj-ses end'
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proj-ses end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'EndProjectSection')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'Microsoft Visual Studio nnnnnnnn'
+    '"String"'
+    'Global'
+    #9'GlobalSection(ProjectConfigurationPlatforms) = postSolution'
+    
+      #9#9'{FFFFFFFA-DDDD-4444-8888-FFEEEEEEEEEE}.Debug|Any CPU.ActiveCfg' +
+      ' = Debug|Any CPU'
+    '    EndGlobalSection'
+    'EndGlobal')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Guid')
+  Extentions = 'sln'
+  LexerName = 'MSVS Solution'
+  Notes.Strings = (
+    'Alexey (SynWrite)')
+  Charset = DEFAULT_CHARSET
+end

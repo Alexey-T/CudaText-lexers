@@ -1,0 +1,390 @@
+object SyntAnal65: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment 1'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '--.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 4
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = '("|'#39') (\\\1|\\\\|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 4
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 2
+      Expression = '[\{\}\(\)\[\],;:/\+\-\*=<>&/\|\^\.!%@\#]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyw'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ALL'
+            'AND'
+            'AS'
+            'ASC'
+            'ASSERT'
+            'BY'
+            'CACHE'
+            'CASE'
+            'COGROUP'
+            'CROSS'
+            'CUBE'
+            'DECLARE'
+            'DEFAULT'
+            'DEFINE'
+            'DESC'
+            'DESCRIBE'
+            'DISTINCT'
+            'DUMP'
+            'END'
+            'EXPLAIN'
+            'FILTER'
+            'FOREACH'
+            'FULL'
+            'GENERATE'
+            'GROUP'
+            'IF'
+            'ILLUSTRATE'
+            'IMPORT'
+            'IN'
+            'INNER'
+            'INPUT'
+            'INTO'
+            'IS'
+            'JOIN'
+            'KILL'
+            'LEFT'
+            'LIMIT'
+            'LOAD'
+            'MAPREDUCE'
+            'MATCHES'
+            'NOT'
+            'ONSCHEMA'
+            'OR'
+            'ORDER'
+            'OUTER'
+            'OUTPUT'
+            'PARALLEL'
+            'PARTITION'
+            'QUIT'
+            'RANK'
+            'REGISTER'
+            'SAMPLE'
+            'SHIP'
+            'SPLIT'
+            'STORE'
+            'STREAM'
+            'THEN'
+            'THROUGH'
+            'UNION'
+            'USING'
+            'WHEN')
+          TokenTypes = 16
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id type'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'bag'
+            'bigdecimal'
+            'biginteger'
+            'boolean'
+            'bytearray'
+            'chararray'
+            'datetime'
+            'double'
+            'false'
+            'float'
+            'int'
+            'long'
+            'map'
+            'NULL'
+            'stderr'
+            'stdin'
+            'stdout'
+            'true'
+            'tuple')
+          TokenTypes = 16
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id func'
+      StyleName = 'Id func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ABS'
+            'AccumuloStorage'
+            'ACOS'
+            'AddDuration'
+            'ARITY'
+            'ASIN'
+            'ATAN'
+            'AVG'
+            'AvroStorage'
+            'BagToString'
+            'BinaryStorage'
+            'BinStorage'
+            'cat'
+            'CBRT'
+            'cd'
+            'CEIL'
+            'CONCAT'
+            'copyFromLocal'
+            'copyToLocal'
+            'COR'
+            'COS'
+            'COSH'
+            'COUNT'
+            'COUNT_STAR'
+            'COV'
+            'cp'
+            'CUBE'
+            'CurrentTime'
+            'DaysBetween'
+            'DIFF'
+            'ENDSWITH'
+            'EXP'
+            'flatten'
+            'FLATTEN'
+            'FLOOR'
+            'GetDay'
+            'GetHour'
+            'GetMilliSecond'
+            'GetMinute'
+            'GetMonth'
+            'GetSecond'
+            'GetWeek'
+            'GetWeekYear'
+            'GetYear'
+            'HBaseStorage'
+            'HoursBetween'
+            'INDEXOF'
+            'IsEmpty'
+            'JsonLoader'
+            'JsonStorage'
+            'LAST_INDEX_OF'
+            'LCFIRST'
+            'LOG'
+            'LOG10'
+            'LOWER'
+            'ls'
+            'LTRIM'
+            'MAX'
+            'MilliSecondsBetween'
+            'MIN'
+            'MinutesBetween'
+            'mkdir'
+            'MonthsBetween'
+            'mv'
+            'PigDump'
+            'PigStorage'
+            'PigStreaming'
+            'PluckTuple'
+            'pwd'
+            'RANDOM'
+            'REGEX_EXTRACT'
+            'REGEX_EXTRACT_ALL'
+            'REPLACE'
+            'rm'
+            'ROLLUP'
+            'ROUND'
+            'ROUND_TO'
+            'RTRIM'
+            'SecondsBetween'
+            'SIN'
+            'SINH'
+            'SIZE'
+            'SQRT'
+            'STARTSWITH'
+            'STRSPLIT'
+            'SUBSTRING'
+            'SUBTRACT'
+            'SubtractDuration'
+            'SUM'
+            'TAN'
+            'TANH'
+            'TextLoader'
+            'TOBAG'
+            'ToDate'
+            'TOKENIZE'
+            'TOMAP'
+            'ToMilliSeconds'
+            'TOP'
+            'ToString'
+            'TOTUPLE'
+            'ToUnixTime'
+            'TrevniStorage'
+            'TRIM'
+            'UCFIRST'
+            'UPPER'
+            'WeeksBetween'
+            'YearsBetween')
+          TokenTypes = 16
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '/* Test */'
+    '10.10 + $varname --Test test'
+    ''
+    'input_lines = LOAD '#39'/tmp/nnn'#39' AS (line:chararray);'
+    ''
+    
+      'words = FOREACH input_lines GENERATE FLATTEN(TOKENIZE(line)) AS ' +
+      'word;'
+    ''
+    'filtered_words = FILTER words BY word MATCHES '#39'\\w+'#39';'
+    ''
+    
+      'word_count = FOREACH word_groups GENERATE COUNT(filtered_words) ' +
+      'AS count, group AS word;'
+    ''
+    'ordered_word_count = ORDER word_count BY count DESC;'
+    'STORE ordered_word_count INTO '#39'/tmp/name'#39';')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Symbol'
+    'String'
+    'Id'
+    'Number')
+  Extentions = 'pig pig.substituted'
+  LexerName = 'Apache Pig'
+  Notes.Strings = (
+    'Alexey (SynWrite)'
+    'Spec words: https://github.com/chrislongo/Pig')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,7 @@
+[info]
+title=OpenCL
+type=lexer
+subdir=-
+
+[lexer1]
+file=OpenCL

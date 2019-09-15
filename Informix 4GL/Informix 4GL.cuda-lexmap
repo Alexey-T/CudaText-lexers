@@ -1,0 +1,13 @@
+[map]
+Symbol=Symbol
+Number=Number
+Id=Id
+Id keyword=IdKeyword
+Id std=Id1
+Comment=Comment
+String=String
+Code BG=SectionBG1
+
+[comments]
+styles_cmt=Comment
+styles_str=String

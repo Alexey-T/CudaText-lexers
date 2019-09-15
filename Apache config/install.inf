@@ -1,0 +1,7 @@
+[info]
+title=Apache config
+type=lexer
+subdir=-
+
+[lexer1]
+file=Apache config

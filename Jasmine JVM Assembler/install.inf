@@ -1,0 +1,7 @@
+[info]
+title=Jasmine JVM Assembler
+type=lexer
+subdir=-
+
+[lexer1]
+file=Jasmine JVM Assembler

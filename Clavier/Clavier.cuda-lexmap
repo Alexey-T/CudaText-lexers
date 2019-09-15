@@ -1,0 +1,15 @@
+[map]
+Comment=Comment
+Id=Id
+Id keyword=IdKeyword
+String=String
+Symbol=Symbol
+Number=Number
+Id spec=Id1
+Id type=Id2
+
+[comments]
+str1=//*
+str2=*//
+styles_cmt=Comment
+styles_str=String

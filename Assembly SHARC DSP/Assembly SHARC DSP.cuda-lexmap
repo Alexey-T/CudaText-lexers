@@ -1,0 +1,18 @@
+[map]
+Comment=Comment
+Id=Id
+Id keyword=IdKeyword
+Id func=Id2
+Id register=IdVar
+Id spec=Id3
+Label=Label
+Number=Number
+String=String
+Symbol=Symbol
+Directive=Id4
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

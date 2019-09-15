@@ -1,0 +1,7 @@
+[info]
+title=Racket
+type=lexer
+subdir=-
+
+[lexer1]
+file=Racket

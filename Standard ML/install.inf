@@ -1,0 +1,7 @@
+[info]
+title=Standard ML
+type=lexer
+subdir=-
+
+[lexer1]
+file=Standard ML

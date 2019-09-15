@@ -1,0 +1,7 @@
+[info]
+title=OpenSCAD
+type=lexer
+subdir=-
+
+[lexer1]
+file=OpenSCAD

@@ -1,0 +1,17 @@
+[info]
+title=HTML Liquid
+type=lexer
+subdir=-
+
+[lexer1]
+file=HTML Liquid internal
+[lexer2]
+file=HTML Liquid
+link1=CSS
+link2=VBScript
+link3=JavaScript
+link4=JavaScript
+link5=VBScript
+link6=PHP_
+link7=PHP_
+link8=HTML Liquid internal

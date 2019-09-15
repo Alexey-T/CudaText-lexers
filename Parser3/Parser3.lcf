@@ -1,0 +1,617 @@
+object SyntAnal109: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clInfoBk
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 'Tag bound'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clSilver
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag Key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Spec Char'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clSilver
+      BorderTypeTop = blSolid
+      BorderColorTop = clSilver
+      BorderTypeRight = blSolid
+      BorderColorRight = clSilver
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clSilver
+    end
+    item
+      DisplayName = 'Variable'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Field'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Operator'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Current block'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 13369046
+      FormatType = ftColor
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end
+    item
+      DisplayName = 'Call (class)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Call (method)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'hash key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Class (Tree)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Parser 3 Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?ms)<!--.*?(-->|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'REM comment'
+      StyleName = 'Comment'
+      BlockName = 'rem start'
+      TokenType = 1
+      Expression = '(?ms)[^\}]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Compare (in if)'
+      StyleName = 'Symbol'
+      BlockName = '('
+      TokenType = 3
+      Expression = '[<>=\|]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<'
+      StyleName = 'Tag bound'
+      TokenType = 10
+      Expression = '<[/!\-%\?]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '>'
+      StyleName = 'Tag bound'
+      TokenType = 9
+      Expression = '[%\?/]?>'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Any name'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex char'
+      StyleName = 'Spec Char'
+      TokenType = 8
+      Expression = '\^\#\h\h'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'SpecChar'
+      StyleName = 'Spec Char'
+      TokenType = 8
+      Expression = '\^[\^\$;@\(\)\[\]\{\}":\#]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\^\$;@\(\)\[\]\{\}":\#\.]    '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '&...'
+      StyleName = 'Tag Key'
+      TokenType = 9
+      Expression = '&\w+;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'HTML Tag'
+      StyleName = 'Tag Key'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Operator'
+      StyleName = 'Operator'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'break'
+            'cache'
+            'case'
+            'connect'
+            'continue'
+            'for'
+            'if'
+            'process'
+            'rem'
+            'taint'
+            'throw'
+            'try'
+            'untaint'
+            'use'
+            'while')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '^')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      TokenType = 12
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Variable'
+      StyleName = 'Variable'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '$')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      TokenType = 11
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'End'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Begin'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      IdentIndex = 1
+      BlockEnd = 'End'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '{ ... %ez0'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end
+    item
+      DisplayName = 'rem start'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'rem')
+          TokenTypes = 4096
+          IgnoreCase = True
+        end>
+      BlockEnd = 'rem end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'rem end'
+      BlockName = 'rem start'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end>
+      BlockEnd = ')'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTagBegin
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 8
+        end>
+      BlockEnd = ']'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTagBegin
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Class'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'class')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '@')
+          TokenTypes = 8
+        end>
+      EndOfTextClose = True
+      NameFmt = 'class  %s-2'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      TreeItemStyle = 'Class (Tree)'
+      TreeItemImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Method'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '@')
+          TokenTypes = 8
+        end>
+      IdentIndex = -1
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s-1 ...'
+      SelfClose = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '# ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 509
+        end
+        item
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Call (class)'
+      StyleName = 'Call (class)'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '^')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      TokenType = 13
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Call (method)'
+      StyleName = 'Call (method)'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '.')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 8192
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Hash key'
+      StyleName = 'hash key'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '.')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '$')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      TokenType = 14
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'field'
+      StyleName = 'Field'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '.')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 34816
+        end>
+      HighlightPos = cpAny
+      TokenType = 15
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'End of method'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '\#end')
+          CondType = tcMask
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Method'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Close Tag'
+    'Open Tag'
+    'Variable'
+    'Operator'
+    'Method class'
+    'Hash key'
+    'Field')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'p'
+  LexerName = 'Parser3'
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

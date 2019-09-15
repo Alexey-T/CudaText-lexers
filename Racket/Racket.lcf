@@ -1,0 +1,302 @@
+object SyntAnal37: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Brackets'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id char'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number hex'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String regex'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Lang word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = ';.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment block'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s) \#\| .+? \|\# '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment {}'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '@;\{ .*? \}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_][\w-]*\w'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id char'
+      StyleName = 'Id char'
+      TokenType = 2
+      Expression = '\#\\ (\w+ | .)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id var'
+      StyleName = 'Id var'
+      TokenType = 2
+      Expression = '\*[\w\-]+\* | '#39'[\w\-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      TokenType = 2
+      Expression = '\#:[\w\-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '\#? "(\\"|\\\\|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String regex'
+      StyleName = 'String regex'
+      TokenType = 4
+      Expression = '\#rx "(\\"|\\\\|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Brackets'
+      StyleName = 'Brackets'
+      TokenType = 6
+      Expression = '[\(\)\[\]\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number hex'
+      StyleName = 'Number hex'
+      TokenType = 5
+      Expression = '\#x[0-9a-f]+ |'#13#10'\#b[01]+ |'#13#10'\#o[0-7]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\.\d+ (e[\+\-]\d+)? | \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Lang line'
+      StyleName = 'Lang word'
+      Expression = '\#lang .+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\+\-\*=~\.,;:\'#39'\#\|\^\$\?!<>/=@`]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Spec words'
+      Enabled = False
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'eq'
+            'if'
+            'null'
+            'or')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 64
+        end>
+      BlockEnd = ')'
+      NameFmt = '%s-1 %s-2'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = '%s-1 %s-2'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '#lang racket/base'
+    '*var-name*, '#39'var-name, 10.20, #xAB20, #b0101'
+    '"string\\", (regexp-match? #rx"[ \n\t\r\v\"\\]" s)'
+    ''
+    ';Comment'
+    'and #| Block comment |# and #| Block comment2 |#'
+    '@;{ comment }  and '
+    ''
+    '(provide'
+    ' json-null '
+    ' jsexpr?'
+    ''
+    ' #;'
+    ' (->* (Input-Port) ([#:null Any]))'
+    ' read-json)'
+    '        '
+    ' (define r'
+    '    (assoc ch '#39'([#\backspace . "\\b"] [#\newline . "\\n"]'
+    
+      '                                        [#\\ . "\\\\"] [#\" . "\' +
+      '\\""])))')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Brackets')
+  Extentions = 'rkt'
+  LexerName = 'Racket'
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Comments:'
+    
+      'http://docs.racket-lang.org/style/Choosing_the_Right_Construct.h' +
+      'tml?q=comments#%28part._.Comments%29')
+  LineComment = ';'
+  AlwaysSyncBlockAnal = True
+  Charset = DEFAULT_CHARSET
+end

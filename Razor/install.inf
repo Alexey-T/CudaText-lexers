@@ -1,0 +1,11 @@
+[info]
+title=Razor
+type=lexer
+subdir=-
+
+[lexer1]
+file=Razor
+link1=CSS
+link2=JavaScript
+link3=C#
+link4=VBScript

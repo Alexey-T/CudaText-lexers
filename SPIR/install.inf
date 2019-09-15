@@ -1,0 +1,7 @@
+[info]
+title=SPIR
+type=lexer
+subdir=-
+
+[lexer1]
+file=SPIR

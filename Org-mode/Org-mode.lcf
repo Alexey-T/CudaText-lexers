@@ -1,0 +1,423 @@
+object SyntAnal24: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Section'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'List'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+    end
+    item
+      DisplayName = 'Code'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15718083
+    end
+    item
+      DisplayName = 'Commands'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clSilver
+    end
+    item
+      DisplayName = 'Bold'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Italic'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Bold-Italic'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsItalic]
+    end
+    item
+      DisplayName = 'Crossed'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsStrikeOut]
+    end
+    item
+      DisplayName = 'Underline'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsUnderline]
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Link'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Table'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 9689565
+    end
+    item
+      DisplayName = 'Footnote'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clAqua
+    end
+    item
+      DisplayName = 'Quote'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 9809376
+    end
+    item
+      DisplayName = 'Time'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Escaped char'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Code latex'
+      StyleName = 'Code'
+      TokenType = 5
+      Expression = '(?s)^\#\+begin_latex$.+?\#\+end_latex'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Code block'
+      StyleName = 'Code'
+      TokenType = 5
+      Expression = '(?s)^\#\+BEGIN_SRC\x20[^\n]+$.*?\#\+END_SRC$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment multiline'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)^\#\+BEGIN_COMMENT$.*?^\#\+END_COMMENT$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Section'
+      StyleName = 'Section'
+      TokenType = 2
+      Expression = '^\*+[\x20]+[^\n\[\(\)\]:]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'List'
+      StyleName = 'List'
+      TokenType = 4
+      Expression = '^[\x20\x09]* (\-|\d+\.) \x20 (\[[X\x20]\] \x20)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Code'
+      StyleName = 'Code'
+      TokenType = 5
+      Expression = '=[^=\n]+?='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Quote'
+      StyleName = 'Quote'
+      TokenType = 3
+      Expression = '^:\x20 .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Commands'
+      StyleName = 'Commands'
+      TokenType = 6
+      Expression = '~[^~\n]+?~'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Bold-Italic'
+      StyleName = 'Bold-Italic'
+      TokenType = 3
+      Expression = '/\* [^\n\*\+_~/]+? (\*/)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Bold-Italic 2'
+      StyleName = 'Bold-Italic'
+      TokenType = 3
+      Expression = '\*/ [^\n\*\+_~/]+? (/\*)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Bold'
+      StyleName = 'Bold'
+      TokenType = 3
+      Expression = '\* [^\n\*\+_~]+? (\*)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Italic'
+      StyleName = 'Italic'
+      TokenType = 3
+      Expression = '/ [^\n\*\+_~/]+? (/)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Crossed'
+      StyleName = 'Crossed'
+      TokenType = 3
+      Expression = '\+ [^\n\*\+_~]+? (\+)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Underline'
+      StyleName = 'Underline'
+      TokenType = 3
+      Expression = '_ [^\n\*\+_~\x20]+? (_)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 7
+      Expression = ':[\w:]+:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Link'
+      StyleName = 'Link'
+      Expression = '\[\[ [^\]\n]+ \]\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Link 2'
+      StyleName = 'Link'
+      Expression = '\[\[ [^\[\]\n]+ \]\[ [^\[\]\n]+ \]\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Link 3'
+      StyleName = 'Link'
+      Expression = '\{\{ [^\}\n]+ \}\} | \{\w+\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Table'
+      StyleName = 'Table'
+      TokenType = 8
+      Expression = '\|[\|\-\+]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Footnote'
+      StyleName = 'Footnote'
+      TokenType = 9
+      Expression = '\[fn:.+?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Time'
+      StyleName = 'Time'
+      TokenType = 10
+      Expression = '\[\d\d\d\d\-\d\d\-\d\d\b [^\]]*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Escaped char'
+      StyleName = 'Escaped char'
+      TokenType = 3
+      Expression = '\\\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Usual text'
+      StyleName = 'Text'
+      TokenType = 3
+      Expression = '\w+ | \S'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Section'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '* text formatting syntax'
+    '** section'
+    ''
+    ' [[http://orgmode.org/org.html#Emphasis-and-monospace][(docu)]]'
+    ' [[link]] and {10}  and {{some text}}  and :var:long:name:'
+    ''
+    '- *bold*'
+    '- /italic/'
+    '- _underline_'
+    '- +strike through+'
+    '- =code='
+    '- ~commands~'
+    '- http://orgmode.org'
+    ''
+    ' 1. list'
+    ' 2. list'
+    ': small example'
+    ''
+    '|--------+-------|'
+    '| Table | Table |'
+    ''
+    '#+COMMENT: this will never be exported'
+    ''
+    '- not (yet) working and edge cases:'
+    '  - /*combination*/'
+    '  - */combination/*'
+    '  - _*combination*_'
+    '  - *_combination_*'
+    '  - =*combination*='
+    '  - ~C:\a\very\old\DOS\path~'
+    '  - http://orgmode.org'
+    '  - [[http://orgmode.org][orgmode-Homepage]]'
+    '  - [[http://orgmode.org][*orgmode* /Homepage/]]'
+    ''
+    '#+BEGIN_COMMENT'
+    'multi'
+    'line'
+    'comment'
+    '#+END_COMMENT'
+    ''
+    '#+BEGIN_SRC python ddddd'
+    'some'
+    'code'
+    '#+END_SRC')
+  TokenTypeNames.Strings = (
+    'Link'
+    'Comment'
+    'Section'
+    'Text'
+    'List'
+    'Code'
+    'Commands'
+    'Var'
+    'Table'
+    'Footnote'
+    'Time')
+  Extentions = 'org'
+  LexerName = 'Org-mode'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Test file:'
+    
+      'https://raw.githubusercontent.com/novoid/org-mode-workshop/maste' +
+      'r/featureshow/org-mode-teaser.org')
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,31 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Default=-
+Identifier=Id
+Reserved word=IdKeyword
+String=String
+Comment=Comment
+Symbol=Symbol
+Number=Number
+Marked block=-
+Reserved PL/SQL word=Id1
+SQL Functions=Id3
+SQL*Plus Meta Commands=Id4
+Datatypes=TagId
+Predefined Exceptions=TagProp
+Default Oracle Packages=TagBound
+Public Package Procedure=Label
+Function separator=SeparLine
+Current block=BracketBG
+Current function=CurBlockBG
+Current Line=-
+()=Symbol2
+Big Bold (tree)=-
+Group (tree)=-
+Function (tree)=-
+Data Dictionary=IdVar

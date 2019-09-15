@@ -1,0 +1,7 @@
+[info]
+title=Assembly SPARC
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly SPARC

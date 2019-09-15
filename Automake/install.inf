@@ -1,0 +1,7 @@
+[info]
+title=Automake
+type=lexer
+subdir=-
+
+[lexer1]
+file=Automake

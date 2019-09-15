@@ -1,0 +1,7 @@
+[info]
+title=LESS
+type=lexer
+subdir=-
+
+[lexer1]
+file=LESS

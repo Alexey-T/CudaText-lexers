@@ -1,0 +1,7 @@
+[info]
+title=PKGBUILD
+type=lexer
+subdir=-
+
+[lexer1]
+file=PKGBUILD

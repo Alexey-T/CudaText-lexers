@@ -1,0 +1,7 @@
+[info]
+title=JCL
+type=lexer
+subdir=-
+
+[lexer1]
+file=JCL

@@ -1,0 +1,7 @@
+[info]
+title=R
+type=lexer
+subdir=-
+
+[lexer1]
+file=R

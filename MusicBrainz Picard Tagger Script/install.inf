@@ -1,0 +1,7 @@
+[info]
+title=MusicBrainz Picard Tagger Script
+type=lexer
+subdir=-
+
+[lexer1]
+file=MusicBrainz Picard Tagger Script

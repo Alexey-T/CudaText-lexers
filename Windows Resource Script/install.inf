@@ -1,0 +1,7 @@
+[info]
+title=Windows Resource Script
+type=lexer
+subdir=-
+
+[lexer1]
+file=Windows Resource Script

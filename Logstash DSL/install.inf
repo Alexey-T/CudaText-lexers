@@ -1,0 +1,7 @@
+[info]
+title=Logstash DSL
+type=lexer
+subdir=-
+
+[lexer1]
+file=Logstash DSL

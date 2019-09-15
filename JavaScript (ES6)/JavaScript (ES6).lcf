@@ -1,0 +1,2935 @@
+object SyntAnal12: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'MAIN'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -21
+      Font.Name = 'Consolas'
+      Font.Style = []
+      BgColor = 15790320
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 11579568
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16316664
+    end
+    item
+      DisplayName = 'GLOBAL_Objects'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615680
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderColorBottom = 4050029
+    end
+    item
+      DisplayName = 'GLOBAL_Propertis'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16755230
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'GLOBAL_Methods'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6711034
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderColorBottom = 4050029
+    end
+    item
+      DisplayName = 'ECMA_Objects'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615680
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderTypeBottom = blSolid
+      BorderColorBottom = 12615680
+    end
+    item
+      DisplayName = 'ECMA_Propertis'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16755230
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blSolid
+      BorderColorBottom = 12615680
+    end
+    item
+      DisplayName = 'ECMA_Methods'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6711034
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blSolid
+      BorderColorBottom = 12615680
+    end
+    item
+      DisplayName = 'ECMA_Instruction'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615680
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'ECMA_Globals'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'CLIENT_Objects'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615680
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clFuchsia
+    end
+    item
+      DisplayName = 'CLIENT_Propertis'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16755230
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clFuchsia
+    end
+    item
+      DisplayName = 'CLIENT_Methods'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6711034
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clFuchsia
+    end
+    item
+      DisplayName = 'CLIENT_Events'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clFuchsia
+    end
+    item
+      DisplayName = 'CLIENT_Style'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clFuchsia
+    end
+    item
+      DisplayName = 'Digits_Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Digits_Hex'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderTypeBottom = blSolid
+    end
+    item
+      DisplayName = 'Strings_String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 1871283
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+      BorderColorBottom = 2004670
+    end
+    item
+      DisplayName = 'Strings_RegExp'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2004670
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blSolid
+      BorderColorBottom = 2135738
+    end
+    item
+      DisplayName = 'Strings_Template'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2004670
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15134975
+      BorderColorBottom = clLime
+    end
+    item
+      DisplayName = 'Operators_Structure'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Operators_Syntax'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Operators_{}_back'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14473946
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Operators_{}_border'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clCream
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 12615680
+    end
+    item
+      DisplayName = 'Operators_()_back'
+      Enabled = False
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clNone
+      Font.Height = -27
+      Font.Name = 'Consolas'
+      Font.Style = []
+      BgColor = 16771797
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Operators_()_border'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 16760375
+    end
+    item
+      DisplayName = 'Operators_[]_back'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clWhite
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Tree_Standart'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -16
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tree_Bold'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -16
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'ID_actuall'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 40192
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BorderColorLeft = 4050029
+      BorderColorTop = 4050029
+      BorderColorRight = 4050029
+      BorderColorBottom = 4050029
+    end
+    item
+      DisplayName = 'ID'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4605510
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Spoiler'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 13409341
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clCream
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Token ` - ${'
+      StyleName = 'Strings_Template'
+      StatesAdd = 1
+      Expression = '(?s)(`)(.*?)((`)|(\$\{))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Token } - ${'
+      StyleName = 'Strings_Template'
+      StatesPresent = 1
+      Expression = '(?s)(\}{1}?((.)|[^`]*?)(\$\{))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Token } - `'
+      StyleName = 'Strings_Template'
+      StatesRemove = 1
+      StatesPresent = 1
+      Expression = '(?<=\$\{(.)*?)\}(\r|\n|.)*?(`)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Template_includ'
+      Enabled = False
+      StyleName = 'Strings_Template'
+      TokenType = 13
+      Expression = '((?<=\$\{(.)*?)\}+|`)'#13#10'(\r|\n|.)*?'#13#10'((\$[\{\s]+)(?=(.)*\})|`)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Template_exclud'
+      Enabled = False
+      StyleName = 'Strings_Template'
+      TokenType = 13
+      Expression = 
+        '((?<=\$\{.*?\}+\s*)|`)'#13#10'(?!\}+)(\r|\n|.)*?'#13#10'((?=\$\{.*?\}+\s*)|`' +
+        ')'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment line'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*? (?=</script>) |'#13#10'//.* '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment block'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'ID_actuall'
+      StyleName = 'ID_actuall'
+      TokenType = 8
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Global_Methods'
+      TokenType = 10
+      Expression = '(?<=[\w\W]*\.)[a-z_\$]\w*(?=\()'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Global_Propertis'
+      TokenType = 11
+      Expression = '(?<=[\w\W]*\.)[a-z_\$]\w*(?=\W)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Global_Objects'
+      TokenType = 12
+      Expression = '[a-z_\$]\w*(?=[\.])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Strings_RegExp'
+      StyleName = 'Strings_RegExp'
+      TokenType = 6
+      Expression = '(?<=[=\(&!]\s*) / (\\/|\\\\|\[.+?\]|.)*? /[gimy]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Strings_String'
+      StyleName = 'Strings_String'
+      TokenType = 6
+      Expression = 
+        '(?s)(((?<=[^\\])'#39')(.)*?(((?<=[^\\])'#39')|\Z))|(((?<=[^\\])")(.)*?((' +
+        '(?<=[^\\])")|\Z))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Operators_Structure'
+      StyleName = 'Operators_Structure'
+      TokenType = 2
+      Expression = '[\.\{\}\(\)\[\],;\$]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Operators_Syntax'
+      StyleName = 'Operators_Syntax'
+      TokenType = 3
+      Expression = '[\?/\+\-\*:=<>&/\|\^~!%\#@]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Digits_Hex'
+      StyleName = 'Digits_Hex'
+      TokenType = 5
+      Expression = '0[xbo][\da-f]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Digits_Number'
+      StyleName = 'Digits_Number'
+      TokenType = 4
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'ID'
+      StyleName = 'ID'
+      TokenType = 9
+      Expression = '[a-z_\$]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Global_Objects'
+      StyleName = 'GLOBAL_Objects'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4096
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Global_Propertis'
+      StyleName = 'GLOBAL_Propertis'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 2048
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Global_Methods'
+      StyleName = 'GLOBAL_Methods'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ECMA_objects'
+      StyleName = 'ECMA_Objects'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Array'
+            'Boolean'
+            'Date'
+            'Error'
+            'EvalError'
+            'Float32Array'
+            'Float64Array'
+            'Int16Array'
+            'Int32Array'
+            'Int8Array'
+            'Map'
+            'Math'
+            'Number'
+            'Object'
+            'Promise'
+            'RangeError'
+            'ReferenceError'
+            'RegExp'
+            'Set'
+            'String'
+            'Super'
+            'SyntaxError'
+            'this'
+            'TypeError'
+            'Uint16Array'
+            'Uint32Array'
+            'Uint8Array'
+            'Uint8ClampedArray'
+            'URIError'
+            'WeakMap'
+            'WeakSet')
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ECMA_property'
+      StyleName = 'ECMA_Propertis'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '__count__'
+            '__noSuchMethod__'
+            '__parent__'
+            '__proto__'
+            'arguments'
+            'arity'
+            'buffer'
+            'byteLength'
+            'byteOffset'
+            'BYTES_PER_ELEMENT'
+            'callee'
+            'caller'
+            'closed'
+            'columnNumber'
+            'compare'
+            'constructor'
+            'displayName'
+            'E'
+            'EPSILON'
+            'fileName'
+            'flags'
+            'frames'
+            'global'
+            'hash'
+            'hasInstance'
+            'history'
+            'host'
+            'hostname'
+            'href'
+            'ignoreCase'
+            'index'
+            'input'
+            'isConcatSpreadable'
+            'iterator'
+            'lastIndex'
+            'lastMatch'
+            'lastParen'
+            'leftContext'
+            'lenght'
+            'length'
+            'lineNumber'
+            'LN10'
+            'LN2'
+            'location'
+            'LOG10E'
+            'LOG2E'
+            'MAX_SAFE_INTEGER'
+            'MAX_VALUE'
+            'message'
+            'MIN_SAFE_INTEGER'
+            'MIN_VALUE'
+            'multiline'
+            'name'
+            'NaN'
+            'NEGATIVE_INFINITY'
+            'opener'
+            'parent'
+            'pathname'
+            'PI'
+            'port'
+            'POSITIVE_INFINITY'
+            'protocol'
+            'prototype'
+            'rightContext'
+            'SharedbyteLength'
+            'size'
+            'source'
+            'species'
+            'SQRT1_2'
+            'SQRT12'
+            'SQRT2'
+            'stack'
+            'status'
+            'sticky'
+            'super'
+            'top'
+            'toPrimitive'
+            'toStringTag'
+            'unicode'
+            'unscopables')
+          TokenTypes = 2048
+          IgnoreCase = True
+        end
+        item
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ECMA_methods'
+      StyleName = 'ECMA_Methods'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '__defineGetter__'
+            '__defineSetter__'
+            '__lookupGetter__'
+            '__lookupSetter__'
+            'abs'
+            'acos'
+            'acosh'
+            'add'
+            'all'
+            'anchor'
+            'and'
+            'apply'
+            'asin'
+            'asinh'
+            'assign'
+            'atan'
+            'atan2'
+            'atanh'
+            'back'
+            'big'
+            'bind'
+            'blink'
+            'bold'
+            'call'
+            'catch'
+            'cbrt'
+            'ceil'
+            'charAt'
+            'charCodeAt'
+            'clear'
+            'close'
+            'clz32'
+            'codePointAt'
+            'compareExchange'
+            'compile'
+            'compileStreaming'
+            'concat'
+            'construct'
+            'copyWithin'
+            'cos'
+            'cosh'
+            'create'
+            'defineProperties'
+            'defineProperty'
+            'delete'
+            'deleteProperty'
+            'endsWith'
+            'entries'
+            'enumerate'
+            'eval'
+            'every'
+            'exchange'
+            'exec'
+            'exp'
+            'expm1'
+            'fill'
+            'filter'
+            'finally'
+            'find'
+            'findIndex'
+            'fixed'
+            'flat'
+            'flatMap'
+            'floor'
+            'focus'
+            'for'
+            'forEach'
+            'formatToParts'
+            'forward'
+            'freeze'
+            'from'
+            'fromCharCode'
+            'fromCodePoint'
+            'fround'
+            'get'
+            'getCanonicalLocales'
+            'getDate'
+            'getDay'
+            'getFloat32'
+            'getFloat64'
+            'getFullYear'
+            'getHours'
+            'getInt16'
+            'getInt32'
+            'getInt8'
+            'getMilliseconds'
+            'getMinutes'
+            'getMonth'
+            'getNotifier'
+            'getOwnPropertyDescriptor'
+            'getOwnPropertyDescriptors'
+            'getOwnPropertyNames'
+            'getOwnPropertySymbols'
+            'getPrototypeOf'
+            'getSeconds'
+            'getTime'
+            'getTimezoneOffset'
+            'getUint16'
+            'getUint32'
+            'getUint8'
+            'getUTCDate'
+            'getUTCDay'
+            'getUTCFullYear'
+            'getUTCHours'
+            'getUTCMilliseconds'
+            'getUTCMinutes'
+            'getUTCMonth'
+            'getUTCSeconds'
+            'getVarDate'
+            'getYear'
+            'go'
+            'has'
+            'hasOwnProperty'
+            'hypot'
+            'imul'
+            'includes'
+            'indexOf'
+            'instantiate'
+            'instantiateStreaming'
+            'is'
+            'isArray'
+            'isExtensible'
+            'isFinite'
+            'isFrozen'
+            'isGenerator'
+            'isInteger'
+            'isLockFree'
+            'isNaN'
+            'isPrototypeOf'
+            'isSafeInteger'
+            'isSealed'
+            'isView'
+            'italics'
+            'join'
+            'keyFor'
+            'keys'
+            'lastIndexOf'
+            'link'
+            'load'
+            'localeCompare'
+            'log10'
+            'log1p'
+            'log2'
+            'map'
+            'match'
+            'max'
+            'min'
+            'move'
+            'next'
+            'normalize'
+            'now'
+            'observe'
+            'of'
+            'open'
+            'or'
+            'ownKeys'
+            'padEnd'
+            'padStart'
+            'parse'
+            'parseFloat'
+            'parseInt'
+            'pop'
+            'pow'
+            'preventExtensions'
+            'propertyIsEnumerable'
+            'push'
+            'quote'
+            'race'
+            'random'
+            'raw'
+            'reduce'
+            'reduceRight'
+            'reject'
+            'reload'
+            'repeat'
+            'replace'
+            'resolve'
+            'resolvedOptions'
+            'return'
+            'reverse'
+            'round'
+            'seal'
+            'search'
+            'set'
+            'setDate'
+            'setFloat32'
+            'setFloat64'
+            'setFullYear'
+            'setHours'
+            'setInt16'
+            'setInt32'
+            'setInt8'
+            'setMilliseconds'
+            'setMinutes'
+            'setMonth'
+            'setPrototypeOf'
+            'setSeconds'
+            'setTime'
+            'setUint16'
+            'setUint32'
+            'setUint8'
+            'setUTCDate'
+            'setUTCFullYear'
+            'setUTCHours'
+            'setUTCMilliseconds'
+            'setUTCMinutes'
+            'setUTCMonth'
+            'setUTCSeconds'
+            'setYear'
+            'Sharedslice'
+            'shift'
+            'sign'
+            'sin'
+            'sinh'
+            'slice'
+            'small'
+            'some'
+            'sort'
+            'splice'
+            'split'
+            'sqrt'
+            'startsWith'
+            'store'
+            'strike'
+            'stringify'
+            'sub'
+            'subarray'
+            'substr'
+            'substring'
+            'sup'
+            'supportedLocalesOf'
+            'tan'
+            'tanh'
+            'test'
+            'then'
+            'throw'
+            'toDateString'
+            'toExponential'
+            'toFixed'
+            'toGMTString'
+            'toInteger'
+            'toISOString'
+            'toJSON'
+            'toLocaleDateString'
+            'toLocaleFormat'
+            'toLocaleLowerCase'
+            'toLocaleString'
+            'toLocaleTimeString'
+            'toLocaleUpperCase'
+            'toLowerCase'
+            'toPrecision'
+            'toSource'
+            'toString'
+            'toTimeString'
+            'toUpperCase'
+            'toUTCString'
+            'transfer'
+            'trim'
+            'trimLeft'
+            'trimRight'
+            'trunc'
+            'Typedfrom'
+            'Typedof'
+            'unobserve'
+            'unshift'
+            'unwatch'
+            'UTC'
+            'validate'
+            'valueOf'
+            'values'
+            'wait'
+            'wake'
+            'watch'
+            'xor')
+          TokenTypes = 3072
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ECMA_globals'
+      StyleName = 'ECMA_Globals'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'alert'
+            'clearInterval'
+            'clearTimeout'
+            'confirm'
+            'decodeURI'
+            'decodeURIComponent'
+            'encodeURI'
+            'encodeURIComponent'
+            'eval'
+            'false'
+            'Infinity'
+            'isFinite'
+            'isNaN'
+            'NaN'
+            'parseFloat'
+            'parseInt'
+            'prompt'
+            'setInterval'
+            'setTimeout'
+            'Symbol'
+            'true'
+            'undefined')
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ECMA_instructions'
+      StyleName = 'ECMA_Instruction'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'break'
+            'catch'
+            'class'
+            'const'
+            'continue'
+            'delete'
+            'do'
+            'else'
+            'export'
+            'extends'
+            'finally'
+            'for'
+            'function'
+            'get'
+            'if'
+            'import'
+            'in'
+            'instanceof'
+            'label'
+            'let'
+            'new'
+            'of'
+            'return'
+            'set'
+            'switch'
+            'throw'
+            'try'
+            'typeof'
+            'var'
+            'void'
+            'while'
+            'with')
+          TokenTypes = 512
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CLIENT_property'
+      StyleName = 'CLIENT_Propertis'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '_content'
+            'abbr'
+            'above'
+            'accelerator'
+            'accept'
+            'acceptCharset'
+            'accessKey'
+            'action'
+            'activeElement'
+            'align'
+            'aLink'
+            'alinkColor'
+            'allowTransparency'
+            'alt'
+            'altHtml'
+            'altKey'
+            'altLeft'
+            'anchorNode'
+            'anchorOffset'
+            'anchors'
+            'appCodeName'
+            'appCore'
+            'applets'
+            'appMinorVersion'
+            'appName'
+            'appVersion'
+            'archive'
+            'areas'
+            'async'
+            'attrChange'
+            'attributes'
+            'attrName'
+            'audioTracks'
+            'autocomplete'
+            'autoplay'
+            'availHeight'
+            'availLeft'
+            'availTop'
+            'availWidth'
+            'axis'
+            'balance'
+            'BaseHref'
+            'baseName'
+            'baseURI'
+            'behavior'
+            'behaviorCookie'
+            'behaviorPart'
+            'behaviorUrns'
+            'below'
+            'bgColor'
+            'bgProperties'
+            'body'
+            'bookmarks'
+            'booleanValue'
+            'bottomMargin'
+            'boundElements'
+            'boundingHeight'
+            'boundingLeft'
+            'boundingTop'
+            'boundingWidth'
+            'browserLanguage'
+            'bubbles'
+            'bufferDepth'
+            'buffered'
+            'buildID'
+            'button'
+            'cancelable'
+            'cancelBubble'
+            'canHaveChildren'
+            'canHaveHTML'
+            'caption'
+            'cellIndex'
+            'cellPadding'
+            'cells'
+            'cellSpacing'
+            'ch'
+            'characterSet'
+            'charCode'
+            'charset'
+            'checked'
+            'childElementCount'
+            'childNodes'
+            'children'
+            'chOff'
+            'cite'
+            'classes'
+            'classesByID'
+            'classid'
+            'classList'
+            'className'
+            'clientHeight'
+            'clientInformation'
+            'clientLeft'
+            'clientTop'
+            'clientWidth'
+            'clientX'
+            'clientY'
+            'clipboardData'
+            'code'
+            'codeBase'
+            'codeType'
+            'collapsed'
+            'colorDepth'
+            'cols'
+            'colSpan'
+            'commonAncestorContainer'
+            'compact'
+            'compatMode'
+            'complete'
+            'Components'
+            'console'
+            'content'
+            'contentDocument'
+            'contentEditable'
+            'contentType'
+            'contentWindow'
+            'controller'
+            'controls'
+            'cookie'
+            'cookieEnabled'
+            'coordinates'
+            'coords'
+            'cpuClass'
+            'crossOrigin'
+            'crypto'
+            'ctrlKey'
+            'ctrlLeft'
+            'current'
+            'currentNode'
+            'currentSrc'
+            'currentStyle'
+            'currentTarget'
+            'currentTime'
+            'data'
+            'dataFld'
+            'dataTransfer'
+            'dataType'
+            'dateTime'
+            'declare'
+            'default'
+            'defaultCharset'
+            'defaultChecked'
+            'defaultMuted'
+            'defaultPlaybackRate'
+            'defaultSelected'
+            'defaultStatus'
+            'defaultValue'
+            'defaultView'
+            'defer'
+            'description'
+            'designMode'
+            'detail'
+            'deviceXDPI'
+            'deviceYDPI'
+            'dialogArguments'
+            'dialogHeight'
+            'dialogLeft'
+            'dialogTop'
+            'dialogWidth'
+            'dir'
+            'directories'
+            'doctype'
+            'document'
+            'documentElement'
+            'documentMode'
+            'documentURI'
+            'domain'
+            'domConfig'
+            'draggable'
+            'dropEffect'
+            'duration'
+            'dynsrc'
+            'effectAllowed'
+            'element'
+            'elements'
+            'embeds'
+            'enabledPlugin'
+            'enableSmartCardEvents'
+            'encoding'
+            'enctype'
+            'endContainer'
+            'ended'
+            'endOffset'
+            'entities'
+            'error'
+            'errorCode'
+            'event'
+            'eventPhase'
+            'expandEntityReferences'
+            'expando'
+            'explicitOriginalTarget'
+            'external'
+            'face'
+            'fgColor'
+            'fileCreateDate'
+            'fileCreatedDate'
+            'fileModifiedDate'
+            'filepos'
+            'files'
+            'fileSize'
+            'fileUpdatedDate'
+            'fillStyle'
+            'firstChild'
+            'firstElementChild'
+            'focusNode'
+            'focusOffset'
+            'fontSmoothingEnabled'
+            'form'
+            'forms'
+            'frame'
+            'frameBorder'
+            'frameElement'
+            'frameSpacing'
+            'fromElement'
+            'frozen'
+            'fullScreen'
+            'fullscreenElement'
+            'galleryImg'
+            'geolocation'
+            'globalAlpha'
+            'globalCompositeOperation'
+            'hasLayout'
+            'head'
+            'headers'
+            'hidden'
+            'hideFocus'
+            'horizontalOverflow'
+            'hreflang'
+            'hspace'
+            'htmlFor'
+            'htmlText'
+            'httpEquiv'
+            'identifier'
+            'images'
+            'implementation'
+            'imports'
+            'indeterminate'
+            'innerHeight'
+            'innerHTML'
+            'innerText'
+            'innerWidth'
+            'inputEncoding'
+            'interfaces'
+            'interfacesByID'
+            'internalSubset'
+            'invalidIteratorState'
+            'isChar'
+            'isCollapsed'
+            'isContentEditable'
+            'isDisabled'
+            'isElementContentWhitespace'
+            'isId'
+            'isMap'
+            'isMultiLine'
+            'isOpen'
+            'isTextEdit'
+            'isTrusted'
+            'keyCode'
+            'kind'
+            'label'
+            'lang'
+            'language'
+            'lastChild'
+            'lastElementChild'
+            'lastEventId'
+            'lastModified'
+            'lastResult'
+            'layerX'
+            'layerY'
+            'leftMargin'
+            'line'
+            'lineCap'
+            'lineJoin'
+            'linepos'
+            'lineWidth'
+            'linkColor'
+            'links'
+            'loading'
+            'localName'
+            'localStorage'
+            'locationbar'
+            'logicalXDPI'
+            'logicalYDPI'
+            'longDesc'
+            'loop'
+            'lowsrc'
+            'manager'
+            'maxLength'
+            'media'
+            'mediaGroup'
+            'mediaText'
+            'mediaType'
+            'menuArguments'
+            'menubar'
+            'metaKey'
+            'method'
+            'Methods'
+            'mimeType'
+            'mimeTypes'
+            'miterLimit'
+            'modifiers'
+            'mozItemCount'
+            'mozUserCancelled'
+            'multiple'
+            'muted'
+            'nameProp'
+            'namespaces'
+            'namespaceURI'
+            'naturalHeight'
+            'naturalWidth'
+            'navigationMode'
+            'navigator'
+            'networkState'
+            'newValue'
+            'nextElementSibling'
+            'nextSibling'
+            'nextSubling'
+            'nodeName'
+            'nodeType'
+            'nodeTypedValue'
+            'nodeTypeString'
+            'nodeValue'
+            'noHref'
+            'noResize'
+            'noShade'
+            'notations'
+            'noWrap'
+            'numberValue'
+            'object'
+            'offscreenBuffering'
+            'offsetHeight'
+            'offsetLeft'
+            'offsetParent'
+            'offsetTop'
+            'offsetWidth'
+            'offsetX'
+            'offsetY'
+            'onLine'
+            'opera'
+            'options'
+            'orient'
+            'origin'
+            'originalTarget'
+            'oscpu'
+            'outerHeight'
+            'outerHTML'
+            'outerText'
+            'outerWidth'
+            'ownerDocument'
+            'ownerElement'
+            'ownerNode'
+            'ownerRule'
+            'owningElement'
+            'pageX'
+            'pageXOffset'
+            'pageY'
+            'pageYOffset'
+            'palette'
+            'parentBox'
+            'parentElement'
+            'parentLayer'
+            'parentNode'
+            'parentRule'
+            'parentStyleSheet'
+            'parentTextEdit'
+            'parentWindow'
+            'parseError'
+            'paused'
+            'personalbar'
+            'pixelDepth'
+            'pkcs11'
+            'placeholder'
+            'platform'
+            'playbackRate'
+            'played'
+            'plugins'
+            'pluginspage'
+            'positionError'
+            'positionOptions'
+            'poster'
+            'prefix'
+            'preload'
+            'previous'
+            'previousElementSibling'
+            'previousSibling'
+            'previousSubling'
+            'prevValue'
+            'primitiveType'
+            'product'
+            'productSub'
+            'profile'
+            'prompter'
+            'propertyName'
+            'protocolLong'
+            'pseudoClass'
+            'publicId'
+            'qualifier'
+            'rangeCount'
+            'rangeOffset'
+            'rangeParent'
+            'readyState'
+            'reason'
+            'recordNumber'
+            'recordset'
+            'referrer'
+            'rel'
+            'relatedNode'
+            'relatedTarget'
+            'resize'
+            'responseBody'
+            'responseText'
+            'responseXML'
+            'rest'
+            'restAfter'
+            'restBefore'
+            'results'
+            'resultType'
+            'returnCode'
+            'returnValue'
+            'rev'
+            'rightMargin'
+            'root'
+            'rowIndex'
+            'rows'
+            'rowSpan'
+            'rules'
+            'runtimeStyle'
+            'saveType'
+            'scheme'
+            'scope'
+            'scopeName'
+            'screen'
+            'screenLeft'
+            'screenTop'
+            'screenX'
+            'screenY'
+            'scripts'
+            'scrollAmount'
+            'scrollbars'
+            'scrollDelay'
+            'scrollHeight'
+            'scrolling'
+            'scrollLeft'
+            'scrollMaxX'
+            'scrollMaxY'
+            'scrollTop'
+            'scrollWidth'
+            'scrollX'
+            'scrollY'
+            'sectionRowIndex'
+            'security'
+            'seekable'
+            'seeking'
+            'selected'
+            'selectedIndex'
+            'selection'
+            'selectionEnd'
+            'selectionStart'
+            'selector'
+            'selectorText'
+            'self'
+            'separator'
+            'sessionStorage'
+            'shadowBlur'
+            'shadowColor'
+            'shadowOffsetX'
+            'shadowOffsetY'
+            'shape'
+            'sheet'
+            'shiftKey'
+            'shiftLeft'
+            'siblingAbove'
+            'siblingBelow'
+            'sidebar'
+            'singleNodeValue'
+            'snapshotLength'
+            'sourceIndex'
+            'span'
+            'speak'
+            'specified'
+            'spellcheck'
+            'src'
+            'srcElement'
+            'srcFilter'
+            'srclang'
+            'srcText'
+            'srcUrn'
+            'standby'
+            'startContainer'
+            'startDate'
+            'startOffset'
+            'statusbar'
+            'statusText'
+            'step'
+            'strictErrorChecking'
+            'stringValue'
+            'strokeStyle'
+            'style'
+            'styleSheet'
+            'styleSheets'
+            'suffixes'
+            'summary'
+            'systemId'
+            'systemLanguage'
+            'systemXDPI'
+            'systemYDPI'
+            'tabIndex'
+            'tagName'
+            'tagUrn'
+            'tainer'
+            'target'
+            'tBodies'
+            'text'
+            'textBaseline'
+            'textContent'
+            'textLength'
+            'textTracks'
+            'tFoot'
+            'tHead'
+            'timeStamp'
+            'title'
+            'toElement'
+            'toolbar'
+            'topMargin'
+            'track'
+            'trueSpeed'
+            'type'
+            'types'
+            'uniqueID'
+            'units'
+            'unselectable'
+            'updateInterval'
+            'uri'
+            'URL'
+            'URLUnencoded'
+            'urn'
+            'useMap'
+            'userAgent'
+            'userLanguage'
+            'userProfile'
+            'utils'
+            'vAlign'
+            'value'
+            'valueType'
+            'vcard_name'
+            'vendor'
+            'vendorSub'
+            'version'
+            'verticalOverflow'
+            'videoTracks'
+            'view'
+            'visible'
+            'vLink'
+            'vlinkColor'
+            'volume'
+            'vspace'
+            'whatToShow'
+            'wheelDelta'
+            'which'
+            'wrap'
+            'x'
+            'xml'
+            'XMLDocument'
+            'xmlEncoding'
+            'xmlStandalone'
+            'xmlVersion'
+            'y')
+          TokenTypes = 2048
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CLIENT_objects'
+      StyleName = 'CLIENT_Objects'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'anchors'
+            'applets'
+            'areas'
+            'attribute'
+            'attributes'
+            'behaviorUrns'
+            'bookmarks'
+            'boundElements'
+            'BoxObject'
+            'cells'
+            'childNodes'
+            'children'
+            'clientInformation'
+            'clipboardData'
+            'Components'
+            'Console'
+            'controlRange'
+            'Counter'
+            'crypto'
+            'CSSCharsetRule'
+            'CSSFontFaceRule'
+            'CSSImportRule'
+            'CSSMediaRule'
+            'CSSPageRule'
+            'CSSPrimitiveValue'
+            'CSSRule'
+            'cssRules'
+            'CSSStyleDeclaration'
+            'CSSStyleRule'
+            'CSSValue'
+            'CSSValueList'
+            'currentStyle'
+            'dataTransfer'
+            'doctype'
+            'document'
+            'DocumentFragment'
+            'DOMDocument'
+            'DOMException'
+            'DOMParser'
+            'DOMStringList'
+            'elements'
+            'embeds'
+            'event'
+            'external'
+            'File'
+            'FileList'
+            'filters'
+            'forms'
+            'frames'
+            'Geolocation'
+            'History'
+            'HTMLCollection'
+            'images'
+            'implementation'
+            'imports'
+            'links'
+            'location'
+            'mediaList'
+            'mimeType'
+            'mimeTypes'
+            'namespace'
+            'namespaces'
+            'Navigator'
+            'NodeIterator'
+            'NodeList'
+            'opera'
+            'options'
+            'page'
+            'pages'
+            'plugin'
+            'plugins'
+            'popup'
+            'Range'
+            'Rect'
+            'RGBColor'
+            'rows'
+            'rule'
+            'rules'
+            'runtimeStyle'
+            'Screen'
+            'scripts'
+            'selection'
+            'selectionRange'
+            'sidebar'
+            'Storage'
+            'styleSheet'
+            'styleSheets'
+            'tBodies'
+            'TextRange'
+            'TextRanges'
+            'TextRectangle'
+            'TextRectangles'
+            'TreeWalker'
+            'userProfile'
+            'utils'
+            'window'
+            'XMLDocument'
+            'XMLDOMParseError'
+            'XMLHTTP'
+            'XMLHttpRequest'
+            'XMLSerializer'
+            'XPathNSResolver'
+            'XPathResult')
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CLIENT_methods'
+      StyleName = 'CLIENT_Methods'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abort'
+            'addBehavior'
+            'AddChannel'
+            'addColorStop'
+            'AddDesktopComponent'
+            'addElement'
+            'addEventListener'
+            'AddFavorite'
+            'addImport'
+            'addMicrosummaryGenerator'
+            'addPageRule'
+            'addPanel'
+            'addPersistentPanel'
+            'addRange'
+            'addReadRequest'
+            'addRule'
+            'addSearchEngine'
+            'AddSearchProvider'
+            'addTextTrack'
+            'adoptNode'
+            'alert'
+            'appendChild'
+            'appendData'
+            'appendMedium'
+            'applyElement'
+            'arc'
+            'arcTo'
+            'assert'
+            'atob'
+            'attachEvent'
+            'AutoCompleteSaveForm'
+            'AutoScan'
+            'beginPath'
+            'bezierCurveTo'
+            'blur'
+            'btoa'
+            'bubbleEvent'
+            'buildNumber'
+            'canPlayType'
+            'captureEvents'
+            'clear'
+            'clearAttributes'
+            'clearData'
+            'clearInterval'
+            'clearRect'
+            'clearRequest'
+            'clearTimeout'
+            'clearWatch'
+            'click'
+            'clip'
+            'cloneContents'
+            'cloneNode'
+            'cloneRange'
+            'closePath'
+            'collapse'
+            'collapseToEnd'
+            'collapseToStart'
+            'collect'
+            'compareBoundaryPoints'
+            'compareDocumentPosition'
+            'compareEndPoints'
+            'compareNode'
+            'comparePoint'
+            'componentFromPoint'
+            'confirm'
+            'contains'
+            'containsNode'
+            'count'
+            'createAttribute'
+            'createAttributeNS'
+            'createCaption'
+            'createComment'
+            'createContextualFragment'
+            'createControlRange'
+            'createDocument'
+            'createDocumentFragment'
+            'createDocumentType'
+            'createElement'
+            'createElementNS'
+            'createEvent'
+            'createEventObject'
+            'createImageData'
+            'createLinearGradient'
+            'createNodeIterator'
+            'createNSResolver'
+            'createPattern'
+            'createPopup'
+            'createRadialGradient'
+            'createRange'
+            'createRangeCollection'
+            'createStyleSheet'
+            'createTextNode'
+            'createTextRange'
+            'createTFoot'
+            'createTHead'
+            'createTreeWalker'
+            'debug'
+            'deleteCaption'
+            'deleteCell'
+            'deleteContents'
+            'deleteData'
+            'deleteFromDocument'
+            'deleteMedium'
+            'deleteRow'
+            'deleteRule'
+            'deleteTFoot'
+            'deleteTHead'
+            'detach'
+            'detachEvent'
+            'dir'
+            'dirxml'
+            'disableExternalCapture'
+            'disableRightClick'
+            'dispatchEvent'
+            'doImport'
+            'doReadRequest'
+            'doScroll'
+            'dragDrop'
+            'drawImage'
+            'dump'
+            'duplicate'
+            'elementFromPoint'
+            'empty'
+            'enableExternalCapture'
+            'error'
+            'evalInSandbox'
+            'evaluate'
+            'Exception'
+            'execCommand'
+            'execScript'
+            'exitFullscreen'
+            'expand'
+            'extend'
+            'extractContents'
+            'fastSeek'
+            'fillRect'
+            'fillText'
+            'findText'
+            'fireEvent'
+            'forceGC'
+            'fullscreenEnabled'
+            'generateCRMFRequest'
+            'getAdjacentText'
+            'getAllResponseHeaders'
+            'getAsBinary'
+            'getAsDataURL'
+            'getAsText'
+            'getAttention'
+            'getAttribute'
+            'getAttributeNode'
+            'getAttributeNodeNS'
+            'getAttributeNS'
+            'getBookmark'
+            'getBoundingClientRect'
+            'getBoxObjectFor'
+            'getClientRects'
+            'getComputedStyle'
+            'getContext'
+            'getCounterValue'
+            'getCurrentPosition'
+            'getData'
+            'getElementById'
+            'getElementsByClassName'
+            'getElementsByName'
+            'getElementsByTagName'
+            'getElementsByTagNameNS'
+            'getExpression'
+            'getFloatValue'
+            'getImageData'
+            'getItem'
+            'getNamedItem'
+            'getNamedItemNS'
+            'getPreventDefault'
+            'getPropertyCSSValue'
+            'getPropertyPriority'
+            'getPropertyValue'
+            'getRangeAt'
+            'getRectValue'
+            'getResponseHeader'
+            'getRGBColorValue'
+            'getSelection'
+            'getStartDate'
+            'getStringValue'
+            'getWeakReference'
+            'group'
+            'groupCollapsed'
+            'groupEnd'
+            'handleEvent'
+            'hasAttribute'
+            'hasAttributeNS'
+            'hasAttributes'
+            'hasChildNodes'
+            'hasFeature'
+            'hasFocus'
+            'hide'
+            'home'
+            'ID'
+            'import'
+            'importNode'
+            'importUserCertificates'
+            'info'
+            'initDragEvent'
+            'initEvent'
+            'initKeyEvent'
+            'initMessageEvent'
+            'initMouseEvent'
+            'initMutationEvent'
+            'initOverflowEvent'
+            'initTextEvent'
+            'initUIEvent'
+            'inRange'
+            'insertAdjacentElement'
+            'insertAdjacentHTML'
+            'insertAdjacentText'
+            'insertBefore'
+            'insertCell'
+            'insertData'
+            'insertNode'
+            'insertRow'
+            'insertRule'
+            'intersectsNode'
+            'isDefaultNamespace'
+            'isEqual'
+            'isEqualNode'
+            'isPointInPath'
+            'isPointInRange'
+            'isSameNode'
+            'IsSearchProviderInstalled'
+            'IsSubscribed'
+            'isSuccessCode'
+            'isSupported'
+            'isValidFragment'
+            'item'
+            'iterateNext'
+            'javaEnabled'
+            'key'
+            'lineTo'
+            'loadXML'
+            'log'
+            'logout'
+            'lookupNamespaceURI'
+            'lookupPrefix'
+            'matchMedia'
+            'measureText'
+            'mergeAttributes'
+            'moveAbove'
+            'moveBelow'
+            'moveBy'
+            'moveEnd'
+            'moveRow'
+            'moveStart'
+            'moveTo'
+            'moveToAbsolute'
+            'moveToBookmark'
+            'moveToElementText'
+            'moveToPoint'
+            'mozClearDataAt'
+            'mozGetDataAt'
+            'mozSetDataAt'
+            'mozTypesAt'
+            'namedItem'
+            'navigate'
+            'NavigateAndFind'
+            'normalizeDocument'
+            'parseFromBuffer'
+            'parseFromStream'
+            'parseFromString'
+            'pasteHTML'
+            'pause'
+            'play'
+            'popChallengeResponse'
+            'postError'
+            'postMessage'
+            'preference'
+            'preventDefault'
+            'previousNode'
+            'previousPage'
+            'print'
+            'profileEnd'
+            'prompt'
+            'putImageData'
+            'quadraticCurveTo'
+            'queryCommandEnabled'
+            'queryCommandIndeterm'
+            'queryCommandState'
+            'queryCommandSupported'
+            'queryCommandText'
+            'queryCommandValue'
+            'querySelector'
+            'querySelectorAll'
+            'raiseEvent'
+            'recalc'
+            'rect'
+            'refresh'
+            'registerContentHandler'
+            'registerProtocolHandler'
+            'releaseCapture'
+            'releaseEvents'
+            'remove'
+            'removeAllRanges'
+            'removeAttribute'
+            'removeAttributeNode'
+            'removeAttributeNS'
+            'removeBehavior'
+            'removeChild'
+            'removeEventListener'
+            'removeExpression'
+            'removeImport'
+            'removeItem'
+            'removeNamedItem'
+            'removeNamedItemNS'
+            'removeNode'
+            'removeProperty'
+            'removeRange'
+            'removeRule'
+            'renameNode'
+            'replaceAdjacentText'
+            'replaceChild'
+            'replaceData'
+            'replaceNode'
+            'reportError'
+            'requestAnimationFrame'
+            'requestFullscreen'
+            'reset'
+            'resizeBy'
+            'resizeTo'
+            'restore'
+            'rotate'
+            'routeEvent'
+            'Sandbox'
+            'save'
+            'scale'
+            'scroll'
+            'scrollBy'
+            'scrollByLines'
+            'scrollByPages'
+            'scrollIntoView'
+            'scrollTo'
+            'select'
+            'selectAllChildren'
+            'selectionLanguageChange'
+            'selectNode'
+            'selectNodeContent'
+            'selectNodeContents'
+            'selectSingleNode'
+            'send'
+            'serializeToStream'
+            'serializeToString'
+            'setActive'
+            'setAttribute'
+            'setAttributeNode'
+            'setAttributeNodeNS'
+            'setAttributeNS'
+            'setCapture'
+            'setCursor'
+            'setData'
+            'setDragImage'
+            'setEnd'
+            'setEndAfter'
+            'setEndBefore'
+            'setEndPoint'
+            'setExpression'
+            'setFloatValue'
+            'setInterval'
+            'setItem'
+            'setNamedItem'
+            'setNamedItemNS'
+            'setProperty'
+            'setRequestHeader'
+            'setStart'
+            'setStartAfter'
+            'setStartBefore'
+            'setStringValue'
+            'setTimeout'
+            'setTransform'
+            'show'
+            'ShowBrowserUI'
+            'showHelp'
+            'showModalDialog'
+            'showModelessDialog'
+            'sizeToContent'
+            'snapshotItem'
+            'splitText'
+            'start'
+            'stop'
+            'stopPropagation'
+            'stroke'
+            'strokeRect'
+            'strokeText'
+            'submit'
+            'substringData'
+            'surroundContents'
+            'swapNode'
+            'table'
+            'tags'
+            'taintEnabled'
+            'time'
+            'timeEnd'
+            'toDataURL'
+            'trace'
+            'transform'
+            'translate'
+            'updateCommands'
+            'urns'
+            'version'
+            'warn'
+            'watchPosition'
+            'write'
+            'writeln')
+          TokenTypes = 3072
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CLIENT_events'
+      StyleName = 'CLIENT_Events'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'CheckboxStateChange'
+            'DOMActivate'
+            'DOMAttrModified'
+            'DOMCharacterDataModified'
+            'DOMFocusIn'
+            'DOMFocusOut'
+            'DOMMouseScroll'
+            'DOMNodeInserted'
+            'DOMNodeInsertedIntoDocument'
+            'DOMNodeRemoved'
+            'DOMNodeRemovedFromDocument'
+            'DOMSubtreeModified'
+            'dragexit'
+            'draggesture'
+            'onabort'
+            'onactivate'
+            'onafterprint'
+            'onafterupdate'
+            'onbeforeactivate'
+            'onbeforecopy'
+            'onbeforecut'
+            'onbeforedeactivate'
+            'onbeforeeditfocus'
+            'onbeforepaste'
+            'onbeforeprint'
+            'onbeforeunload'
+            'onbeforeupdate'
+            'onblur'
+            'onbounce'
+            'oncellchange'
+            'onchange'
+            'onclick'
+            'oncontextmenu'
+            'oncontrolselect'
+            'oncopy'
+            'oncut'
+            'ondataavailable'
+            'ondatasetchanged'
+            'ondatasetcomplete'
+            'ondblclick'
+            'ondeactivate'
+            'ondrag'
+            'ondragend'
+            'ondragenter'
+            'ondragleave'
+            'ondragover'
+            'ondragstart'
+            'ondrop'
+            'onerror'
+            'onerrorupdate'
+            'onfilterchange'
+            'onfinish'
+            'onfocus'
+            'onfocusin'
+            'onfocusout'
+            'onhashchange'
+            'onhelp'
+            'oninput'
+            'onkeydown'
+            'onkeypress'
+            'onkeyup'
+            'onload'
+            'onlosecapture'
+            'onmessage'
+            'onmousedown'
+            'onmouseenter'
+            'onmouseleave'
+            'onmousemove'
+            'onmouseout'
+            'onmouseover'
+            'onmouseup'
+            'onmousewheel'
+            'onmove'
+            'onmoveend'
+            'onmovestart'
+            'onoffline'
+            'ononline'
+            'onoverflowchanged'
+            'onpaste'
+            'onpropertychange'
+            'onRadioStateChange'
+            'onreadystatechange'
+            'onreset'
+            'onresize'
+            'onresizeend'
+            'onresizestart'
+            'onrowenter'
+            'onrowexit'
+            'onrowsdelete'
+            'onrowsinserted'
+            'onscroll'
+            'onsearch'
+            'onselect'
+            'onselectionchange'
+            'onselectstart'
+            'onstart'
+            'onstop'
+            'onsubmit'
+            'ontextInput'
+            'onunderflow'
+            'onunload')
+          TokenTypes = 3072
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CLIENT_style'
+      StyleName = 'CLIENT_Style'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'alignContent'
+            'alignItems'
+            'alignSelf'
+            'animation'
+            'animationDelay'
+            'animationDirection'
+            'animationDuration'
+            'animationFillMode'
+            'animationIterationCount'
+            'animationName'
+            'animationPlayState'
+            'animationTimingFunction'
+            'backfaceVisibility'
+            'background'
+            'backgroundAttachment'
+            'backgroundClip'
+            'backgroundColor'
+            'backgroundImage'
+            'backgroundOrigin'
+            'backgroundPosition'
+            'backgroundPositionX'
+            'backgroundPositionY'
+            'backgroundRepeat'
+            'backgroundSize'
+            'blockDirection'
+            'blue'
+            'border'
+            'borderBottom'
+            'borderBottomColor'
+            'borderBottomLeftRadius'
+            'borderBottomRightRadius'
+            'borderBottomStyle'
+            'borderBottomWidth'
+            'borderCollapse'
+            'borderColor'
+            'borderImage'
+            'borderImageOutset'
+            'borderImageRepeat'
+            'borderImageSlice'
+            'borderImageSource'
+            'borderImageWidth'
+            'borderLeft'
+            'borderLeftColor'
+            'borderLeftStyle'
+            'borderLeftWidth'
+            'borderRadius'
+            'borderRight'
+            'borderRightColor'
+            'borderRightStyle'
+            'borderRightWidth'
+            'borderSpacing'
+            'borderStyle'
+            'borderTop'
+            'borderTopColor'
+            'borderTopLeftRadius'
+            'borderTopRightRadius'
+            'borderTopStyle'
+            'borderTopWidth'
+            'borderWidth'
+            'bottom'
+            'boxDecorationBreak'
+            'boxShadow'
+            'boxSizing'
+            'captionSide'
+            'clipBottom'
+            'clipLeft'
+            'clipRight'
+            'clipTop'
+            'color'
+            'columnCount'
+            'columnFill'
+            'columnGap'
+            'columnRule'
+            'columnRuleColor'
+            'columnRuleStyle'
+            'columnRuleWidth'
+            'columns'
+            'columnSpan'
+            'columnWidth'
+            'counterIncrement'
+            'counterReset'
+            'cssFloat'
+            'cssRules'
+            'cssText'
+            'cssValueType'
+            'cue'
+            'cueAfter'
+            'cueBefore'
+            'currentStyle'
+            'cursor'
+            'direction'
+            'disabled'
+            'display'
+            'emptyCells'
+            'filters'
+            'flex'
+            'flexBasis'
+            'flexDirection'
+            'flexFlow'
+            'flexGrow'
+            'flexShrink'
+            'flexWrap'
+            'font'
+            'fontFamily'
+            'fontSize'
+            'fontSizeAdjust'
+            'fontStretch'
+            'fontStyle'
+            'fontVariant'
+            'fontWeight'
+            'green'
+            'hangingPunctuation'
+            'height'
+            'hyphens'
+            'icon'
+            'imageOrientation'
+            'imeMode'
+            'isolation'
+            'justifyContent'
+            'layoutFlow'
+            'layoutGrid'
+            'layoutGridChar'
+            'layoutGridLine'
+            'layoutGridMode'
+            'layoutGridType'
+            'left'
+            'letterSpacing'
+            'lineBreak'
+            'lineHeight'
+            'listStyle'
+            'listStyleImage'
+            'listStylePosition'
+            'listStyleType'
+            'margin'
+            'marginBottom'
+            'marginLeft'
+            'marginRight'
+            'marginTop'
+            'maxHeight'
+            'maxWidth'
+            'minHeight'
+            'minWidth'
+            'navDown'
+            'navIndex'
+            'navLeft'
+            'navRight'
+            'navUp'
+            'objectFit'
+            'objectPosition'
+            'opacity'
+            'order'
+            'orphans'
+            'outline'
+            'outlineColor'
+            'outlineOffset'
+            'outlineStyle'
+            'outlineWidth'
+            'overflow'
+            'overflowX'
+            'overflowY'
+            'padding'
+            'paddingBottom'
+            'paddingLeft'
+            'paddingRight'
+            'paddingTop'
+            'pageBreakAfter'
+            'pageBreakBefore'
+            'pageBreakInside'
+            'pauseAfter'
+            'pauseBefore'
+            'perspective'
+            'perspectiveOrigin'
+            'pixelBottom'
+            'pixelHeight'
+            'pixelLeft'
+            'pixelRight'
+            'pixelTop'
+            'pixelWidth'
+            'posBottom'
+            'posHeight'
+            'position'
+            'posLeft'
+            'posRight'
+            'posTop'
+            'posWidth'
+            'quotes'
+            'readOnly'
+            'red'
+            'right'
+            'rubyAlign'
+            'rubyOverhang'
+            'rubyPosition'
+            'scrollbar3dLightColor'
+            'scrollbarArrowColor'
+            'scrollbarBaseColor'
+            'scrollbarDarkShadowColor'
+            'scrollbarFaceColor'
+            'scrollbarHighlightColor'
+            'scrollbarShadowColor'
+            'scrollbarTrackColor'
+            'styleFloat'
+            'tableLayout'
+            'tabSize'
+            'textAlign'
+            'textAlignLast'
+            'textAutospace'
+            'textDecoration'
+            'textDecorationBlink'
+            'textDecorationColor'
+            'textDecorationLine'
+            'textDecorationLineThrough'
+            'textDecorationNone'
+            'textDecorationOverline'
+            'textDecorationStyle'
+            'textDecorationUnderline'
+            'textIndent'
+            'textJustify'
+            'textJustifyTrim'
+            'textKashidaSpace'
+            'textOverflow'
+            'textShadow'
+            'textTransform'
+            'textUnderlinePosition'
+            'top'
+            'transformOrigin'
+            'transformStyle'
+            'transition'
+            'transitionDelay'
+            'transitionDuration'
+            'transitionProperty'
+            'transitionTimingFunction'
+            'unicodeBidi'
+            'userSelect'
+            'verticalAlign'
+            'visibility'
+            'voiceFamily'
+            'whiteSpace'
+            'widows'
+            'width'
+            'wordBreak'
+            'wordSpacing'
+            'wordWrap'
+            'writingMode'
+            'zIndex'
+            'zoom')
+          TokenTypes = 3072
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{ Block back'
+      StyleName = 'Operators_{}_back'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 4
+        end>
+      BlockEnd = '   Block back }'
+      NotCollapsed = True
+      Highlight = True
+      DisplayInTree = False
+      DynHighlight = dhRangeNoBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '   Block back }'
+      BlockName = '{ Block back'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 4
+        end>
+      BlockEnd = '{ Block back'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{ Block border'
+      StyleName = 'Operators_{}_border'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 4
+        end>
+      BlockEnd = '   Block border }'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '{* * *}'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '   Block border }'
+      BlockName = '{ Block border'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 4
+        end>
+      BlockEnd = '{ Block border'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '( Union back'
+      StyleName = 'Operators_()_back'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 4
+        end>
+      BlockEnd = '  Union back )'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRangeNoBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '  Union back )'
+      BlockName = '( Union back'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 4
+        end>
+      BlockEnd = '( Union back'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '( Union border'
+      StyleName = 'Operators_()_border'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 4
+        end>
+      BlockEnd = '  Union border )'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '  Union border )'
+      BlockName = '( Union border'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 4
+        end>
+      BlockEnd = '( Union border'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '[ Array back'
+      StyleName = 'Operators_[]_back'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 4
+        end>
+      BlockEnd = '  Array back ]'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '  Array back ]'
+      BlockName = '[ Array back'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 4
+        end>
+      BlockEnd = '[ Array back'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree Var/Let/Const'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'const'
+            'let'
+            'var')
+          TokenTypes = 512
+          IgnoreCase = True
+        end>
+      NameFmt = '%s-1'
+      GroupFmt = 'value'
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemStyle = 'Tree_Standart'
+      TreeGroupStyle = 'Tree_Bold'
+      TreeItemImage = 6
+      TreeGroupImage = 6
+      IgnoreAsParent = True
+    end
+    item
+      DisplayName = 'tree class {'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'class')
+          IgnoreCase = True
+        end>
+      BlockEnd = 'tree class }'
+      NotCollapsed = True
+      NameFmt = '{ %s-1 }'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      TreeItemStyle = 'Tree_Bold'
+      TreeGroupStyle = 'Tree_Bold'
+      TreeItemImage = 4
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+    end
+    item
+      DisplayName = 'tree class }'
+      BlockName = 'tree class {'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      BlockEnd = 'tree class {'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx - { var and named'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 512
+        end
+        item
+          TagList.Strings = (
+            ','
+            ':'
+            '=')
+          TokenTypes = 12
+        end>
+      BlockEnd = 'tree fx -    var and named}'
+      NotCollapsed = True
+      NameFmt = '%s2'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx -    var and named}'
+      BlockName = 'tree fx - { var and named'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      BlockEnd = 'tree fx - { var and named'
+      HighlightPos = cpRange
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx - { constracted'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function')
+        end>
+      BlockEnd = 'tree fx -    constracted}'
+      NotCollapsed = True
+      NameFmt = '%s-1'
+      HighlightPos = cpAny
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx -    constracted}'
+      BlockName = 'tree fx - { constracted'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      BlockEnd = 'tree fx - { constracted'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx - { arrow'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '>')
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '=')
+        end
+        item
+          TagList.Strings = (
+            ')')
+        end
+        item
+          CondType = tcSkip
+        end
+        item
+          TagList.Strings = (
+            '(')
+        end>
+      BlockEnd = 'tree fx -    arrow }'
+      NotCollapsed = True
+      NameFmt = '%sl2'
+      HighlightPos = cpAny
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fx -    arrow }'
+      BlockName = 'tree fx - { arrow'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      BlockEnd = 'tree fx - { arrow'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '                   '
+    ' //Comment  --'#9#9#9#9#9#9#9#9#9'//parser Comment line'
+    ''
+    ' /*  DocBlock  */'#9#9#9#9#9#9#9#9'//parser Comment block'
+    ' '
+    ' !@#%^&*-=|/<>/?'#9#9#9#9#9#9#9#9'//parser Operators_Syntax'
+    ' }{)(][.,;'
+    #9'//Primitives'
+    ' id'#9#9#9#9'='#9'foo;'#9#9#9#9#9#9'//parser ID'
+    ' actual'#9#9#9'='#9'$foo;'#9#9#9#9#9#9'//parser ID_actuall'
+    ' Number_'#9#9'='#9'123;'#9#9#9#9#9#9'//parser Digits_Number'
+    ' Hex'#9#9#9'='#9'0o123;'#9#9#9#9#9#9'//parser Digits_Hex'
+    ' Strng'#9#9#9'='#9'"text" + '#39'text'#39';'#9#9#9'//parser Strings_String'
+    ' RegExp_'#9#9'='#9'/^<\/?\w.*?>/gi;'#9#9#9'//parser Strings_RegExp'
+    ' Template'#9#9'= '#9'`left_text` '#9#9#9#9'//parsers Template'
+    ' '
+    ' //Template example'
+    
+      ' console.log(`one line, no variable $(test) $[test] $<test> all ' +
+      'ok`);'
+    
+      ' console.log(`one line, variable inside, ${variable}  no spaces`' +
+      ');'
+    
+      ' console.log(`one line, variable inside, ${ variable } spaces in' +
+      'cluded`);'
+    
+      ' console.log(`one line ${variable} multi-variable ${ $var } end ' +
+      'of line`);'
+    ''
+    ' console.log(`multi line, '
+    '     '#9#9'  no variable`);'
+    ''
+    ' console.log(`multi line and calls ${call_functions()} functions'
+    ' '#9#9#9'  second line ${ 2+2*2-foo[0]} calculation`);'
+    '                             '
+    #9'//GLOBAL objects'
+    ' G_obj'#9#9#9'='#9'my_obj.'#9#9#9#9#9#9'//parser Global_Objects '
+    ' G_prop'#9#9#9'='#9'my_obj.property;'#9#9#9'//parser Global_Propertis'
+    ' G_meth'#9#9#9'='#9'my_obj.method();'#9#9#9'//parser Global_Methods'
+    ''
+    #9'//ECMA objects (JS core)'
+    ' ECMA_obj'#9#9'='#9'Math array date'#9#9#9#9'//rule ECMA_objects'
+    ' ECMA_prop'#9#9'='#9'Array.length;'#9#9#9#9'//rule ECMA_property'
+    ' ECMA_meth'#9#9'='#9'Array.push();'#9#9#9#9'//rule ECMA_methods'
+    ' ECMA_global'#9'='#9'NaN true alert();'#9#9#9'//rule ECMA_globals'
+    ' if else catch return'#9#9#9#9#9#9#9'//rule ECMA_instructions'
+    ''
+    #9'//CLIENT objects (DOM BOM structure)'
+    
+      ' CLIENT_obj'#9#9'='#9'console window document'#9#9#9#9#9#9'//rule CLIENT_object' +
+      's'
+    ' CLIENT_prop'#9'='#9'document.documentURI;'#9#9#9#9#9#9'//rule CLIENT_property'
+    
+      ' CLIENT_meth'#9'='#9'document.getElementById('#39'test'#39');'#9#9#9'//rule CLIENT_' +
+      'methods'
+    ' CLIENT_event'#9'='#9'document.onload();'#9#9#9#9#9#9#9'//rule CLIENT_events'
+    
+      ' CLIENT_style'#9'='#9'some__id.style.backgroundColor = "black";'#9'//rule' +
+      ' CLIENT_style'
+    ''
+    #9'//ACTIVE Blocks (put cursore inside blocks)'
+    ' function multiply(x, y=3 )'#9#9#9#9#9'//rules Union border '
+    ' {'#9#9#9#9#9#9#9#9#9#9#9'//rules Block border'
+    '    if ( x == true ) {'
+    #9#9'x++;'#9
+    #9'}'#9#9#9#9#9#9#9#9#9#9'//rules Block line'
+    ' '#9'let inner  '#9'= [a="a", b="b", c="c"]'#9#9'//rules'#9'Array line'
+    '   '#9'return x*y;             '#9#9#9
+    ' }'
+    ''
+    #9'//TREE'#39's rules   '
+    ''
+    #9'var $foo;'#9#9#9#9#9#9#9#9'//rule tree Var/Let/Const'
+    ''
+    
+      'function fnc_constracted(A, count) {'#9#9'//rule tree fx - { constra' +
+      'cted '
+    #9'return'
+    '} '
+    ''
+    
+      'let fnc_identefied = function(){'#9#9#9'//rule tree fx - { var and na' +
+      'med'
+    #9'return         '
+    '} '
+    ''
+    
+      'fnc_calledByName: function(inc, offset) {'#9'//rule tree fx - { var' +
+      ' and named'
+    '  return'
+    '}'
+    ''
+    'class SomeClass1 {          '#9#9#9#9'//rule tree class {'
+    #9'let prop = $prop;'
+    '    this.property = prop;'
+    '    method = function(e) {'
+    '    '#9'return e '
+    '    } '
+    '    '
+    '    this.arrow = (props, foo(), $boo) => {'
+    '    '#9'return props;'
+    '    }'
+    '};'
+    ' ')
+  TokenTypeNames.Strings = (
+    'unknown'
+    'comment'
+    'Operators_Structure'
+    'Operators_Syntax'
+    'digits_number'
+    'digits_hex'
+    'strings_string'
+    'strings_regExp'
+    'id_actual'
+    'id'
+    'Global_Methods'
+    'Global_Propertis'
+    'Global_Objects'
+    'strings_template')
+  DefaultStyleName = 'MAIN'
+  CollapseStyleName = 'Spoiler'
+  Extentions = 'js'
+  LexerName = 'JavaScript (ES6)'
+  Notes.Strings = (
+    'Lexer JavaScript (ES6) v1.04'
+    'Created by Developer'
+    
+      'forum http://synwrite.sourceforge.net/forums/viewtopic.php?f=6&t' +
+      '=2286')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

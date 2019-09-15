@@ -1,0 +1,7 @@
+[info]
+title=Nim
+type=lexer
+subdir=-
+
+[lexer1]
+file=Nim

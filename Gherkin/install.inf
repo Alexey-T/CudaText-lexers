@@ -1,0 +1,7 @@
+[info]
+title=Gherkin
+type=lexer
+subdir=-
+
+[lexer1]
+file=Gherkin

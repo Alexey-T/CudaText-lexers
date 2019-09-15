@@ -1,0 +1,7 @@
+[info]
+title=F#
+type=lexer
+subdir=-
+
+[lexer1]
+file=F#

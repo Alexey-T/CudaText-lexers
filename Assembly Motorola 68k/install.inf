@@ -1,0 +1,7 @@
+[info]
+title=Assembly Motorola 68k
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly Motorola 68k

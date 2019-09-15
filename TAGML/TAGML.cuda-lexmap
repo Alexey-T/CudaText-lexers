@@ -1,0 +1,14 @@
+[comments]
+str1=[!
+str2=!]
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Comment=Comment
+Tag=TagId
+String=String
+Symbol=Symbol
+Tag attr=TagProp
+Number=Number
+Bool=IdKeyword

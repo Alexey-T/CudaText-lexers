@@ -1,0 +1,16 @@
+[map]
+Default=-
+Comment=Comment
+Identifier=Id
+Label=Label
+Variable=IdVar
+String=String
+Number=Number
+Symbol=Symbol
+Preprocessor=IdBad
+Keywords1=Id1
+Keywords2=Id2
+Keywords3=Id3
+Keywords4=Id4
+Keywords5=IdKeyword
+CommentBG=CommentDoc

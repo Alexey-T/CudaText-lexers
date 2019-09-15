@@ -1,0 +1,7 @@
+[info]
+title=Scheme
+type=lexer
+subdir=-
+
+[lexer1]
+file=Scheme

@@ -1,0 +1,15 @@
+[info]
+title=ColdFusion
+type=lexer
+subdir=-
+
+[lexer1]
+file=ColdFusion
+link1=CSS
+link2=VBScript
+link3=JavaScript
+link4=VBScript
+link5=JavaScript
+link6=PHP
+link7=PHP
+link8=SQL

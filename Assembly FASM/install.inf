@@ -1,0 +1,7 @@
+[info]
+title=Assembly FASM
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly FASM

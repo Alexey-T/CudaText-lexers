@@ -1,0 +1,15 @@
+[map]
+Default=-
+Comment=Comment
+Id=Id
+Id std=Id1
+Number=Number
+Label=Label
+Registers=Id2
+String=String
+Symbol=Symbol
+Directive=Id4
+
+[comments]
+styles_cmt=Comment
+styles_str=String

@@ -1,0 +1,7 @@
+[info]
+title=PAX Pascal
+type=lexer
+subdir=-
+
+[lexer1]
+file=PAX_Pascal

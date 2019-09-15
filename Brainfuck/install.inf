@@ -1,0 +1,7 @@
+[info]
+title=Brainfuck
+type=lexer
+subdir=-
+
+[lexer1]
+file=Brainfuck

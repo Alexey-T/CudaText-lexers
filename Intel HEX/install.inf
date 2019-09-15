@@ -1,0 +1,7 @@
+[info]
+title=Intel HEX
+type=lexer
+subdir=-
+
+[lexer1]
+file=Intel HEX

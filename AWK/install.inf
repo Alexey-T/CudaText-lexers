@@ -1,0 +1,7 @@
+[info]
+title=AWK
+type=lexer
+subdir=-
+
+[lexer1]
+file=AWK

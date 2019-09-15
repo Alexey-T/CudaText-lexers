@@ -1,0 +1,7 @@
+[info]
+title=JavaScript Babel
+type=lexer
+subdir=-
+
+[lexer1]
+file=JavaScript Babel

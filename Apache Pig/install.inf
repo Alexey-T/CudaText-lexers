@@ -1,0 +1,7 @@
+[info]
+title=Apache Pig
+type=lexer
+subdir=-
+
+[lexer1]
+file=Apache Pig

@@ -1,0 +1,7 @@
+[info]
+title=HLSL
+type=lexer
+subdir=-
+
+[lexer1]
+file=HLSL

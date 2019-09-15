@@ -1,0 +1,38 @@
+[ref]
+0=CSS
+1=VBScript
+2=JavaScript
+3=JavaScript
+4=VBScript
+5=PHP
+6=PHP
+7=HTML Laravel Blade internal
+8=HTML Laravel Blade internal
+
+[comments]
+str1=<!--
+str2=-->
+styles_cmt=Comment
+styles_str=Tag param
+
+[map]
+Tag id=TagId
+Tag id - underlines=TagIdBad
+Text=Id
+Tag bound=TagBound
+Comment=Comment
+Tag attrib=TagProp
+Tag attrib - underlines=IdBad
+Tag param=String
+Unknown tag content=IdBad
+Tag Key=Symbol
+Number=Number
+Marked block=-
+Tree item (attribute)=-
+Tree item (tag)=-
+Current Block=BracketBG
+Current Tag=BracketBG
+Sublexer BG=IncludeBG1
+Sublexer BG Blade=SectionBG1
+Blade cmd=Id2
+Blade symbol=Symbol

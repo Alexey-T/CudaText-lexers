@@ -1,0 +1,187 @@
+object SyntAnal18: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String regex'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1Id'
+      StyleName = 'Id'
+      TokenType = 5
+      Expression = '^ [\x20\x09]* \w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String mul'
+      StyleName = 'String'
+      TokenType = 2
+      Expression = '(?s) """ .+? """'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 2
+      Expression = '(") .*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 3
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 4
+      Expression = '\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String regex'
+      StyleName = 'String regex'
+      TokenType = 2
+      Expression = '/ .+? /'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 1
+      Expression = '[;:,%\(\)\{\}\[\]\-\+\*~&\#=@\|\\/'#39']'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keyw'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'And'
+            'But'
+            'Examples'
+            'Feature'
+            'Given'
+            'Scenario'
+            'Then'
+            'When')
+          TokenTypes = 32
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block'
+      ConditionList = <
+        item
+          TokenTypes = 288
+        end>
+      EndOfTextClose = True
+      DisplayInTree = False
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      GroupIndex = 20
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'Feature: Addition'
+    '  I want to see the sum'
+    ''
+    '  Scenario: Add two numbers'
+    '    Given I visit the calculator page'
+    '    And I fill in '#39'50'#39' for '#39'first'#39
+    '    And I fill in '#39'70'#39' for '#39'Second'#39
+    '    Given /there are (\d+)/ do |n|'
+    '    '
+    '    Nnn "Sttt", #Cccc')
+  TokenTypeNames.Strings = (
+    'Comment'
+    'Symbol'
+    'String'
+    'Number'
+    'Id'
+    '1Id')
+  Extentions = 'feature'
+  LexerName = 'Gherkin'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alex (Synwrite)'
+    'Doc: http://cukes.info/gherkin.html'
+    'Test: https://github.com/cucumber/cucumber')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,7 @@
+[info]
+title=Caffe Prototxt
+type=lexer
+subdir=-
+
+[lexer1]
+file=Caffe Prototxt

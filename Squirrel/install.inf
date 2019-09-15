@@ -1,0 +1,7 @@
+[info]
+title=Squirrel
+type=lexer
+subdir=-
+
+[lexer1]
+file=Squirrel

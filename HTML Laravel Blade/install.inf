@@ -1,0 +1,18 @@
+[info]
+title=HTML Laravel Blade
+type=lexer
+subdir=-
+
+[lexer1]
+file=HTML Laravel Blade internal
+[lexer2]
+file=HTML Laravel Blade
+link1=CSS
+link2=VBScript
+link3=JavaScript
+link4=JavaScript
+link5=VBScript
+link6=PHP
+link7=PHP
+link8=HTML Laravel Blade internal
+link9=HTML Laravel Blade internal

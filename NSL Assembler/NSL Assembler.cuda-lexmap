@@ -1,0 +1,19 @@
+[ref]
+0=NSIS
+
+[map]
+Comment=Comment
+Current block=BracketBG
+Default=-
+Function=Id1
+KeyWord=IdKeyword
+Marked block=-
+Number=Number
+Preprocessor=Comment2
+String=String
+Symbol=Symbol
+Variable=IdVar
+
+[comments]
+styles_cmt=Comment
+styles_str=String

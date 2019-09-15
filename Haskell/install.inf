@@ -1,0 +1,7 @@
+[info]
+title=Haskell
+type=lexer
+subdir=-
+
+[lexer1]
+file=Haskell

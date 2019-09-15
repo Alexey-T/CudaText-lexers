@@ -1,0 +1,7 @@
+[info]
+title=Pug
+type=lexer
+subdir=-
+
+[lexer1]
+file=Pug

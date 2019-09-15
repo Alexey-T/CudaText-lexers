@@ -1,0 +1,7 @@
+[info]
+title=ABAP
+type=lexer
+subdir=-
+
+[lexer1]
+file=ABAP

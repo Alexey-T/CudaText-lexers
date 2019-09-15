@@ -1,0 +1,17 @@
+[info]
+title=HTML Handlebars
+type=lexer
+subdir=-
+
+[lexer1]
+file=HTML Handlebars internal
+[lexer2]
+file=HTML Handlebars
+link1=CSS
+link2=VBScript
+link3=JavaScript
+link4=JavaScript
+link5=VBScript
+link6=PHP
+link7=PHP
+link8=HTML Handlebars internal

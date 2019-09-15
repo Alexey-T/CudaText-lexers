@@ -1,0 +1,19 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Comment=Comment
+Id=Id
+Id keyword=IdKeyword
+Id command=Id1
+Id register=Id2
+Label=Label
+Label equal sign=Label
+Number=Number
+String=String
+Symbol=Symbol
+Directive=Id4
+Preproc=Id3

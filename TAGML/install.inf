@@ -1,0 +1,7 @@
+[info]
+title=TAGML
+type=lexer
+subdir=-
+
+[lexer1]
+file=TAGML

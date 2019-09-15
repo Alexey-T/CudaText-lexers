@@ -1,0 +1,7 @@
+[info]
+title=Objective-C
+type=lexer
+subdir=-
+
+[lexer1]
+file=Objective-C

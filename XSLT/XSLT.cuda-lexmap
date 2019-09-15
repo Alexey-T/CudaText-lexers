@@ -1,0 +1,26 @@
+[map]
+Default=-
+Text=Id
+Tag bound=TagBound
+Comment=Comment
+CDATA=Id2
+Tag Key=TagId
+ERROR content=IdBad
+Tag ident=TagProp
+Tag param=String
+Tag properties=-
+Marked block=-
+Current tag=BracketBG
+Current Block=CurBlockBG
+DTD element type=String2
+DTD bound=TagBound
+Tree item (attribute)=-
+Tree item (tag)=-
+Wrong XSLT statement=IdBad
+XSLT statement=Id1
+
+[comments]
+str1=<!--
+str2=-->
+styles_cmt=Comment
+styles_str=

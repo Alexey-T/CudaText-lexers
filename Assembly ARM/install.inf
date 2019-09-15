@@ -1,0 +1,7 @@
+[info]
+title=Assembly ARM
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly ARM

@@ -1,0 +1,7 @@
+[info]
+title=Jsonnet
+type=lexer
+subdir=-
+
+[lexer1]
+file=Jsonnet

@@ -1,0 +1,180 @@
+object SyntAnal111: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Compiler Directive'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Free Syntax Calculation keywords'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = '%name'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      AlwaysEnabled = True
+      TokenType = 1
+      Expression = '# Make comment to get all line'#13#10'#(?m)^\x20*\*.*\r\n'#13#10'//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Any Directive'
+      StyleName = 'Compiler Directive'
+      TokenType = 5
+      Expression = '/[\w\-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '%names'
+      StyleName = '%name'
+      TokenType = 2
+      Expression = '%\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Free Syntax Calculation keywords'
+      StyleName = 'Free Syntax Calculation keywords'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BEGSR'
+            'CALLP'
+            'CHAIN'
+            'CLEAR'
+            'CLOSE'
+            'COMMIT'
+            'DEALLOC'
+            'DELETE'
+            'DOU'
+            'DOW'
+            'DSPLY'
+            'ELSE'
+            'ELSEIF'
+            'END'
+            'ENDDO'
+            'ENDFOR'
+            'ENDIF'
+            'ENDMON'
+            'ENDSL'
+            'ENDSR'
+            'EVAL'
+            'EVALR'
+            'EXCEPT'
+            'EXSR'
+            'FEOD'
+            'FOR'
+            'IF'
+            'IN'
+            'ITER'
+            'LEAVE'
+            'LEAVESR'
+            'MONITOR'
+            'ON-ERROR'
+            'OPEN'
+            'OTHER'
+            'OUT'
+            'POST'
+            'READ'
+            'READC'
+            'READE'
+            'READP'
+            'READPE'
+            'RESET'
+            'RETURN'
+            'ROLBK'
+            'SELECT'
+            'SETGT'
+            'SETLL'
+            'SORTA'
+            'TEST'
+            'UNLOCK'
+            'UPDATE'
+            'WHEN'
+            'WRITE')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Line Type'
+    'Line End'
+    'Directives'
+    'Number'
+    'String'
+    'Symbol')
+  MarkedBlockStyle = 'Marked block'
+  LexerName = 'RPG/IV (Free Syntax)'
+  Internal = True
+  Charset = DEFAULT_CHARSET
+end

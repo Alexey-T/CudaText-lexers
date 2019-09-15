@@ -1,0 +1,7 @@
+[info]
+title=Clipper
+type=lexer
+subdir=-
+
+[lexer1]
+file=Clipper

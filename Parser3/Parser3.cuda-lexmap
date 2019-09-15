@@ -1,0 +1,16 @@
+[map]
+Marked block=-
+Text=Id
+Tag bound=TagBound
+Comment=Comment
+Symbol=Symbol
+Tag Key=TagId
+Spec Char=String
+Variable=IdVar
+Field=Id1
+Operator=Symbol2
+Current block=BracketBG
+Call (class)=Id2
+Call (method)=Id3
+hash key=Id4
+Class (Tree)=-

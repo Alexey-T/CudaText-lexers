@@ -1,0 +1,18 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+str1=
+str2=
+
+[map]
+Id=Id
+Symbol=Symbol
+String=String
+Comment=Comment
+#Id=Id2
+Tag=TagId
+Var=IdVar
+Keyword=IdKeyword
+Sublexer BG=SectionBG1
+HTML tag=Id3
+HTML entity=Symbol2

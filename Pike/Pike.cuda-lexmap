@@ -1,0 +1,19 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Symbol=Symbol
+Number=Number
+String=String
+Comment=Comment
+Id=Id
+Id keyword=IdKeyword
+Id class=Id1
+Id std=Id2
+Id const=Id3
+Preprocessor=Comment2
+Current block BG=CurBlockBG
+Param=IdVar

@@ -1,0 +1,401 @@
+object SyntAnal21: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id keyword2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id const'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id std func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Key name'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.* | \#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\"|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\+\-\*:=<>&/\|\^\.,;!%~\^\?\[\]\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 2
+      Expression = '\$\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id std'
+      StyleName = 'Id'
+      TokenType = 7
+      Expression = 'std\.\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'assert'
+            'else'
+            'error'
+            'for'
+            'if'
+            'in'
+            'self'
+            'super'
+            'then')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id keyword2'
+      StyleName = 'Id keyword2'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function'
+            'import'
+            'importstr'
+            'local'
+            'tailstrict')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id const'
+      StyleName = 'Id const'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'false'
+            'null'
+            'true')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id std func'
+      StyleName = 'Id std func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'std.abs'
+            'std.acos'
+            'std.asin'
+            'std.assertEqual'
+            'std.atan'
+            'std.ceil'
+            'std.char'
+            'std.codepoint'
+            'std.cos'
+            'std.escapeStringBash'
+            'std.escapeStringDollars'
+            'std.escapeStringJson'
+            'std.escapeStringPython'
+            'std.exp'
+            'std.exponent'
+            'std.filter'
+            'std.filterMap'
+            'std.flattenArrays'
+            'std.floor'
+            'std.foldl'
+            'std.foldr'
+            'std.force'
+            'std.format'
+            'std.join'
+            'std.length'
+            'std.lines'
+            'std.log'
+            'std.makeArray'
+            'std.manifestIni'
+            'std.manifestPython'
+            'std.manifestPythonVars'
+            'std.mantissa'
+            'std.map'
+            'std.max'
+            'std.min'
+            'std.mod'
+            'std.objectFields'
+            'std.objectHas'
+            'std.pow'
+            'std.range'
+            'std.set'
+            'std.setDiff'
+            'std.setInter'
+            'std.setMember'
+            'std.setUnion'
+            'std.sin'
+            'std.sort'
+            'std.split'
+            'std.sqrt'
+            'std.std'
+            'std.stringChars'
+            'std.substr'
+            'std.tan'
+            'std.thisFile'
+            'std.toString'
+            'std.type'
+            'std.uniq')
+          TokenTypes = 128
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'key name'
+      StyleName = 'Key name'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      DisplayInTree = False
+      NameFmt = '%s0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'class def'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'local')
+          TokenTypes = 4
+        end>
+      NameFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end>
+      BlockEnd = '}'
+      EndOfTextClose = True
+      DisplayInTree = False
+      NameFmt = '{ ... }'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 64
+        end>
+      BlockEnd = '{'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '$var, false, true, null'
+    '# Comment'
+    '// Compiler template'
+    'local CCompiler = {'
+    '    cFlags: [],'
+    '    out: "a.out", '
+    '    local flags_str = std.join(" ", self.cFlags),'
+    '    local files_str = std.join(" ", self.files),'
+    
+      '    cmd: "%s %s %s -o %s" % [self.compiler, flags_str, files_str' +
+      ', self.out],'
+    '};'
+    ''
+    '// Mixins - append flags'
+    'local Opt = { cFlags: super.cFlags + ["-O3", "-DNDEBUG"] };'
+    'local Dbg = { cFlags: super.cFlags + ["-g"] };'
+    ''
+    '// Output:'
+    '{'
+    '    targets: ['
+    '        Gcc { files: ["a.c", "b.c"] },'
+    '        Clang { files: ["test.c"], out: "test" },'
+    '        Clang + Opt { files: ["test2.c"], out: "test2" },'
+    
+      '        Gcc + Opt + Dbg { files: ["foo.c", "bar.c"], out: "baz" ' +
+      '},'
+    '    ],'
+    '}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Symbol {}'
+    'Id std')
+  Extentions = 'jsonnet libsonnet'
+  LexerName = 'Jsonnet'
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

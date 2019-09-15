@@ -1,0 +1,691 @@
+object SyntAnal30: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Tag id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag id - underlines'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blWavyLine
+      BorderColorBottom = clRed
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clInfoBk
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 'Tag bound'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Tag prop'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag prop - underlines'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blWavyLine
+      BorderColorBottom = clRed
+    end
+    item
+      DisplayName = 'Tag string'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tree item (attribute)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14155775
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Tree item (tag)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Current block BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end
+    item
+      DisplayName = 'Current tag BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Code BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Sublexer BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clSkyBlue
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Escaped text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Color'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?ms)<!--.*?(-->|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment end'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '-->'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment doctype'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)<!doctype .+? >'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<'
+      StyleName = 'Tag bound'
+      TokenType = 10
+      Expression = '<[/!\-%\?]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '>'
+      StyleName = 'Tag bound'
+      TokenType = 11
+      Expression = '[%\?/]?>'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      BlockName = 'Tag begin'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Color'
+      StyleName = 'Color'
+      BlockName = 'Tag begin'
+      Expression = '\#[a-f\d]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag string'
+      StyleName = 'Tag string'
+      BlockName = 'Tag begin'
+      TokenType = 4
+      Expression = '(?s) ("|'#39') .*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag id'
+      StyleName = 'Tag prop - underlines'
+      BlockName = 'Tag begin'
+      TokenType = 2
+      Expression = '[^\s=<>\{\}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag ='
+      StyleName = 'Tag bound'
+      BlockName = 'Tag begin'
+      TokenType = 3
+      Expression = '='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Escaped'
+      StyleName = 'Escaped text'
+      TokenType = 9
+      Expression = '&\w+;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Code'
+      StyleName = 'Code BG'
+      Expression = '@[\w\-\.]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      TokenType = 9
+      Expression = '.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Tag id incorrect'
+      StyleName = 'Tag id - underlines'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag id correct'
+      StyleName = 'Tag id'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'a'
+            'abbr'
+            'acronym'
+            'address'
+            'applet'
+            'area'
+            'article'
+            'aside'
+            'audio'
+            'b'
+            'base'
+            'basefont'
+            'bdi'
+            'bdo'
+            'bgsound'
+            'big'
+            'blink'
+            'blockquote'
+            'body'
+            'br'
+            'button'
+            'canvas'
+            'caption'
+            'center'
+            'cite'
+            'code'
+            'col'
+            'colgroup'
+            'command'
+            'comment'
+            'datalist'
+            'dd'
+            'del'
+            'details'
+            'dfn'
+            'dir'
+            'div'
+            'dl'
+            'doctype'
+            'dt'
+            'em'
+            'embed'
+            'fieldset'
+            'figcaption'
+            'figure'
+            'font'
+            'footer'
+            'form'
+            'frame'
+            'frameset'
+            'h1'
+            'h2'
+            'h3'
+            'h4'
+            'h5'
+            'h6'
+            'head'
+            'header'
+            'hgroup'
+            'hr'
+            'html'
+            'i'
+            'iframe'
+            'img'
+            'input'
+            'ins'
+            'kbd'
+            'keygen'
+            'label'
+            'legend'
+            'li'
+            'link'
+            'map'
+            'mark'
+            'marquee'
+            'menu'
+            'meta'
+            'meter'
+            'multicol'
+            'nav'
+            'nobr'
+            'noembed'
+            'noframes'
+            'noindex'
+            'noscript'
+            'object'
+            'ol'
+            'optgroup'
+            'option'
+            'output'
+            'p'
+            'param'
+            'plaintext'
+            'pre'
+            'progress'
+            'q'
+            'rp'
+            'rt'
+            'ruby'
+            's'
+            'samp'
+            'script'
+            'section'
+            'select'
+            'small'
+            'source'
+            'spacer'
+            'span'
+            'strike'
+            'strong'
+            'style'
+            'sub'
+            'summary'
+            'sup'
+            'table'
+            'tbody'
+            'td'
+            'textarea'
+            'tfoot'
+            'th'
+            'thead'
+            'time'
+            'title'
+            'tr'
+            'track'
+            'tt'
+            'u'
+            'ul'
+            'var'
+            'video'
+            'wbr')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag attrib'
+      StyleName = 'Tag prop'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      IdentIndex = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag attrib/data'
+      StyleName = 'Tag prop'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'data\-\w+')
+          CondType = tcMask
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag attrib value'
+      StyleName = 'Tag string'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 20
+        end
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag begin'
+      StyleName = 'Current tag BG'
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag end'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Simple tag block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'hr'
+            'image'
+            'img'
+            'input'
+            'link'
+            'meta')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Simple tag block end'
+      NameFmt = '%s0~s[>]1'
+      HighlightPos = cpBound
+      TreeItemStyle = 'Tree item (tag)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Simple tag block end'
+      BlockName = 'Simple tag block'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag block begin'
+      StyleName = 'Current block BG'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'br'
+            'hr'
+            'image'
+            'img'
+            'input'
+            'link'
+            'meta')
+          CondType = tcNotEqual
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '<'
+            '<!')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'Tag block end'
+      NameFmt = '%s0~s[>]1'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = '%s0'
+      TreeItemStyle = 'Tree item (tag)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '</')
+          TokenTypes = 1024
+        end>
+      SameIdent = True
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment begin'
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '<!--  ...  -->'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'CSS'
+      StyleName = 'Sublexer BG'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<style[^>]*> '#13#10
+      EndExpression = '</style>'#13#10
+      SyntAnalyzer = SyntAnal8
+    end
+    item
+      DisplayName = 'JS'
+      StyleName = 'Sublexer BG'
+      AlwaysEnabled = True
+      StartExpression = '(?si)<script[^>]*javascript[^>]*>\s*(<!--)?'#13#10
+      EndExpression = '(?i)(//)?(-->)?\s*</script>'#13#10
+      SyntAnalyzer = SyntAnal16
+    end
+    item
+      DisplayName = 'C#'
+      StyleName = 'Sublexer BG'
+      StartExpression = '@\{'
+      EndExpression = '\}'
+      SyntAnalyzer = SyntAnal6
+      IncludeBounds = True
+    end
+    item
+      DisplayName = 'VB'
+      StyleName = 'Sublexer BG'
+      StartExpression = '(?i-)@Code\b'
+      EndExpression = '(?i-)\bEnd\sCode\b'
+      SyntAnalyzer = SyntAnal38
+      IncludeBounds = True
+    end>
+  SampleText.Strings = (
+    '<head>'
+    '  <title>Text &ab; text</title>'
+    '</head2>'
+    ''
+    '@{ var myMessage = "Hello World"; }'
+    ''
+    
+      '<pp  prop="test" color=#fe0 @$#>The value of myMessage is: @myMe' +
+      'ssage</p>'
+    ''
+    '@{'
+    'var greeting = "Welcome to our site!";'
+    'var weekDay = DateTime.Now.DayOfWeek;'
+    'var greetingMessage = greeting + " Today is: " + weekDay;'
+    '}'
+    '<p>The greeting is: @greetingMessage.helloProp</p>')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Number'
+    'Number2'
+    'Number3'
+    'String2'
+    'Text'
+    'Open Tag'
+    'Close Tag')
+  Extentions = 'cshtml vbhtml'
+  LexerName = 'Razor'
+  Notes.Strings = (
+    'Author: Alexey (SynWrite)'
+    'Test: http://www.w3schools.com/aspnet/webpages_razor.asp')
+  Charset = DEFAULT_CHARSET
+end

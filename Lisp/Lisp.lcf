@@ -1,0 +1,352 @@
+object SyntAnal3: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Reserved word'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Comment block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615808
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Brackets'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Bracket BG'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = ';.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment2'
+      StyleName = 'Comment block'
+      TokenType = 1
+      Expression = '(?s) \#\| (\#\| .+? \|\# |.)*? \|\# '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\"|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_][\w-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Brackets'
+      StyleName = 'Brackets'
+      TokenType = 6
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      Expression = '\*[\w\-]+\*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\+\-\*=~\.,:\'#39'\#\|\^\$]|'#13#10'[<>/]=?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[0-9a-f]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\.\d+ (e[\+\-]\d+)? | \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = '('
+      StyleName = 'Bracket BG'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 64
+        end>
+      BlockEnd = ')'
+      NameFmt = '%s-1 %s-2'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = '%s-1 %s-2'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Reserved word'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'acos'
+            'and'
+            'append'
+            'apply'
+            'ascii'
+            'asin'
+            'assoc'
+            'atan'
+            'atof'
+            'atoi'
+            'atom'
+            'atoms-family'
+            'boundp'
+            'caaar'
+            'caadr'
+            'caar'
+            'cadar'
+            'caddr'
+            'cadr'
+            'car'
+            'cdaar'
+            'cdadr'
+            'cdar'
+            'cddar'
+            'cdddr'
+            'cddr'
+            'cdr'
+            'chr'
+            'close'
+            'cond'
+            'cons'
+            'cos'
+            'decf'
+            'defun'
+            'do'
+            'eq'
+            'equal'
+            'eval'
+            'exit'
+            'exp'
+            'expt'
+            'fix'
+            'float'
+            'foreach'
+            'gc'
+            'if'
+            'incf'
+            'inputbox'
+            'INT'
+            'itoa'
+            'lambda'
+            'last'
+            'length'
+            'list'
+            'LISTCHAIN'
+            'listp'
+            'load'
+            'log'
+            'logand'
+            'logeqv'
+            'logior'
+            'lognor'
+            'logxor'
+            'loop'
+            'lsh'
+            'mapcar'
+            'max'
+            'mem'
+            'member'
+            'messagebox'
+            'min'
+            'minusp'
+            'mod'
+            'neq'
+            'nil'
+            'not'
+            'nth'
+            'null'
+            'numberp'
+            'open'
+            'or'
+            'PAIR'
+            'pos'
+            'princ'
+            'print'
+            'progn'
+            'quit'
+            'quote'
+            'read'
+            'read-char'
+            'read-line'
+            'REAL'
+            'REF'
+            'rem'
+            'repeat'
+            'reverse'
+            'rtos'
+            'set'
+            'setq'
+            'showmessage'
+            'sin'
+            'sqrt'
+            'STR'
+            'strcase'
+            'strcat'
+            'strlen'
+            'strlsort'
+            'subst'
+            'substr'
+            'SYM'
+            'T'
+            'tan'
+            'terpri'
+            'type'
+            'ver'
+            'while'
+            'write-char'
+            'Write-line'
+            'zerop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    ';Comment'
+    '#| Comment block'
+    '|#'
+    '(defun *error* ( msg )'
+    '  (princ (strcat "Test:" msg))'
+    '  (= ddd 20.10)'
+    '  (princ)'
+    ')')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Number'
+    'Brackets')
+  Extentions = 'lsp lisp'
+  LexerName = 'Lisp'
+  LineComment = ';'
+  AlwaysSyncBlockAnal = True
+  Charset = DEFAULT_CHARSET
+end

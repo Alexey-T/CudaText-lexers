@@ -1,0 +1,7 @@
+[info]
+title=JQ
+type=lexer
+subdir=-
+
+[lexer1]
+file=JQ

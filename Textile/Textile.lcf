@@ -1,0 +1,380 @@
+object SyntAnal47: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Heading'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -19
+      Font.Name = 'Consolas'
+      Font.Style = [fsBold]
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Quote'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 12645824
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Code'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16765907
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'List'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+    end
+    item
+      DisplayName = 'StyleBold'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'StyleItalic'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'StyleBoldItalic'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsItalic]
+    end
+    item
+      DisplayName = 'StyleCrossed'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsStrikeOut]
+    end
+    item
+      DisplayName = 'TextAdded'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 8454016
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'TextDeleted'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 8421631
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Ref'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Footnote'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Superscript'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clYellow
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'HtmlTag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Pragma'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Link'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^\|.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Pragma'
+      StyleName = 'Pragma'
+      TokenType = 1
+      Expression = '\#{3}\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'List'
+      StyleName = 'List'
+      TokenType = 2
+      Expression = '^[\#\*]* \x20?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Heading'
+      StyleName = 'Heading'
+      TokenType = 3
+      Expression = '^h\d\. .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StyleBold'
+      StyleName = 'StyleBold'
+      TokenType = 2
+      Expression = '\*.+?\*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StyleItalic'
+      StyleName = 'StyleItalic'
+      TokenType = 2
+      Expression = '_.+?_'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StyleCrossed'
+      StyleName = 'StyleCrossed'
+      TokenType = 2
+      Expression = '~.+?~'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Quote'
+      StyleName = 'Quote'
+      Expression = '^bq\. .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'QuoteBlock'
+      StyleName = 'Quote'
+      Expression = '(?s) ^bc\. .+? (^$) '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Citate'
+      StyleName = 'Quote'
+      Expression = '\?\?.+?\?\?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Code'
+      StyleName = 'Code'
+      Expression = '@.+?@'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'CodePreTag'
+      StyleName = 'Code'
+      Expression = '(?s) <pre>.+?</pre>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Ref'
+      StyleName = 'Ref'
+      TokenType = 4
+      Expression = '\[\d+\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StyleDeleted'
+      StyleName = 'TextDeleted'
+      TokenType = 2
+      Expression = '(?<=\x20) \-.+?\- '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StyleAdded'
+      StyleName = 'TextAdded'
+      TokenType = 2
+      Expression = '(?<=\x20) \+.+?\+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 2
+      Expression = '%\w+%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Footnote'
+      StyleName = 'Footnote'
+      TokenType = 2
+      Expression = '^fn\d+\. .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Superscript'
+      StyleName = 'Superscript'
+      TokenType = 2
+      Expression = '\^.+?\^'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HtmlTag'
+      StyleName = 'HtmlTag'
+      TokenType = 2
+      Expression = '</?\w+/?>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Link'
+      StyleName = 'Link'
+      TokenType = 1
+      Expression = '("|!).+?\1: [^\x20\x09\)\n\r]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'head'
+      ConditionList = <
+        item
+          TokenTypes = 8
+        end>
+      EndOfTextClose = True
+      HighlightPos = cpAny
+      SelfClose = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '###title Home'
+    '###toc'
+    'Ref: [2] %var% *bold* _italic_ ~cross~ @code some@ ^superscript^'
+    'Here -deleted-, +added+'
+    'Link "Link":http://www.ca <some_tag/>'
+    '|Comment'
+    'fn2. Footnote'
+    ''
+    'h1. About'
+    ''
+    
+      '* *Minimalistic*: ZeroCMS is basically a Textile (or Markdown) p' +
+      'arser + glue'
+    
+      '* *Lightning fast*: Even without caches, i'#39've measured something' +
+      ' between 5-15ms per request'
+    
+      '* *Install everywhere*: It does not require a database and runs ' +
+      'in any PHP >= 5.1 environment out-of-the-box.'
+    ''
+    'h2. Using'
+    ''
+    
+      'The recommended way to install PHP-Textile is via "Composer":htt' +
+      'ps://getcomposer.org/ package manager...'
+    ''
+    'bc. $ composer require "netcarver/textile 3.5.*"'
+    'code'
+    'code'
+    ''
+    'h3. Usage'
+    ''
+    
+      'Textile parser can be accessed through the @Netcarver\Textile\Pa' +
+      'rser@ class.'
+    ' '
+    'bc. $parser = new \Netcarver\Textile\Parser();'
+    'code')
+  TokenTypeNames.Strings = (
+    'Quote'
+    'Comment'
+    'Text'
+    'Heading'
+    'Ref')
+  Extentions = 'textile tx'
+  LexerName = 'Textile'
+  Notes.Strings = (
+    'Alexey (SynWrite)')
+  LineComment = '|'
+  Charset = DEFAULT_CHARSET
+end

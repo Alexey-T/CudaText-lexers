@@ -1,0 +1,7 @@
+[info]
+title=Julia
+type=lexer
+subdir=-
+
+[lexer1]
+file=Julia

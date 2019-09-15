@@ -1,0 +1,7 @@
+[info]
+title=IDL language
+type=lexer
+subdir=-
+
+[lexer1]
+file=IDL language

@@ -1,0 +1,975 @@
+object SyntAnal46: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Reserved word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ChangeCase = ccUpper
+    end
+    item
+      DisplayName = 'Mnemonics'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Registers'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'InBrackets'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 8454016
+      FormatType = ftBackGround
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end
+    item
+      DisplayName = 'Current Block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Invalid symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsStrikeOut]
+      BgColor = clYellow
+    end
+    item
+      DisplayName = 'LuaBG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clCream
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Labels'
+      StyleName = 'Label'
+      TokenType = 2
+      Expression = '(^[A-Za-z_\.\@][\w\.!\?\#@]*)|(^\d+)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Binary'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(\%[01]+)|([01]+b\b)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(0x[\da-f]+\b)|(\#[\da-f]+\b)|(\$[\da-f]+\b)|([\da-f]+h\b)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Octal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '[0-7]+[oq]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39') .*? \1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Any name'
+      StyleName = 'Default'
+      TokenType = 3
+      Expression = '[a-z_%'#39']\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(;.*)|(//.*)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment Block'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+d?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = '[\.,:\-\+\*\\/%\$@=<>!\t\(\)\[\]\{\}\?]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Invalid symbol'
+      StyleName = 'Invalid symbol'
+      Expression = '.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      ConditionList = <
+        item
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      NameFmt = '%s0'
+      GroupFmt = 'Labels'
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 6
+      TreeGroupImage = 4
+      IgnoreAsParent = True
+    end
+    item
+      DisplayName = 'Registers'
+      StyleName = 'Registers'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ''
+            'a'
+            'af'
+            'af'#39
+            'a'#39'f'#39
+            'b'
+            'bc'
+            'c'
+            'd'
+            'de'
+            'e'
+            'f'
+            'h'
+            'hl'
+            'hx'
+            'hy'
+            'i'
+            'ix'
+            'ixh'
+            'ixl'
+            'iy'
+            'iyh'
+            'iyl'
+            'l'
+            'lx'
+            'ly'
+            'r'
+            'sp'
+            'xh'
+            'xl'
+            'yh'
+            'yl')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Flags'
+      StyleName = 'Registers'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'c'
+            'm'
+            'nc'
+            'nz'
+            'p'
+            'pe'
+            'po'
+            'z')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Mnemonics'
+      StyleName = 'Mnemonics'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'adc'
+            'add'
+            'and'
+            'bit'
+            'call'
+            'ccf'
+            'cp'
+            'cpd'
+            'cpdr'
+            'cpi'
+            'cpir'
+            'cpl'
+            'daa'
+            'dec'
+            'di'
+            'djnz'
+            'ei'
+            'ex'
+            'exa'
+            'exx'
+            'halt'
+            'im'
+            'in'
+            'inc'
+            'ind'
+            'indr'
+            'ini'
+            'inir'
+            'jp'
+            'jr'
+            'ld'
+            'ldd'
+            'lddr'
+            'ldi'
+            'ldir'
+            'neg'
+            'nop'
+            'or'
+            'otdr'
+            'otir'
+            'out'
+            'outd'
+            'outi'
+            'pop'
+            'push'
+            'res'
+            'ret'
+            'reti'
+            'retn'
+            'rl'
+            'rla'
+            'rlc'
+            'rlca'
+            'rld'
+            'rr'
+            'rra'
+            'rrc'
+            'rrca'
+            'rrd'
+            'rst'
+            'sbc'
+            'scf'
+            'set'
+            'sla'
+            'sli'
+            'sll'
+            'sra'
+            'srl'
+            'sub'
+            'xor')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Pseudops'
+      StyleName = 'Reserved word'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.'
+            '$'
+            'abyte'
+            'abytec'
+            'abytez'
+            'align'
+            'assert'
+            'binary'
+            'block'
+            'byte'
+            'd24'
+            'db'
+            'dc'
+            'dd'
+            'defarray'
+            'defb'
+            'defd'
+            'defdevice'
+            'define'
+            'defm'
+            'defs'
+            'defw'
+            'dephase'
+            'device'
+            'disp'
+            'display'
+            'dm'
+            'ds'
+            'dup'
+            'dw'
+            'dword'
+            'dz'
+            'edup'
+            'else'
+            'emptytrd'
+            'encoding'
+            'end'
+            'endif'
+            'endlua'
+            'endm'
+            'endmod'
+            'endmodule'
+            'ends'
+            'endt'
+            'ent'
+            'equ'
+            'export'
+            'field'
+            'fpos'
+            'if'
+            'ifdef'
+            'ifn'
+            'ifndef'
+            'ifnused'
+            'ifused'
+            'incbin'
+            'inchob'
+            'include'
+            'includelua'
+            'inctrd'
+            'insert'
+            'labelslist'
+            'lua'
+            'macro'
+            'map'
+            'memorymap'
+            'module'
+            'org'
+            'output'
+            'page'
+            'phase'
+            'phaserept'
+            'rept'
+            'savebin'
+            'savehob'
+            'savesna'
+            'savetrd'
+            'shellexec'
+            'size'
+            'slot'
+            'struct'
+            'textarea'
+            'undefine'
+            'unphase'
+            'word')
+          TokenTypes = 72
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'User block'
+      StyleName = 'Current Block'
+      BlockName = 'User block'
+      StrictParent = True
+      NotParent = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';.*?--->')
+          CondType = tcMask
+          TokenTypes = 2
+        end>
+      BlockEnd = 'User block end'
+      NameFmt = '%s0 %s-1'
+      GroupFmt = 'Blocks'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      CollapseFmt = '%s0 ...'
+      TreeItemImage = 5
+      TreeGroupImage = 4
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseOpened
+      AutoCloseText = ';<---'
+    end
+    item
+      DisplayName = 'User block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';.*?<---')
+          CondType = tcMask
+          TokenTypes = 2
+        end>
+      BlockEnd = 'User block'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '/* ... */'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      StrictParent = True
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Module'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'module')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Module end'
+      NameFmt = 'MODULE %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = 'MODULE %s-1 ...'
+      TreeItemImage = 0
+      TreeGroupImage = 3
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseOpened
+      AutoCloseText = '    ENDMODULE'
+    end
+    item
+      DisplayName = 'Module end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endmodule')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Dup'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'dup')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Dup end'
+      InvertColors = True
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%s0 %s-1'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseOpened
+      AutoCloseText = '    EDUP'
+    end
+    item
+      DisplayName = 'Dup end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'edup')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      StyleName = 'InBrackets'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 64
+        end>
+      BlockEnd = ')'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpBound
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      StyleName = 'InBrackets'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 64
+        end>
+      BlockEnd = ']'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpBound
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Invalid close bracket'
+      StyleName = 'Invalid symbol'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')'
+            ']')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'If'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if'
+            'ifdef'
+            'ifn'
+            'ifndef'
+            'ifnused'
+            'ifused')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Endif'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseOpened
+      AutoCloseText = '    ELSE '#13#10'    '#13#10'    ENDIF'
+    end
+    item
+      DisplayName = 'Endif'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endif')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Macro'
+      BlockName = 'Macro'
+      StrictParent = True
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'macro')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Macro end'
+      NameFmt = '%sz-1'
+      GroupFmt = 'Macros'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 3
+      TreeGroupImage = 2
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Macro end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endm')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Structure'
+      BlockName = 'Module'
+      StrictParent = True
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'struct')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Structure end'
+      NameFmt = '%sz-1'
+      GroupFmt = 'Structures'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 0
+      TreeGroupImage = 4
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Structure end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ends')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Lua script'
+      StyleName = 'LuaBG'
+      BlockName = 'Module'
+      StrictParent = True
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'lua')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Lua script end'
+      NameFmt = '%sz0'
+      GroupFmt = 'Lua'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 3
+      TreeGroupImage = 2
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Lua script end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endlua')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Defines'
+      StyleName = 'Label'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'DEFINE')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      NameFmt = '%s-1'
+      GroupFmt = 'Defines'
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 6
+      TreeGroupImage = 4
+      IgnoreAsParent = True
+    end
+    item
+      DisplayName = 'Operations'
+      StyleName = 'Symbol'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'high'
+            'low'
+            'mod'
+            'not'
+            'shl'
+            'shr')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'lua section'
+      StartExpression = '\blua\b'
+      EndExpression = '\bendlua\b'
+      SyntAnalyzer = SyntAnal25
+    end>
+  SampleText.Strings = (
+    ';Code loader which placed in line 0 after REM'
+    '        MODULE  CLoader'
+    ''
+    'CodeLSc EQU     #11     ;Size of Code block in sectors'
+    'ScrLSc  EQU     #05     ;Size of packed screen in sectors'
+    'MusLSc  EQU     #0F     ;Size of packed music in sectors'
+    'FontLSc EQU     #06     ;Size of packed font in sectors'
+    ';Clear screen attributes'
+    '        LD      HL,#5800'
+    '        LD      DE,#5801'
+    '        LD      BC,#02FF'
+    '        LDIR'
+    ';Loading packing screen --->'
+    'Offset1 EQU     $-BLoader.Basic+2'
+    '        EXPORT  Offset1'
+    
+      '        LD      BC,ScrLSc*#0100+#05     ;Size of packed screen i' +
+      'n sectors ScrLSc, loading #05'
+    
+      '        LD      DE,(#5CF4)              ; placed after Basic fil' +
+      'e'
+    '        LD      HL,#8000                ; loading in screen area'
+    '        CALL    #3D13'
+    '        CALL    #8000                   ;show screen'
+    ';<---'
+    ';Loading music --->'
+    'Offset2 EQU     $-BLoader.Basic+2'
+    '        EXPORT  Offset2'
+    '        LD      BC,MusLSc*#100+5'
+    '        LD      DE,(#5CF4)'
+    '        LD      HL,#8000                ;loading address'
+    '        CALL    #3D13'
+    '        CALL    #8000                   ;depack to #D000'
+    ';<---'
+    '        IFDEF   SIMPLE_FONT'
+    'Offset3 EQU     $-BLoader.Basic+2'
+    '        EXPORT  Offset3'
+    '        LD      BC,#0305'
+    '        LD      DE,(#5CF4)'
+    '        LD      HL,#EF00'
+    '        CALL    #3D13'
+    '        ELSE'
+    ';Loading font --->'
+    'Offset3 EQU     $-BLoader.Basic+2'
+    '        EXPORT  Offset3'
+    '        LD      BC,FontLSc*#100+5'
+    '        LD      DE,(#5CF4)   '
+    '        LD      HL,#8000                ;loading address'
+    '        CALL    #3D13'
+    '        CALL    #8000                   ;depack to #EF00'
+    '        ENDIF'
+    ';<---'
+    ';Loading Code block --->'
+    'Offset4 EQU     $-BLoader.Basic+2'
+    '        EXPORT  Offset4'
+    
+      '        LD      BC,CodeLSc*#100+5       ;B - Size of code block ' +
+      'in sectors'
+    
+      '                                        ;C - command code (readi' +
+      'ng sectors) TR-DOS'
+    
+      '        LD      DE,(#5CF4)              ;D - track number, E - s' +
+      'ector number are'
+    
+      '                                        ; placed in sys vsriable' +
+      ' of TR-DOS'
+    '        LD      HL,CodeStart            ;loading address'
+    '        CALL    #3D13'
+    ';<---    '
+    '        CALL    CodeStart     '
+    '        RET'
+    ''
+    '        ENDMODULE')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Label'
+    'Identifier'
+    'String'
+    'Number'
+    'Symbol')
+  Extentions = 'a80 asm inc'
+  LexerName = 'Assembly Z80 SjASM'
+  Notes.Strings = (
+    'Black Cat ^ ERA Creative Group'
+    'era_cg@speccy.su')
+  LineComment = ';'
+  AlwaysSyncBlockAnal = True
+  Charset = OEM_CHARSET
+end

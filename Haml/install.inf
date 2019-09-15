@@ -1,0 +1,7 @@
+[info]
+title=Haml
+type=lexer
+subdir=-
+
+[lexer1]
+file=Haml

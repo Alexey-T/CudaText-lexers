@@ -1,0 +1,7 @@
+[info]
+title=WinBuilder script
+type=lexer
+subdir=-
+
+[lexer1]
+file=WinBuilder script

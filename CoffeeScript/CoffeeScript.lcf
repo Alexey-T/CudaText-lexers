@@ -1,0 +1,411 @@
+object SyntAnal6: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String Regex'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id Reserved'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id Funcs'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Inline JS'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Id Class'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment ###'
+      StyleName = 'Comment'
+      TokenType = 2
+      Expression = '(?s)\s* \#\#\#.+?(\#\#\#|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment #'
+      StyleName = 'Comment'
+      TokenType = 2
+      Expression = '\s*\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '^[\x20\x09]* \d+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Var'
+      StyleName = 'Var'
+      TokenType = 5
+      Expression = '^[\x20\x09]* @[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Symbol'
+      StyleName = 'Symbol'
+      TokenType = 5
+      Expression = '^[\x20\x09]* ([\{\}\(\)\[\]] | [,;\.\?/\+\-\*:=<>&/\|\^~!%@`]+)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Id Class'
+      StyleName = 'Id Class'
+      TokenType = 5
+      Expression = '(?-i) ^[\x20\x09]* [A-Z]\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Id'
+      StyleName = 'Id'
+      TokenType = 5
+      Expression = '^[\x20\x09]* [\w\$]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String Regex ///'
+      StyleName = 'String Regex'
+      TokenType = 1
+      Expression = '(?s) (?<=[=\(\[&,]) \x20* /// (\\.|.)*? (///[gim]*|Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String Regex'
+      StyleName = 'String Regex'
+      TokenType = 1
+      Expression = '(?<=[=\(\[&,]) \x20* / (\\.|.)*? (/[gim]*|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String """'
+      StyleName = 'String'
+      TokenType = 1
+      Expression = '(?s)("""|'#39#39#39') (\\.|.)*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 1
+      Expression = '(?s)("|'#39') (\\.|\#\{.+?\}|.)*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id Class'
+      StyleName = 'Id Class'
+      Expression = '(?-i) [A-Z]\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      Expression = '[a-z_\$]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      Expression = '@[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 3
+      Expression = '\d+ (\.\d+)? e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 3
+      Expression = '0x[a-f]+ | \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 4
+      Expression = '-> | \#?[\{\}\(\)\[\]/] | [,;\.\?\+\-\*:=<>&\|\^~!%`]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'block begin class'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'class')
+          TokenTypes = 32
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      GroupIndex = 20
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block begin func'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '->')
+          TokenTypes = 16
+        end
+        item
+          CondType = tcSkip
+        end
+        item
+          TokenTypes = 32
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      GroupIndex = 20
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block begin'
+      ConditionList = <
+        item
+          TokenTypes = 32
+        end>
+      EndOfTextClose = True
+      DisplayInTree = False
+      NameFmt = '"%s0"'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      GroupIndex = 20
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Id Reserved'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'arguments'
+            'await'
+            'break'
+            'by'
+            'catch'
+            'class'
+            'continue'
+            'default'
+            'defer'
+            'delete'
+            'do'
+            'else'
+            'extends'
+            'finally'
+            'for'
+            'if'
+            'in'
+            'instanceof'
+            'is'
+            'isnt'
+            'loop'
+            'new'
+            'not'
+            'of'
+            'or'
+            'require'
+            'return'
+            'super'
+            'switch'
+            'then'
+            'this'
+            'throw'
+            'try'
+            'typeof'
+            'unless'
+            'until'
+            'when'
+            'while'
+            'yield')
+          TokenTypes = 33
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Funcs'
+      StyleName = 'Id Funcs'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'alert'
+            'arrayEq'
+            'constructor'
+            'doesNotThrow'
+            'each'
+            'eq'
+            'Error'
+            'false'
+            'indexOf'
+            'Infinity'
+            'isNaN'
+            'length'
+            'NaN'
+            'no'
+            'null'
+            'off'
+            'ok'
+            'on'
+            'print'
+            'slice'
+            'test'
+            'throws'
+            'true'
+            'undefined'
+            'yes')
+          TokenTypes = 33
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'Inline JS'
+      StyleName = 'Inline JS'
+      StartExpression = '`'
+      EndExpression = '`'
+      SyntAnalyzer = SyntAnal11
+    end>
+  SampleText.Strings = (
+    '#Comment'
+    '` //Inline JS'
+    '  name = func(); `'
+    '[/regex/] + (/regex/) + path.replace(/\\some regex/g, '#39'/'#39')'
+    ''
+    'class Animal extends Being'
+    '  constructor: (@name) -> '
+    '    @name += '#39' is cool'#39
+    '  '
+    'test "trailing commas", ->'
+    '  trailingComma = ClassName.prop()'
+    '  ok (trailingComma[0] is 1)  and (trailingComma.length is 3)'
+    '  '
+    '  trailingComma = [ 1.0, 2, 3, ]'
+    '     '
+    'funcTest = (a, b) ->  '
+    '  ok a.length is 2')
+  TokenTypeNames.Strings = (
+    'Id'
+    'String'
+    'Comment'
+    'Number'
+    'Symbol'
+    '1Id')
+  Extentions = 'coffee Cakefile coffee.erb cson _coffee cjsx'
+  LexerName = 'CoffeeScript'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Ref: http://coffeescript.org/')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

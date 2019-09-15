@@ -1,0 +1,410 @@
+object SyntAnal11: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id spec'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s) \{\# .*? \#\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String 2'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"\{\{ .*? \}\}"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(["'#39']) (\\\1|\\\\|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag'
+      StyleName = 'Tag'
+      TokenType = 4
+      Expression = '< /? \w+ >?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\:\.,;\-\+/\*\(\)\{\}\[\]<>=%!\#\|\?]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'block'
+      ConditionList = <
+        item
+          TokenTypes = 64
+        end>
+      EndOfTextClose = True
+      HighlightPos = cpAny
+      GroupIndex = 20
+      CollapseFmt = '%s0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'as'
+            'block'
+            'elif'
+            'else'
+            'endblock'
+            'endfor'
+            'endif'
+            'endmacro'
+            'extends'
+            'for'
+            'if'
+            'in'
+            'is'
+            'macro'
+            'not'
+            'or'
+            'set')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id spec'
+      StyleName = 'Id spec'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'dict'
+            'false'
+            'float'
+            'int'
+            'iteritems'
+            'mapping'
+            'number'
+            'sort'
+            'string'
+            'true')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '-'
+            '%')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'if end'
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endif')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '-'
+            '%')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'for'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'for')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '-'
+            '%')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'for end'
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'for end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endfor')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '-'
+            '%')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'macro'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'macro')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '-')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'macro end'
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'macro end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endmacro')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '-'
+            '%')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '{#'
+    ' # Jinja2 template which converts YAML to TOML'
+    ' # (https://github.com/jtyr/yaml2toml-converter)'
+    ' #}'
+    ''
+    
+      '{%- macro yaml2toml(item, prevkey='#39#39', level=0, first=[], detect_' +
+      'nums=false) %}'
+    '  {%- if item is mapping %}'
+    ''
+    '    {#- Then process all data structures #}'
+    '    {%- for key, value in item.iteritems() | sort %}'
+    '      {%- if value is not string and'
+    '          value is not number and'
+    '          ('
+    '            value is mapping or'
+    '            value[0] is mapping) %}'
+    ''
+    '        {%- set old_prevkey = prevkey %}'
+    '        {%- set old_level = level %}'
+    ''
+    '        {%- if value is mapping %}'
+    '          {#- The value is a dict #}'
+    '          {%- if prevkey != '#39#39' and prevkey != key %}'
+    '            {%- set level = level + 1 %}'
+    '          {%- endif %}'
+    ''
+    
+      '          {%- set prevkey = (key if prevkey == '#39#39' else prevkey +' +
+      ' '#39'.'#39' + key) %}'
+    ''
+    '          {%- if first | length > 0 -%}'
+    '            {{ '#39'\n'#39' }}'
+    '          {%- endif -%}'
+    ''
+    '          {{ '#39'  '#39' * level }}[{{ prevkey }}]{{ "\n" }}'
+    '        {%- elif value[0] is mapping %}'
+    '          {#- The value is a table #}'
+    
+      '          {%- set prevkey = (key if prevkey == '#39#39' else prevkey +' +
+      ' '#39'.'#39' + key) %}'
+    '          {%- set level = level +1 %}'
+    '        {%- endif -%}'
+    ''
+    '        {%- if first.append(1) %}{% endif %}'
+    '      {%- endif %}'
+    '    {%- endfor %}'
+    ''
+    '  {%- elif item is number or'
+    '      (detect_nums and'
+    '      ('
+    '        item | int | string == item or'
+    '        item | float | string == item)) or'
+    '        item == '#39'False'#39' %}'
+    ''
+    '    {#- The item is a number or boolean -#}'
+    '    {{ item }}{{ "\n" }}'
+    ''
+    '  {%- elif item is string %}'
+    '    {#- The item is a string -#}'
+    
+      '    "{{ item | replace("\n", "\\n") | replace("\t", "\\t") }}"{{' +
+      ' "\n" }}'
+    ''
+    '  {%- else %}'
+    '    {#- The item is a list #}'
+    '    {%- if item[0] is mapping %}'
+    '      {%- for d in item -%}'
+    
+      '        {{ "\n" }}{{ '#39'  '#39' * level }}[[{{ prevkey }}]]{{ "\n" }}{' +
+      '{ yaml2toml('
+    '          d,'
+    '          level=level,'
+    '          first=first,'
+    '          detect_nums=detect_nums) }}'
+    '      {%- endfor %}'
+    '    {%- else -%}'
+    '      {{ item }}{{ "\n" }}'
+    '    {%- endif %}'
+    '  {%- endif %}'
+    '{%- endmacro -%}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    ''
+    '')
+  Extentions = 'j2'
+  LexerName = 'Jinja2'
+  Notes.Strings = (
+    'Alex (Synwrite)'
+    'Test:'
+    '  https://github.com/jtyr/yaml2toml-converter'
+    '  ')
+  Charset = DEFAULT_CHARSET
+end

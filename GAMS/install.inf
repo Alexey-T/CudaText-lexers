@@ -1,0 +1,7 @@
+[info]
+title=GAMS
+type=lexer
+subdir=-
+
+[lexer1]
+file=GAMS

@@ -1,0 +1,7 @@
+[info]
+title=MIB files (SNMP protocol)
+type=lexer
+subdir=-
+
+[lexer1]
+file=MIB files (SNMP protocol)

@@ -1,0 +1,506 @@
+object SyntAnal32: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Heading'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -19
+      Font.Name = 'Consolas'
+      Font.Style = [fsBold]
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Consolas'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Code block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15779980
+    end
+    item
+      DisplayName = 'Table block BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Link'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Bold'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Italic'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'List'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16763594
+    end
+    item
+      DisplayName = 'HTML tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'HTML entity'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Python block BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 13287411
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Word suffix'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Heading'
+      StyleName = 'Heading'
+      Expression = '^\++\x20.+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Bold'
+      StyleName = 'Bold'
+      TokenType = 1
+      Expression = '\*.*?\*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Italic'
+      StyleName = 'Italic'
+      TokenType = 1
+      Expression = '_.*?_'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'List'
+      StyleName = 'List'
+      TokenType = 6
+      Expression = '^[\x20\x09]+ ([\*\#]+ | \d[\d\.]*\.) \x20'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML tag'
+      StyleName = 'HTML tag'
+      TokenType = 7
+      Expression = '</?\w+>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Table begin'
+      StyleName = 'Table block BG'
+      TokenType = 2
+      Expression = '^\x20* <<\|[\w;]*\z'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Table end'
+      StyleName = 'Table block BG'
+      TokenType = 3
+      Expression = '>>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Codeblock one line'
+      StyleName = 'Code block'
+      TokenType = 4
+      Expression = '<<.+?>>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Codeblock mulline'
+      StyleName = 'Code block'
+      TokenType = 4
+      Expression = '(?s)<<\w*\z.*?\z>>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'CamelCaseWords'
+      StyleName = 'Link'
+      TokenType = 5
+      Expression = '(?-i)[A-Z][a-z]\w*[A-Z][a-z]\w* (!\w+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Anchor'
+      StyleName = 'Link'
+      TokenType = 5
+      Expression = '^anchor:.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Link brackets'
+      StyleName = 'Link'
+      TokenType = 5
+      Expression = '\[.+?\](!\w+)? '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#Suffix'
+      StyleName = 'Word suffix'
+      TokenType = 5
+      Expression = '\#(\#\#|\#\x20|[\w\*"'#39'\-\+:_])*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML entity'
+      StyleName = 'HTML entity'
+      TokenType = 8
+      Expression = '&\w+;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Python begin'
+      StyleName = 'Python block BG'
+      TokenType = 9
+      Expression = '<%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Python end'
+      StyleName = 'Python block BG'
+      TokenType = 10
+      Expression = '%>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 1
+      Expression = '".*?"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Header'
+      Enabled = False
+      ConditionList = <
+        item
+          TokenTypes = 1
+        end>
+      EndOfTextClose = True
+      NameFmt = '%s0'
+      HighlightPos = cpBound
+      CollapseFmt = '%s0'
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Table begin'
+      Enabled = False
+      StyleName = 'Table block BG'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end>
+      BlockEnd = 'Table end'
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      CollapseFmt = 'Table'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Table end'
+      Enabled = False
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Py begin'
+      Enabled = False
+      StyleName = 'Python block BG'
+      ConditionList = <
+        item
+          TokenTypes = 512
+        end>
+      BlockEnd = 'Py end'
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Py end'
+      Enabled = False
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '++ Text Formatting'
+    ''
+    'As you type you can enter formatting commands in plain text.'
+    ''
+    '*bold*'
+    '_italic_'
+    '+ Heading1'
+    '++ Heading2'
+    '+++ Heading3'
+    '++++ Heading4'
+    ''
+    
+      'When you type in a really really really really really really rea' +
+      'lly really really really really really'
+    
+      'long line you can tell wikidPad to rewrap it for you by pressing' +
+      ' Ctrl-W. Try it on this line.'
+    ''
+    
+      'You can even change the wrap position by adding a wrap attribute' +
+      ' to your document.'
+    '[wrap: 20]'
+    'Changes the wrapping on this page to 20.'
+    ''
+    '[global.wrap: 70]'
+    'changes the global wrap position to 70.'
+    ''
+    'For creating bulleted or numbered lists, see BulletedLists.'
+    ''
+    ''
+    '+++ Escaping Formatting'
+    ''
+    '++++ Escaping markup'
+    
+      'To create a section of text with no formatting, wrap that sectio' +
+      'n '
+    'in a "\<< >>" block. Example:'
+    ''
+    'escape formatting'
+    ''
+    '<<'
+    '*This should be bold* ThisShouldBeALink'
+    '>> '
+    ''
+    'with formatting'
+    ''
+    
+      'You can also use this on a single line <<like here>>. Inside the' +
+      ' markup no newline is allowed.'
+    ''
+    '*This should be bold* ThisShouldBeALink'
+    ''
+    
+      'Before and after the begin and end tags only whitespaces are all' +
+      'owed on the same line, so a << in the text does not prevent ALin' +
+      'k from being highlighted.'
+    ''
+    '++++ Preformatted blocks'
+    ''
+    
+      'You can use \<<\pre and >> to enclose blocks which have no speci' +
+      'al formatting (wiki words, italics) as the default escaping bloc' +
+      'ks but are shown in HTML as monospaced blocks and have exactly t' +
+      'he same formatting as written in the source text.'
+    ''
+    'This is helpful especially for programming source code.'
+    ''
+    'Example:'
+    '<<pre'
+    '                      ^'
+    '                     / \'
+    '                    /   \'
+    '                   /_____\'
+    '                  (       )'
+    '                  |       |'
+    '                  |       |'
+    '                  |       |'
+    '                  |       |'
+    '                  L_______j'
+    '>>'
+    ''
+    ''
+    '++++ Hidden markup'
+    ''
+    
+      'Hidden markups are not published to HTML or shown in preview but' +
+      ' are otherwise fully processed by WikidPad so you can enclose co' +
+      'mments in it as well as attributes or todos which show up in tre' +
+      'e.'
+    ''
+    
+      'A hidden markup is written as \<<\hide >> either on a single lin' +
+      'e (no newline in it) or as a block like the escaping markup.'
+    ''
+    '<<hide'
+    'You only see this in editor'
+    '>>'
+    ''
+    ''
+    '++++ Escaping characters'
+    
+      'To escape single characters, prepend them with a backslash. Thes' +
+      'e characters are then interpreted as normal text, the backslash ' +
+      'is suppressed in HTML preview and export. If you want to really ' +
+      'write a backslash, write two of them: \\.'
+    ''
+    
+      'With this, you can write \[brackets] or \*asterisks\* which are ' +
+      'not seen as formatting commands by \WikidPad.'
+    ''
+    ''
+    '+++ Tables'
+    ''
+    
+      'A table is enclosed in <<| and >> tags which must be alone on a ' +
+      'line as for format escaping tags.'
+    
+      'Each line with text is a table row, cells are separated by '#39'|'#39'. ' +
+      'A table cell can contain wiki word links, bold and italic text. ' +
+      'Tables show up properly only in preview mode.'
+    ''
+    'Example:'
+    ''
+    '<<|'
+    'ScratchPad| This is| *a table*'
+    'with two| rows and| three columns delimited by \| and \'
+    
+      '                                                    with two lin' +
+      'es in a cell'
+    '>>'
+    ''
+    ''
+    
+      'To use tabulators instead of vertical bar | as cell delimiters, ' +
+      'use <<|t to start the table:'
+    ''
+    '<<|t'
+    'ScratchPad'#9'This is'#9'*a table*'
+    'with two'#9'rows and'#9'three columns delimited by tabs (not |) and \'
+    
+      '                                                    with two lin' +
+      'es in a cell'
+    '>>'
+    ''
+    
+      'If you want a particular style (see [Cascading style sheets]) fo' +
+      'r a table, start it with'
+    ''
+    '<<|sStylename'
+    '>>'
+    ''
+    
+      'where "Stylename" can be replaced by the name of a style you def' +
+      'ined in one of the CSS files described in [Cascading style sheet' +
+      's].'
+    ''
+    'You can also combine this with the tabulator option:'
+    ''
+    '<<|sStylename;t'
+    '>>'
+    ''
+    ''
+    'anchor: html'
+    '+++ HTML tags and entities'
+    
+      'You can also use <b>HTML tags</b> and &nbsp;&nbsp;&nbsp;&nbsp;&n' +
+      'bsp;entities in WikidPad. Use preview to show the effect of them' +
+      '.'
+    '')
+  TokenTypeNames.Strings = (
+    'Heading'
+    'Text'
+    'Table begin'
+    'Table end'
+    'Code block'
+    'Link'
+    'List'
+    'HTML tag'
+    'HTML entity'
+    'Python begin'
+    'Python end')
+  Extentions = 'wiki'
+  LexerName = 'WikidPad'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Disabled tree rules, because TreeHelper exists for WikidPad')
+  Charset = DEFAULT_CHARSET
+end

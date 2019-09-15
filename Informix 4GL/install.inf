@@ -1,0 +1,7 @@
+[info]
+title=Informix 4GL
+type=lexer
+subdir=-
+
+[lexer1]
+file=Informix 4GL

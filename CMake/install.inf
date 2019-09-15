@@ -1,0 +1,7 @@
+[info]
+title=CMake
+type=lexer
+subdir=-
+
+[lexer1]
+file=CMake

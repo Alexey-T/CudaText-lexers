@@ -1,0 +1,441 @@
+object SyntAnal34: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Preprocessor'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Current block'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 13369046
+      FormatType = ftColor
+      BorderTypeLeft = blSolid
+      BorderColorLeft = clGray
+      BorderTypeTop = blSolid
+      BorderColorTop = clGray
+      BorderTypeRight = blSolid
+      BorderColorRight = clGray
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clGray
+    end
+    item
+      DisplayName = 'Sys'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Id'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(["'#39'])(\\\1|\\\\|.)*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[\da-f]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Preprocessor'
+      StyleName = 'Preprocessor'
+      TokenType = 6
+      Expression = '\#\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment block'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment line'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Sys'
+      StyleName = 'Sys'
+      TokenType = 7
+      Expression = '@:\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\+\-\*=<>&/\|\^\.!\?%\\@]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol single'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\{\}\(\)\[\],;:]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abstract'
+            'break'
+            'callback'
+            'case'
+            'cast'
+            'catch'
+            'class'
+            'continue'
+            'default'
+            'do'
+            'dynamic'
+            'else'
+            'enum'
+            'extends'
+            'extern'
+            'false'
+            'for'
+            'function'
+            'here'
+            'if'
+            'implements'
+            'import'
+            'in'
+            'inline'
+            'interface'
+            'never'
+            'new'
+            'null'
+            'override'
+            'package'
+            'private'
+            'public'
+            'return'
+            'static'
+            'super'
+            'switch'
+            'this'
+            'throw'
+            'trace'
+            'true'
+            'try'
+            'typedef'
+            'untyped'
+            'using'
+            'var'
+            'while')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'std names'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Array'
+            'ArrayAccess'
+            'Bool'
+            'Class'
+            'Date'
+            'DateTools'
+            'Dynamic'
+            'Enum'
+            'EnumValue'
+            'EReg'
+            'false'
+            'Float'
+            'IMap'
+            'Int'
+            'IntIterator'
+            'Iterable'
+            'Iterator'
+            'Lambda'
+            'List'
+            'Map'
+            'Math'
+            'NaN'
+            'NEGATIVE_INFINITY'
+            'Null'
+            'PI'
+            'POSITIVE_INFINITY'
+            'Reflect'
+            'Single'
+            'Std'
+            'String'
+            'StringBuf'
+            'StringTools'
+            'Sys'
+            'true'
+            'Type'
+            'UInt'
+            'Unknown'
+            'ValueType'
+            'Void'
+            'Xml'
+            'XmlType')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'class'
+      StrictParent = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 14
+        end
+        item
+          TagList.Strings = (
+            'abstract'
+            'class'
+            'enum'
+            'interface'
+            'typedef')
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      EndOfTextClose = True
+      NameFmt = '%s0~[{]1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      TreeItemImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'function'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
+        end>
+      NameFmt = 'func %sz-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '/* ... */'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      StrictParent = True
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '{ ... %ez0'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '/**'
+    #9'Test'
+    '**/'
+    '@:require(sys)'
+    '#if FF'
+    '10 + 10.2 + 0xAF + '#39'Test $var'#39' + "Test" + false + NaN'
+    '#end'
+    ''
+    'extern class Array<T> {'
+    #9'var length(default,null) : Int;'
+    #9'function new() : Void;'
+    '}'
+    ''
+    'extern class Test {'
+    #9'static function print( v : String ) : Void;'
+    #9'static function test( v : Dynamic ) : Bool;'
+    '}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Number'
+    'Preprocessor'
+    'Sys')
+  Extentions = 'hx'
+  LexerName = 'Haxe'
+  Notes.Strings = (
+    'Author: Alexey (SynWrite)'
+    'Demo: Haxe install, folder "std"')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

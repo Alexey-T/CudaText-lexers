@@ -1,0 +1,7 @@
+[info]
+title=Tcl
+type=lexer
+subdir=-
+
+[lexer1]
+file=Tcl

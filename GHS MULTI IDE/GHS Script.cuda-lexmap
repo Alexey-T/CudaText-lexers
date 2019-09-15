@@ -1,0 +1,19 @@
+[map]
+Default=Id
+Symbol=Symbol
+Single symbol=Symbol2
+Number=Number
+String=String
+Identifier=Id
+Reserved word=IdVar
+Comment=Comment
+Preprocessor=Comment2
+Style 1=IdKeyword
+Current block=CurBlockBG
+Bracket block=BracketBG
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

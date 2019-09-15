@@ -1,0 +1,462 @@
+object SyntAnal102: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Opcode'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Operands'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Slash'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Sysin section'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clInfoBk
+    end
+    item
+      DisplayName = 'Sysin word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Sysin symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Sysin string'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Sysin word'
+      StyleName = 'Sysin word'
+      BlockName = 'Sysin section'
+      TokenType = 2
+      Expression = '\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^//\*.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'End Line Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\x20.*'
+      ColumnFrom = 72
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Slash'
+      StyleName = 'Slash'
+      TokenType = 10
+      Expression = '//'
+      ColumnFrom = 1
+      ColumnTo = 2
+    end
+    item
+      DisplayName = 'SlashWithAsterisk'
+      StyleName = 'Slash'
+      Expression = '/\*'
+      ColumnFrom = 1
+      ColumnTo = 2
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      TokenType = 11
+      Expression = '\w+'
+      ColumnFrom = 3
+      ColumnTo = 3
+    end
+    item
+      DisplayName = 'Opcode'
+      TokenType = 12
+      Expression = '\w+'
+      ColumnFrom = 5
+      ColumnTo = 15
+    end
+    item
+      DisplayName = 'Operands'
+      StyleName = 'Operands'
+      TokenType = 13
+      Expression = '\w+'
+      ColumnFrom = 16
+      ColumnTo = 72
+    end
+    item
+      DisplayName = 'Sysin string'
+      StyleName = 'Sysin string'
+      BlockName = 'Sysin section'
+      TokenType = 4
+      Expression = #39'.*?('#39'|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39'.*?('#39'|$)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Sysin symbol'
+      StyleName = 'Sysin symbol'
+      BlockName = 'Sysin section'
+      TokenType = 3
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 72
+    end
+    item
+      DisplayName = 'NewLine'
+      BlockName = 'Sysin section'
+      TokenType = 14
+      Expression = '\n'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Exec section'
+      BlockName = 'Main section'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'EXEC')
+          TokenTypes = 4096
+        end
+        item
+          TokenTypes = 2048
+        end
+        item
+          TagList.Strings = (
+            '//')
+          TokenTypes = 1024
+        end>
+      BlockOffset = 2
+      EndOfTextClose = True
+      HighlightPos = cpBound
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Exec main end'
+      BlockName = 'Exec section'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'JOB'
+            'PROC')
+          TokenTypes = 4096
+        end>
+      BlockOffset = 4
+      BlockEnd = 'Exec section'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Key words'
+      StyleName = 'Opcode'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'CNTL'
+            'COMMAND'
+            'DD'
+            'ELSE'
+            'ENDCNTL'
+            'ENDIF'
+            'EXEC'
+            'IF'
+            'INCLUDE'
+            'JCLLIB'
+            'JOB'
+            'OUTPUT'
+            'PEND'
+            'PROC'
+            'SET'
+            'THEN'
+            'XMIT')
+          TokenTypes = 4096
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Sysin section'
+      StyleName = 'Sysin section'
+      BlockName = 'Exec section'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '*'
+            'DATA')
+        end
+        item
+          TagList.Strings = (
+            'DD')
+          TokenTypes = 4096
+        end
+        item
+          TagList.Strings = (
+            'SYSIN'
+            'SYSTSIN')
+          TokenTypes = 2048
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '//')
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      EndOfTextClose = True
+      Highlight = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Exec sysin end'
+      BlockName = 'Sysin section'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      BlockOffset = 2
+      BlockEnd = 'Exec section'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Sysin end'
+      BlockName = 'Sysin section'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      BlockOffset = 2
+      BlockEnd = 'Sysin section'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Sysin comment end'
+      BlockName = 'Sysin section'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockOffset = 2
+      BlockEnd = 'Sysin section'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      EndOfTextClose = True
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      BlockEnd = 'Block comment'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Exec separator'
+      BlockType = btLineBreak
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'EXEC')
+          TokenTypes = 4096
+        end>
+      HighlightPos = cpBound
+      CollapseFmt = '...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Main separator'
+      BlockType = btLineBreak
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'JOB'
+            'PROC')
+          TokenTypes = 4096
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Main section'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'JOB'
+            'PROC')
+          TokenTypes = 4096
+        end>
+      BlockOffset = 2
+      EndOfTextClose = True
+      HighlightPos = cpBound
+      SelfClose = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '//*'
+    '//* test'
+    '//*'
+    '//TEST    EXEC 1=1'
+    '//A       DD S=1'
+    '//SYSIN   DD *'
+    ' sdfsd'
+    ' ddd'
+    '//DEMO    EXEC 2=2'
+    '//SYSIN   DD DATA,TEST'
+    ' (sdfsd)'
+    ' ddd'
+    '/*')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Preprocessor'
+    'Slashes'
+    'Label'
+    'Opcode'
+    'Operands'
+    'NewLine')
+  Extentions = 'jcl'
+  LexerName = 'JCL'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Author: Javier Santo Domingo')
+  LineComment = '//*'
+  Charset = DEFAULT_CHARSET
+  Left = 140
+  Top = 160
+end

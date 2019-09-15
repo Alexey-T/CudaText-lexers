@@ -1,0 +1,1556 @@
+object SyntAnal25: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Reserved words MySQL'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ChangeCase = ccUpper
+    end
+    item
+      DisplayName = 'Reserved word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ChangeCase = ccUpper
+    end
+    item
+      DisplayName = 'Datatypes MySQL'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Function'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ChangeCase = ccUpper
+    end
+    item
+      DisplayName = 'Table'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Alias'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 12615680
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Operators'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tree (Bold)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tree (Section)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tree (item)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Datadictionary MySQL'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'StringName'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '".*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String 2'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39'.*?('#39'|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Any name'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\d+\.?\d+e[\+\-]?\d+|\d+\.\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '--.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 3'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StrName'
+      StyleName = 'StringName'
+      TokenType = 4
+      Expression = '`.+?`'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/,\.;:\(\)=<>\+\-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Key words'
+      StyleName = 'Reserved word'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'create'
+            'delete'
+            'drop'
+            'from'
+            'group'
+            'having'
+            'insert'
+            'into'
+            'key'
+            'order'
+            'primary'
+            'select'
+            'union'
+            'update'
+            'values'
+            'where')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      TokenType = 10
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Operations'
+      StyleName = 'Operators'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'all'
+            'and'
+            'any'
+            'as'
+            'avg'
+            'between'
+            'by'
+            'count'
+            'distinct'
+            'exists'
+            'grant'
+            'if'
+            'in'
+            'index'
+            'inner'
+            'is'
+            'join'
+            'left'
+            'like'
+            'max'
+            'min'
+            'not'
+            'null'
+            'on'
+            'option'
+            'or'
+            'outer'
+            'some'
+            'table'
+            'view')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      TokenType = 11
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Functions'
+      StyleName = 'Function'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ASIN'
+            'ATAN'
+            'ATAN2'
+            'BENCHMARK'
+            'BIN'
+            'BINARY'
+            'BIT_AND'
+            'BIT_COUNT'
+            'BIT_LENGTH'
+            'BIT_OR'
+            'BIT_XOR'
+            'CAST'
+            'CEIL'
+            'CEILING'
+            'CHAR_LENGTH'
+            'CHARACTER_LENGTH'
+            'COALESCE'
+            'COERCIBILITY'
+            'COLLATION'
+            'COMPRESS'
+            'CONCAT'
+            'CONCAT_WS'
+            'CONNECTION_ID'
+            'CONV'
+            'CONVERT_TZ'
+            'COS'
+            'COT'
+            'CRC32'
+            'CURDATE'
+            'CURRENT_DATE'
+            'CURRENT_TIME'
+            'CURRENT_TIMESTAMP'
+            'CURRENT_USER'
+            'CURTIME'
+            'DATABASE'
+            'DATE'
+            'DATE_ADD'
+            'DATE_FORMAT'
+            'DATE_SUB'
+            'DATEDIFF'
+            'DAY'
+            'DAYNAME'
+            'DAYOFMONTH'
+            'DAYOFWEEK'
+            'DAYOFYEAR'
+            'DECODE'
+            'DEGREES'
+            'DES_DECRYPT'
+            'DES_ENCRYPT'
+            'DIV'
+            'ELT'
+            'ENCODE'
+            'ENCRYPT'
+            'EXP'
+            'EXPORT_SET'
+            'EXTRACT'
+            'FIELD'
+            'FIND_IN_SET'
+            'FLOOR'
+            'FORMAT'
+            'FOUND_ROWS'
+            'FROM_DAYS'
+            'FROM_UNIXTIME'
+            'GET_FORMAT'
+            'GET_LOCK'
+            'GREATEST'
+            'GROUP_CONCAT'
+            'HEX'
+            'HOUR'
+            'IFNULL'
+            'INET_ATON'
+            'INET_NTOA'
+            'INSTR'
+            'INTERVAL'
+            'IS NULL'
+            'IS_FREE_LOCK'
+            'IS_USED_LOCK'
+            'ISNULL'
+            'LAST_DAY'
+            'LAST_INSERT_ID'
+            'LCASE'
+            'LEAST'
+            'LEFT'
+            'LENGTH'
+            'LOAD_FILE'
+            'LOCALTIME'
+            'LOCALTIMESTAMP'
+            'LOCATE'
+            'LOG'
+            'LOG10'
+            'LOG2'
+            'LPAD'
+            'LTRIM'
+            'MAKE_SET'
+            'MAKEDATE'
+            'MAKETIME'
+            'MASTER_POS_WAIT'
+            'MD5'
+            'MICROSECOND'
+            'MID'
+            'MINUTE'
+            'MOD'
+            'MONTH'
+            'MONTHNAME'
+            'NAME_CONST'
+            'OCT'
+            'OCTET_LENGTH'
+            'OLD_PASSWORD'
+            'PASSWORD'
+            'PERIOD_ADD'
+            'PERIOD_DIF'
+            'PI'
+            'POSITION'
+            'POW'
+            'POWER'
+            'QUARTER'
+            'QUOTE'
+            'RADIANS'
+            'RAND'
+            'REGEXP'
+            'RELEASE_LOCK'
+            'REPLACE'
+            'REVERSE'
+            'RIGHT'
+            'RLIKE'
+            'ROUND'
+            'ROW_COUNT'
+            'RPAD'
+            'RTRIM'
+            'SCHEMA'
+            'SEC_TO_TIME'
+            'SECOND'
+            'SESSION_USER'
+            'SHA1'
+            'SIGN'
+            'SIN'
+            'SLEEP'
+            'SOUNDEX'
+            'SOUNDS'
+            'SPACE'
+            'SQRT'
+            'STD'
+            'STDDEV'
+            'STDDEV_POP'
+            'STDDEV_SAMP'
+            'STR_TO_DATE'
+            'STRCMP'
+            'SUBDATE'
+            'SUBSTR'
+            'SUBSTRING'
+            'SUBSTRING_INDEX'
+            'SUBTIME'
+            'SYSTEM_USER'
+            'TAN'
+            'TIME'
+            'TIME_FORMAT'
+            'TIME_TO_SEC'
+            'TIMEDIFF'
+            'TIMESTAMP'
+            'TIMESTAMPADD'
+            'TIMESTAMPDIFF'
+            'TO_DAYS'
+            'TRIM'
+            'UCASE'
+            'UNCOMPRESS'
+            'UNCOMPRESSED_LENGTH'
+            'UNHEX'
+            'UNIX_TIMESTAMP'
+            'USER'
+            'UTC_DATE'
+            'UTC_TIME'
+            'UTC_TIMESTAMP'
+            'UUID'
+            'VAR_POP'
+            'VAR_SAMP'
+            'VARIANCE'
+            'WEEK'
+            'WEEKDAY'
+            'WEEKOFYEAR'
+            'XOR'
+            'YEAR'
+            'YEARWEEK')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      TokenType = 11
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'MySQL Reserved words'
+      StyleName = 'Reserved words MySQL'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ACCESSIBLE'
+            'ACCOUNT'
+            'ACTION'
+            'ACTIVE'
+            'ADD'
+            'ADMIN'
+            'AFTER'
+            'AGAINST'
+            'AGGREGATE'
+            'ALGORITHM'
+            'ALTER'
+            'ALWAYS'
+            'ANALYSE'
+            'ANALYZE'
+            'ARRAY'
+            'ASC'
+            'ASCII'
+            'ASENSITIVE'
+            'AT'
+            'AUTO_INCREMENT'
+            'AUTOEXTEND_SIZE'
+            'AVG_ROW_LENGTH'
+            'BACKUP'
+            'BEFORE'
+            'BEGIN'
+            'BINLOG'
+            'BIT'
+            'BLOCK'
+            'BOOL'
+            'BOOLEAN'
+            'BOTH'
+            'BTREE'
+            'BUCKETS'
+            'BYTE'
+            'CACHE'
+            'CALL'
+            'CASCADE'
+            'CASCADED'
+            'CASE'
+            'CATALOG_NAME'
+            'CHAIN'
+            'CHANGE'
+            'CHANGED'
+            'CHANNEL'
+            'CHARACTER'
+            'CHARSET'
+            'CHECK'
+            'CHECKSUM'
+            'CIPHER'
+            'CLASS_ORIGIN'
+            'CLIENT'
+            'CLONE'
+            'CLOSE'
+            'CODE'
+            'COLLATE'
+            'COLLATION'
+            'COLUMN'
+            'COLUMN_FORMAT'
+            'COLUMN_NAME'
+            'COLUMNS'
+            'COMMENT'
+            'COMMIT'
+            'COMMITTED'
+            'COMPACT'
+            'COMPLETION'
+            'COMPONENT'
+            'COMPRESSED'
+            'COMPRESSION'
+            'CONCURRENT'
+            'CONDITION'
+            'CONNECTION'
+            'CONSISTENT'
+            'CONSTRAINT'
+            'CONSTRAINT_CATALOG'
+            'CONSTRAINT_NAME'
+            'CONSTRAINT_SCHEMA'
+            'CONTAINS'
+            'CONTEXT'
+            'CONTINUE'
+            'CONVERT'
+            'CPU'
+            'CROSS'
+            'CUBE'
+            'CUME_DIST'
+            'CURRENT'
+            'CURSOR'
+            'CURSOR_NAME'
+            'DATA'
+            'DATABASES'
+            'DATAFILE'
+            'DATETIME'
+            'DAY_HOUR'
+            'DAY_MICROSECOND'
+            'DAY_MINUTE'
+            'DAY_SECOND'
+            'DEALLOCATE'
+            'DEC'
+            'DECIMAL'
+            'DECLARE'
+            'DEFAULT'
+            'DEFAULT_AUTH'
+            'DEFINER'
+            'DEFINITION'
+            'DELAY_KEY_WRITE'
+            'DELAYED'
+            'DENSE_RANK'
+            'DES_KEY_FILE'
+            'DESC'
+            'DESCRIBE'
+            'DESCRIPTION'
+            'DETERMINISTIC'
+            'DIAGNOSTICS'
+            'DIRECTORY'
+            'DISABLE'
+            'DISCARD'
+            'DISK'
+            'DISTINCTROW'
+            'DO'
+            'DOUBLE'
+            'DUAL'
+            'DUMPFILE'
+            'DUPLICATE'
+            'DYNAMIC'
+            'EACH'
+            'ELSE'
+            'ELSEIF'
+            'EMPTY'
+            'ENABLE'
+            'ENCLOSED'
+            'ENCRYPTION'
+            'END'
+            'ENDS'
+            'ENFORCED'
+            'ENGINE'
+            'ENGINES'
+            'ERROR'
+            'ERRORS'
+            'ESCAPE'
+            'ESCAPED'
+            'EVENT'
+            'EVENTS'
+            'EVERY'
+            'EXCEPT'
+            'EXCHANGE'
+            'EXCLUDE'
+            'EXECUTE'
+            'EXIT'
+            'EXPANSION'
+            'EXPIRE'
+            'EXPLAIN'
+            'EXPORT'
+            'EXTENDED'
+            'EXTENT_SIZE'
+            'FALSE'
+            'FAST'
+            'FAULTS'
+            'FETCH'
+            'FIELDS'
+            'FILE'
+            'FILE_BLOCK_SIZE'
+            'FILTER'
+            'FIRST'
+            'FIRST_VALUE'
+            'FIXED'
+            'FLOAT'
+            'FLOAT4'
+            'FLOAT8'
+            'FLUSH'
+            'FOLLOWING'
+            'FOLLOWS'
+            'FOR'
+            'FORCE'
+            'FOREIGN'
+            'FOUND'
+            'FULL'
+            'FULLTEXT'
+            'FUNCTION'
+            'GENERAL'
+            'GENERATED'
+            'GEOMCOLLECTION'
+            'GEOMETRY'
+            'GEOMETRYCOLLECTION'
+            'GET'
+            'GET_MASTER_PUBLIC_KEY'
+            'GLOBAL'
+            'GRANTS'
+            'GROUP_REPLICATION'
+            'GROUPING'
+            'GROUPS'
+            'HANDLER'
+            'HASH'
+            'HELP'
+            'HIGH_PRIORITY'
+            'HISTOGRAM'
+            'HISTORY'
+            'HOSTS'
+            'HOUR_MICROSECOND'
+            'HOUR_MINUTE'
+            'HOUR_SECOND'
+            'IDENTIFIED'
+            'IGNORE'
+            'IGNORE_SERVER_IDS'
+            'IMPORT'
+            'INACTIVE'
+            'INDEXES'
+            'INFILE'
+            'INITIAL_SIZE'
+            'INNODB '
+            'INOUT'
+            'INSENSITIVE'
+            'INSERT_METHOD'
+            'INSTALL'
+            'INSTANCE'
+            'INT1'
+            'INT2'
+            'INT3'
+            'INT4'
+            'INT8'
+            'INTEGER'
+            'INVISIBLE'
+            'INVOKER'
+            'IO'
+            'IO_AFTER_GTIDS'
+            'IO_BEFORE_GTIDS'
+            'IO_THREAD'
+            'IPC'
+            'ISOLATION'
+            'ISSUER'
+            'ITERATE'
+            'JSON'
+            'JSON_TABLE'
+            'KEY_BLOCK_SIZE'
+            'KEYS'
+            'KILL'
+            'LAG'
+            'LANGUAGE'
+            'LAST'
+            'LAST_VALUE'
+            'LATERAL'
+            'LEAD'
+            'LEADING'
+            'LEAVE'
+            'LEAVES'
+            'LESS'
+            'LEVEL'
+            'LIMIT'
+            'LINEAR'
+            'LINES'
+            'LINESTRING'
+            'LIST'
+            'LOAD'
+            'LOCAL'
+            'LOCK'
+            'LOCKED'
+            'LOCKS'
+            'LOGFILE'
+            'LOGS'
+            'LONG'
+            'LOOP'
+            'LOW_PRIORITY'
+            'MASTER'
+            'MASTER_AUTO_POSITION'
+            'MASTER_BIND'
+            'MASTER_COMPRESSION_ALGORITHMS'
+            'MASTER_CONNECT_RETRY'
+            'MASTER_DELAY'
+            'MASTER_HEARTBEAT_PERIOD'
+            'MASTER_HOST'
+            'MASTER_LOG_FILE'
+            'MASTER_LOG_POS'
+            'MASTER_PASSWORD'
+            'MASTER_PORT'
+            'MASTER_PUBLIC_KEY_PATH'
+            'MASTER_RETRY_COUNT'
+            'MASTER_SERVER_ID'
+            'MASTER_SSL'
+            'MASTER_SSL_CA'
+            'MASTER_SSL_CAPATH'
+            'MASTER_SSL_CERT'
+            'MASTER_SSL_CIPHER'
+            'MASTER_SSL_CRL'
+            'MASTER_SSL_CRLPATH'
+            'MASTER_SSL_KEY'
+            'MASTER_SSL_VERIFY_SERVER_CERT'
+            'MASTER_TLS_CIPHERSUITES'
+            'MASTER_TLS_VERSION'
+            'MASTER_USER'
+            'MASTER_ZSTD_COMPRESSION_LEVEL'
+            'MATCH'
+            'MAX_CONNECTIONS_PER_HOUR'
+            'MAX_QUERIES_PER_HOUR'
+            'MAX_ROWS'
+            'MAX_SIZE'
+            'MAX_UPDATES_PER_HOUR'
+            'MAX_USER_CONNECTIONS'
+            'MAXVALUE'
+            'MEDIUM'
+            'MEMBER'
+            'MEMORY'
+            'MERGE'
+            'MESSAGE_TEXT'
+            'MIDDLEINT'
+            'MIGRATE'
+            'MIN_ROWS'
+            'MINUTE_MICROSECOND'
+            'MINUTE_SECOND'
+            'MODE'
+            'MODIFIES'
+            'MODIFY'
+            'MULTILINESTRING'
+            'MULTIPOINT'
+            'MULTIPOLYGON'
+            'MUTEX'
+            'MYSQL_ERRNO'
+            'NAME'
+            'NAMES'
+            'NATIONAL'
+            'NATURAL'
+            'NCHAR'
+            'NDB'
+            'NDBCLUSTER'
+            'NESTED'
+            'NETWORK_NAMESPACE'
+            'NEVER'
+            'NEW'
+            'NEXT'
+            'NO'
+            'NO_WAIT'
+            'NO_WRITE_TO_BINLOG'
+            'NODEGROUP'
+            'NONE'
+            'NOWAIT'
+            'NTH_VALUE'
+            'NTILE'
+            'NULLS'
+            'NUMBER'
+            'NUMERIC'
+            'NVARCHAR'
+            'OF'
+            'OFFSET'
+            'OJ'
+            'OLD'
+            'ONE'
+            'ONLY'
+            'OPEN'
+            'OPTIMIZE'
+            'OPTIMIZER_COSTS'
+            'OPTIONAL'
+            'OPTIONALLY'
+            'OPTIONS'
+            'ORDINALITY'
+            'ORGANIZATION'
+            'OTHERS'
+            'OUT'
+            'OUTFILE'
+            'OVER'
+            'OWNER'
+            'PACK_KEYS'
+            'PAGE'
+            'PARSER'
+            'PARTIAL'
+            'PARTITION'
+            'PARTITIONING'
+            'PARTITIONS'
+            'PATH'
+            'PERCENT_RANK'
+            'PERSIST'
+            'PERSIST_ONLY'
+            'PHASE'
+            'PLUGIN'
+            'PLUGIN_DIR'
+            'PLUGINS'
+            'POINT'
+            'POLYGON'
+            'PORT'
+            'PRECEDES'
+            'PRECEDING'
+            'PRECISION'
+            'PREPARE'
+            'PRESERVE'
+            'PREV'
+            'PRIVILEGE_CHECKS_USER'
+            'PRIVILEGES'
+            'PROCEDURE'
+            'PROCESS'
+            'PROCESSLIST'
+            'PROFILE'
+            'PROFILES'
+            'PROXY'
+            'PURGE'
+            'QUERY'
+            'QUICK'
+            'RANDOM'
+            'RANGE'
+            'RANK'
+            'READ'
+            'READ_ONLY'
+            'READ_WRITE'
+            'READS'
+            'REAL'
+            'REBUILD'
+            'RECOVER'
+            'RECURSIVE'
+            'REDO_BUFFER_SIZE'
+            'REDOFILE'
+            'REDUNDANT'
+            'REFERENCE'
+            'REFERENCES'
+            'RELAY'
+            'RELAY_LOG_FILE'
+            'RELAY_LOG_POS'
+            'RELAY_THREAD'
+            'RELAYLOG'
+            'RELEASE'
+            'RELOAD'
+            'REMOTE'
+            'REMOVE'
+            'RENAME'
+            'REORGANIZE'
+            'REPAIR'
+            'REPEAT'
+            'REPEATABLE'
+            'REPLICATE_DO_DB'
+            'REPLICATE_DO_TABLE'
+            'REPLICATE_IGNORE_DB'
+            'REPLICATE_IGNORE_TABLE'
+            'REPLICATE_REWRITE_DB'
+            'REPLICATE_WILD_DO_TABLE'
+            'REPLICATE_WILD_IGNORE_TABLE'
+            'REPLICATION'
+            'REQUIRE'
+            'RESET'
+            'RESIGNAL'
+            'RESOURCE'
+            'RESPECT'
+            'RESTART'
+            'RESTORE'
+            'RESTRICT'
+            'RESUME'
+            'RETAIN'
+            'RETURN'
+            'RETURNED_SQLSTATE'
+            'RETURNS'
+            'REUSE'
+            'REVOKE'
+            'ROLE'
+            'ROLLBACK'
+            'ROLLUP'
+            'ROTATE'
+            'ROUTINE'
+            'ROW'
+            'ROW_FORMAT'
+            'ROW_NUMBER'
+            'ROWS'
+            'RTREE'
+            'SAVEPOINT'
+            'SCHEDULE'
+            'SCHEMA_NAME'
+            'SCHEMAS'
+            'SECOND_MICROSECOND'
+            'SECONDARY'
+            'SECONDARY_ENGINE'
+            'SECONDARY_LOAD'
+            'SECONDARY_UNLOAD'
+            'SECURITY'
+            'SENSITIVE'
+            'SEPARATOR'
+            'SERIAL'
+            'SERIALIZABLE'
+            'SERVER'
+            'SESSION'
+            'SHARE'
+            'SHOW'
+            'SHUTDOWN'
+            'SIGNAL'
+            'SIGNED'
+            'SIMPLE'
+            'SKIP'
+            'SLAVE'
+            'SLOW'
+            'SNAPSHOT'
+            'SOCKET'
+            'SONAME'
+            'SOURCE'
+            'SPATIAL'
+            'SPECIFIC'
+            'SQL'
+            'SQL_AFTER_GTIDS'
+            'SQL_AFTER_MTS_GAPS'
+            'SQL_BEFORE_GTIDS'
+            'SQL_BIG_RESULT'
+            'SQL_BUFFER_RESULT'
+            'SQL_CACHE'
+            'SQL_CALC_FOUND_ROWS'
+            'SQL_NO_CACHE'
+            'SQL_SMALL_RESULT'
+            'SQL_THREAD'
+            'SQL_TSI_DAY'
+            'SQL_TSI_HOUR'
+            'SQL_TSI_MINUTE'
+            'SQL_TSI_MONTH'
+            'SQL_TSI_QUARTER'
+            'SQL_TSI_SECOND'
+            'SQL_TSI_WEEK'
+            'SQL_TSI_YEAR'
+            'SQLEXCEPTION'
+            'SQLSTATE'
+            'SQLWARNING'
+            'SRID'
+            'SSL'
+            'STACKED'
+            'START'
+            'START '
+            'STARTING'
+            'STARTS'
+            'STATS_AUTO_RECALC'
+            'STATS_PERSISTENT'
+            'STATS_SAMPLE_PAGES'
+            'STATUS'
+            'STOP'
+            'STORAGE'
+            'STORED'
+            'STRAIGHT_JOIN'
+            'STRING'
+            'SUBCLASS_ORIGIN'
+            'SUBJECT'
+            'SUBPARTITION'
+            'SUBPARTITIONS'
+            'SUPER'
+            'SUSPEND'
+            'SWAPS'
+            'SWITCHES'
+            'SYSTEM'
+            'TABLE_CHECKSUM'
+            'TABLE_NAME'
+            'TABLESPACE'
+            'TEMPORARY'
+            'TEMPTABLE'
+            'TERMINATED'
+            'THAN'
+            'THEN'
+            'THREAD_PRIORITY'
+            'TIES'
+            'TINYTEXT'
+            'TO'
+            'TRAILING'
+            'TRANSACTION'
+            'TRANSACTION '
+            'TRIGGER'
+            'TRUE'
+            'TRUNCATE'
+            'TYPE'
+            'TYPES'
+            'UNBOUNDED'
+            'UNCOMMITTED'
+            'UNDEFINED'
+            'UNDO'
+            'UNDO_BUFFER_SIZE'
+            'UNDOFILE'
+            'UNICODE'
+            'UNINSTALL'
+            'UNIQUE'
+            'UNKNOWN'
+            'UNLOCK'
+            'UNTIL'
+            'UPGRADE'
+            'USAGE'
+            'USE'
+            'USE_FRM'
+            'USER_RESOURCES'
+            'USING'
+            'VALIDATION'
+            'VALUE'
+            'VARCHARACTER'
+            'VARIABLES'
+            'VARYING'
+            'VCPU'
+            'VIRTUAL'
+            'VISIBLE'
+            'WAIT'
+            'WARNINGS'
+            'WEIGHT_STRING'
+            'WHEN'
+            'WHILE'
+            'WINDOW'
+            'WITH'
+            'WITHOUT'
+            'WORK'
+            'WRAPPER'
+            'WRITE'
+            'X509'
+            'XA'
+            'XID'
+            'XML'
+            'YEAR_MONTH'
+            'ZEROFILL')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      TokenType = 11
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'MySQL datadictionary'
+      StyleName = 'Datadictionary MySQL'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'CHARACTER_SETS'
+            'COLLATION_CHARACTER_SET_APPLICABILITY  '
+            'COLLATIONS'
+            'COLUMN_PRIVILEGES'
+            'COLUMNS'
+            'columns_priv'
+            'db'
+            'func'
+            'help_category'
+            'help_keyword'
+            'help_relation'
+            'help_topic'
+            'host'
+            'KEY_COLUMN_USAGE'
+            'proc'
+            'procs_priv'
+            'ROUTINES'
+            'SCHEMA_PRIVILEGES'
+            'SCHEMATA'
+            'STATISTICS'
+            'TABLE_CONSTRAINTS'
+            'TABLE_PRIVILEGES'
+            'TABLES'
+            'Tables_in_information_schema'
+            'tables_priv'
+            'time_zone'
+            'time_zone_leap_second'
+            'time_zone_name'
+            'time_zone_transition'
+            'time_zone_transition_type'
+            'TRIGGERS'
+            'user'
+            'USER_PRIVILEGES'
+            'VIEWS')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      TokenType = 11
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'MySQL datatypes'
+      StyleName = 'Datatypes MySQL'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BIGINT'
+            'BINARY'
+            'BLOB'
+            'CHAR'
+            'DATE'
+            'ENUM'
+            'INT'
+            'INYTEXT'
+            'LONGBLOB'
+            'LONGTEXT'
+            'MEDIUMBLOB'
+            'MEDIUMINT'
+            'MEDIUMTEXT'
+            'SET'
+            'SMALLINT'
+            'TEXT'
+            'TIME'
+            'TIMESTAMP'
+            'TINYBLOB'
+            'TINYINT'
+            'unsigned'
+            'utf8'
+            'utf8_bin'
+            'VARBINARY'
+            'VARCHAR'
+            'YEAR')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      TokenType = 11
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Table or Alias'
+      StyleName = 'Table'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Alias'
+      StyleName = 'Alias'
+      BlockName = 'From'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'AS')
+          TokenTypes = 2048
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      TokenType = 8
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Alias 2'
+      Enabled = False
+      BlockName = 'From'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      TokenType = 8
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Table'
+      StyleName = 'Table'
+      BlockName = 'From'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.')
+          CondType = tcNotEqual
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      HighlightPos = cpBound
+      TokenType = 7
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Table to Tree'
+      BlockName = 'From'
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end
+        item
+          TagList.Strings = (
+            '.')
+          CondType = tcNotEqual
+          TokenTypes = 8
+        end>
+      BlockOffset = -1
+      NotCollapsed = True
+      GroupFmt = 'Used Tables'
+      HighlightPos = cpBound
+      NoEndRule = True
+      TreeItemStyle = 'Tree (item)'
+      TreeGroupStyle = 'Tree (Bold)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Alias to tree'
+      ConditionList = <
+        item
+          TokenTypes = 256
+        end
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2048
+        end>
+      BlockOffset = 1
+      NotCollapsed = True
+      NameFmt = '%s-1 = %s0'
+      GroupFmt = 'Aliases'
+      HighlightPos = cpBound
+      NoEndRule = True
+      TreeItemStyle = 'Tree (item)'
+      TreeGroupStyle = 'Tree (Bold)'
+      TreeItemImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Alias to Tree 2'
+      ConditionList = <
+        item
+          TokenTypes = 256
+        end
+        item
+          TokenTypes = 2048
+        end>
+      NotCollapsed = True
+      NameFmt = '%s-1 = %s0'
+      GroupFmt = 'Aliases'
+      HighlightPos = cpBound
+      NoEndRule = True
+      TreeItemStyle = 'Tree (item)'
+      TreeGroupStyle = 'Tree (Bold)'
+      TreeItemImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Statement start'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'delete'
+            'insert'
+            'select'
+            'update')
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      EndOfTextClose = True
+      HighlightPos = cpBound
+      DrawStaple = True
+      CollapseFmt = '%s0 ...'
+      SelfClose = True
+      TreeItemStyle = 'Tree (Bold)'
+      TreeItemImage = 0
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Section End'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Database.Table to Tree'
+      Enabled = False
+      BlockName = 'From'
+      ConditionList = <
+        item
+          TokenTypes = 132
+        end
+        item
+          TagList.Strings = (
+            '.')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      NotCollapsed = True
+      NameFmt = '%s0.%s-2'
+      GroupFmt = 'Used Tables'
+      HighlightPos = cpBound
+      CancelNextRules = True
+      NoEndRule = True
+      TreeItemStyle = 'Tree (item)'
+      TreeGroupStyle = 'Tree (Bold)'
+      TreeItemImage = 4
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Select'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'select')
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Section End'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      DrawStaple = True
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'From'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'from')
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Section End'
+      EndOfTextClose = True
+      HighlightPos = cpBound
+      DrawStaple = True
+      CollapseFmt = '%s0 ...'
+      TreeItemStyle = 'Tree (Section)'
+      TreeItemImage = 2
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Where'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'where')
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Section End'
+      EndOfTextClose = True
+      HighlightPos = cpBound
+      DrawStaple = True
+      CollapseFmt = '%s0 ...'
+      SelfClose = True
+      TreeItemStyle = 'Tree (Section)'
+      TreeItemImage = 2
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Group'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'group')
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Section End'
+      EndOfTextClose = True
+      HighlightPos = cpBound
+      DrawStaple = True
+      CollapseFmt = '%s0 ...'
+      TreeItemStyle = 'Tree (Section)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Order'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'order')
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      EndOfTextClose = True
+      HighlightPos = cpBound
+      DrawStaple = True
+      CollapseFmt = '%s0 ...'
+      TreeItemStyle = 'Tree (Section)'
+      TreeItemImage = 2
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Having'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'having')
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      EndOfTextClose = True
+      HighlightPos = cpBound
+      DrawStaple = True
+      CollapseFmt = '%s0 ...'
+      TreeItemStyle = 'Tree (Section)'
+      TreeItemImage = 2
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'drop'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'create'
+            'drop')
+          TokenTypes = 1024
+          IgnoreCase = True
+        end>
+      BlockEnd = 'drop end'
+      EndOfTextClose = True
+      HighlightPos = cpBound
+      DrawStaple = True
+      CollapseFmt = '%s0 ...'
+      SelfClose = True
+      TreeItemStyle = 'Tree (item)'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'drop end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '-- Comment'
+    '`My.Name` COLLATE host BLOB'
+    ''
+    'SELECT c.session , c.username'
+    'FROM  livehelp_domain_user as name , livehelp_users as name2 '
+    'WHERE a.id_domain = 29 AND'
+    '      a.id_user = b.id AND '
+    '      CONCAT(b.firstname, '#39' '#39',b.lastname)   = c.username AND'
+    '      DATE_FORMAT(c.datetime,'#39'%m/%Y'#39') ='#39'12/2006'#39
+    'GROUP BY c.session'
+    'ORDER BY c.session,c.username'
+    ''
+    '')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Table name'
+    'Alias'
+    'Function'
+    'Main KeyWords'
+    'Secondary KeyWords')
+  Extentions = 'sql'
+  LexerName = 'MySQL SQL'
+  Notes.Strings = (
+    'Originally from EControl.ru package'
+    'Changes: Alexey (CudaText), Andreas Heim (https://github.com/dinkumoil)')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

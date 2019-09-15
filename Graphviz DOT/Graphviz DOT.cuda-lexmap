@@ -1,0 +1,15 @@
+[map]
+Symbol=Symbol
+Number=Number
+String=String
+Identifier=Id
+Id attrib=Id1
+Id keyword=IdKeyword
+Comment=Comment
+Current block=BracketBG
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

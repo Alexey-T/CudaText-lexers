@@ -1,0 +1,7 @@
+[info]
+title=Smalltalk
+type=lexer
+subdir=-
+
+[lexer1]
+file=Smalltalk

@@ -1,0 +1,14 @@
+[map]
+Id=Id
+IdTag=TagId
+IdFunc=Id1
+Symbol=Symbol
+Comment=Comment
+Current block=BracketBG
+Color=Color
+String=String
+Number=Number
+
+[comments]
+styles_cmt=Comment
+styles_str=String

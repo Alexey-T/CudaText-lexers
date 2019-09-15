@@ -1,0 +1,167 @@
+object SyntAnal32: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag attr'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Bool'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)\[! .+? !\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag begin'
+      StyleName = 'Tag'
+      TokenType = 2
+      Expression = '\[ [\+\?]? [a-z_][\w~]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag end'
+      StyleName = 'Tag'
+      TokenType = 2
+      Expression = '<  [\-\?]? [\w~]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 4
+      Expression = '<\| | \|> | \[> | <\] | [=\(\)\{\},:\|\-\+]+ '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag bracket'
+      StyleName = 'Tag'
+      TokenType = 2
+      Expression = '[<>\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = '(["'#39']).*?\1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag attr'
+      StyleName = 'Tag attr'
+      TokenType = 5
+      Expression = '\w+(?==)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\b \d+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Bool'
+      StyleName = 'Bool'
+      Expression = '\b(true|false)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    
+      '[markup|L1 annotation_1='#39'string value'#39' annotation_2=2.718>text<m' +
+      'arkup]'
+    '[tagml>pre <|[del>bla<del]|[add>bal<add]|> post<tagml]'
+    '[m age=3.14>bla<m]                                   '
+    ''
+    '[!  comment !]'
+    '... [q>and what is the use of a book,<-q]'
+    'thought Alice'
+    '[+q>without pictures or conversation?<q]'
+    ''
+    '[img src='#39'http://example.com/img.png'#39']'
+    '[tag rt=[>rich text<]>bla bla bla<tag]'
+    '[a|A1>bla bla [a|A2>bla bla<a|A1] bla bla<a|A2]'
+    ''
+    
+      '[phr~a|l type='#39'NP'#39'>www [sentence~d|pr voice='#39'Baker'#39'>[phr~b|l typ' +
+      'e='#39'VP'#39'>'
+    '"It'#39's a Boo--"<phr~b|l]<phr~a|l]')
+  TokenTypeNames.Strings = (
+    'Text'
+    'Comment'
+    'Tag'
+    'String'
+    'Symbol'
+    'Tag attr'
+    'Number')
+  Extentions = 'tagml'
+  LexerName = 'TAGML'
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  Charset = DEFAULT_CHARSET
+end

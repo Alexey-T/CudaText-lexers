@@ -1,0 +1,7 @@
+[info]
+title=Nix
+type=lexer
+subdir=-
+
+[lexer1]
+file=Nix

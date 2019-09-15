@@ -1,0 +1,28 @@
+[ref]
+0=VBScript
+
+[map]
+Symbol=Symbol
+Default=Id
+Number=Number
+String=String
+Identifier=Id
+Keyword=IdKeyword
+Comment=Comment
+Preprocessor=Comment2
+Marked block=-
+Function separator=SeparLine
+Current block=BracketBG
+Current function=CurBlockBG
+Current Line=-
+Search Match=-
+Group (tree)=-
+Keyword2=Id1
+Keyword3=Id2
+Keyword4=Id3
+Keyword5=Id4
+Keyword6=IdVar
+Keyword7=String2
+KeywordVBS=String3
+Trailingspaces=-
+Chevron=Symbol2

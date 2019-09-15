@@ -1,0 +1,13 @@
+[ref]
+0=HTML
+
+[map]
+Symbol=Symbol
+Id=Id
+Id keyword=IdKeyword
+String=String
+Tag BG=SectionBG1
+
+[comments]
+styles_cmt=
+styles_str=String

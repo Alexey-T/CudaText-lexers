@@ -1,0 +1,7 @@
+[info]
+title=Go
+type=lexer
+subdir=-
+
+[lexer1]
+file=Go

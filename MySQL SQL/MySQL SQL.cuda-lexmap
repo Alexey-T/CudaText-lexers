@@ -1,0 +1,18 @@
+[map]
+Identifier=Id
+Reserved words MySQL=Id4
+Reserved word=IdKeyword
+Datatypes MySQL=Id1
+String=String
+Comment=Comment
+Symbol=Symbol
+Number=Number
+Function=Id2
+Table=Id3
+Alias=IdVar
+Operators=Symbol2
+Tree (Bold)=-
+Tree (Section)=-
+Tree (item)=-
+Datadictionary MySQL=Label
+StringName=String2

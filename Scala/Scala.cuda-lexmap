@@ -1,0 +1,17 @@
+[map]
+Comment=Comment
+Comment doc=CommentDoc
+Symbol=Symbol
+Number=Number
+String=String
+String2=String2
+Id=Id
+Id reserved=IdKeyword
+Id type=Id2
+Id const=Id1
+Unicode=String3
+Xml=Comment2
+
+[comments]
+styles_cmt=Comment,Comment doc
+styles_str=String,String2

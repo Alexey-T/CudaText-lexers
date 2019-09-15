@@ -1,0 +1,7 @@
+[info]
+title=SQL White
+type=lexer
+subdir=-
+
+[lexer1]
+file=SQL_White

@@ -1,0 +1,7 @@
+[info]
+title=Strace
+type=lexer
+subdir=-
+
+[lexer1]
+file=Strace

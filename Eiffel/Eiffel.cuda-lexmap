@@ -1,0 +1,13 @@
+[map]
+Comment=Comment
+Symbol=Symbol
+Number=Number
+String=String
+Identifier=Id
+Id Reserved=IdKeyword
+Id Reserved 2=Id1
+Id Uppercase=Id2
+
+[comments]
+styles_cmt=Comment
+styles_str=String

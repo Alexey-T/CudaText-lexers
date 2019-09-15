@@ -1,0 +1,7 @@
+[info]
+title=TypeScript
+type=lexer
+subdir=-
+
+[lexer1]
+file=TypeScript

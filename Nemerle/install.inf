@@ -1,0 +1,7 @@
+[info]
+title=Nemerle
+type=lexer
+subdir=-
+
+[lexer1]
+file=Nemerle

@@ -1,0 +1,489 @@
+object SyntAnal5: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id ops'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id ops delay'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id register'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id spec'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Directive'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 215
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Macro BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '[!;].*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '-? (\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'-? \d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[0-9a-f_]+ |'#13#10'0b[01]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      Expression = '\w+:     '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id register'
+      StyleName = 'Id register'
+      TokenType = 2
+      Expression = '%\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Directive'
+      StyleName = 'Directive'
+      TokenType = 6
+      Expression = '\.\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(") (\\\\|\\\1|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\.,:\-\+\*\\/%@<>\(\)\[\]\{\}\?=!~\&\$\^`'#39']'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id opcodes'
+      StyleName = 'Id ops'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'add'
+            'addcc'
+            'addx'
+            'addxcc'
+            'and'
+            'andcc'
+            'andn'
+            'andncc'
+            'bclr'
+            'bicc'
+            'bset'
+            'bst'
+            'btog'
+            'cbccc'
+            'clr'
+            'clrb'
+            'clrh'
+            'cmp'
+            'cpop'
+            'dec'
+            'deccc'
+            'fbfcc'
+            'flush'
+            'fpop'
+            'inc'
+            'ld'
+            'lda'
+            'ldc'
+            'ldcsr'
+            'ldd'
+            'ldda'
+            'lddc'
+            'lddf'
+            'ldf'
+            'ldfsr'
+            'ldsb'
+            'ldsba'
+            'ldsh'
+            'ldsha'
+            'ldstub'
+            'ldstuba'
+            'ldub'
+            'lduba'
+            'lduh'
+            'lduha'
+            'mov'
+            'mulscc'
+            'neg'
+            'not'
+            'or'
+            'orcc'
+            'orn'
+            'orncc'
+            'rdasr'
+            'rdpsr'
+            'rdtbr'
+            'rdwim'
+            'rdy'
+            'restore'
+            'rett'
+            'save'
+            'sdiv'
+            'sdivcc'
+            'set'
+            'sethi'
+            'sll'
+            'smul'
+            'smulcc'
+            'sra'
+            'srl'
+            'st'
+            'sta'
+            'stb'
+            'stba'
+            'stbar'
+            'std'
+            'stda'
+            'stdf'
+            'stdfq'
+            'stf'
+            'stfsr'
+            'sth'
+            'stha'
+            'sub'
+            'subcc'
+            'subx'
+            'subxcc'
+            'swap'
+            'swapa'
+            'taddcc'
+            'taddcctv'
+            'ticc'
+            'tst'
+            'tsubcc'
+            'tsubcctv'
+            'udiv'
+            'udivcc'
+            'umul'
+            'umulcc'
+            'unimp'
+            'wrasr'
+            'wrpsr'
+            'wrtbr'
+            'wrwim'
+            'wry'
+            'xnor'
+            'xnorcc'
+            'xor'
+            'xorcc')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id opcodes w.delay'
+      StyleName = 'Id ops delay'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'b'
+            'ba'
+            'bcc'
+            'bcs'
+            'be'
+            'beq'
+            'bg'
+            'bge'
+            'bgu'
+            'bl'
+            'ble'
+            'bleu'
+            'bn'
+            'bne'
+            'bneg'
+            'bpos'
+            'bvc'
+            'bvs'
+            'call'
+            'jmp'
+            'jmpl'
+            'nop'
+            'ret'
+            'retl'
+            'return')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id spec'
+      StyleName = 'Id spec'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'fp'
+            'hi'
+            'lo'
+            'sp')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Label'
+      ConditionList = <
+        item
+          TokenTypes = 1
+        end>
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '/* ... */'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      StrictParent = True
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Macro begin'
+      StyleName = 'Macro BG'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '`')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'Macro end'
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Macro end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            #39)
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '  ; Code is taken from'
+    '  ; https://people.cs.clemson.edu/~mark/sparc_assembly.html'
+    '  '
+    'define(TEST_Str, `! print the string'
+    #9'set'#9'$1,%o0'
+    #9'call'#9'printf'
+    #9'nop'#39')dnl'
+    '  '
+    '     .global prt_sum'
+    'prt_sum:'
+    '     save %sp,-96,%sp'
+    ''
+    '     clr  %l0'
+    '     clr  %l1'
+    '     mov  %i0,%l2'
+    'loop:'
+    '     cmp  %l0,%i1'
+    '     bge  done'
+    '     nop'
+    ''
+    '     ld   [%l2],%o0'
+    '     add  %l1,%o0,%l1'
+    '     add  %l2,4,%l2'
+    '     inc  %l0'
+    '     ba   loop'
+    '     nop'
+    'done:'
+    ''
+    '     set  fmt,%o0'
+    '     mov  %l1,%o1'
+    '     call printf'
+    '     nop'
+    ''
+    '     ret'
+    '     restore'
+    ''
+    ''
+    '     .section ".data"'
+    'fmt: .asciz "%d\n"')
+  TokenTypeNames.Strings = (
+    'Label'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Directive')
+  Extentions = 'm s'
+  LexerName = 'Assembly SPARC'
+  Notes.Strings = (
+    'Alexey (SynWrite)')
+  LineComment = ';'
+  Charset = DEFAULT_CHARSET
+end

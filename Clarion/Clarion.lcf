@@ -1,0 +1,186 @@
+object SyntAnal40: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Reserved word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Any name'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '!.*'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39'.*?('#39'|$)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Key words'
+      StyleName = 'Reserved word'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'accept'
+            'and'
+            'application'
+            'begin'
+            'break'
+            'by'
+            'case'
+            'choose'
+            'class'
+            'code'
+            'compile'
+            'cycle'
+            'data'
+            'detail'
+            'do'
+            'else'
+            'elsif'
+            'end'
+            'execute'
+            'exit'
+            'file'
+            'footer'
+            'form'
+            'function'
+            'goto'
+            'group'
+            'header'
+            'if'
+            'include'
+            'item'
+            'itemize'
+            'join'
+            'loop'
+            'map'
+            'member'
+            'menu'
+            'menubar'
+            'module'
+            'new'
+            'not'
+            'null'
+            'of'
+            'olecontrol'
+            'omit'
+            'option'
+            'or'
+            'orof'
+            'parent'
+            'procedure'
+            'program'
+            'queue'
+            'record'
+            'report'
+            'return'
+            'routine'
+            'row'
+            'section'
+            'self'
+            'sheet'
+            'tab'
+            'table'
+            'then'
+            'times'
+            'to'
+            'toolbar'
+            'until'
+            'view'
+            'while'
+            'window'
+            'xor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Preprocessor')
+  Extentions = 'cla clw'
+  LexerName = 'Clarion'
+  LineComment = '!'
+  Charset = DEFAULT_CHARSET
+end

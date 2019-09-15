@@ -1,0 +1,7 @@
+[info]
+title=Slim
+type=lexer
+subdir=-
+
+[lexer1]
+file=Slim

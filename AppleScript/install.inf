@@ -1,0 +1,7 @@
+[info]
+title=AppleScript
+type=lexer
+subdir=-
+
+[lexer1]
+file=AppleScript

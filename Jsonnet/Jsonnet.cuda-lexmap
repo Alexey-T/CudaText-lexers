@@ -1,0 +1,16 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Symbol=Symbol
+Number=Number
+String=String
+Comment=Comment
+Id=Id
+Id keyword=IdKeyword
+Id keyword2=Id4
+Id const=Id1
+Id std func=Id2
+Key name=Id3
+Var=IdVar

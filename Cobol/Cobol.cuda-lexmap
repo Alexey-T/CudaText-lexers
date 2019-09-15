@@ -1,0 +1,11 @@
+[map]
+Default=Id
+Left margin=Id1
+Reserved word=IdKeyword
+Comment=Comment
+String=String
+Number=Number
+
+[comments]
+styles_cmt=Comment
+styles_str=String

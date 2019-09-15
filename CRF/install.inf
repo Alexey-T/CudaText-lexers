@@ -1,0 +1,7 @@
+[info]
+title=CRF
+type=lexer
+subdir=-
+
+[lexer1]
+file=CRF

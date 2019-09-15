@@ -1,0 +1,20 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
+[map]
+Heading=IdKeyword
+Text=Id
+Code block=IncludeBG1
+Table block BG=IncludeBG2
+Link=Id2
+Bold=TextBold
+Italic=TextItalic
+List=SectionBG2
+HTML tag=TagId
+HTML entity=Symbol
+Python block BG=IncludeBG3
+Word suffix=String2
+String=String

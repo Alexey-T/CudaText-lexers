@@ -1,0 +1,381 @@
+object SyntAnal40: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Cmt'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Int'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Str'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symb'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'ResId'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'PreId'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Cmt'
+      StyleName = 'Cmt'
+      TokenType = 1
+      Expression = '--.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'EndIfLoop'
+      StyleName = 'ResId'
+      TokenType = 10
+      Expression = 'end \s+ (if|loop|case)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'BlockBegin'
+      StyleName = 'PreId'
+      TokenType = 11
+      Expression = 'function | procedure | package \s+ body'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Int'
+      TokenType = 6
+      Expression = 
+        '#with exp. dot is optional '#13#10'(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'#wit' +
+        'hout exp. dot is required'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Int'
+      TokenType = 7
+      Expression = '\d+\#[\dA-F]+\# (e\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int'
+      StyleName = 'Int'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str'
+      StyleName = 'Str'
+      TokenType = 4
+      Expression = '(").*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      StyleName = 'Str'
+      TokenType = 8
+      Expression = #39'.'#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symb'
+      StyleName = 'Symb'
+      TokenType = 3
+      Expression = '[\-\+\*/\(\)\[\]<>~!@\#\$%\^\:;\.,\?\|&='#39']'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'KeyPre'
+      StyleName = 'PreId'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'package'
+            'pragma'
+            'use'
+            'with')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Key'
+      StyleName = 'ResId'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abort'
+            'abs'
+            'abstract'
+            'accept'
+            'access'
+            'aliased'
+            'all'
+            'and'
+            'array'
+            'at'
+            'begin'
+            'body'
+            'case'
+            'constant'
+            'declare'
+            'delay'
+            'delta'
+            'digits'
+            'do'
+            'else'
+            'elsif'
+            'end'
+            'entry'
+            'exception'
+            'exit'
+            'for'
+            'function'
+            'generic'
+            'goto'
+            'if'
+            'in'
+            'is'
+            'limited'
+            'loop'
+            'mod'
+            'new'
+            'not'
+            'null'
+            'of'
+            'or'
+            'others'
+            'out'
+            '--package'
+            '--pragma'
+            'private'
+            'procedure'
+            'protected'
+            'raise'
+            'range'
+            'record'
+            'rem'
+            'renames'
+            'requeue'
+            'return'
+            'reverse'
+            'select'
+            'separate'
+            'subtype'
+            'tagged'
+            'task'
+            'terminate'
+            'then'
+            'type'
+            'until'
+            '--use'
+            'when'
+            'while'
+            '--with'
+            'xor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'case'
+            'if'
+            'loop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Func'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 2048
+        end>
+      BlockEnd = 'Func end'
+      NameFmt = '%s1 %s0'
+      HighlightPos = cpAny
+      CollapseFmt = '%s1 %s0'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseOpened
+      AutoCloseText = 'end %s0;'
+    end
+    item
+      DisplayName = 'Func end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      SameIdent = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'package body DD is'
+    ''
+    'function EQU(C, D : CHARACTER) return BOOLEAN is'
+    '  begin'
+    '    if (D = '#39'u'#39') or (D = '#39'v'#39')  then'
+    '      if (C = '#39'u'#39') or (C = '#39'v'#39')  then'
+    '        return TRUE;'
+    '      else'
+    '        return FALSE;'
+    '      end if;'
+    '    else'
+    '      return C = D;'
+    '    end if;'
+    '  end EQU;'
+    ''
+    '--'
+    'function EQU2(S, T : STRING) return BOOLEAN is'
+    '  begin'
+    '    if S'#39'LENGTH /= T'#39'LENGTH  then'
+    '      return FALSE;'
+    '    end if;'
+    ''
+    '    for I in 1..S'#39'LENGTH  loop'
+    '      if not EQU(S(S'#39'FIRST+I-1), T(T'#39'FIRST+I-1))  then'
+    '        return FALSE;'
+    '      end if;'
+    '    end loop;'
+    ''
+    '    return TRUE;'
+    '  end EQU2;'
+    ''
+    'end DD;'
+    ''
+    '---------------'
+    '-- Test package. See folding'
+    'package body DD2 is'
+    ''
+    'function AA return INTEGER is'
+    '  return 16#1F#e1 + 12#AA#;'
+    '  end SomeName; --Not OK name'
+    'end AA;  '
+    '  '
+    'end DD2;  ')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Preprocessor'
+    'End if/loop'
+    'Block begin')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'adb'
+  LexerName = 'Ada'
+  Notes.Strings = (
+    'Author: Alex, uvviewsoft.com'
+    'Test:'
+    'http://users.erols.com/whitaker/wordsdev.htm')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+end

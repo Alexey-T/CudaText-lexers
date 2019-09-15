@@ -1,0 +1,8 @@
+[info]
+title=Assembly Z80 SjASM
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly Z80 SjASM
+link1=Lua

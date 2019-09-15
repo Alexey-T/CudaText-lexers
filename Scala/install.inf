@@ -1,0 +1,7 @@
+[info]
+title=Scala
+type=lexer
+subdir=-
+
+[lexer1]
+file=Scala

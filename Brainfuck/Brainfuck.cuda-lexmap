@@ -1,0 +1,11 @@
+[map]
+[]=Symbol
+<>=Id1
+.,=Id2
++-=Symbol2
+Comment=Comment
+[] bg=SectionBG1
+
+[comments]
+styles_cmt=Comment
+styles_str=

@@ -1,0 +1,7 @@
+[info]
+title=Parser3
+type=lexer
+subdir=-
+
+[lexer1]
+file=Parser3

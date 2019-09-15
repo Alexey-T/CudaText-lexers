@@ -1,0 +1,10 @@
+[info]
+title=Ada
+type=lexer
+subdir=-
+
+[lexer1]
+file=Ada
+
+[lexer2]
+file=Ada (.ads)

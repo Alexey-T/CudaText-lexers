@@ -1,0 +1,936 @@
+object SyntAnal70: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id logical'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Preprocessor'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment shebang'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39')(\\\1|\\\\|.)*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Func word'
+      StyleName = 'Id keyword'
+      TokenType = 7
+      Expression = 
+        '\b(function|func|procedure|proc|method \x20+ procedure|method|me' +
+        'th)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id logical'
+      StyleName = 'Id logical'
+      TokenType = 2
+      Expression = '\.[TF]\.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id brackets'
+      StyleName = 'Id tag'
+      TokenType = 2
+      Expression = '\<[\w"]+\>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '\~?[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[\da-f]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(0d)?\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Shebang'
+      StyleName = 'Comment shebang'
+      TokenType = 1
+      Expression = '^\#!.+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Preprocessor'
+      StyleName = 'Preprocessor'
+      TokenType = 6
+      Expression = '\#!\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment /**/'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment //'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment &&'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '&&.*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment *'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^\*.*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Single symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\{\}\[\],;:\$@]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ('
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '\('
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ):'
+      StyleName = 'Symbol'
+      TokenType = 10
+      Expression = '\)\x20*:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol )'
+      StyleName = 'Symbol'
+      TokenType = 9
+      Expression = '\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\+\-\*=<>&/\|\^\.!\?%\\:]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'as'
+            'break'
+            'case'
+            'catch'
+            'class'
+            'const'
+            'continue'
+            'def'
+            'default'
+            'directive'
+            'dropping'
+            'elif'
+            'else'
+            'end'
+            'enum'
+            'eq'
+            'error'
+            'exit'
+            'false'
+            'for'
+            'forfirst'
+            'forlast'
+            'formiddle'
+            'from'
+            'fself'
+            'function'
+            'global'
+            'if'
+            'in'
+            'init'
+            'innerfunc'
+            'launch'
+            'loop'
+            'nil'
+            'not'
+            'notin'
+            'object'
+            'or'
+            'print'
+            'printl'
+            'provides'
+            'raise'
+            'return'
+            'select'
+            'self'
+            'sleep'
+            'static'
+            'switch'
+            'to'
+            'true'
+            'try'
+            'while')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '{ ... }'
+      GrammaRuleName = 'comments'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'class'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'class')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      NameFmt = 'class %sz-1'
+      HighlightPos = cpAny
+      CollapseFmt = 'class %sz-1'
+      IgnoreAsParent = False
+      AutoCloseText = 'end'
+    end
+    item
+      DisplayName = 'innerfunc'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'innerfunc')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      NameFmt = 'innerfunc %sz-1'
+      HighlightPos = cpAny
+      CollapseFmt = 'innerfunc %sz-1'
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func single line'
+      ConditionList = <
+        item
+          TokenTypes = 5120
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 62
+        end
+        item
+          TokenTypes = 256
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 128
+        end>
+      NameFmt = 'func %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func multi line'
+      ConditionList = <
+        item
+          TokenTypes = 512
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 62
+        end
+        item
+          TokenTypes = 256
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 128
+        end>
+      BlockEnd = 'end'
+      NameFmt = 'func %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'if end'
+      DisplayInTree = False
+      NameFmt = 'if %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'if %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'elif'
+            'else'
+            'end')
+          TokenTypes = 4
+        end>
+      BlockOffset = 1
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'elif'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'elif')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'elif end'
+      DisplayInTree = False
+      NameFmt = 'elif %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'elif %sz-1'
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'elif end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'else'
+            'end')
+          TokenTypes = 4
+        end>
+      BlockOffset = 1
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'else'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'else')
+          TokenTypes = 4
+        end>
+      DisplayInTree = False
+      NameFmt = 'else %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'else %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'else end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'else'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'for'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'for')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      NameFmt = 'for %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'for %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'forfirst'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'forfirst')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      NameFmt = 'forfirst %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'forfirst %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'forlast'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'forlast')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      NameFmt = 'forlast %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'forlast %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'formiddle'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'formiddle')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      NameFmt = 'formiddle %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'formiddle %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'switch'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'switch')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      NameFmt = 'switch %sz-1'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = 'switch %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'select'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'select')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      NameFmt = 'select %sz-1'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = 'select %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'case default'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'default')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'default end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'default %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'case'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'case')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'case end'
+      DisplayInTree = False
+      NameFmt = 'case %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'case %sz-1'
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'case end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'default')
+          TokenTypes = 4
+        end>
+      BlockOffset = 1
+      BlockEnd = 'case'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'default end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+        end>
+      BlockOffset = 1
+      BlockEnd = 'case default'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'try'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'try')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      NameFmt = 'try %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'try %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'catch'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'catch')
+          TokenTypes = 4
+        end>
+      DisplayInTree = False
+      NameFmt = 'catch %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'catch %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'catch end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'catch'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'while'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'while')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      NameFmt = 'while %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'while %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'loop'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'loop')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'loop %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'init'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'init')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      NameFmt = 'init %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'init %sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'object'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'object')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      NameFmt = 'object %sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = 'object %sz-1'
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '#!command'
+    '// block'
+    '// block2'
+    '<tag"name"> .T. + .F. #!preproc'
+    ''
+    'for x = 1 to 100'
+    '  forfirst y = 1 to 100 '
+    '  end'
+    '  formiddle z = 1 to 100'
+    '  end'
+    '  forlast w = 1 to 100'
+    '  end'
+    'end'
+    ''
+    'object abc'
+    '  init xyz'
+    #9'  loop'
+    '    '#9'x=x+1'
+    '    end'
+    '  end'
+    'end'
+    ''
+    'loop'
+    #9'x = x + 1 '
+    '  for y = 1 to x'
+    '  '#9'// do something'
+    '  end'
+    'end x > 100'
+    ''
+    'while x > 1'
+    '  x=x-1'
+    'end'
+    ''
+    'try'
+    '  x=1'
+    'catch'
+    '  error'
+    'end'
+    ''
+    'if x = 1'
+    '  y = 1'
+    'elif x = 2'
+    '  y = 2'
+    'elif x = 4'
+    '  y =4'
+    'else'
+    '  y = 3'
+    'end'
+    ''
+    'print( "Enter your age: >" )'
+    'age = int( input() )'
+    'switch age'
+    '  case 1 to 5'
+    '    printl( "You are too young to program. Maybe." )'
+    '    for x = 1 to 100'
+    '    end'
+    ''
+    '  case 6, 7, 8'
+    '    printl( "You may already be a great Falcon programmer." )'
+    '  case 9, 10'
+    '    printl( "You are ready to become a programmer." )'
+    '  default'
+    '    printl( "What are you waiting for? Start programming NOW" )'
+    'end'
+    ''
+    'class NopHash16Bytes from HashBase'
+    '  retbuf = nil'
+    '  function bytes(): return 16'
+    '  function toMemBuf(): return self.retbuf'
+    '  function process(buf)  '
+    '    innerfunc test(buf)'
+    '        //'
+    '    end'
+    '  end'
+    '  function finalize()'
+    '    //'
+    '  end'
+    'end'
+    ''
+    'if test_hashes()'
+    '    > "Hash test completed successfully"'
+    '    '
+    '  if BENCHMARK'
+    
+      '    > "\nBenchmarking...100000 runs for each algorithm and strin' +
+      'g length"'
+    
+      '    alg = .[Checksum16 CRC32 Adler32 SHA1Hash MD2Hash MD5Hash RI' +
+      'PEMD160Hash TigerHash SHA512Hash WhirlpoolHash]'
+    '    func = [ .[{ x => x.toMemBuf() } "Short MemBuf"],'
+    '             .[{ x => x.toString() } "Short strings"],'
+    '             .[{ x => x.toString() * 100 } "Long strings"] ]'
+    '  for f,desc in func'
+    '      > "\n* ", desc'
+    '      for a in alg'
+    '          astr = toString(a)'
+    '          s = nil'
+    '          for j = 0 to 100'
+    '              >> astr, ": ", j, "%\r"   '
+    '              for i = 0 to 100'
+    '                  h = a()'
+    '                  h.update(s)'
+    '                  s = f(h) // use output as new input'
+    '              end'
+    '          end'
+    '          > ""'
+    '      end'
+    '  end'
+    '  > "Benchmark complete."'
+    '  end'
+    'else'
+    '  > "Hash test FAILED!"'
+    'end')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Preprocessor'
+    'Func word'
+    'Symbol ('
+    'Symbol )'
+    'Symbol ):')
+  Extentions = 'fal'
+  LexerName = 'Falcon'
+  Notes.Strings = (
+    'Author: Shando'
+    'Changes/fixes: Alexey (CudaText)'
+    
+      'Lexer for Falcon Programming Language (http://www.falconpl.org/)' +
+      '.'
+    'This contains both the Lexer and the AutoComplete file.')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

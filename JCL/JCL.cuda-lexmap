@@ -1,0 +1,17 @@
+[map]
+Default=-
+Comment=Comment
+Symbol=Symbol
+Label=Label
+Opcode=Id
+Operands=Id1
+String=String
+Slash=String2
+Sysin section=Id2
+Sysin word=Id3
+Sysin symbol=Symbol2
+Sysin string=String3
+
+[comments]
+styles_cmt=Comment
+styles_str=String

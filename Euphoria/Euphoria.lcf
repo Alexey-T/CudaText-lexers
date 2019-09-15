@@ -1,0 +1,356 @@
+object SyntAnal59: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id Keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '--.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\(\)\.,;:\[\]\{\}=<>@\|\~\?\-\+\*/\^!&\$]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'IdEntity'
+      StyleName = 'Id Keyword'
+      TokenType = 8
+      Expression = 
+        '#must begin from line start'#13#10'^\s* (procedure | function | type) ' +
+        '\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'IdEntity end'
+      StyleName = 'Id Keyword'
+      TokenType = 9
+      Expression = '\b (procedure | function | type) \b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z][\w\d]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'NumFloat'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'NumHex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\# [\dA-F]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '" (\\"|.)*? ("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String2'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39' .*? ('#39'|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Words'
+      StyleName = 'Id Keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'by'
+            'constant'
+            'do'
+            'else'
+            'elsif'
+            'end'
+            'exit'
+            'for'
+            'function'
+            'global'
+            'if'
+            'include'
+            'not'
+            'or'
+            'procedure'
+            'return'
+            'then'
+            'to'
+            'type'
+            'while'
+            'with'
+            'without'
+            'xor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end <entity>'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 512
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin <entity>'
+      SameIdent = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin <entity>'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 256
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end <entity>'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end if'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin if'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin if'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end if'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end for'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'for')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin for'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin for'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'for')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end for'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end while'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'while')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'begin while'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin while'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'while')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end while'
+      DisplayInTree = False
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'procedure print_sorted_list()'
+    '-- generate sorted_list from list '
+    'end procedure'
+    ''
+    'print() -- must not be tree entry!'
+    ''
+    'for i = 1 to length(random) do'
+    '    num = random[i]  -- the next random number'
+    '    if remainder(num, 2) = 0 then'
+    #9'even = append(even, num) -- add number at the end'
+    '    else'
+    #9'odd = prepend(odd, num) -- add number on at the beginning'
+    '    end if'
+    'end for'
+    ''
+    'puts(#FF, "Even numbers:\n")'
+    '? even')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Preprocessor'
+    'Id Entity'
+    'Id Entiry end')
+  Extentions = 'ex exw'
+  LexerName = 'Euphoria'
+  Notes.Strings = (
+    'Author: Alex, uvviewsoft.com'
+    'Test: http://www.rapideuphoria.com')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+end

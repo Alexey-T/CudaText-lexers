@@ -1,0 +1,15 @@
+[map]
+String=String
+Comment=Comment
+Id=Id
+Id controls=Id1
+Id keyword=IdKeyword
+Preprocessor=Id3
+Number=Number
+Symbol=Symbol
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

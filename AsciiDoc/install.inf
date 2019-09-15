@@ -1,0 +1,7 @@
+[info]
+title=AsciiDoc
+type=lexer
+subdir=-
+
+[lexer1]
+file=AsciiDoc

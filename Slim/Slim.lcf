@@ -1,0 +1,272 @@
+object SyntAnal31: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'TagProp'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Str'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '('#39'|").*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1Tag'
+      StyleName = 'Tag'
+      TokenType = 6
+      Expression = '^[\x20\x09]* (</?)? \w+ >?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1TagProp'
+      StyleName = 'TagProp'
+      TokenType = 7
+      Expression = '^[\x20\x09]* [\#\.] \w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      Expression = '@\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Const'
+      StyleName = 'Var2'
+      Expression = ':\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^[\x20\x09]* / .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1Symb'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '^[\x20\x09]* [\:\.,;\-\+/\*\(\)\{\}\[\]<>=%!\#\|\?~\\@]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag'
+      StyleName = 'Tag'
+      Expression = '</? \w+ >'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symb'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\:\.,;\-\+/\*\(\)\{\}\[\]<>=%!\#\|\?~\\@]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'do'
+            'each'
+            'else'
+            'for'
+            'if'
+            'in'
+            'render'
+            'unless'
+            'yield')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block'
+      ConditionList = <
+        item
+          TokenTypes = 448
+        end>
+      EndOfTextClose = True
+      HighlightPos = cpAny
+      GroupIndex = 20
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'var'
+      StyleName = 'Var BG'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '#')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'var end'
+      DisplayInTree = False
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'var end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'doctype html'
+    ''
+    'html'
+    '  /Comment here '
+    '  /! Html comment'
+    '  head'
+    '    title Dummy'
+    '    = @var'
+    ''
+    '  body'
+    '    = yield :page_heading'
+    '    #name'
+    '      .content= yield #{varname}'
+    '     '
+    '  <body>'
+    '    - if articles.empty?'
+    '    - else'
+    '      table'
+    '        - articles.each do |a|'
+    '          <tr><td>#{a.name}</td></tr>'
+    '  </body>'
+    '')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    '1Tag'
+    '1TagProp'
+    '1Symbol')
+  Extentions = 'slim'
+  LexerName = 'Slim'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alex (Synwrite)'
+    'Doc: http://www.rubydoc.info/gems/slim/frames#Syntax_example')
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,7 @@
+[info]
+title=Boo
+type=lexer
+subdir=-
+
+[lexer1]
+file=Boo

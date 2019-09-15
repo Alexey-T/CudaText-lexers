@@ -1,0 +1,878 @@
+object SyntAnal2: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id commands'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id registers'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id directives'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id operators'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = ';.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Labels'
+      StyleName = 'Label'
+      Expression = '\w+:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '[0-9][0-9a-f]*h\b | [01]+[by]\b | [0-7]+[oq]\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+[dt]?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String2'
+      StyleName = 'String2'
+      TokenType = 4
+      Expression = 
+        '(?<=\binclude\x20).+ |'#13#10'(?<=\bincludelib\x20).+ |'#13#10'(?<=\btitle\x' +
+        '20).+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_\.]\w*\??'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39') .*? \1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\.,:\-\+\*\\/%@<>\(\)\[\]\{\}\?]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Registers'
+      StyleName = 'Id registers'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ah'
+            'al'
+            'ax'
+            'bh'
+            'bl'
+            'bp'
+            'bx'
+            'ch'
+            'cl'
+            'cs'
+            'cx'
+            'dh'
+            'di'
+            'ds'
+            'dx'
+            'eax'
+            'ebp'
+            'ebx'
+            'ecx'
+            'edi'
+            'edx'
+            'eip'
+            'es'
+            'esc'
+            'esi'
+            'esp'
+            'fs'
+            'gs'
+            'r10'
+            'r11'
+            'r12'
+            'r13'
+            'r14'
+            'r15'
+            'r8'
+            'r9'
+            'rax'
+            'rbp'
+            'rbx'
+            'rcx'
+            'rdi'
+            'rdx'
+            'rsi'
+            'rsp'
+            'si'
+            'sp'
+            'ss')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Commands'
+      StyleName = 'Id commands'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'aaa'
+            'aad'
+            'aam'
+            'aas'
+            'adc'
+            'add'
+            'and'
+            'arpl'
+            'bound'
+            'bsf'
+            'bsr'
+            'bswap'
+            'bt'
+            'btc'
+            'btr'
+            'bts'
+            'call'
+            'cbw'
+            'cdq'
+            'clc'
+            'cld'
+            'cli'
+            'clts'
+            'cmc'
+            'cmp'
+            'cmps'
+            'cmpsb'
+            'cmpsd'
+            'cmpsw'
+            'cmpxchg'
+            'cwd'
+            'cwde'
+            'daa'
+            'das'
+            'dec'
+            'div'
+            'enter'
+            'f2xm1'
+            'fabs'
+            'fadd'
+            'faddp'
+            'fbld'
+            'fbstp'
+            'fchs'
+            'fclex'
+            'fcom'
+            'fcomp'
+            'fcompp'
+            'fcos'
+            'fdecstp'
+            'fdisi'
+            'fdiv'
+            'fdivp'
+            'fdivr'
+            'fdivrp'
+            'feni'
+            'ffree'
+            'fiadd'
+            'ficom'
+            'ficomp'
+            'fidiv'
+            'fidivr'
+            'fild'
+            'fimul'
+            'fincstp'
+            'finit'
+            'fist'
+            'fistp'
+            'fisub'
+            'fisubr'
+            'fld'
+            'fld1'
+            'fldcw'
+            'fldenv'
+            'fldl2e'
+            'fldl2t'
+            'fldlg2'
+            'fldln2'
+            'fldpi'
+            'fldz'
+            'fmul'
+            'fmulp'
+            'fnclex'
+            'fndisi'
+            'fneni'
+            'fninit'
+            'fnop'
+            'fnsave'
+            'fnstcw'
+            'fnstenv'
+            'fnstsw'
+            'fpatan'
+            'fprem'
+            'fprem1'
+            'fptan'
+            'frndint'
+            'frstor'
+            'frstorw'
+            'fsave'
+            'fscale'
+            'fsetpm'
+            'fsin'
+            'fsincos'
+            'fsqrt'
+            'fst'
+            'fstcw'
+            'fstenv'
+            'fstp'
+            'fstsw'
+            'fsub'
+            'fsubp'
+            'fsubr'
+            'fsubrp'
+            'ftst'
+            'fucom'
+            'fucomp'
+            'fucompp'
+            'func'
+            'fwait'
+            'fxam'
+            'fxch'
+            'fxtract'
+            'fyl2x'
+            'fyl2xp1'
+            'hlt'
+            'idiv'
+            'imul'
+            'in'
+            'inc'
+            'insb'
+            'insd'
+            'insw'
+            'int'
+            'into'
+            'invd'
+            'invlpg'
+            'iret'
+            'iretd'
+            'ja'
+            'jae'
+            'jb'
+            'jbe'
+            'jc'
+            'jcxz'
+            'je'
+            'jecxz'
+            'jg'
+            'jge'
+            'jl'
+            'jle'
+            'jmp'
+            'jna'
+            'jnae'
+            'jnb'
+            'jnbe'
+            'jnc'
+            'jne'
+            'jng'
+            'jnge'
+            'jnl'
+            'jnle'
+            'jno'
+            'jnp'
+            'jns'
+            'jnz'
+            'jo'
+            'jp'
+            'jpe'
+            'jpo'
+            'js'
+            'jz'
+            'lahf'
+            'lar'
+            'lds'
+            'lea'
+            'leave'
+            'les'
+            'lfs'
+            'lgdt'
+            'lgs'
+            'lidt'
+            'lldt'
+            'lmsw'
+            'lock'
+            'lods'
+            'lodsb'
+            'lodsd'
+            'lodsw'
+            'loop'
+            'loopd'
+            'loopde'
+            'loopdne'
+            'loopdnz'
+            'loopdz'
+            'loope'
+            'loopne'
+            'loopnz'
+            'loopz'
+            'lsl'
+            'lss'
+            'lt'
+            'ltr'
+            'mod'
+            'mov'
+            'movs'
+            'movsb'
+            'movsd'
+            'movsw'
+            'movsx'
+            'movzx'
+            'mul'
+            'neg'
+            'nop'
+            'not'
+            'offset'
+            'or'
+            'out'
+            'outsb'
+            'outsd'
+            'outsw'
+            'pop'
+            'popa'
+            'popad'
+            'popf'
+            'popfd'
+            'push'
+            'pusha'
+            'pushad'
+            'pushf'
+            'pushfd'
+            'rcl'
+            'rcr'
+            'rep'
+            'repe'
+            'repne'
+            'repnz'
+            'rept'
+            'repz'
+            'ret'
+            'retf'
+            'retn'
+            'rol'
+            'ror'
+            'sahf'
+            'sal'
+            'sar'
+            'sbb'
+            'scas'
+            'scasb'
+            'scasd'
+            'scasw'
+            'set'
+            'seta'
+            'setae'
+            'setb'
+            'setbe'
+            'setc'
+            'sete'
+            'setg'
+            'setge'
+            'setl'
+            'setle'
+            'setna'
+            'setnae'
+            'setnb'
+            'setnbe'
+            'setnc'
+            'setne'
+            'setng'
+            'setnge'
+            'setnl'
+            'setnle'
+            'setno'
+            'setnp'
+            'setns'
+            'setnz'
+            'seto'
+            'setp'
+            'setpe'
+            'setpo'
+            'sets'
+            'setz'
+            'sgdt'
+            'shl'
+            'shld'
+            'shr'
+            'shrd'
+            'sidt'
+            'sldt'
+            'smsw'
+            'st'
+            'stc'
+            'std'
+            'sti'
+            'stos'
+            'stosb'
+            'stosd'
+            'stosw'
+            'sub'
+            'subttl'
+            'symtype'
+            'test'
+            'verr'
+            'verw'
+            'wait'
+            'wbinvd'
+            'width'
+            'xadd'
+            'xchg'
+            'xlat'
+            'xor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Operators'
+      StyleName = 'Id operators'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.TYPE'
+            'CARRY?'
+            'DUP'
+            'EQ'
+            'GE'
+            'GT'
+            'HIGH'
+            'HIGH32'
+            'HIGHWORD'
+            'IMAGEREL'
+            'LE'
+            'LENGTH'
+            'LENGTHOF'
+            'LOW'
+            'LOW32'
+            'LOWWORD'
+            'LROFFSET'
+            'LT'
+            'MASK'
+            'NE'
+            'OFFSET'
+            'OPATTR'
+            'OVERFLOW?'
+            'PARITY?'
+            'PTR'
+            'SECTIONREL'
+            'SEG'
+            'SHORT'
+            'SIGN?'
+            'SIZE'
+            'SIZEOF'
+            'THIS'
+            'Type'
+            'TYPE'
+            'WIDTH'
+            'ZERO?')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Directives'
+      StyleName = 'Id directives'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.386'
+            '.386P'
+            '.387'
+            '.486'
+            '.486P'
+            '.586'
+            '.586P'
+            '.686'
+            '.686P'
+            '.ALLOCSTACK'
+            '.BREAK'
+            '.CONTINUE'
+            '.CREF'
+            '.ELSE'
+            '.ELSEIF'
+            '.ENDIF'
+            '.ENDPROLOG'
+            '.ENDW'
+            '.ERR'
+            '.ERR2'
+            '.ERRB'
+            '.ERRDEF'
+            '.ERRDIF'
+            '.ERRE'
+            '.ERRIDN'
+            '.ERRNB'
+            '.ERRNDEF'
+            '.ERRNZ'
+            '.FPO'
+            '.IF'
+            '.K3D'
+            '.LIST'
+            '.LISTALL'
+            '.LISTIF'
+            '.LISTMACRO'
+            '.LISTMACROALL'
+            '.MMX'
+            '.NOCREF'
+            '.NOLIST'
+            '.NOLISTIF'
+            '.NOLISTMACRO'
+            '.PUSHFRAME'
+            '.PUSHREG'
+            '.RADIX'
+            '.REPEAT'
+            '.SAFESEH'
+            '.SAVEREG'
+            '.SAVEXMM128'
+            '.SETFRAME'
+            '.TFCOND'
+            '.UNTIL'
+            '.UNTILCXZ'
+            '.WHILE'
+            '.XMM'
+            '='
+            'ALIAS'
+            'ALIGN'
+            'ASSUME'
+            'BYTE'
+            'CATSTR'
+            'COMM'
+            'COMMENT'
+            'DWORD'
+            'ECHO'
+            'ELSE'
+            'ELSEIF'
+            'ELSEIF2'
+            'END'
+            'ENDM'
+            'ENDP'
+            'ENDS'
+            'EQU'
+            'EVEN'
+            'EXIT'
+            'EXITM'
+            'EXTERN'
+            'EXTERNDEF'
+            'FOR'
+            'FORC'
+            'FWORD'
+            'GOTO'
+            'IF'
+            'IF2'
+            'IFB'
+            'IFDEF'
+            'IFDIF'
+            'IFE'
+            'IFIDN'
+            'IFNB'
+            'IFNDEF'
+            'INCLUDE'
+            'INCLUDELIB'
+            'INSTR'
+            'INVOKE'
+            'LABEL'
+            'LOCAL'
+            'MACRO'
+            'MMWORD'
+            'OPTION'
+            'ORG'
+            'PAGE'
+            'POPCONTEXT'
+            'PROC'
+            'PROTO'
+            'PUBLIC'
+            'PURGE'
+            'PUSHCONTEXT'
+            'QWORD'
+            'REAL10'
+            'REAL4'
+            'REAL8'
+            'RECORD'
+            'REPEAT'
+            'SBYTE'
+            'SDWORD'
+            'SIZESTR'
+            'STRUCT'
+            'SUBSTR'
+            'SUBTITLE'
+            'SWORD'
+            'TBYTE'
+            'TEXTEQU'
+            'TITLE'
+            'TYPEDEF'
+            'UNION'
+            'WHILE'
+            'WORD'
+            'XMMWORD'
+            'YMMWORD')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Directives segmentation'
+      StyleName = 'Id directives'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.ALPHA'
+            '.CODE'
+            '.CONST'
+            '.DATA'
+            '.DATA?'
+            '.DOSSEG'
+            '.EXIT'
+            '.FARDATA'
+            '.FARDATA?'
+            '.MODEL'
+            '.SEQ'
+            '.STACK'
+            '.STARTUP'
+            'ASSUME'
+            'END'
+            'ENDS'
+            'GROUP'
+            'SEGMENT')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'TypeDef'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'byte'
+            'db'
+            'dd'
+            'dq'
+            'dt'
+            'dw'
+            'dword'
+            'equ'
+            'far'
+            'near'
+            'org'
+            'ptr'
+            'qword'
+            'short'
+            'tbyte'
+            'word')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Macro begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'macro')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TokenTypes = 4
+        end>
+      BlockEnd = 'Macro end'
+      NameFmt = 'macro %s0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = 'macro %s0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Macro end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endm')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '.386 ; Comment'
+    '.model flat, stdcall'
+    'option casemap :none'
+    ''
+    'title Title'
+    'include <\masm32\include\kernel32.inc>'
+    'includelib <\masm32\lib\kernel32.lib>'
+    ''
+    #39'Test'#39', "Test", 0011b, 01y, 20o, 20q, 20d, 20t, 0Fh, ax, ecx'
+    ''
+    'HelloWord MACRO var1, var2, var3'
+    '   add ax, cx'
+    '   mov hConsoleOutput, eax'
+    
+      '   invoke WriteConsoleA, hConsoleOutput, var1, var2 msg1, ADDR N' +
+      'umberOfChars, 0'
+    'ENDM'
+    ''
+    '.data'
+    'NumberOfChars DWORD ?'
+    'msg1 byte "Hello, World!", 0'
+    ''
+    '.code'
+    'start:'
+    'HelloWord addr msg1, sizeof, invoke AllocConsole'
+    '.while 1'
+    '.endw'
+    ''
+    'invoke ExitProcess, 0'
+    'end start')
+  TokenTypeNames.Strings = (
+    'Label'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number')
+  Extentions = 'asm'
+  LexerName = 'Assembly MASM x86'
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  LineComment = ';'
+  Charset = DEFAULT_CHARSET
+end

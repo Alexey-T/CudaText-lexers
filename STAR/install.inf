@@ -1,0 +1,7 @@
+[info]
+title=STAR
+type=lexer-lite
+subdir=-
+
+[lexer1]
+file=STAR

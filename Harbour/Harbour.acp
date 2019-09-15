@@ -1,0 +1,1020 @@
+#chars #*@
+
+Function AAdd( <aArray>[, <xValue>] ) --> Value | Dynamically add an element to an array
+Function Abs( <nNumber> ) --> <nAbsNumber> | Return the absolute value of a number.
+Function AChoice( <nTop>, <nLeft>, <nBottom>, <nRight>, <acMenuItems>, [<alSelableItems>  OR  <lSelableItems>], [<cUserFunction> | <bUserBlock>], [<nInitialItem>], [<nWindowRow>] ) --> nPosition | Allows selection of an element from an array
+Function AClone( <aSource> ) --> aDuplicate | Duplicate a  multidimensional array
+Function ACopy( <aSource>, <aTarget>, [<nStart>], [<nCount>], [<nTargetPos>] ) --> aTarget | Copy elements from one array to another
+Function Acos( nCosine ) -> nRadiant | Arcus cosine of the argument
+Function AddAscii( <[@]cString>, <nValue>, [<nPosition>], [<lCarryOver>] ) --> cString | Add an integer value to an ascii value of a string
+Function AddMonth( [<dDate>,] <nMonths> ) -> dShiftedDate | add months to a date
+Function ADel( <aArray>, <nPos> ) --> aTarget | Delete an element form an array.
+Function ADir( [<cFileMask>], [<aName>], [<aSize>], [<aDate>],[<aTime>], [<aAttr>] ) --> nDirEnries | Fill pre-defined arrays with file/directory information
+Function AEval( <aArray>, <bBlock>, [<nStart>], [<nCount>] ) --> aArray | Evaluates the subscript element of an array
+Function AFields( <aNames>, [<aTypes>], [<aLen>], [<aDecs>] ) --> <nFields> | Fills referenced arrays with database field information
+Function AFill( <aArray>, <xValue>, [<nStart>], [<nCount>] ) --> aTarget | Fill an array with a specified value
+Function AfterAtNum( <cStringToMatch>, <cString>, [<nCounter>],[<nIgnore>] ) --> cRestString | Returns string portion after nth occurence of substring
+Function AIns( <aArray>, <nPos> ) --> aTarget | Insert a NIL value at an array subscript position.
+
+Function ALENALLOC( <aArray> ) --> nElements | Determines for how much array elements memory is pre-allocated.
+
+Function Alert( <xMessage>, [<aOptions>], [<cColorNorm>], [<nDelay>] ) --> nChoice or NIL | Display a dialog box with a message
+Function Alias( [<nWorkArea>] ) --> <cWorkArea> | Returns the alias name of a work area
+Function AllTrim( <cString> ) --> cExpression | Removes leading and trailing blank spaces from a string
+
+Function ALTD( [<nAction>] ) | Invoke the CA-Clipper debugger ( Library:RTL )
+Function AMPM( <cTime> ) --> cFormattedTime | Converts a time string into am/pm format.
+Function ANSITOHTML( <cAnsiString> ) --> cHtmlString | Inserts HTML character entities into an ANSI text string
+
+Function Array( <nElements> [, <nElements>...] ) --> aArray | Create an uninitialized array of specified length
+Function Asc( <cCharacter> ) --> nAscNumber | Returns the ASCII value of a character
+Function AScan( <aTarget>, <xSearch>, [<nStart>], [<nCount>] ) --> nStoppedAt | Scan array elements for a specified condition
+Function AsciiSum( <cString> ) --> nAsciiSum | calculate the sum of the ASCII values of the characters in a string
+Function AscPos( <cString>, [<nPosition>] ) --> nAsciiValue | ASCII value of a character at a certain position
+Function Asin( nSine ) -> nRadiant | Arcus sine of the argument
+
+Function ASize( <aArray>, <nLen> ) --> aTarget | Adjust the size of an array
+Function Asizealloc( <aArray>, <nCount>  ) --> aArray | Pre-allocates memory for an array.
+Function ASort( <aArray>, [<nStart>], [<nCount>], [<bSort>] ) --> aArray | Sort an array
+Function At( <cSearch>, <cString> ) --> nPos | Locates the position of a substring in a main string.
+Function AtAdjust( <cStringToMatch>, <cString>, <nAdjustPosition>,[<nCounter>], [<nIgnore>],[<nFillChar OR cFillChar>] ) -> cString | Adjusts a sequence within a string to a specified position
+Function ATail( <aArray> ) --> Element | Returns the rightmost element of an array
+Function Atan( <nRadians> ) --> nArcTangent | Calculates the arc tangent.
+Function Atn2( nSine, nCosine ) -> nRadiant | Arcus tangent a sine and a cosine argument
+Function ATNUM (<cStringToMatch>, <cString>, [<nCounter>],[<nIgnore>] ) --> nPosition | Returns the start position of the nth occurence of a substring in a string
+Function AtRepl( <cStringToMatch>, <cString>, <cReplacement>, [<nCounter>],[<lMode>], [<nIgnore>] ) --> cString | Search and replace sequences in a string
+Function ATSKIPSTRINGS( <cSearch>, <cString> ) --> nPos | Locates the position of a substring within a character string. 
+
+Function AtToken( <cString>, [<cTokenizer>],[<nTokenCount>], [<nSkipWidth>] ) -> nPosition | Position of a token in a string
+
+Function BeforAtNum( <cStringToMatch>, <cString>, [<nCounter>],[<nIgnore>] ) --> cRestString | Returns string portion before nth occurence of substring
+Function Bin2I( <cBuffer> ) --> nNumber | Convert signed short encoded bytes into Harbour numeric
+Function Bin2L( <cBuffer> ) --> nNumber | Convert signed long encoded bytes into Harbour numeric
+Function Bin2U( <cBuffer> ) --> nNumber | Convert unsigned long encoded bytes into Harbour numeric
+Function Bin2W( <cBuffer> ) --> nNumber | Convert unsigned short encoded bytes into Harbour numeric
+Function BitToC( <nInteger>, <cBitPattern>[, <lMode>] ) -> <cBitString> | 
+
+Function BLANK( <xValue>, [<lSpaces>] ) --> xEmptyValue | Returns empty values for the data types A, C, D, L, M and N.
+Function BLOBDIRECTEXPO( <nBlobID>, <cTargetFile>, [<nMode>] ) --> lSuccess| Export the contents of a BLOB pointer to a file ( Library:RTL )
+Function BLOBDIRECTGET( <nBlobID>, [<nStart>], [<nCount>] ) --> xBlobData| Retrieve data from a BLOB file without referencing a field ( Library:RTL )
+Function BLOBDIRECTIMP( <nOldBlobID>, <cSourceFile> ) --> nNewBlobID| Import a file into a BLOB file and return pointer to the data ( Library:RTL )
+Function BLOBDIRECTPUT( <nOldblobID>, <xBlobData> ) --> nNewblobID | Put data in a BLOB file without referencing a specific field ( Library:RTL )
+Function BLOBEXPORT( <nFieldPos>, <cTargetFile>, [<nMode>] ) --> lSuccess | Copy the contents of a memo field number to a BLOB file ( Library:RTL )
+Function BLOBGET( <nFieldPos>, [<nStart>], [<nCount>] ) --> xBlobData | Get the contents of a BLOB, identified by memo field number ( Library:RTL )
+Function BLOBIMPORT( <nFieldPos>, <cSourceFile> ) --> lSuccess   | Read the contents of a BLOB file into a memo field ( Library:RTL )
+Function BLOBROOTDELETE() --> lSuccess |Deleted the root area of a BLOB file ( Library:RTL )
+Function BLOBROOTGET() --> xBlobData | Retrieve the data from the root area of a BLOB file  ( Library:RTL )
+Function BLOBROOTLOCK() --> lSuccess | Obtain a lock on the root area of a BLOB file ( Library:RTL )
+Function BLOBROOTPUT() --> lSuccess | Store data in the root area of a BLOB file ( Library:RTL )
+Function BLOBROOTUNLOC() | Release the lock on a BLOB file's root area ( Library:RTL )
+
+Function Bof() --> <lBegin> | Test for the beginning-of-file condition
+Function BoM( [<dDate>] ) -> dDateBeginOfMonth | _B_egin _O_f _M_onth
+Function BoQ( [<dDate>] ) -> dDateBeginOfQuarter | _B_egin _O_f _Q_uarter
+Function BoY( [<dDate>] ) -> dDateBeginOfYear | _B_egin _O_f _Y_ear
+
+Function BREAK()        | Branch out of a BEGIN SEQUENCE...END construct ( Library:RTL )
+
+Function Browse( [<nTop>, <nLeft>, <nBottom>, <nRight>] ) --> lOk | Browse a database file
+
+Function CDoW( <dDate> ) --> cDay | Converts a date to the day of week
+Function Ceiling( <nNumber> ) -> nUpRoundedNumber | Rounds up a number to the next integer
+Function Celsius( nDegreeFahrenheit ) --> nDegreeCelsius | Temperature conversion Fahrenheit to Celsius
+
+Function CENTER( <cString>, [<nLength>], [<cPadChar>], [<lBothSides>] ) --> cCenteredString | Returns a string for centered display
+
+Function CharAdd( <[@]cString1>, <cString2> ) --> cAddString | Adds corresponding ASCII value of two strings
+Function CharAnd( <[@]cString1>, <cString2> ) --> cAndString | Combine corresponding ASCII value of two strings with bitwise AND
+Function CharEven( <cString> ) --> cEvenString | Returns the characters on the even positions in a string
+Function CharHist( [<cString>] ) -> aCharacterCount | Generates a character histogram of a string
+Function CharList( [<cString>] ) -> cCharacterList | Generates a list of all characters in a string
+Function CharMirr( <[@]cString>, [<lDontMirrorSpaces>] ) -> cMirroredString | Mirror a string
+Function CharMix( <cString1>[, <cString2>] ) --> cMixedString | Mix two strings
+Function CharNoList( [<cString>] ) -> cCharacterList | Generates a list of all characters not contained in a string
+Function CharNot( <[@]cString> ) --> cNotString | Process each character in a string with bitwise NOT operation
+Function CharOdd( <cString> ) --> cOddString | Returns the characters on the odd positions in a string
+Function CharOne( [<cCharactersToReduce>,] <cString> ) -> cReducedString | Reduce multiple occurences of a character to one
+Function CharOnly( <cThisCharactersOnly>, <cString> ) -> cReducedString | Intersectional set of two strings based on characters
+Function CharOr( <[@]cString1>, <cString2> ) --> cOrString | Combine corresponding ASCII value of two strings with bitwise OR
+Function CharPix() --> nHeight | Gets the number of scan lines per character.
+
+Function CHARPACK( <cString> ) --> cCompressed | Compresses a string. 
+
+Function CharRelA( <cStringToMatch1>, <cString1>,<cStringToMatch2>, <cString2> ) -> nPosition | Character relation of two strings
+Function CharRelRep( <cStringToMatch1>, <cString1>,<cStringToMatch2>, <[@]cString2>,<cReplacement> ) -> cString | Relation dependant character replacement
+Function CharRem( <cDeleteThisCharacters>, <cString> ) -> cReducedString | Removes characters from a string
+Function CharRepl( <cSearchString>, <[@]cString>,<cReplaceString>, [<lMode>] ) -> cString | Replacement of characters
+Function CharRll( <[@]cString>, <nBitsToRLL> ) --> cRLLString | Process each character in a string with bitwise ROLL LEFT operation
+Function CharRlr( <[@]cString>, <nBitsToRLR> ) --> cRLRString | Process each character in a string with bitwise ROLL RIGHT operation
+Function CharShl( <[@]cString>, <nBitsToSHL> ) --> cSHLString | Process each character in a string with bitwise SHIFT LEFT operation
+Function CharShr( <[@]cString>, <nBitsToSHR> ) --> cSHRString | Process each character in a string with bitwise SHIFT RIGHT operation
+Function CharSList( [<cString>] ) -> cSortedCharacterList | Generates a sorted list of all characters in a string
+Function CharSort( <[@]cString>, [<nElementLength>], [<nCompareLength>],[<nIgnoreCharacters>], [<nElemenOffset>], [<nSortLength>],[<lDescending>] ) -> cSortedString | Sort sequences within a string.
+
+Function CHARSPREAD( <cString>, <nLineLen>, [<xInsChar>]  ) --> cResult | Formats a character string for block paragraphs. 
+
+Function CharSub( <[@]cString1>, <cString2>) --> cSubString | Subtracts corresponding ASCII value of two strings
+Function CharSwap( <[@]cString> ) -> cSwappedString | Swap neighbouring characters in a string
+
+Function CHARUNPACK( <cCompressed> ) --> cUncompressed | Uncompresses a CharPack() compressed string.
+
+Function CharWin( <nTop>, <nLeft>, <nBottom>, <nRight>, [<cNewChar OR nNewChar>],[<cOldChar|nOldChar>] ) --> <cEmptyString> | 
+Function CharXor( <[@]cString1>, <cString2> ) --> cXOrString | Combine corresponding ASCII value of two strings with bitwise XOR
+
+Function CHECKSUM( <cString> ) --> nCheckSum | Calculates the checksum for a character string. 
+
+Function Chr( <nAsciiNum> ) --> cReturn | Converts an ASCII value to it character value
+Function CLIPINIT() --> NIL | Initialize various Harbour sub-systems
+
+Function CLEARBIT( <nInteger> OR <cHex>,[<nBitPos,...>]) --> nNewValue | Sets one or more bits of a numeric integer value to 0. 
+Function CLEAREOL( [<nRow>], [<nCol>], [<xColor>], [<xChar>] ) | Clears a row on the screen beginning at a specified position. 
+Function CLEARSLOW( <nDelay>, [<nTop>], [<nLeft>], [<nBottom>], [<nRight>], [<xChar>] ) | Clears a screen area incrementally with a delayed imploding effect. 
+Function CLEARWIN( [<nTop>], [<nLeft>], [<nBottom>], [<nRight>],  [<xColor>], [<xChar>] ) | Clears all or parts of the screen.  
+Function CLEOL( [<nRow>], [<nCol>] ) | Clears characters and colors in a row on the screen. 
+Function CLWIN( [<nTop>], [<nLeft>], [<nBottom>], [<nRight>] ) | Clears characters and colors on the screen.   
+
+Function CMonth( <dDate> ) --> cMonth | Return the name of the month.
+Function Col() --> nPosition | Returns the current screen column position
+Function ColorRepl( [<cNewAttr OR nNewAttr>], [<cOldAttr|nOldAttr>] ) --> cNull | 
+
+Function COLORSELECT( <nColorIndex> )  | Activate attribute in current color settings. ( Library:RTL )
+
+Function ColorToN( <cAttr> ) -> <nAttr> | 
+
+Function ColorWin( [<nTopLine>], [<nLeftCol>], [<nBottomLine>], [<nRightCol>],[<cNewAttr OR nNewAttr>], [<cOldAttr|nOldAttr>] ) --> cNull | 
+
+Function COMPLEMENT( <xValue> ) --> xComplement | Creates the complement for values of data type C, D, L, M, N 
+Function CONVTOANSICP( <cOEM_String> ) --> cANSI_String | Converts an OEM string to the ANSI character set. 
+Function CONVTOOEMCP( <cANSI_String> ) --> cOEM_String | Converts an ANSI string to the OEM character set. 
+
+Function Cos( nRadiant ) -> nCosine | Cosine of the argument
+Function Cosh( nArea ) -> nHyperbolicCosine | Hyperbolic Cosine of the argument
+Function Cot( nRadiant ) -> nCotangent | Cotangent of the argument
+
+Function COUNTGETS() --> nGetCount | Returns the number of Get fields in the current Getlist array. 
+
+Function CountLeft( <cString>, [<cSearch OR nSearch>] ) -> nCount | Count a certain character at the beginning of a string
+Function CountRight( <cString>, [<cSearch OR nSearch>] ) -> nCount | Count a certain character at the end of a string
+
+Function CREATEOBJECT( <cProgID> ) --> oOleAuto | Instantiates a new OLE Automation object. 
+Function CRYPT( <cString>, <cPassWord> ) --> cResult | Encrypts or decrypts a character string. 
+Function CSETATMUPA( [<lNewMode>] ) --> lOldMode |Queries or changes the multi-pass mode for At***() functions. 
+
+Function CSetArgErr( [<nNewMode>] ) -> <nOldMode> | Sets argument error behaviour
+
+Function CSETCENT( [<lNewMode>] ) --> lOldMode | Queries or changes the SET CENTURY setting. 
+Function CSETCURS( [<lNewMode>] ) --> lOldMode | Queries or changes the SET CURSOR setting.          
+Function CSETKEY( <nKey> ) --> bCodeBlock |Retrieves the code block associated with a key.
+Function CSetAtMupa( [<lNewSwitch>] ) -> lOldSwitch | Determine "multi-pass" behaviour in some string functions
+Function CSetRef( [<lNewSwitch>] ) -> lOldSwitch | Determine return value of reference sensitive CT3 string functions
+
+
+Function CSETSAFETY( [<lNewMode>] ) --> lOldMode | Retrieves and/or changes the safety switch used in CA-Tools file operations. 
+Function CSTR( <xValue> ) --> cString | Converts a value to a character string. 
+Function CSTRTOVAL( <cString>, <cValtype> ) --> xValue | Converts a character string to a value of specific data type. 
+Function CToBit( <cBitString>, <cBitPattern> ) -> <nWord> | 
+Function CToD( <cDateString> ) --> dDate | Converts a character string to a date expression
+Function CToDoW( <cName> ) -> nOrdinal | convert name of day of the week to its ordinal number
+Function CToF( <cFloatingPointNumber> ) --> nFloatingPointNumber | 
+Function CToMonth( <cName> ) -> nOrdinal | convert name of month to its ordinal number
+Function CToN( <xNumber>[, <nBase>][, <lMode>] ) -> <nNumber> | 
+Function CTOT( <cDateTimeString> ) --> dDateTime | Converts a character string into a DateTime value 
+
+Function CurDir( [<cDrive>] ) --> cPath | Returns the current OS directory name.
+
+Function CURDIRX( [<cDrive>] ) --> cDirPath | Returns the current directory of a drive including directory separators. 
+Function CURDRIVE( [<cNewDrive>] ) --> cOldDrive | Determines or changes the current disk drive
+Function CURRENTGET() --> nCurrentGetPos | Returns the position of the current Get field in the Getlist array. 
+
+Function Date() --> dCurDate | Return the Current OS Date
+
+Function DATETIME() --> dDateTime | Returns the current date and time from the operating system.( Library:RTL )
+
+Function Day( <cDate> ) --> nMonth | Return the numeric day of the month.
+Function Days( <nSecs> ) --> nDay | Convert elapsed seconds into days
+Function DAYSINMONTH (<nMonth>, <lLeapYear>) -> nDaysInMonth | Returns the number of days in month
+Function DaysToMonth( <nMonth>, <lLeapYear> ) -> nDaysToMonth | Total number of days from first of Jan to beginning of nMonth.
+Function dbAppend( [<lLock>] ) --> NIL | Appends a new record to a database file.
+Function DBCLEARFIL()   | Clear a filter condition. ( Library:RTL )
+Function dbClearFilter() --> NIL | Clears the current filter condiction in a work area
+Function DBCLEARIND()   | Close all indexes for the current work area. ( Library:RTL )
+Function DBCLEARREL()   | Clear active relations. ( Library:RTL )
+Function dbCloseAll() --> NIL | Close all open files in all work areas.
+
+Function DBCLOSEAREA()  | Close a work area. ( Library:RTL )
+Function DBCOMMIT()     | Flush pending updates. ( Library:RTL )
+Function DBCOMMITALL()  | Flush pending updates in all work areas. ( Library:RTL )
+Function DBCOPYEXTSTRUCT( <cDatabaseExt> ) --> lSuccess | Creates a structure extended database file. 
+Function DBCOPYSTRUCT( <cDatabase>, [<aFieldList>] ) | Creates a new database based on the current database structure. 
+Function DBCREATE(<cDatabase>,<aStructure>,[<cDriver>],[<lNewArea>],[<cAlias>]     ) | Create a database file from a database structure array. ( Library:RTL )
+Function DBCREATEIND(<cIndexFile>, <cIndexExpr>, [<bIndexExpr>], [<lUnique>], [<cIndexName>]  )  | Create an index file. ( Library:RTL )
+Function DBDELETE()     | Mark a record for deletion. ( Library:RTL )
+Function DBEDIT([<nTop>], [<nLeft>], [<nBottom>], [<nRight>], [<aColumns>], [<bcUserFunc>], [<xSayPictures>], [<xColumnHeaders>], [<xHeadingSep>], [<xColumnSep>], [<xFootingSep>], [<xColumnFootings>],[<xColumnPreBlock>],[<xColumnPostBlock>])| Browse records in a table layout. ( Library:RTL )
+Function DBEVAL( <bBlock>, [<bForCondition>], [<bWhileCondition>], [<nNextRecords>],[<nRecord>],[<lRest>] ) | Evaluate code block for each record matching scope/condition. ( Library:RTL )
+Function DBF() *--> <cAliasName> | Return current alias name. ( Library:RTL )
+Function DBFIELDINFO( <nInfo>, <nFieldPos> ) --> xFieldInfo | Return and optionally change information about a field. ( Library:RTL )
+Function DBFILEGET( <nFieldPos>, <cTargetFile>, <nMode> ) --> lSuccess | Insert the contents of a field into a file. ( Library:RTL )
+Function DBFILEPUT( <nFieldPos>, <cSourceFile> [,<Mode>] ) --> lSuccess | Insert the contents of a file into a field. ( Library:RTL )
+Function DBFILTER() --> cFilter | Return the current filter expression as a character string. ( Library:RTL )
+Function DBFSIZE() --> nFileSize | Returns the size of a database file in memory that is opened in a workarea.  
+Function DBGOBOTTOM()   | Move to the last logical record. ( Library:RTL )
+Function DBGOTO( <xRecno> )       | Position record pointer to a specific identity. ( Library:RTL )
+Function DBGOTOP()      | Move to the first logical record. ( Library:RTL )
+Function DBINFO( <nDefine>, [<xNewSetting>] ) --> xCurrentSetting | Return and optionally change database file information. ( Library:RTL )
+Function DBORDERINFO( <nDefine>, [<cIndexFile>], [<nOrder> OR <cIndexName>], [<xNewSetting>] ) --> xCurrentSetting | Return and optionally change order and index file information. ( Library:RTL )
+Function DBRECALL()     | Reinstate a record marked for deletion. ( Library:RTL )
+Function DBRECORDINFO( <nDefine>, [<nRecord>], [<xNewSetting>] ) --> xOldSetting  | Return and optionally change information about a record. ( Library:RTL )
+Function DBREINDEX()    | Recreate all active indexes for the current work area. ( Library:RTL )
+Function DBRELATION( <nRelation> ) --> cLinkExpression | Return the linking expression of a specified relation. ( Library:RTL )
+Function DBRLOCK( [<xRecno>] ) --> lSuccess | Lock the record at the current or specified identity. ( Library:RTL )
+Function DBRLOCKLIST() --> aLockedRecords | Return an array of the current lock list. ( Library:RTL )
+Function DBRSELECT( <nRelation> ) --> nWorkArea | Return the target work area number of a relation. ( Library:RTL )
+Function DBRUNLOCK(  [<xRecno>] ) | Release all or specified record locks. ( Library:RTL )
+Function DBSEEK( <xValue>, [<lSoftSeek>], [<lFindLast>] ) --> lFound | Move to the record having the specified key value. ( Library:RTL )
+Function DBSELECTAREA( <cAlias> | <nWorkArea> ) | Change the current work area. ( Library:RTL )
+Function DBSETDRIVER( [<cRddName>] ) --> cPreviousRDD | Return the database driver and optionally set a new driver
+Function DBSETFILTER( <bFilter>, [<cFilter>] )  | Set a filter condition. ( Library:RTL )
+Function DBSETINDEX( <cIndexFile> )   | Empty orders from an order bag into the order list. ( Library:RTL )
+Function DBSETORDER( <nIndexPos> )   | Set the controlling order. ( Library:RTL )
+Function DBSETRELATION( <nArea> OR <cAlias>, <bRelation>, <cRelation>, [<lScoped>] ) | Relate two work areas. ( Library:RTL )
+Function DBSKIP( [<nRecords>] )       | Move relative to the current record. ( Library:RTL )
+Function DBSKIPPER( <nSkipRequest> ) --> nSkipResult | Helper function for browse objects to skip a database. ( Library:RTL )
+Function DBSORT( <cDatabase>, <aFields>, [<bFor>], [<bWhile>], [<nNext>], [<nRecord>], [<lRest>] ) --> lSuccess | Creates a new, physically sorted database. ( Library:RTL ) 
+Function DBSTRUCT() --> aStructure | Create an array containing the structure of a database file. ( Library:RTL )
+Function DBTABLEEXT() --> cFileExtension | Retrieves the default database file extension of the current RDD. 
+Function DBUNLOCK()     | Release all locks for the current work area. ( Library:RTL )
+Function DBUNLOCKALL()  | Release all locks for all work areas. ( Library:RTL )
+Function DBUPDATE( <cAlias>, <bReplace>, <bExpression>, [<lRandom>] ) --> lSuccess | Updates records in the current work area from a second work area. 
+Function DBUSEAREA( [<lNewArea>], [<cRddName>], <cDatabase>,[<cAlias>], [<lShared>], [<lReadonly>],[<cCodePage>],[<nConnection>] ) | Use a database file in a work area.( Library:RTL )
+Function DEFAULT( @<varName>, <xDefaultValue> ) | Assigns a default value to a variable. 
+Function DEFPATH() --> cDefaultPath | Returns the SET DEFAULT directory.
+
+Function Deleted() --> lDeleted | Tests the record's deletion flag.
+
+Function DELETEFILE( <cFileName> ) --> nErrorCode | Deletes a file with error handling. 
+
+Function Descend( <xExp> ) --> xExpInverted | Inverts an expression of string, logical, date or numeric type.
+
+Function DEVOUT( <expression>, [<cColorString>], [<nRow>, <nCol>] )| Write a value to the current device. ( Library:RTL )
+Function DEVOUTPICT( <expression>, <cPicture> [,<cColorString>]    | Write a value to the current device using a picture clause
+Function DEVPOS( <nRow>, <nCol> ) | Move the cursor or printhead to a new position. ( Library:RTL )
+
+Function DirChange( <cDirectory> ) --> nError | Changes the directory
+
+Function DIRECTORY(  <cDirSpec>, [<cAttributes>] ) --> aDirectory | Create an array of directory and file information. ( Library:RTL )
+Function DIRECTORYRECURSE( <cDirSpec>, [<cAttributes>] ) --> aDirectory | Loads file information recursively into a two-dimensional array. 
+Function DIRMAKE( <cDirectory> ) --> nErrorCode | Create a directory
+Function DIRNAME() --> cDirectory | Returns the current directory.
+
+Function DirRemove( <cDirectory> ) --> nError | Attempt to remove an directory
+
+Function DISABLEWAITLOCKS( [<lNewMode>] ) --> lOldMode | Toggles the exclusive file opening mode.  
+Function DISKCHANGE( <cDrive> ) --> lSuccess | Change the current DOS disk drive
+Function DISKFREE( [<cDrive>] ) --> nFreeDiskSpace | Returns the free storage space of a disk drive in bytes. 
+Function DISKNAME() --> cDrive| Return the current DOS drive
+Function DISKREADY( [<cDrive>], [<lOSErrorMsg>] ) --> lDriveIsReady | Test if a disk drive is ready.
+Function DISKREADYW( [<cDrive>], [<lOSErrorMsg>] ) --> lIsWriteable | Tests if a drive can be written to. 
+
+Function DiskSpace( [<nDrive>] ) --> nDiskbytes | Get the amount of space available on a disk
+Function DMY( [<dDate>] ) -> nDayOfYear | Determines the day of the year for a specific date
+Function DMY( [<dDate>][, <lMode>] ) -> cDateString | Returns the date as a string in DD Month YY format
+
+
+Function DISKTOTAL( [<cDrive>] ) --> nTotalBytes | Returns the totl storage space of a disk drive in bytes. 
+Function DISKUSED( [<cDrive>] ) --> nUsedDiskSpace | Returns the used storage space of a disk drive in bytes.  
+Function DISPBEGIN()    | Begin buffering screen output. ( Library:RTL )
+Function DISPBOX( <nTop>, <nLeft>, <nBottom>, <nRight>, [<cnBoxString>], [<cColor>] | Display a box on the screen. ( Library:RTL )
+Function DISPCOUNT() --> nDispCount    | Return the number of pending DISPEND() requests
+Function DISPEND()      | Display buffered screen updates. ( Library:RTL )
+Function DISPOUT( <expression>, [<cColor>] )    | Write a value to the dislay.( Library:RTL )
+Function DISPOUTAT( <nRow>, <nCol>, <expression>, [<cColor>], [<lSetPos>] ) | Displays a value on the screen at a certain position.( Library:RTL )
+Function DISPOUTATSETPOS( [<lNewSetting>] ) --> lOldSetting | Toggles update of the screen cursor with DispOutAt(). ( Library:RTL ) 
+
+Function Do( <xFuncProc> [, <xArguments...>] ) --> <xRetVal> | Calls a procedure or a function
+
+Function DOSERROR( [<nNewErrorCode>] ) --> nOsErrorCode | Return the last DOS error number. ( Library:RTL )
+Function DOSPARAM() --> cCommandLine | Returns the command line parameters passed to an application. ( Library:RTL )
+
+Function DoW( <dDate> ) --> nDay | Value for the day of week.
+
+
+Function DOY( [<dDate>] ) --> nDayOfYear | Returns the day number of a Date value in a year. 
+Function DRIVETYPE( [<cDrive>] ) --> nDriveType | Determines the type of a drive. 
+
+Function DToC( <dDateString> ) --> cDate | Date to character conversion
+Function DToR( nDegree ) -> nRadiant | Convert degree to radiant
+Function DToS( <dDateString> ) --> cDate | Date to string conversion
+
+Function ElapTime( <cStartTime>, <cEndTime> ) --> cDiference | Calculates elapted time.
+Function Empty( <xExp> ) --> lIsEmpty | Checks if the passed argument is empty.
+Function Enhanced() -> <cEmptyString> | Select the "ENHANCED" color value for output
+Function Eof() --> <lEnd> | Test for end-of-file condition.
+Function EoM( [<dDate>] ) -> dDateEndOfMonth | _E_nd _O_f _M_onth
+Function EoQ( [<dDate>] ) -> dDateEndOfQuarter | _E_nd _O_f _Q_uarter
+Function EoY( [<dDate>] ) -> dDateEndOfYear | _E_nd _O_f _Y_ear
+
+Function ERRORBLOCK([<bErrorBlock>] ) --> bLastErrorBlock   | Post a code block to execute when a runtime error occurs
+Function ERRORLEVEL( [<cSubSystem>  ], [<nGenCode>], [<nSubCode>], [<cOperation>], [<cDescription>], [ <aArgs> ], [<cModuleName> ], [<cProcName>], [<nProcLine>] ) | Set the CA-Clipper return code. ( Library:RTL )
+
+Function ErrorSys() --> NIL | Install default error handler
+Function Eval( <bBlock> [, <xVal> [,...] ] ) --> xExpression | Evaluate a code block
+
+Function EXENAME() --> cExeFileName | Returns the EXE file name of an xHarbour application. 
+
+Function Exp( <nNumber> ) --> <nValue> | Calculates the value of e raised to the passed power.
+
+Function EXPAND( <cString>, [<nCount>], [<xChar>] ) --> cResult | Inserts characters between all characters in a string. 
+
+Function EXPONENT( <nFloat> ) --> nExponent | Calculates the exponent of a floating point number. 
+
+Function Fact( <nNumber> ) -> nFaculty | Calculates faculty
+
+
+Function Fahrenheit( nDegreeCelsius ) --> nDegreeFahrenheit | Temperature conversion Celsius to Fahrenheit
+Function FClose( <nHandle> ) --> <lSuccess> | Closes an open file
+Function FCount() --> nFields | Counts the number of fields in an active database.
+Function FCreate( <cFile>, [<nAttribute>] ) --> nHandle | Creates a file.
+Function FErase( <cFile> ) --> nSuccess | Erase a file from disk
+Function FError() --> <nErrorCode> | Reports the error status of low-level file functions
+Function FieldBlock( <cFieldName> ) --> bFieldBlock | Return a code block that sets/gets a value for a given field
+
+Function FieldGet( <nField> ) --> ValueField | Obtains the value  of a specified field
+Function FIELDDECI( <nFieldPos> ) --> nDecimals | Returns the decimal places of a database field. 
+Function FIELDGET( <nFieldPos> ) --> xFieldValue | Retrieve the value of a field using the field position
+Function FIELDLEN( <nFieldPos> ) --> nFieldLength | FieldLen( <nFieldPos> ) --> nFieldLength
+Function FieldName()/Field( <nPosition> ) --> cFieldName | Return the name of a field at a numeric field location.
+Function FIELDNUM( <cFieldName> ) --> nFieldPos | Returns the ordinal position of a field in a database. 
+Function FieldPos( <cFieldName> ) --> nFieldPos | Return the ordinal position of a field.
+
+Function FieldPut( <nField>, <expAssign> ) --> ValueAssigned | Set the value of a field variable
+
+Function FIELDSIZE( <nFieldPos> ) --> nFieldLength | Returns the length of a database field. 
+Function FIELDTYPE( <nFieldPos> ) --> cFieldType | Retrieves the data type of a field variable. 
+
+Function FieldWBlock( <cFieldName>, <nWorkArea> ) --> bFieldBlock | Return a sets/gets code block for field in a given work area
+Function File( <cFileSpec> ) --> lExists | Tests for the existence of File(s)
+
+Function FILEAPPEND( <cSourceFile>, <cTargetFile> ) --> nBytesAdded | Concatenates two files. 
+Function FILEATTR( [<cFileName>] ) --> nAttributes | Returns the attributes of a file. 
+Function FILEDATE( [<cFileName>] ) --> dDate | Returns the date of a file. 
+Function FILEDELETE( <cFileMask>, [<nAttributes>] ) --> lDeleted | Deletes one or more files specified by a file mask and file attributes.
+Function FILEMOVE( <cSourceFile>, <cTargetFile> ) --> nErrorCode | Moves a file to another directory. 
+Function FILESEEK( [<cFileMask>], [<nAttributes>] ) --> cFileName | Seeks files specified by a file mask and file attributes.
+Function FILESIZE( [<cFileName>], [<nAttributes>] ) --> nFileSize | Returns the size of a file. 
+Function FILESTATS( <cFileName>, [@<cFileAttr>], [@<nFileSize>], [@<dCreateDate>], [@<nCreateTime>], [@<dChangeDate>], [@<nChangeTime>] ) --> lSuccess | Retrieves file information for a single file. 
+Function FILETIME( [<cFileName>], [<nAttributes>] ) --> cFileTime | Returns the change time of a file. 
+Function FKLABEL( <nFunctionKey> ) --> cKeyLabel | Returns a function key name. 
+Function FKMAX() --> nFKeyCount | Returns the number of available function keys. 
+Function FLINECOUNT( <cFileName> ) --> nLineCount | Counts the lines in an ASCII text file.
+
+Function FLock() --> lSuccess | Locks a file
+Function Floor( <nNumber> ) -> nDownRoundedNumber | Rounds down a number to the next integer
+Function FOpen( <cFile>, [<nMode>] ) --> nHandle | Open a file.
+Function Found() --> lSuccess | Determine the success of a previous search operation.
+
+Function FPARSE( <cFileName>, <cDelimiter> ) --> aTextArray | Parses a delimited text file and loads it into an array. 
+Function FPARSEEX( <cFileName>, [<cDelimiter>] ) --> aTextArray | Parses a delimited text file and loads it into an array (optimized). 
+Function FPARSELINE( <cTextLine>, [<cDelimiter>]  ) --> aTextFields | Parses one line of a delimited text and loads it into an array. 
+
+Function FRead( <nHandle>, @<cBuffer>, <nBytes> ) --> nBytes | Reads a specified number of bytes from a file.
+Function FReadStr( <nHandle>, <nBytes> ) --> cString | Reads a string from a file.
+Function FRename( <cOldFile>, <cNewFile> ) --> nSuccess | Renames a file
+Function FSeek( <nHandle>, <nOffset>, [<nOrigin>] ) --> nPosition | Positions the file pointer in a file.
+Function FToC( <nFloatingPointNumber> ) --> cFloatingPointNumber | 
+Function FV( nDeposit, nInterest, nPeriods ) --> nFutureValue | Future value of a capital
+
+Function FWORDCOUNT( <cFileName> ) --> nWordCount | Counts the words in a text file. 
+
+Function FWrite( <nHandle>, <cBuffer>, [<nBytes>] ) --> nBytesWritten | Writes characters to a file.
+
+Function GBMPDISP()     | Display a bitmap (.BMP) file on screen
+Function GBMPLOAD()     | Load a bitmap (.bmp) or icon (.ico) file into memory
+Function GELLIPSE()     | Draw an ellipse or circle
+
+Function GETACTIVE( [<oGet>] ) --> oGet OR NIL | Return the currently active Get object
+
+Function GETAPPLYKEY( <oGet>, <nKey> )  | Apply a key to a Get object from within a  reader
+Function GETCLEARA() --> nClearAttribute | Returns the default color attribute for clearing the screen. 
+Function GETCLEARB() --> nClearCharacter | Returns the default character for clearing the screen. 
+Function GETCLRBACK( <cColor> ) --> cBackgroundColor | Returns the background color of a color value. 
+Function GETCLRFORE( <cColor> ) --> cForegroundColor | Returns the foreground color of a color value. 
+Function GETCLRPAIR( <cColorString>, <nPos> ) --> cColorValue | Extracts a color value from a color string. 
+Function GETCURRENTTHREAD() --> pThreadHandle | Retrieves the handle of the current thread. 
+Function GETDEFAULTPRINTER() --> cPrinterName | Retrieves the name of a computer's default printer. 
+Function GETDOSETKEY( <bBlock>, <oGet> )  | Process SET KEY during GET editing
+Function GetE( <cEnviroment> ) --> <cReturn> | Obtains a system environmental setting.
+Function GetEnv( <cEnviroment> ) --> <cReturn> | Obtains a system environmental setting.
+Function GETFLDCOL( [<nGetPos>] ) --> nScreenColumn | Returns the screen column position of a Get field. 
+Function GETFLDROW( [<nGetPos>] ) --> nScreenRow | Returns the screen row position of a Get field. 
+Function GETFLDVAR( [<nGetPos>] ) --> cGetVarName | Returns the name of a Get variable. 
+Function GETLASTERROR() --> nErrorCode | Retrieves the error code of the last dynamically called DLL function. 
+Function GETNEW( [<nRow>], [<nCol>], <bVarBlock>, [<cVarName>], [<cPicture>], [<cColorSpec>]  ) --> oGet | Creates a new Get object. 
+Function GETPAIRLEN( <cColorString>, <nPos> ) --> nLength | Returns the length of a color value within a color string. 
+Function GETPAIRPOS( <cColorString>, <nPos> ) --> nAbsPos | Returns the absolute position of a color value in a color string. 
+Function GETPOSTVALIDATE(<oGet> ) --> lDataIsValid) | Postvalidate the current Get object
+Function GetPrec() -> nDigits | Get precision of math functions
+Function GETPREVALIDATE(  <oGet> ) --> lCanEdit | Prevalidate a Get object
+Function GETPRINTERS( [<lPortInfo>], [<lLocalPrinters>] ) --> aPrinterInfo | Retrieves information about available printers. 
+Function GETREGISTRY( <nHKEY>, <cRegPath>, <cRegKey> ) --> xRegValue | Retrieves the value of a registry entry 
+Function GETSYSTEMTHREADID( [<pThreadHandle>] ) --> nSystemTID | Retrieves the numeric system Thread ID of a thread.
+Function GETTHREADID( [<pThreadHandle>] ) --> nApplicationTID | Retrieves the numeric application Thread ID of a thread. 
+Function GETVOLINFO( <cDrive> ) --> lSuccess | Retrieves the volume label of a disk. 
+Function GETREADER()    | Execute standard READ behavior for a Get object
+Function GFNTERASE()    | Erase a font from memory
+Function GFNTLOAD()     | Load a font file into memory
+Function GFNTSET()      | Set an already loaded font as active
+Function GFRAME()       | Draw a frame with a 3-D look
+Function GGETPIXEL()    | Get color information for a pixel
+Function GLINE()        | Draw a line in graphic mode
+Function GMODE()        | Switch video mode
+Function GPOLYGON()     | Draw a polygon on screen
+Function GPUTPIXEL()    | Draw a pixel on the screen
+Function GRECT()        | Draw a rectangle in graphic mode
+Function GSETCLIP()     | Define the allowed display area
+Function GSETEXCL()     | Define a screen region to be excluded from display
+Function GSETPAL()      | Change components of a color
+Function GWRITEAT()     | Draw graphic text without background
+
+Function HardCR( <cString> ) --> <cConvertedString> | Replace all soft carriage returns with hard carriages returns.
+Function hb_At( <cSearch>, <cString>, [<nStart>], [<nEnd>] ) --> nPos | Locates the position of a substring in a main string.
+Function hb_cdpSelect( [<cNewLang>] ) --> cOldLang | Select the active code page by language ID
+Function hb_ColorIndex( <cColorSpec>, <nIndex> ) --> <cColor> | Extract one color from a full colorspec string.
+Function hb_DiskSpace( [<cDrive>] [, <nType>] ) --> nDiskbytes | Get the amount of space available on a disk
+Function hb_eol() --> cString | Returns the newline character(s) to use with the current OS
+Function hb_FEof( <nHandle> ) --> lIsEof | Check for end-of-file.
+Function hb_FLock( <nHandle>, <nOffset>, <nBytes> [, <nType ] )--> <lSuccess> | Locks part or all of any file
+Function hb_FUnlock( <nHandle>, <nOffset>, <nBytes> ) --> <lSuccess> | Unlocks part or all of any file
+Function hb_GetEnv( <cEnviroment>, [<cDefaultValue>] ) --> <cReturn> | Obtains a system environmental setting.
+Function hb_Hash( [ <Key1>, <Value1> ], [ <KeyN>, <ValueN> ], ... ) -> hsTable | Returns a hash table
+Function hb_HAutoAdd( <hsTable>, [<lFlag>] ) -> <lPreviousFlag> | Sets the 'auto add' flag for the hash table
+Function hb_HBinary( <hsTable>, [<lFlag>] ) -> <lPreviousFlag> | Sets the 'binary' flag for the hash table
+Function hb_HCaseMatch( <hsTable>, [<lFlag>] ) -> <lPreviousFlag> | Sets the 'case match' flag for the hash table
+Function hb_HClone( <hsTable> ) -> <hsDestination> | Creates a copy of a hash table
+Function hb_HCopy( <hsDestination>, <hsSource>, [<nStart>], [<nCount>] ) -> <hsDestination> | Adds entries from the source hash table to the destination hash table
+Function hb_HDefault( <hsTable>, <DefaultValue> ) -> <OldDefaultValye> | Returns/sets a default value for a hash table.
+Function hb_HDel( <hsTable>, <Key> ) -> <hsTable> | Removes a key/value pair from a hash table
+Function hb_HDelAt( <hsTable>, <nPosition> ) -> <hsTable> | Removes an entry from a hash table based on its index position
+Function hb_HEval( <hsTable>, <bBlock>, [<nStart>], [<nCount>] ) -> <hsTable> | Evaluate a code block across the contents of a hash table
+Function hb_HFill( <hsTable>, <Value> ) -> <hsTable> | Fills a hash table with a value
+Function hb_HGet( <hsTable>, <Key> ) -> <Value> | Returns a hash value
+Function hb_HGetDef( <hsTable>, <Key>, [<DefaultValue>] ) -> <Value> | Returns a hash value, or a default value if the key is not present
+Function hb_HHasKey( <hsTable>, <Key> ) -> lExists | Determines whether a hash table has an entry with a give key
+Function hb_HKeyAt( <hsTable>, <nPosition> ) -> <Key> | Gets a hash table key at a given position
+Function hb_HKeys( <hsTable> ) -> <aKeys> | Returns an array of the keys of a hash table
+Function hb_HMerge( <hsDestination>, <hsSource>, <bBlock> OR <nPosition> ) -> <hsDestination> | Merges a source hash table into a destination hash table
+Function hb_HPairAt( <hsTable>, <nPosition> ) -> <aKeyValue> | Returns a two-dimensional array of a hash table entry key/value pair
+Function hb_HPos( <hsTable>, <Key> ) -> nPosition | Locates the index of a key within a hash table
+Function hb_HScan( <hsTable>, <Value>, [<nStart>], [<nCount>, [<lExact>] ) -> nPosition | Scans a hash table
+Function HASH( [<xKey1>, <xValue1> [, <xKeyN>, <xValueN>] ] ) --> hHash | Creates a new hash.
+Function HBCONSOLELOCK() | Locks the console for the current thread 
+Function HBCONSOLEUNLOCK() | Releases the console lock. 
+Function HB_BASE64DECODE( <cBase64> ) --> cString  | Decodes a base 64 encoded character string. 
+Function HB_BASE64DECODEFILE( <cBase64File>, <cTargetFile> ) | Decodes a base 64 encoded file. 
+Function HB_BASE64ENCODE( <cString>, <nBytes> ) --> cBase64 | Encodes a character string base 64. 
+Function HB_BASE64ENCODEFILE( <cFilename>, <cBase64File> ) | Encodes a file base 64.
+Function HB_BUILDINFO( <nWhichInfo> ) -->  cBuildInfo | Retrieves build information of the Harbour compiler. 
+Function HB_CHECKSUM( <cString> ) --> nAdler32 | Calculates the checksum for a stream of data using the Adler32 algorithm. 
+Function HB_CMDARGARGV() --> cExeFile | Returns the first command line argument (EXE file name). 
+Function HB_COMPILER() | Retrieves the version of the C compiler shipped with Harbour.
+Function HB_CRC32( <cString> ) --> nCRC32  | Calculates the checksum for a stream of data using the CRC 32 algorithm. 
+Function HB_CRYPT( <cString>, <cKey> ) --> cEncryptedString | Encrypts a character string. 
+Function HB_DECRYPT( <cEncryptedString>, <cKey> ) --> cString | Decrypts an encrypted character string. 
+Function HB_DESERIALIZE( <cBinary> ) --> xValue | Converts a binary string back to its original data type. 
+Function HB_ENUMINDEX() --> nIteration | Returns the current ordinal position of a FOR EACH iteration.
+Function HB_EXEC() | Executes a function, procedure or method from its pointer. 
+Function HB_EXECFROMARRAY() | Executes a function, procedure or method indirectly. 
+Function HB_FUNCPTR( <cFuncName> ) --> pFuncPointer | Obtains the pointer to a function or procedure. 
+Function HB_GCALL( [<lForce>] ) | Scans the memory and releases all garbage memory blocks. 
+Function HB_GCStep() | Invokes the garbage collector for one collection cycle. 
+Function hb_HSet( <hsTable>, <Key>, <Value> ) -> <hsTable> | Sets a hash value
+Function hb_HSort( <hsTable> ) -> <hsSortedTable> | Reorganizes the internal list of the hash table to be sorted
+Function hb_HValueAt( <hsTable>, <nPosition>, [<NewValue>] ) -> <Value> | Gets/sets a hash value at a given position
+Function hb_HValues( <hsTable> ) -> <aValues> | Returns an array of the values of a hash table
+Function hb_idleAdd( <bAction> ) --> nHandle | Adds the background task.
+Function hb_idleDel( <nHandle> ) --> <bAction> | Removes the background task from the list of tasks.
+Function hb_idleState() | Evaluates a single background task and calls the garbage collector.
+Function hb_inetAccept( <socket> ) -> SOCKET | Wait until a socket is ready
+Function hb_inetAddress( <socket> ) -> cResult | Get a remote server address
+Function hb_inetClose( <socket> ) -> nResult | Close an INET socket
+Function hb_inetConnect( <cAddress>, <nPort> ) -> SOCKEThb_inetConnect( <cAddress>, <nPort>, <socket> ) -> NIL | Connect a socket to a remote server by IP address or name
+Function hb_inetConnectIP( <cAddress>, <nPort> ) -> SOCKEThb_inetConnectIP( <cAddress>, <nPort>, <socket> ) -> NIL | Connect to a remote server by IP address
+Function hb_inetCount( <socket> ) -> nResult | Get the number of bytes last read or sent
+Function hb_inetCreate( [ <nTimeout> ] ) -> SOCKET | Create an INET socket
+Function hb_inetCRLF() -> cResult | Get a CRLF sequence for internet protocols
+Function hb_inetDataReady( <socket>, [ <nMillisec> ] ) -> nResult | Get whether there is data ready in a socket
+Function hb_inetDGram( [<lBroadcast>] ) -> SOCKET | Create a datagram socket
+Function hb_inetDGramBind( <nPort>, [<cAddress> [, <lBroadcast>] ] ) -> SOCKET | Create a bound datagram socket
+Function hb_inetDGramRecv( <socket>, @<cBuffer> [, <nSize> ] ) -> nBytesRead | Get data from a datagram socket
+Function hb_inetDGramSend( <socket>, <cAddress>, <nPort>, <cBuffer> [, <nSize> ] ) -> nBytesSent | Send data to a datagram socket
+Function hb_inetErrorCode( <socket> ) -> nResult | Get the last INET error code
+Function hb_inetErrorDesc( <socket> ) -> cResult | Get the last INET error code description
+Function hb_inetFD( <socket> [, <lNoSocket> ] ) -> nResult | ?
+Function hb_inetGetAlias( <cName> ) -> aHosts | Get an array of aliases of a server
+Function hb_inetGetHosts( <cName> ) -> aHosts | Get an array of IP addresses of a host
+Function hb_inetGetRcvBufSize( <socket> ) -> nResult | Get the socket receive buffer size
+Function hb_inetGetSndBufSize( <socket> ) -> nResult | Get the socket send buffer size
+Function hb_inetInit() -> lResult | Activate Harbour INET support
+Function hb_inetIsSocket( <socket> ) -> lResult | Get whether a variable is a socket
+Function hb_inetPeriodCallback( <socket> [, <xCallback> ] ) -> xPreviousCallback | Get or change the periodic callback value of a socket
+Function hb_inetPort( <socket> ) -> cResult | Get the port a socket is bound to.
+Function hb_inetRecv( <socket>, @<cResult>, [ <nAmount> ] ) -> nResult | Read from a socket
+Function hb_inetRecvAll( <socket>, @<cResult>, [ <nAmount> ] ) -> nResult | Read from a socket without blocking
+Function hb_inetRecvEndblock( <socket> [, <cBlock >[, @<nBytesRead> [, <nMaxLength> [, <nBufSize> ]]]] ) -> cResult | Read a block from a socket
+Function hb_inetRecvLine( <socket> [, @<nBytesRead>, [, <nMaxLength> [, <nBufSize> ]]] ) -> cResult | Read a line from a socket
+Function hb_inetSend( <socket>, <cBuffer> [, <nLength> ] ) -> nResult | Sent data through a socket
+Function hb_inetSendAll( <socket>, <cBuffer> [, <nLength> ] ) -> nResult | Send data through a socket with blocking
+Function hb_inetServer( <port> [, <cBindAddr> [, <nListenLimit> ]]  ) -> SOCKET | Create a socket bound to a port
+Function hb_inetSetRcvBufSize( <socket>, nSize ) -> nSize | Set the receive buffer size of a socket
+Function hb_inetSetSndBufSize( <socket>, <nSize> ) -> nSize | Set the send buffer size of a socket
+Function hb_inetstatus( <socket> ) -> nResult | Get the status of a socket
+Function hb_inetTimeLimit( <socket> [, <nTimeLimit> ) -> NIL | Get or change the time limit value of a socket
+Function hb_inetTimeout( <socket> [, <nTimeout> ] ) -> nPreviousTimeout | Get or change the timeout value of a socket
+Function hb_keyPut( <nInkeyCode> ) | Put an inkey code to the keyboard buffer.
+Function hb_langErrMsg( <nErrorCode> ) --> cErrorMessage | Description of an error code using current language
+Function hb_langMessage( <nMsg>[, <cLangID>] ) --> cMessage | Returns international strings messages and errors
+Function hb_langName( [<cLangID>] ) --> cLangName | Return the name of the language module
+Function hb_langSelect( [<cNewLang>][, <cCodepage>] ) --> cOldLang | Select a specific nation message module
+Function hb_matherBlock( [<bNewBlock>] ) --> <bOldBlock> | Set/Get math error handling codeblock
+Function hb_matherMode( [<nNewMode>] ) --> <nOldMode> | Set/Get math error handling mode
+Function hb_MemoRead( <cFileName> ) --> cString | Return the text file's contents as a character string
+Function hb_MemoWrit( <cFileName>, <cString>, [<lWriteEof>] ) --> lSuccess | Write a memo field or character string to a text file on disk
+Function hb_PIsByRef( nParam ) --> <lParamIsByRef> | Determine if a parameter is passed by reference.
+Function hb_PValue( <nArg> ) --> <xExp> | Retrieves the value of an argument.
+Function hb_RAt( <cSearch>, <cString>, [<nStart>], [<nEnd>]  ) --> nPos | Searches for last occurrence a substring of a string.
+Function hb_SetKeyCheck( <nKey> [, <p1> ][, <p2> ][, <p3> ] ) | Implements common hot-key activation code
+Function hb_SetKeyGet( <nKey> [, <bConditionByRef> ] ) | Determine a set-key code block and condition-block
+Function hb_SetKeySave( [ <OldKeys> ] ) | Returns a copy of internal set-key list, optionally overwriting
+Function hb_Translate( <cSrcText>, [<cPageFrom>], [<cPageTo>] ) --> cDstText | Translate a string from one code page to the other
+Function hb_ValToStr( <xValue> ) --> cString | Converts any scalar type to a string.
+
+Function Header() --> nBytes | Return the length of a database file header
+
+Function I2Bin( <nNumber> ) --> cBuffer | Convert Harbour numeric into signed short encoded bytes
+Function IndexExt() --> <cExtension> | Returns the file extension of the index module used in an application
+Function IndexKey( <nOrder> ) --> <cIndexKey> | Yields the key expression of a specified index file.
+Function IndexOrd() --> <nPosition> | Returns the numeric position of the controlling index.
+Function Infinity( [<lPlatformIndependant>] ) --> nLargestNumber | Returns the largest floating point number available in the system
+Function Inkey( [<nTimeout>] [, <nEvents>] ) --> nKey | Extracts the next key code from the Harbour keyboard buffer.
+Function Int( <nNumber> ) --> <nIntNumber> | Return the integer port of a numeric value.
+Function IsAffirm( <cChar> ) --> <lTrueOrFalse> | Checks if passed char is an affirmation char
+Function IsAlpha( <cString> ) --> lAlpha | Checks if leftmost character in a string is an alphabetic character
+Function IsDigit( <cString> ) --> lDigit | Checks if leftmost character is a digit character
+Function IsDisk( <cDrive> ) --> lSuccess | Verify if a drive is ready
+Function IsLeap( [<dDate>] ) -> lIsLeap | determines of year of date is a leap year
+Function IsLower( <cString> ) --> lLower | Checks if leftmost character is an lowercased letter.
+Function IsNegative( <cChar> ) --> <lTrueOrFalse> | Checks if passed char is a negation char.
+Function IsUpper( <cString> ) --> lUpper | Checks if leftmost character is an uppercased letter.
+Function JustLeft( <[@]cString>, [<cChar> OR <nChar>] ) -> cJustifiedString | Move characters from the beginning to the end of a string
+Function JustRight( <[@]cString>, [<cChar> OR <nChar>] ) -> cJustifiedString | Move characters from the end to the beginning of a string
+
+Function KSetCaps( [<lNewSwitch>] ) -> lOldSwitch | 
+Function KSetIns( [<lNewSwitch>] ) -> lOldSwitch | 
+Function KSetNum( [<lNewSwitch>] ) -> lOldSwitch | 
+Function KSetScroll( [<lNewSwitch>] ) -> lOldSwitch | 
+
+Function L2Bin( <nNumber> ) --> cBuffer | Convert Harbour numeric into signed long encoded bytes
+Function LastDayOM( [<dDate OR nMonth>] ) -> nDaysInMonth | Returns the the number of days in the month.
+Function LastKey( [<nInputMask>] ) --> nKey | Get the last key extracted from the keyboard buffer.
+Function LastRec()  OR  RecCount()* --> nRecords | Returns the number of records in an active work area or database.
+Function Left( <cString>, <nLen> ) --> cReturn | Extract the leftmost substring of a character expression
+Function Len( <cString>  OR  <aArray> ) --> <nLength> | Returns size of a string or size of an array.
+Function Log( <nNumber> ) --> <nLog> | Returns the natural logarithm of a number.
+Function Log10( <nNumber> ) -> nLogarithm | Decadic logarithm of a number
+Function Lower( <cString> ) --> cLowerString | Universally lowercases a character string expression.
+Function LTrim( <cString> ) --> cReturn | Removes leading spaces from a string
+Function LUpdate() --> dModification | Yields the date the database was last updated.
+
+Function MakeDir( <cDirectory> ) --> nError | Create a new directory
+Function Mantissa( <nFloatingPointNumber> ) --> nMantissa | Evaluate the mantissa of a floating point number
+Function Max( <xValue>, <xValue1> ) --> <xMax> | Returns the maximum of two numbers or dates.
+Function MaxCol() --> nPosition | Returns the maximun number of columns in the current video mode
+Function MaxRow() --> nPosition | Returns the current screen row position
+Function MCol() --> nMouseColumn | Returns the mouse cursor column position.
+Function MDBLCLK()      | Determine the double-click speed threshold of the mouse
+Function MDY( [<dDate>] ) -> cDateString | Returns the date as a string in Month DD, YY or Month DD, YYYY
+Function MEMOEDIT()     | Display or edit character strings and memo fields
+Function MEMOLINE()     | Extract a line of text from a character string or memo field
+Function MemoRead( <cFileName> ) --> cString | Return the text file's contents as a character string
+Function MemoTran( <cString>, <cHard>, <cSoft> ) --> <cConvertedString> | Converts hard and soft carriage returns within strings.
+Function MEMOSETSUPER() | Set an RDD inheritance chain for the DBFMEMO database driver
+Function MEMOTRAN()     | Replace carriage return/linefeeds in character strings
+Function MemoWrit( <cFileName>, <cString> ) --> lSuccess | Write a memo field or character string to a text file on disk
+Function MemVarBlock( <cMemvarName> ) --> <bBlock> | Returns a codeblock that sets/gets a value of memvar variable
+Function MHIDE()        | Hide the mouse pointer
+Function Min( <xValue>, <xValue1> ) --> <xMin> | Determines the minumum of two numbers or dates.
+Function MLCOUNT()      | Count the number of lines in a character string or memo field
+Function MLCTOPOS()     | Return position of a string based on line and column position
+Function MLEFTDOWN()    | Determine the press status of the left mouse button
+Function MLPOS()        | Determine the position of a line in a string or memo field
+Function Mod( <nNumber>, <nNumber1> ) -->  <nRemainder> | Return the modulus of two numbers.
+Function Month( <dDate> ) --> nMonth | Converts a date expression to a month value
+Function MPOSTOLC()     | Return line/ column position of a string based on a position
+Function MPRESENT()     | Determine if a mouse is present
+Function MRESTSTATE()   | Re-establish the previous state of a mouse
+Function MRIGHTDOWN()   | Determine the status of the right mouse button
+Function MRow() --> nMouseRow | Returns the mouse cursor row position.
+Function MSAVESTATE()   | Save the current state of a mouse
+Function MSETBOUNDS()   | Set screen boundaries for the mouse cursor
+Function MSETCLIP()     | Define an inclusion region
+Function MSETCURSOR()   | Determine a mouse's visibility
+Function MSETPOS()      | Set a new position for the mouse cursor
+Function MSHOW()        | Display the mouse pointer
+Function MSTATE()       | Return the current mouse state
+
+Function NetErr( [<lNewError>] ) --> lError | Tests the success of a network function
+Function NETNAME()      | Return the current workstation identification
+Function NextKey( [<nInputMask>] ) --> nKey | Get the next key code in the buffer without extracting it.
+Function NToC( <xNumber>[, <nBase>][, <nLength>][, <cPadChar>] ) -> <cNumber> | 
+Function NToCDoW( <nDay> ) -> cDay | (num of day) -> day name
+Function NToCMonth( <nMonth> ) -> cMonth | (num of month ) -> Month Name
+Function NToColor( <nAttr>, [<lColorCode>] ) -> <cAttr> | 
+Function NumAt( <cStringToMatch>, <cString>, [<nIgnore>] ) --> nCount | Number of occurrences of a sequence in a string
+Function NumToken( <cString>, [<cTokenizer>], [<nSkipWidth>] ) -> nTokenCount | Retrieves the number of tokens in a string
+Function ordBagExt() --> cBagExt | Returns the Order Bag extension
+Function ordBagName( <nOrder>  OR  <cOrderName> ) --> cOrderBagName | Returns the Order Bag Name.
+Function ORDCOND()      | Specify conditions for ordering
+Function ORDCONDSET()   | Set the condition and scope for an order
+Function ORDCREATE()    | Create an order in an order bag
+Function ORDDESCEND()   | Return and optionally change the descending flag of an order
+Function ORDDESTROY()   | Remove a specified order from an order bag
+Function ordFor( <xOrder>[, <cOrderBagName>] ) --> cForExp | Return the FOR expression of an Order
+Function ORDISUNIQUE()  | Return the status of the unique flag for a given order
+
+Function ordKey( <cOrderName>  OR  <nOrder> [, <cOrderBagName>] ) --> cExpKey | Return the key expression of an Order
+
+Function ORDKEYADD()    | Add a key to a custom built order
+Function ORDKEYCOUNT()  | Return the number of keys in an order
+Function ORDKEYDEL()    | Delete a key from a custom built order
+Function ORDKEYGOTO()   | Move to a record specified by its logical record number
+Function ORDKEYNO()     | Get the logical record number of the current record
+Function ORDKEYVAL()    | Get key value of the current record from controlling order
+Function ORDLISTADD()   | Add orders to the order list
+Function ORDLISTCLEAR() | Clear the current order list
+Function ORDLISTREBUI() | Rebuild all orders in the order list of the current work area
+Function ORDNAME()      | Return the name of an order in the order list
+Function ORDNUMBER()    | Return the position of an order in the current order list
+Function ORDSCOPE()     | Set or clear the boundaries for scoping key values
+Function ORDSETFOCUS()  | Set focus to an order in an order list
+Function ORDSETRELAT()  | Relate a specified work
+Function ORDSKIPUNIQUE()| Move record pointer to the next or previous unique key
+
+Function OS() --> <cOperatingSystem> | Return the current operating system.
+Function OUTERR()       | Write a list of values to the standard error device
+Function OUTSTD()       | Write a list of values to the standard output device
+
+Function PadC( <xVal>, <nWidth>, <cFill> ) --> cString | Centers an expression for a given width
+Function PadL( <xVal>, <nWidth>, <cFill> ) --> cString | Left-justifies an expression for a given width
+Function PadLeft( <cString>, <nLength>, [<cChar OR nChar>] ) -> cString | Fills string to a certain length on the left
+Function PadR( <xVal>, <nWidth>, <cFill> ) --> cString | Right-justifies an expression for a given width
+Function PadRight( <cString>, <nLength>, [<cChar OR nChar>] ) -> cString | Fills string to a certain length on the right
+Function Payment( nLoan, nInterest, nPeriods ) --> nPayment | Payments for a loan
+Function PCOL()         | Return the current column position of the printhead
+
+Function PCount() --> <nArgs> | Retrieves the number of arguments passed to a function.
+
+Function Periods( nLoan, nPayment, nInterest ) --> nPeriods | Number of periods for a loan
+Function Pi() -> nPi | Returns Pi, the perimeter-to-diameter-ratio of a circle
+Function PosAlpha( <cString>, [<lMode>], [<nIgnore>] ) -> nPosition | Left-most position of a letter in a string
+Function PosChar( <[@]cString>, <cCharacter OR nCharacter>, [<nPosition>] ) -> cString | Replace character at a certain position within a string
+Function PosDel( <cString>, [<nStartPosition>], <nLength> ) -> cString | Delete characters at a certain position within a string
+Function PosDiff( <cString1>, <cString2>, [<nIgnore>] ) -> nPosition | The left-most position there two string differ
+Function PosEqual( <cString1>, <cString2>, [<nCompare>], [<nIgnore>] ) -> nPosition | The left-most position there two string begin to be equal
+Function PosIns( <cString>, <cInsert>, [<nPosition>] ) -> cString | Insert characters at a certain position within a string
+Function PosLower( <cString>, [<lMode>], [<nIgnore>] ) -> nPosition | Left-most position of a lowercase letter in a string
+Function PosRange( <cChar1>, <cChar2>, <cString>, [<lMode>],[<nIgnore>] ) -> nPosition | Left-most position of a character from a set in a string
+Function PosRepl( <[@]cString>, <cReplacement>, [<nStartPosition>] ) -> cString | Replace characters at a certain position within a string
+Function PosUpper( <cString>, [<lMode>], [<nIgnore>] ) -> nPosition | Left-most position of an uppercase letter in a string
+Function PrintReady( [<nPrinter>] ) -> lPrinterReady | 
+Function PrintStat( [<nPrinter>] ) -> nState | 
+Function ProcFile( <xExp> ) --> <cEmptyString> | This function allways returns an empty string.
+Function ProcLine( <nLevel> ) --> <nLine> | Gets the line number of the current function on the stack.
+Function ProcName( <nLevel> ) --> <cProcName> | Gets the name of the current function on the stack
+Function PV( nPayment, nInterest, nPeriods ) --> nPresentValue | Present value of a loan
+Function Quarter( [<dDate>] ) -> nQuarter | Returns a number equal to the quarter in which a date falls
+Function RangeRem( <cChar1 OR nChar1>, <cChar2|nChar2>, <cString> ) -> cString | Remove characters within a certain ASCII range from a string
+Function RangeRepl( <cChar1 OR nChar1>, <cChar2|nChar2>,<[@]cString>, <cReplacementChar|nReplacementChar> ) -> cString | Replace characters within a certain ASCII range from a string
+Function QOUT()         | Display a list of expressions to the console
+Function RAt( <cSearch>, <cString> ) --> nPos | Searches for last occurrence a substring of a string.
+Function Rate( nLoan, nPayment, nPeriods ) --> nRate | Estimate rate of interest for a loan
+Function RDDLIST()      | Return an array of the RDDs
+Function RDDNAME()      | Return name of RDD active in current or specified work area
+Function RDDSETDEFAULT()| Set or return the default RDD for the application
+Function READEXIT()     | Toggle Up arrow and Down arrow as READ exit keys
+Function READFORMAT()   | Return and optionally set code block to implement format file
+Function READINSERT()   | Toggle the current insert mode for READ and MEMOEDIT()
+Function ReadKey() --> nKeyCode | Determine which key terminated a READ.
+Function READKILL()     | Return and optionally set whether current READ can be exited
+Function READMODAL()    | Activate a full-screen editing mode for a GetList
+Function READUPDATED()  | Determine whether any GET variables changed during a READ
+Function ReadVar( [<cVarName>] ) --> cOldVarName | Return variable name of current GET or MENU
+Function RecCount()*  OR  LastRec() --> nRecords | Counts the number of records in a database.
+Function RecNo() --> Identity | Returns the current record number or identity.
+Function RecSize() --> nBytes | Returns the size of a single record in an active database.
+Function RemAll( <cString>, [<cSearch OR nSearch>] ) -> cString | Remove certain characters at the left and right of a string
+Function RemLeft( <cString>, [<cSearch OR nSearch>] ) -> cString | Remove certain characters at the left of a string
+Function RemRight( <cString>, [<cSearch OR nSearch>] ) -> cString | Remove certain characters at the right of a string
+Function ReplAll( <cString>, <cReplace OR nReplace>, [<cSearch|nSearch>] ) -> cString | Replace certain characters at the left and right of a string
+Function Replicate( <cString>, <nSize> ) --> cReplicateString | Repeats a single character expression
+
+Function ReplLeft( <cString>, <cReplace OR nReplace>, [<cSearch|nSearch>] ) -> cString | Replace certain characters at the left of a string
+Function ReplRight( <cString>, <cReplace OR nReplace>, [<cSearch|nSearch>] ) -> cString | Replace certain characters at the right of a string
+Function RestToken( <cStaticTokenEnvironment> ) -> cOldStaticEnvironment | Restore global token environment
+
+Function RestToken( <cStaticTokenEnvironment> ) -> cOldStaticEnvironment | Restore global token environment
+Function Right( <cString>, <nLen> ) --> cReturn | Extract the rightmost substring of a character expression
+Function RLock() --> lSuccess | Lock a record in a work area
+Function Round( <nNumber>, <nPlace> ) --> <nResult> | Rounds off a numeric expression.
+Function Row() --> nPosition | Returns the current screen row position
+Function RToD( nRadiant ) -> nDegree | Convert radiant to degree
+
+Function RTrim( <cExpression> ) --> cString | Remove trailing spaces from a string.
+Function SaveToken() -> cStaticTokenEnvironment | Save the global token environment
+Function SayScreen( <cString>, [<nRow>], [<nCol>] ) -> <cEmptyString> | 
+Function ScreenAttr( [<nRow>], [<nColumn>] ) -> <nAttr> | 
+Function ScreenMix( <cCharString>, <cAttributeString>, [<nRow>], [<nCol>] ) -> <cEmptyString> | 
+Function ScreenText( <nTop>, <nLeft>, <nBottom>, <nRight> ) | 
+Function Seconds() --> nSeconds | Returns the number of elapsed seconds past midnight.
+Function Secs( <cTime> ) --> nSeconds | Return the number of seconds from the system date.
+Function Select( [<cAlias>] ) --> nWorkArea | Returns the work area number for a specified alias.
+Function Set( <nSet> [, <xNewSetting> [, <xOption> ] ] ) --> xPreviousSetting | Changes or evaluated environmental settings
+Function SETATLIKE ([<nMode>] [, <[@]cWildcard>]) --> nOldMode | Determine scan behaviour in some string functions
+Function SetDate( <dDate>, [<lMode>] ) --> lSet | Sets the system date
+Function SETBLINK()     | Toggle * interpretation between blinking/background intensity
+Function SETCANCEL()    | Toggle Alt+C and Ctrl+Break as program termination keys
+Function SETCOLOR()     | Return the current colors and optionally set new colors
+Function SETCURSOR()    | Set the cursor shape
+
+Function SetKey( <anKey> [, <bAction> [, <bCondition> ] ] ) | Assign an action block to a key
+Function SetMode( <nRows>, <nCols> ) --> lSuccess | Change the video mode to a specified number of rows and columns
+Function SetPREC( <nPrecision> ) -> cEmptyString | Set precision of math functions
+Function SetTime( <cTime>, [<lMode>] ) --> lSet | Sets the system clock
+Function SetTypeahead( <nSize> ) --> <nPreviousSize> | Sets the typeahead buffer to given size.
+Function Sign( <nNumber> ) -> nSign | Sign of a number
+Function SIN (nRadiant) -> nSine | Sine of the argument
+Function Sinh( nArea ) -> nHyperbolicSine | Hyperbolic Sine of the argument
+Function Space( <nSize> ) --> cString | Returns a string of blank spaces
+Function Sqrt( <nNumber> ) --> <nSqrt> | Calculates the square root of a number.
+Function Standard() -> <cEmptyString> | Select the "STANDARD" color value for output
+Function Str( <nNumber>, [<nLength>], [<nDecimals>] ) --> cNumber | Convert a numeric expression to a character string.
+Function StrDiff( <cString1>, <cString2>, [<nReplacementPenalty>], [<nDeletionPenalty>],[<nInsertionPenalty>] ) -> <nDistance> | Evaluate the "Edit (Levensthein) Distance" of two strings
+Function StrSwap( <[@]cString1>, <[@]cString2> ) -> cString | Swap the contents of two strings
+Function StrTran( <cString>, <cLocString>, [<cRepString>], [<nPos>],[<nOccurrences>] ) --> cReturn | Translate substring value with a main string
+Function StrZero( <nNumber>, [<nLength>], [<nDecimals>] ) --> cNumber | Convert a numeric expression to a character string, zero padded.
+Function SubStr( <cString>, <nStart>, [<nLen>] ) --> cReturn | Returns a substring from a main string
+
+Function TABEXPAND (<cString>, [<nTabWidth>], [<cFillChar OR nFillChar>],[<cNewLineCharacters>], [<cTabChar|nTabChar>],[<lIgnore141>]) -> cExpandedString | Replace tabulator control characters with fill characters
+Function TabPack( <cString>, [<nTabWidth>], [<cFillChar OR nFillChar>],[<cNewLineCharacters>], [<cTabChar|nTabChar>],[<lIgnore141>] ) -> cPackedString | Pack fill characters to appropriate tab characters
+Function Tan( nRadiant ) -> nTangent | Tangent of the argument
+Function Tanh( nArea ) -> nHyperbolicTangent | Hyperbolic Tangent of the argument
+Function TBrowseDB( [<nTop>], [<nLeft>], [<nBottom>], [<nRight>] ) --> oBrowse | Create a new TBrowse object to be used with database file
+Function Time() --> cTime | Returns the system time as a string
+Function TimeValid( <cTime> ) --> lValid | Determines whether a specIFied time is valid
+Function Token( <cString>, [<cTokenizer>],[<nTokenCount], [<nSkipWidth>],[<@cPreTokenSep>], [<@cPostTokenSep>] ) -> cToken | Tokens of a string
+Function TokenAt( [<lSeparatorPositionBehindToken>], [<nToken>],[<@cTokenEnvironment>] ) -> nPosition | Get start and end positions of tokens in a token environment
+Function TokenEnd( [<@cTokenEnvironment>] ) -> lTokenEnd | Check whether additional tokens are available with TokenNext()
+Function TokenExit() -> lStaticEnvironmentReleased | Release global token environment
+Function TokenInit( <[@]cString>], [<cTokenizer>], [<nSkipWidth>],[<@cTokenEnvironment>] ) -> lState | Initializes a token environment
+Function TokenLower( <[@]cString>, [<cTokenizer>], [<nTokenCount>],[<nSkipWidth>] ) -> cString | Change the first letter of tokens to lower case
+Function TokenNext( <[@]cString>, [<nToken>],[<@cTokenEnvironment>] ) -> cToken | Successivly obtains tokens from a string
+Function TokenNum( [<@cTokenEnvironment>] ) -> nNumberofTokens | Get the total number of tokens in a token environment
+Function TokenSep( [<lMode>] ) -> cSeparator | Retrieves the token separators of the last Token() call
+Function TokenUpper( <[@]cString>, [<cTokenizer>], [<nTokenCount>],[<nSkipWidth>] ) -> cString | Change the first letter of tokens to upper case
+Function Tone( <nFrequency>, <nDuration> ) --> NIL | Sound a tone with a specified frequency and duration.
+Function Transform( <xExpression>, <cTemplate> ) --> cFormatted | Formats a value based on a specific picture template.
+Function Trim( <cExpression> ) --> cString | Remove trailing spaces from a string.
+Function Type( <cExp> ) --> <cRetType> | Retrieves the type of an expression
+
+Function U2Bin( <nNumber> ) --> cBuffer | Convert Harbour numeric into unsigned long encoded bytes
+Function Unselected() -> <cEmptyString> | Select the "UNSELECTED" color value for output
+Function UnTextWin( <nTopLine>, <nLeftColumn>, <nBottomLine>, <nRightColumn>,<cReplacementCharacter OR nReplacementCharacter>,[<cInitialCharacter|nInitialCharacter>],[<cEndCharacter|nEndCharacter>] ) --> cNull | 
+Function Upper( <cString> ) --> cUpperString | Converts a character expression to uppercase format
+Function Used() --> lDbfOpen | Checks whether a database is in use in a work area
+
+Function Val( <cNumber> ) --> nNumber | Convert a number from a character type to numeric
+Function ValPos( <cString>, [<nPosition>] ) --> nDigitValue | Numerical value of a character at a certain position
+Function ValType( <xExp> ) --> <cRetType> | Retrieves the data type of an expression
+Function Version() --> <cReturn> | Returns the HARBOUR Version or the Harbour/Compiler Version.
+Function VGAPalette( [<cColor OR nColor>, [<nRedValue>, <nGreenValue>,<nBlueValue]] ) --> lValid | Changes VGA palette colors
+Function VideoType() --> nMask | Detects supported video adapter modes
+
+Function W2Bin( <nNumber> ) --> cBuffer | Convert Harbour numeric into unsigned short encoded bytes
+Function WaitPeriod( [<nDelay>] ) --> lNotElapsed | Pauses a specified time in increments of 1/100 seconds
+Function Week( [<dDate>][, <lSWN>] ) -> nWeek | Returns the calendar week a number
+Function Word( <nDouble> ) --> <nInteger> | Converts double to integer values.
+Function WordOne( [<cDoubleCharactersToReduce>,] <cString> ) -> cReducedString | Reduce multiple occurences of a double character to one
+Function WordOnly( <cThisDoubleCharactersOnly>, <cString> ) -> cReducedString | Intersectional set of two strings based on double characters
+Function WordRem( <cDeleteThisDoubleCharacters>, <cString> ) -> cReducedString | Removes characters from a string
+Function WordRepl( <cDoubleCharacterSearchString>, <[@]cString>,<cDoubleCharacterReplaceString>, [<lMode>] ) -> cString | Replacement of double characters
+Function WordSwap( <[@]cString> [, <lSwapCharacters>] ) -> cSwappedString | Swap neighbouring double characters in a string
+Function WordToChar( <cDoubleCharacterSearchString>, <cString>,<cSingleCharacterReplaceString> ) -> cString | Replace double with single characters
+
+Function XToC( <expValue> ) --> cValue | 
+Function Year( <cDate> ) --> nYear | Converts the year portion of a date into a numeric value
+
+Function __AtPrompt( <nRow>, <nCol>, <cPrompt>, [<xMsg>] ) --> .F. | Display a menu item on screen and define a message
+Function __dbCopyXStruct( <cFileName> ) --> lSuccess | Copy current database structure into a definition file
+Function __dbCreate( <cFileName>, [<cFileFrom>], [<cRDDName>], [<lNew>], [<cAlias>] ) --> lUsed | Create structure extended file or use one to create new file
+Function __dbStructFilter( <aStruct>, [<aFieldList>] ) --> aStructFiltered | Filter a database structure array
+Function __Dir( [<cFileMask>] ) --> NIL | Display listings of files
+Function __FLedit( <aStruct>, [<aFieldList>] ) --> aStructFiltered | Filter a database structure array
+Function __Input( <cMessage> ) --> <cString> | Stops application
+Function __MenuTo( <bBlock>, <cVariable> ) --> nChoice | Invoked a menu defined by set of @...PROMPT
+Function __mvClear() | This function releases all PRIVATE and PUBLIC variables
+Function __mvDbgInfo( <nScope> [, <nPosition> [, @<cVarName>] ] ) | This function returns the information about the variables for debugger
+Function __mvExist( <cVarName> ) --> <lVariableExist> | Determine if a given name is a PUBLIC or PRIVATE memory variable
+Function __mvGet( <cVarName> ) --> <xVar> | This function returns value of memory variable
+Function __mvGet( <cVarName> [, <xValue>] ) --> <xValue> | This function set the value of memory variable
+Function __mvPrivate( <variable_name> ) | This function creates a PRIVATE variable
+Function __mvPublic( <variable_name> ) | This function creates a PUBLIC variable
+Function __mvRelease( <skeleton>, <include_exclude_flag> ) | This function releases PRIVATE variables
+Function __mvScope( <cVarName> ) | If variable exists then returns its scope.
+Function __mvXRelease( <variable_name> ) | This function releases value stored in PRIVATE or PUBLIC variable
+Function __objAddData( <oObject>, <cDataName> ) --> oObject | Add a VAR to an already existing class
+Function __objAddInline( <oObject>, <cInlineName>, <bInline> ) --> oObject | Add an INLINE to an already existing class
+Function __objAddMethod( <oObject>, <cMethodName>, <nFuncPtr> ) --> oObject | Add a METHOD to an already existing class
+Function __objDelInline( <oObject>, <cSymbol> ) --> oObject | Delete a METHOD INLINE from class
+Function __objDelMethod( <oObject>, <cDataName> ) --> oObject | Delete a VAR (instance variable) from class
+Function __objDelMethod( <oObject>, <cSymbol> ) --> oObject | Delete a METHOD  from class
+Function __objDerivedFrom( <oObject>, <xSuper> ) --> lIsParent | Determine whether a class is derived from another class
+Function __objGetMethodList( <oObject> ) --> aMethodNames | Return names of all METHOD for a given object
+Function __objGetMsgList( <oObject>, [<lData>], [nClassType] ) --> aNames | Return names of all VAR or METHOD for a given object
+Function __objGetValueList( <oObject>, [<aExcept>] ) --> aData | Return an array of VAR names and values for a given object
+Function __objHasData( <oObject>, <cSymbol> ) --> lExist | Determine whether a symbol exist in object as VAR
+Function __objHasMethod( <oObject>, <cSymbol> ) --> lExist | Determine whether a symbol exist in object as METHOD
+Function __objModInline( <oObject>, <cInlineName>, <bInline> ) --> oObject | Modify (replace) an INLINE method in an already existing class
+Function __objModMethod( <oObject>, <cMethodName>, <nFuncPtr> ) --> oObject | Modify (replace) a METHOD in an already existing class
+Function __objSetValueList( <oObject>, <aData> ) --> oObject | Set object with an array of VAR names and values
+Function __SetCentury([<lFlag>  OR  <cOnOff> ] ) --> lPreviousValue | Set the Current Century
+Function __SetFunction( <nFunctionKey>, [<cString>] ) --> NIL | Assign a character string to a function key
+Function __TypeFile( <cFile>, [<lPrint>] ) --> NIL | Show the content of a file on the console and/or printer
+Function __Wait( <cMessage> ) --> <cKey> | Stops the application until a key is pressed.
+Function __XHelp() --> <xValue> | Determines whether a HELP() user defined function exists.
+Procedure  dbGoto( <xRecordNumber> ) | Position the record pointer to a specific location.
+Procedure Break( <xExp> ) | Exits from a BEGIN SEQUENCE block
+Procedure DevOutPict( <xExp>, <cPicture>, [<cColorString>] ) | Displays a value to a device using a picture template
+Procedure EJECT | Issue an command to advance the printer to the top of the form
+Procedure hb_HAllocate( <hsTable>, <nItems> ) | Preallocates a hash table
+Procedure hb_inetCleanup() | Terminate Harbour INET support
+Procedure hb_inetClearError( <socket> ) | Clear the socket error value
+Procedure hb_inetClearPeriodCallback( <socket> ) | Clear the periodic callback value of a socket
+Procedure hb_inetClearTimeLimit( <socket> ) | Clear the time limit value of a socket
+Procedure hb_inetClearTimeout( <socket> ) | Clear the timeout value of a socket
+Procedure ORDCONSET([<cForCondition>],[<bForCondition>], [<lAll>],[<bWhileCondition>],[<bEval>],[<nInterval>],[<nStart>],[<nNext>],[<nRecord>],[<lRest>],[<lDescend>],[<lAdditive>],[<lCurrent>],[<lCustom>],[<lNoOptimize>]) | Set the Condition and scope for an order
+Procedure ordCreate( <cOrderBagName>,[<cOrderName>], <cExpKey>,[<bExpKey>], [<lUnique>] ) | Create an Order in an Order Bag
+Procedure ordDestroy( <cOrderName> [, <cOrderBagName> ] ) | Remove an Order from an Order Bag
+Procedure OutErr( <xExp,...> ) | Write a list of values to the standard error device
+Procedure OutStd( <xExp,...> ) | Write a list of values to the standard output device
+Procedure void hb_idleState( void ); | Evaluates a single background task and calls the garbage collector.
+Procedure __dbCopyStruct( <cFileName>, [<aFieldList>] ) | Create a new database based on current database structure
+Procedure __dbDelim( <lExport>, <xcFile>, [<xcDelim>], [<aFields>],[<bFor>], [<bWhile>], [<nNext>], [<nRecord>], <lRest>  ) | Copies the contents of a database to a delimited text file orappends the contents of a delimited text file to a database.
+Procedure __dbSDF( <lExport>, <xcFile>, [<aFields>],[<bFor>], [<bWhile>], [<nNext>], [<nRecord>], <lRest>  ) | Copies the contents of a database to an SDF text file orappends the contents of an SDF text file to a database.
+Procedure __NoNoAlert() | Override //NOALERT command line switch
+Procedure __Quit() | Terminates an application.
+Procedure __Run( <cCommand> ) | Run an external program.
+Procedure __SetHelpK() | Set F1 as the default help key
+Procedure __TextRestore() | Restore console output settings as saved by __TextSave()
+Procedure __TextSave( <cFile> ) | Redirect console output to printer or file and save old settings
+Procedure __XRestScreen() | Restore screen image and coordinate from an internal buffer
+Procedure __XSaveScreen() | Save whole screen image and coordinate to an internal buffer
+
+Command ? ??           | Display one or more values to the console
+Command @...BOX        | Draw a box on the screen\n haha
+Command @...CLEAR      | Clear a rectangular region of the screen
+Command @...GET        | Create a new Get object and display it
+Command @...GET        | continued...
+Command @...GET CHECK  | Create a new check box Get object and display it
+Command @...GET LIST   | Create a new list box Get object and display it
+Command @...GET PUSH   | Create a new push button Get object and display it
+Command @...GET RADIO  | Create a new radio button group Get object and display it
+Command @...GET TBROWSE| Create a new TBrowse Get object and display it
+Command @...PROMPT     | Paint a menu item and define a message
+Command @...SAY        | Display data at a specified screen or printer row and column
+Command @...TO         | Draw a single- or double-line box
+Command ACCEPT*        | Place keyboard input into a memory variable
+Command APPEND BLANK   | Add a new record to the current database file
+Command APPEND FROM    | Import records from a database (.dbf) file or ASCII text file
+Command AVERAGE        | Average numeric expressions in the current work area
+Command CALL*          | Execute a C or Assembler procedure
+Command CANCEL*        | Terminate program processing
+Command CLEAR ALL*     | Close files and release public and private variables
+Command CLEAR GETS     | Release Get objects from the current GetList array
+Command CLEAR MEMORY   | Release all public and private variables
+Command CLEAR SCREEN   | Clear the screen and return the cursor home
+Command CLEAR TYPEAHEAD| Empty the keyboard buffer
+Command CLOSE          | Close a specific set of files
+Command COMMIT         | Perform a solid-disk write for all active work areas
+Command CONTINUE       | Resume a pending LOCATE
+Command COPY FILE      | Copy a file to a new file or to a device
+Command COPY STRUCTURE | Copy the current .dbf structure to a new database (.dbf) file
+Command COPY STRU EXTE | Copy field definitions to a .dbf file
+Command COPY TO        | Export records to a database (.dbf) file or ASCII text file
+Command COUNT          | Tally records to a variable
+Command CREATE         | Create an empty structure extended (.dbf) file
+Command CREATE FROM    | Create a new .dbf file from a structure extended file
+Command DELETE         | Mark records for deletion
+Command DELETE FILE    | Remove a file from disk
+Command DELETE TAG     | Delete a tag
+Command DIR*           | Display a listing of files from a specified path
+Command DISPLAY        | Display records to the console
+Command EJECT          |  Advance the printhead to top of form
+Command ERASE          | Remove a file from disk
+Command FIND*          | Search an index for a specified key value
+Command GO             | Move the pointer to the specified identity
+Command INDEX          | Create an index file
+Command INPUT*         | Enter the result of an expression into a variable
+Command JOIN           | Create a new database file by merging from two work areas
+Command KEYBOARD       | Stuff a string into the keyboard buffer
+Command LABEL FORM     | Display labels to the console
+Command LIST           | List records to the console
+Command LOCATE         | Search sequentially for a record matching a condition
+Command MENU TO        | Execute a lightbar menu for defined PROMPTs
+Command NOTE*          | Place a single-line comment in a program file
+Command PACK           | Remove deleted records from a database file
+Command QUIT           | Terminate program processing
+Command READ           | Activate full-screen editing mode using Get objects
+Command RECALL         | Restore records marked for deletion
+Command REINDEX        | Rebuild open indexes in the current work area
+Command RELEASE        | Delete public and private memory variables
+Command RENAME         | Change the name of a file
+Command REPLACE        | Assign new values to field variables
+Command REPORT FORM    | Display a report to the console
+Command RESTORE        | Retrieve memory variables from a memory (.mem) file
+Command RESTORE SCREEN*| Display a saved screen
+Command RUN            | Execute a DOS command or program
+Command SAVE           | Save variables to a memory (.mem) file
+Command SAVE SCREEN*   | Save the current screen to a buffer or variable
+Command SEEK           | Search an order for a specified key value
+Command SELECT         | Change the current work area
+Command SET ALTERNATE  | Echo console output to a text file
+Command SET BELL       | Toggle sounding of the bell during full-screen operations
+Command SET CENTURY    | Modify the date format to include or omit century digits
+Command SET COLOR*     | Define screen colors
+Command SET CONFIRM    | Toggle required exit key to terminate GETs
+Command SET CONSOLE    | Toggle console display to the screen
+Command SET CURSOR     | Toggle the screen cursor on or off
+Command SET DATE       | Set the date format for input and display
+Command SET DECIMALS   | Set the number of decimal places to be displayed
+Command SET DEFAULT    | Set the CA-Clipper default drive and directory
+Command SET DELETED    | Toggle filtering of deleted records
+Command SET DELIMITERS | Toggle or define GET delimiters
+Command SET DESCENDING | Change the descending flag of the controlling order
+Command SET DEVICE     | Direct @...SAYs to the screen or printer
+Command SET EPOCH      | Control the interpretation of dates with no century digits
+Command SET ESCAPE     | Toggle Esc as a READ exit key
+Command SET EVENTMASK  | Specify events to be returned by the INKEY() function
+Command SET EXACT*     | Toggle exact matches for character strings
+Command SET EXCLUSIVE* | Establish shared or exclusive USE of database files
+Command SET FILTER     | Hide records not meeting a condition
+Command SET FIXED      | Toggle fixing of the number of decimal digits displayed
+Command SET FORMAT*    | Activate a format when READ is executed
+Command SET FUNCTION   | Assign a character string to a function key
+Command SET INDEX      | Open one or more order bags in the current work area
+Command SET INTENSITY  | Toggle enhanced display of GETs and PROMPTs
+Command SET KEY        | Assign a procedure invocation to a key
+Command SET MARGIN     | Set the page offset for all printed output
+Command SET MEMOBLOCK  | Change the block size for memo files
+Command SET MESSAGE    | Set the @...PROMPT message line row
+Command SET OPTIMIZE   | Change the setting that optimizes using open orders
+Command SET ORDER      | Select the controlling order
+Command SET PATH       | Specify the CA-Clipper search path for opening files
+Command SET PRINTER    | Toggle echo of output to printer or set the print destination
+Command SET PROCEDURE* | Compile procedures and functions into the current object file
+Command SET RELATION   | Relate two work areas by a key value or record number
+Command SET SCOPE      | Change the boundaries for scoping keys in controlling order
+Command SET SCOPEBOTTOM| Change bottom boundary for scoping keys in controlling order
+Command SET SCOPETOP   | Change top boundary for scoping keys in controlling order
+Command SET SCOREBOARD | Toggle the message display from READ or MEMOEDIT()
+Command SET SOFTSEEK   | Toggle relative seeking
+Command SET TYPEAHEAD  | Set the size of the keyboard buffer
+Command SET UNIQUE*    | Toggle inclusion of non-unique keys into an index
+Command SET VIDEOMODE  | Change the current video mode of the current application
+Command SET WRAP*      | Toggle wrapping of the highlight in menus
+Command SKIP           | Move the record pointer to a new position
+Command SORT           | Copy to a database (.dbf) file in sorted order
+Command STORE*         | Assign a value to one or more variables
+Command SUM            | Sum numeric expressions and assign results to variables
+Command TEXT*          | Display a literal block of text
+Command TOTAL          | Summarize records by key value to a database (.dbf) file
+Command TYPE           | Display the contents of a text file
+Command UNLOCK         | Release file/record locks set by the current user
+Command UPDATE         | Update current database file from another database file
+Command USE            | Open an existing database (.dbf) and its associated files
+Command WAIT*          | Suspend program processing until a key is pressed
+Command ZAP            | Remove all records from the current database file
+
+Keyword static
+Keyword local
+Keyword private
+Keyword public
+
+Preprocessor #define |define macrodefinition
+Preprocessor #elif |conditional operators
+Preprocessor #else |conditional operators
+Preprocessor #endif |conditional operators
+Preprocessor #error |display an error message
+Preprocessor #if |conditional operators
+Preprocessor #ifdef |conditional operators
+Preprocessor #ifndef |conditional operators
+Preprocessor #include |insert the contents of another file
+Preprocessor #pragma |implementation specific command
+Preprocessor #undef |used to undefine macrodefinitions

@@ -1,0 +1,7 @@
+[info]
+title=Elm
+type=lexer
+subdir=-
+
+[lexer1]
+file=Elm

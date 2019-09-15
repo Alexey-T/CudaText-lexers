@@ -1,0 +1,7 @@
+[info]
+title=Pawn
+type=lexer
+subdir=-
+
+[lexer1]
+file=Pawn

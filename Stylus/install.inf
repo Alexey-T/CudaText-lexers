@@ -1,0 +1,7 @@
+[info]
+title=Stylus
+type=lexer
+subdir=-
+
+[lexer1]
+file=Stylus

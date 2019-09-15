@@ -1,0 +1,142 @@
+object SyntAnal9: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = '[]'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = '<>'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = '.,'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = '+-'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = '[] bg'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clSkyBlue
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 2
+      Expression = '(?s) \[\w.*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Bracket'
+      StyleName = '[]'
+      TokenType = 1
+      Expression = '[\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Oper'
+      StyleName = '<>'
+      Expression = '[<>]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Dot'
+      StyleName = '.,'
+      Expression = '[\.,]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Plus'
+      StyleName = '+-'
+      Expression = '[\-\+]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = '['
+      StyleName = '[] bg'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 2
+        end>
+      BlockEnd = ']'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '>,['
+    '  ---['
+    '    >>>[<<>>]+'
+    '    ] >>>'
+    ']'
+    ''
+    '[Test '
+    'text]')
+  TokenTypeNames.Strings = (
+    'Symbol'
+    'Bracket'
+    'Comment')
+  Extentions = 'b'
+  LexerName = 'Brainfuck'
+  Notes.Strings = (
+    'Alexey (Synwrite)'
+    'Test: http://www.hevanet.com/cristofd/brainfuck/')
+  Charset = DEFAULT_CHARSET
+end

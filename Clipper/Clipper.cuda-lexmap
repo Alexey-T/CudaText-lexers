@@ -1,0 +1,14 @@
+[map]
+Default=-
+Symbol=Symbol
+Number=Number
+String=String
+Identifier=Id
+Reserved word=IdKeyword
+Comment=Comment
+Preprocessor=Id3
+Marked block=-
+
+[comments]
+styles_cmt=Comment
+styles_str=String

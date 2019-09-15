@@ -1,0 +1,7 @@
+[info]
+title=Perl 6
+type=lexer
+subdir=-
+
+[lexer1]
+file=Perl 6

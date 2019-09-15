@@ -1,0 +1,7 @@
+[info]
+title=Monkey
+type=lexer
+subdir=-
+
+[lexer1]
+file=Monkey

@@ -1,0 +1,227 @@
+object SyntAnal49: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGrayText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'IdKeyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Function'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Class'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 3
+      Expression = '\w+(?=[\x20\x09]*::?=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'VarTemp'
+      StyleName = 'Var'
+      TokenType = 3
+      Expression = '(?<!\[.*)(?s)(\|(\s+)?).+?\1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)".*?"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Class'
+      StyleName = 'Class'
+      TokenType = 2
+      Expression = '\#\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = '[\+\-\*\(\)\[\]\{\}\<>\.,~!&\|;:=%\^\#]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '\$\w'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)('#39'|'#180'|`).*?\1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+ (\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Function'
+      StyleName = 'Function'
+      TokenType = 2
+      Expression = '\w+:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'IdKeyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'false'
+            'nil'
+            'self'
+            'super'
+            'true')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      DynHighlight = dhBound
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'Object subclass: #ImageCreator'
+    #9'poolDictionaries: 20 + 0.20'
+    #9'category: '#39'STBE-ImageCreator'#39
+    '    '
+    '| sourceDir sysAddDir sysModDir localFile '
+    
+      'beforeClassCount beforeMethodCount afterClassCount afterMethodCo' +
+      'unt |'
+    ''
+    
+      '"Figure out the various directories. We allow development to be ' +
+      'done on different types of platform"'
+    'Window platformName = '#39'X11'#39
+    #9'ifTrue: '
+    #9#9'[sourceDir := '#39'/product/src/'#39'.'
+    #9#9'sysAddDir := '#39'/visual/sys/additions/'#39'.'
+    
+      #9#9'localFile := '#39'/home/'#39', (CEnvironment getenv: '#39'LOGNAME'#39'), '#39'/.vw' +
+      'local'#39']'
+    ''
+    
+      '"Create any necessary pool dictionaries and add all the pool dic' +
+      'tionary variables"'
+    'Smalltalk at: #MyPoolDictionary put: Dictionary new.'
+    'MyPoolDictionary at: #PoolVariableOne put: nil.'
+    'MyPoolDictionary at: #PoolVariableTwo put: nil.'
+    ''
+    
+      '"File In any required system additions and modifications that we' +
+      ' find the the relevant directories"'
+    '(sysAddDir asFilename filesMatching: '#39'*.st'#39')'
+    #9'do: [ :each | each asFilename fileIn].')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Var'
+    'String'
+    'Number'
+    'Symbol')
+  Extentions = 'st'
+  LexerName = 'Smalltalk'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Author: Matthias030 (SynWrite admin)'
+    'Changes: Alexey (CudaText)')
+  RestartFromLineStart = True
+  Charset = DEFAULT_CHARSET
+end

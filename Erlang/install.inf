@@ -1,0 +1,7 @@
+[info]
+title=Erlang
+type=lexer
+subdir=-
+
+[lexer1]
+file=Erlang

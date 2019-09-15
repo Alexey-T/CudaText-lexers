@@ -1,0 +1,22 @@
+[ref]
+0=Assembly
+1=Assembly
+
+[map]
+Default=-
+Marked block=-
+Match braces=BracketBG
+Symbol=Symbol
+Number=Number
+String=String
+Reserved word=IdKeyword
+Memory attribute=Id2
+Preprocessor=Id3
+Comment=Comment
+User keyword=Id1
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

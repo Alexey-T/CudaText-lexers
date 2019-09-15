@@ -1,0 +1,235 @@
+object SyntAnal25: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Color'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Preproc'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Suffix'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Unit'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '/[\*/] .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 2
+      Expression = '\$\w[\w-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1Id'
+      StyleName = 'Id'
+      TokenType = 7
+      Expression = '^ [\x20\x09]* \w[\w\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1Param'
+      StyleName = 'Id'
+      TokenType = 8
+      Expression = '^ [\x20\x09]* [:\#\.=\-\*&]+ [\w\-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+(\.\d+)? | \.\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Color'
+      StyleName = 'Color'
+      TokenType = 5
+      Expression = '\#([0-9a-f]{3}|[0-9a-f]{6})\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Unit'
+      StyleName = 'Unit'
+      TokenType = 9
+      Expression = '(?<=\d)[\w%]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39') .*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'URL'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = 'url\(.+?\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 6
+      Expression = '\w[\w\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Suffix'
+      StyleName = 'Suffix'
+      TokenType = 6
+      Expression = ':+[a-z][\w\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[;:,%\(\)\{\}\[\]<>\-\+\*~&\#/]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Preproc'
+      StyleName = 'Preproc'
+      Expression = '@\w[\w\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'block'
+      ConditionList = <
+        item
+          TokenTypes = 384
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      GroupIndex = 20
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '@name'
+    '// Comment'
+    'h1'
+    '  :width 20px'
+    '  height: .10em + 1.20%'
+    '  border-image-repeat: -7px;'
+    '  background:'
+    '    repeat: no-repeat'
+    '    :image url(www.img) #FF0'
+    '  a:hover, a:visited'
+    '    nosp: $var + 10'
+    '    value:0px; //not suffix')
+  TokenTypeNames.Strings = (
+    'Preproc'
+    'Comment'
+    'Var'
+    'Symbol'
+    'String'
+    'Number'
+    'Id'
+    '1Id'
+    '1Param'
+    'Unit')
+  Extentions = 'sass'
+  LexerName = 'Sass'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Test: https://github.com/sass/sass (folder test/sass/templates)')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

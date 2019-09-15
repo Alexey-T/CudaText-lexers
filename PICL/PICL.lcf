@@ -1,0 +1,450 @@
+object SyntAnal34: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Pragma'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      MultiLineBorder = True
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffHidden, ffFontName, ffFontSize, ffFontCharset, ffVertAlign]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Proc BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clCream
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Proc export BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16050403
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Module BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '--.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = 
+        '#nested comment allowed: (* (*..*) *)'#13#10'(?s)\(\* ( \(\*.*?\*\) |.' +
+        ')*? (\*\)|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Pragma'
+      StyleName = 'Pragma'
+      TokenType = 9
+      Expression = '#nested "--...." comment can be'#13#10'(?s)<\* (--.*?$| .)*? \*>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39').*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '(\d+ \.)? \d* [ed] [\+\-]? \d+ |'#13#10'\d+ \. \d*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 8
+      Expression = '(?-i)\d[\dA-F]*X'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d[\dA-F]*H'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int'
+      StyleName = 'Number'
+      TokenType = 7
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]\^\#&~\{\}\|!]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BEGIN'
+            'CONST'
+            'DEC'
+            'DIV'
+            'DO'
+            'ELSE'
+            'ELSIF'
+            'END'
+            'FOR'
+            'IF'
+            'INC'
+            'MOD'
+            'MODULE'
+            'OR'
+            'PROCEDURE'
+            'REPEAT'
+            'RETURN'
+            'ROL'
+            'ROR'
+            'SET'
+            'THEN'
+            'TO'
+            'UNTIL'
+            'VAR'
+            'WHILE')
+          TokenTypes = 4
+        end>
+      DisplayInTree = False
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id types'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BOOL'
+            'CHAR'
+            'INT'
+            'INTEGER'
+            'LONGINT')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc'
+      StyleName = 'Proc BG'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'PROCEDURE')
+          TokenTypes = 4
+        end>
+      IdentIndex = -1
+      BlockEnd = 'proc end'
+      Highlight = True
+      NameFmt = 'proc %s-1'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = 'proc %s-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BEGIN'
+            'CASE'
+            'IF'
+            'WHILE')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'END')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'END')
+          TokenTypes = 4
+        end>
+      IdentIndex = -1
+      SameIdent = True
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'proc *'
+      StyleName = 'Proc export BG'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '*')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'PROCEDURE')
+          TokenTypes = 4
+        end>
+      IdentIndex = -2
+      BlockEnd = 'proc end'
+      Highlight = True
+      NameFmt = 'proc* %s-2'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      DynSelectMin = True
+      CollapseFmt = 'proc* %s-2'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Module begin'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'MODULE')
+          TokenTypes = 4
+        end>
+      IdentIndex = -1
+      BlockEnd = 'Module end'
+      Highlight = True
+      NameFmt = 'MODULE %s-1'
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      CollapseFmt = 'MODULE %s-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Module end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'END')
+          TokenTypes = 4
+        end>
+      IdentIndex = -1
+      SameIdent = True
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'MODULE Test;'
+    ''
+    'CONST out = 378H; in = 379H; (*port addresses*)'
+    'del0 = 2000; del1 = 1000;  (*processor dependent*)'
+    ''
+    'PROCEDURE* wait(k: LONGINT);'
+    'BEGIN'
+    'REPEAT DEC(k) UNTIL k = 0'
+    'END wait;'
+    ''
+    'PROCEDURE S(d: LONGINT);'
+    'BEGIN SYSTEM.PORTOUT(out, d)'
+    'END S;'
+    ''
+    'PROCEDURE R(VAR b: INTEGER);'
+    'VAR ch: CHAR;'
+    
+      'BEGIN (*read D6, dat*) SYSTEM.PORTIN(in, ch); b := ORD(ch) DIV 2' +
+      '0H MOD 2'
+    'END R;'
+    ''
+    'PROCEDURE Send*(d: LONGINT);'
+    'VAR i: INTEGER;'
+    'BEGIN'
+    'FOR i := 0 TO 7 DO'
+    'S(d MOD 2 + 4); wait(del0);'
+    'S(d MOD 2 + 6); wait(del1);'
+    'd := d DIV 2'
+    'END ;'
+    'S(7)'
+    'END Send;'
+    ''
+    'PROCEDURE Receive*(VAR d: LONGINT);'
+    'VAR x, b, i: INTEGER;'
+    'BEGIN x := 0;'
+    'FOR i := 0 TO 7 DO'
+    'S(5); wait(del0);'
+    'S(7); R(b); x := (x DIV 2) + (b * 80H); wait(del1)'
+    'END ;'
+    'd := x'
+    'END Receive;'
+    ''
+    'END Test.')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Preprocessor')
+  Extentions = 'picl'
+  LexerName = 'PICL'
+  Notes.Strings = (
+    'initial work by BillBuzzell (github)'
+    'much fixed by Alexey (SynWrite)')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+end

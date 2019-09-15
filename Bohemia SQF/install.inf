@@ -1,0 +1,7 @@
+[info]
+title=Bohemia SQF
+type=lexer
+subdir=-
+
+[lexer1]
+file=Bohemia SQF

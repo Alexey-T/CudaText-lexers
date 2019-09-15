@@ -1,0 +1,7 @@
+[info]
+title=XSLT
+type=lexer
+subdir=-
+
+[lexer1]
+file=XSLT

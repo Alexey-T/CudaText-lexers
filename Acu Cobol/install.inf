@@ -1,0 +1,7 @@
+[info]
+title=Acu Cobol
+type=lexer
+subdir=-
+
+[lexer1]
+file=Acu Cobol

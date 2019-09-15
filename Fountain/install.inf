@@ -1,0 +1,7 @@
+[info]
+title=Fountain
+type=lexer
+subdir=-
+
+[lexer1]
+file=Fountain

@@ -1,0 +1,9 @@
+[info]
+title=LaTeX
+type=lexer
+subdir=-
+
+[lexer1]
+file=LaTeX
+link1=Lua
+link2=Python

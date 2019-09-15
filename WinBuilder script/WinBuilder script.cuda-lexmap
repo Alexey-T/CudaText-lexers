@@ -1,0 +1,16 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+str1=
+str2=
+[map]
+Default=-
+Identifier=Id
+Key=Id1
+Var=IdVar
+Section=Label
+Comment=Comment
+Symb=Symbol
+Str=String
+CmdParam=Id2
+SpecChar=Id3

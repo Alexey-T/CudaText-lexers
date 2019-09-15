@@ -1,0 +1,293 @@
+object SyntAnal42: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14999501
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\{\}\(\)\[\],;:%\#\|=]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39'.*?('#39'|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'as'
+            'autoescape'
+            'block'
+            'do'
+            'else'
+            'elseif'
+            'embed'
+            'endautoescape'
+            'endblock'
+            'endembed'
+            'endfilter'
+            'endfor'
+            'endif'
+            'endmacro'
+            'endsandbox'
+            'endspaceless'
+            'endverbatim'
+            'extends'
+            'false'
+            'filter'
+            'flush'
+            'for'
+            'from'
+            'if'
+            'import'
+            'in'
+            'include'
+            'is'
+            'macro'
+            'only'
+            'sandbox'
+            'set'
+            'spaceless'
+            'true'
+            'use'
+            'verbatim'
+            'with')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      StyleName = 'Tag BG'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '%')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'autoescape'
+            'block'
+            'embed'
+            'filter'
+            'for'
+            'if'
+            'macro'
+            'sandbox'
+            'spaceless'
+            'verbatim')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '%')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'block end'
+      NameFmt = '%s-2 %s-3'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%s-2'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '%')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'endautoescape'
+            'endblock'
+            'endembed'
+            'endfilter'
+            'endfor'
+            'endif'
+            'endmacro'
+            'endsandbox'
+            'endspaceless'
+            'endverbatim')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '%')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockOffset = -4
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'HTML'
+      StartExpression = '[%\#\}] \}'
+      EndExpression = '\{ [%\#\{]'
+      SyntAnalyzer = SyntAnal13
+      FromTextBegin = True
+    end>
+  SampleText.Strings = (
+    '{# an included template #}'
+    ''
+    '{% block mission %}'
+    '    <h2 class="title_05">MISSION STATEMENT</h2>'
+    
+      '    <p>Symfony is entirely free and published under the <a href=' +
+      '"{{ path('#39'license'#39') }}">MIT license.</a></p>'
+    '{%  endblock %}'
+    ''
+    '{% block fiveminutes %}'
+    '    <ul class="list_04">'
+    
+      '        <li><a href="{{ marketing_path('#39'why_use_a_framework'#39') }}' +
+      '">Why should I use a framework?</a></li>'
+    
+      '        <li><a href="{{ marketing_path('#39'when_use_a_framework'#39') }' +
+      '}">When should I use a framework?</a></li>'
+    '    </ul>'
+    '{% endblock %}'
+    ''
+    '{% autoescape %}'
+    '    {{ safe_value|raw }}'
+    '{% endautoescape %}'
+    ''
+    '{% embed %}'
+    'Test'
+    '{% endembed %}'
+    ''
+    '{% set name='#39'test'#39' %}')
+  TokenTypeNames.Strings = (
+    'Tag'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number')
+  Extentions = 'twig'
+  LexerName = 'Twig'
+  Notes.Strings = (
+    'Author: Alexey (SynWrite)'
+    'Tests: https://github.com/symfony/symfony-marketing')
+  Charset = DEFAULT_CHARSET
+end

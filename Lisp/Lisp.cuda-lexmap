@@ -1,0 +1,17 @@
+[map]
+Symbol=Symbol
+Number=Number
+String=String
+Identifier=Id
+Reserved word=Id2
+Comment=Comment
+Comment block=Comment2
+Brackets=Symbol2
+Bracket BG=BracketBG
+Var=IdVar
+
+[comments]
+str1=#|
+str2=|#
+styles_cmt=Comment
+styles_str=String

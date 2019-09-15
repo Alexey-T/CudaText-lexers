@@ -1,0 +1,337 @@
+object SyntAnal51: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Date'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 5921370
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Info'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Error'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clRed
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Warning'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 2386943
+      FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
+    end
+    item
+      DisplayName = 'Type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Success'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clGreen
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Success'
+      StyleName = 'Success'
+      TokenType = 6
+      Expression = 
+        '^.*((?<!no\s)success|(?<!nicht\s)erfolgreich|(no|without(\sany)?' +
+        ')\serror|fehlerfrei|(ohne\s|kein(e)?\s)fehler|(?<!not\s)succeed|' +
+        'mit\serfolg).*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Error'
+      StyleName = 'Error'
+      TokenType = 4
+      Expression = 
+        '^.*(error|exception|fail|fatal|crash|(?<!be)fehl(geschlagen)?(er' +
+        ')?|(ohne|kein|nicht)\serfolg|violat).*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Warning'
+      StyleName = 'Warning'
+      TokenType = 3
+      Expression = 
+        '^.*(warn|critical|kritisch|conflict|konflikt|ung('#252'|ue)ltig|inval' +
+        'id|(nicht\s|un)zul('#228'|ae)ssig|not\sready|nicht\sbereit|not\sfound' +
+        '|nicht\sgefunden|no\ssuccess|not\ssucceed|veraltet|out\sof\sdate' +
+        ').*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Date'
+      StyleName = 'Date'
+      Expression = 
+        '\b(\d{1,4}(-)?(\.)?(\/)?\s*(Jan\w*|Feb\w*|Mar\w*|M'#228'r\w*|Apr\w*|M' +
+        'ai\w*|May\w*|Jun\w*|Jul\w*|Aug\w*|Sep\w*|Okt\w*|Oct\w*|Nov\w*|De' +
+        'z\w*|Dec\w*)(-)?(\.)?(\/)?\s*\d{1,4})\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Type'
+      StyleName = 'Type'
+      TokenType = 5
+      Expression = '\(.*?\)|\[.*?\]|\{.*?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Info'
+      TokenType = 2
+      Expression = '[a-z]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Numbers'
+      StyleName = 'Date'
+      Expression = '\b((\d+[-\/\.\:\\])+\d+)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Key words'
+      StyleName = 'Info'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abbruch'
+            'abgebrochen'
+            'abgeschlossen'
+            'activated'
+            'activating'
+            'active'
+            'add'
+            'added'
+            'adding'
+            'aktiv'
+            'aktiviere'
+            'aktiviert'
+            'angehalten'
+            'beende'
+            'beendet'
+            'begin'
+            'beginning'
+            'begins'
+            'closed'
+            'closing'
+            'complete'
+            'completed'
+            'completing'
+            'completion'
+            'connected'
+            'connecting'
+            'deactivated'
+            'deactivating'
+            'deaktiviere'
+            'deaktiviert'
+            'debug'
+            'debugged'
+            'debugging'
+            'deinstalliert'
+            'delete'
+            'deleted'
+            'deleting'
+            'denied'
+            'disabled'
+            'disabling'
+            'disconnected'
+            'disconnecting'
+            'done'
+            'dump'
+            'dumped'
+            'dumping'
+            'dumps'
+            'enabled'
+            'enabling'
+            'end'
+            'ende'
+            'ended'
+            'ending'
+            'ends'
+            'entered'
+            'entering'
+            'entladen'
+            'erfolg'
+            'exceeded'
+            'execute'
+            'executed'
+            'executing'
+            'execution'
+            'exiting'
+            'exits'
+            'falsch'
+            'false'
+            'fertig'
+            'finish'
+            'finished'
+            'finishing'
+            'flushing'
+            'geladen'
+            'geloescht'
+            'geschlossen'
+            'gestartet'
+            'gestoppt'
+            'getrennt'
+            'hinzugefuegt'
+            'ignored'
+            'ignoring'
+            'inactive'
+            'inaktiv'
+            'info'
+            'information'
+            'installed'
+            'installiert'
+            'installing'
+            'ja'
+            'kill'
+            'killed'
+            'killing'
+            'load'
+            'loaded'
+            'loading'
+            'missed'
+            'missing'
+            'nein'
+            'ok'
+            'problem'
+            'probleme'
+            'problems'
+            'quitting'
+            'ready'
+            'register'
+            'registered'
+            'registering'
+            'registriert'
+            'remove'
+            'removed'
+            'removing'
+            'replaced'
+            'restarted'
+            'restarting'
+            'shutdown'
+            'skip'
+            'skipped'
+            'skipping'
+            'start'
+            'started'
+            'starting'
+            'stop'
+            'stopped'
+            'stopping'
+            'terminate'
+            'terminated'
+            'terminating'
+            'termination'
+            'terminiert'
+            'trace'
+            'traced'
+            'tracing'
+            'true'
+            'ueberschritten'
+            'uninstalled'
+            'uninstalling'
+            'unload'
+            'unloaded'
+            'unloading'
+            'unregister'
+            'unregistered'
+            'unregistering'
+            'updated'
+            'updating'
+            'verbunden'
+            'wahr'
+            'yes')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '2010-08-20 11:21:30, Info DISM   PID=4576 Scratch directory set'
+    '2010-08-20 11:21:30, Info Successfully loaded the ImageSession'
+    '2010-08-20 11:21:30, Info Found and Initialized the DISM Logger.'
+    
+      '2010-08-20 11:21:30, Info PID=4576 Failed to get and initialize ' +
+      'the PE Provider.'
+    '2010-08-20 11:21:30, Warning Low Disk Space detected'
+    
+      '2010-08-20 11:21:30, Info [PID=4576] Provider has previously bee' +
+      'n initialized.'
+    '2010-08-20 11:21:30, Info Getting Provider DISMLogger'
+    
+      '2010-08-20 11:21:30, Info Provider has previously been initializ' +
+      'ed.'
+    'All finished without errors')
+  TokenTypeNames.Strings = (
+    'Date'
+    'Time'
+    'Info'
+    'Warning'
+    'Error'
+    'Type'
+    'Success')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'log'
+  LexerName = 'Logfiles'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Logfiles (lexer for english and german logfiles.)'
+    'created 07/2011 (matthias030)'
+    ''
+    'any improvements are welcome. feel free to post changes'
+    'at synwrite forum to support other synwrite users:'
+    'http://www.ghisler.ch/board/viewtopic.php?t=25586   ')
+  RestartFromLineStart = True
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

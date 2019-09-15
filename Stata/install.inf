@@ -1,0 +1,7 @@
+[info]
+title=Stata
+type=lexer
+subdir=-
+
+[lexer1]
+file=Stata

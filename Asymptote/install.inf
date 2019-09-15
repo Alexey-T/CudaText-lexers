@@ -1,0 +1,7 @@
+[info]
+title=Asymptote
+type=lexer
+subdir=-
+
+[lexer1]
+file=Asymptote

@@ -1,0 +1,19 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Comment=Comment
+Number=Number
+Id=Id
+Id commands=Id2
+Id registers=Id4
+Label=Label
+Symbol=Symbol
+String=String
+String2=String2
+Id directives=Id1
+Id operators=IdKeyword
+Id types=IdVar

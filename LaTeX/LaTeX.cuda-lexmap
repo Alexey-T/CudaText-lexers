@@ -1,0 +1,31 @@
+[ref]
+0=Lua
+1=Python
+
+[comments]
+styles_cmt=Comment
+styles_str=Str title,Str section
+
+[map]
+Comment directive=Comment2
+Comment=Comment
+Symbol=Symbol
+Symbol cmd=Symbol2
+Id=Id
+Id braces=Id2
+Cmd=Id1
+Cmd item=Id4
+Cmd preamble=Id3
+Number=Number
+Id param=IdVar
+Id units=IdKeyword
+Str title=CommentDoc
+Str section=Label
+Str verbatim=String
+Environment BG=SectionBG2
+In braces BG=IncludeBG1
+Document BG=SectionBG1
+Sublexer BG=SectionBG3
+Symbol math=Symbol
+Math BG=SectionBG4
+Str ref=String3

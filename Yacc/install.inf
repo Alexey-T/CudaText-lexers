@@ -1,0 +1,9 @@
+[info]
+title=Yacc
+type=lexer
+subdir=-
+
+[lexer1]
+file=Yacc
+link1=C
+link2=C

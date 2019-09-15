@@ -1,0 +1,7 @@
+[info]
+title=MiniZinc
+type=lexer
+subdir=-
+
+[lexer1]
+file=MiniZinc

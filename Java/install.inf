@@ -1,0 +1,7 @@
+[info]
+title=Java
+type=lexer
+subdir=-
+
+[lexer1]
+file=Java

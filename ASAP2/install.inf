@@ -1,0 +1,11 @@
+[info]
+title=ASAP2
+type=lexer
+subdir=-
+
+[lexer1]
+file=ASAP2 Meta Language
+
+[lexer2]
+file=ASAP2 database
+link1=ASAP2 Meta Language

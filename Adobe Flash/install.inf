@@ -1,0 +1,7 @@
+[info]
+title=Adobe Flash
+type=lexer
+subdir=-
+
+[lexer1]
+file=Adobe Flash

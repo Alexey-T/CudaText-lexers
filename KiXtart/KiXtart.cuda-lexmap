@@ -1,0 +1,15 @@
+[map]
+Symbol=Symbol
+Number=Number
+String=String
+Identifier=Id
+Reserved word=IdKeyword
+Comment=Comment
+Var=IdVar
+Macro=Id2
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

@@ -1,0 +1,7 @@
+[info]
+title=Lola-2
+type=lexer
+subdir=-
+
+[lexer1]
+file=Lola-2

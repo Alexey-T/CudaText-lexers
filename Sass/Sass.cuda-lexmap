@@ -1,0 +1,17 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+str1=
+str2=
+
+[map]
+Symbol=Symbol
+Comment=Comment
+Number=Number
+Color=Color
+String=String
+Var=IdVar
+Id=Id
+Preproc=Id2
+Suffix=Id4
+Unit=Id3

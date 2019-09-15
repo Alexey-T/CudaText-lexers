@@ -1,0 +1,1352 @@
+object SyntAnal112: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Compiler Directive'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Specifications'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Line Indent'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14211288
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'C keywords'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Current block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = cl3DLight
+      FormatType = ftColor
+      BorderTypeLeft = blDot
+      BorderColorLeft = clMaroon
+      BorderTypeTop = blDot
+      BorderColorTop = clMaroon
+      BorderTypeRight = blDot
+      BorderColorRight = clMaroon
+      BorderTypeBottom = blDot
+      BorderColorBottom = clMaroon
+    end
+    item
+      DisplayName = 'C background'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 12910561
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'D background'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15528703
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'D keywords'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'H keywords'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = '%name'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsItalic]
+    end
+    item
+      DisplayName = 'P background'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16769021
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Comment background'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14548991
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Free syntax'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clLime
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '# Make comment to get all line'#13#10'(?m)^\x20*\*.*\r\n'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'End line comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '.*'
+      ColumnFrom = 80
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Indent'
+      StyleName = 'Line Indent'
+      Expression = '(?m)^\x20{5}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Any Directive'
+      StyleName = 'Compiler Directive'
+      TokenType = 5
+      Expression = '/[\w\-]+'
+      ColumnFrom = 7
+      ColumnTo = 7
+    end
+    item
+      DisplayName = 'Specifications'
+      StyleName = 'Specifications'
+      TokenType = 3
+      Expression = '(?m)[CDFHIOP]'
+      ColumnFrom = 6
+      ColumnTo = 6
+    end
+    item
+      DisplayName = 'Line end'
+      TokenType = 4
+      Expression = '# supports any type of line end'#13#10'\r\n|[\r\n]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Data type'
+      StyleName = 'Types'
+      BlockName = 'D line'
+      TokenType = 2
+      Expression = '\w{1,2}'
+      ColumnFrom = 24
+      ColumnTo = 24
+    end
+    item
+      DisplayName = 'File type'
+      StyleName = 'Types'
+      BlockName = 'F line'
+      TokenType = 2
+      Expression = '[IOUC]'
+      ColumnFrom = 17
+      ColumnTo = 17
+    end
+    item
+      DisplayName = 'File designation'
+      StyleName = 'Types'
+      BlockName = 'F line'
+      TokenType = 2
+      Expression = '[TF]'
+      ColumnFrom = 18
+      ColumnTo = 18
+    end
+    item
+      DisplayName = 'File addition'
+      StyleName = 'Types'
+      BlockName = 'F line'
+      TokenType = 2
+      Expression = 'A'
+      ColumnFrom = 20
+      ColumnTo = 20
+    end
+    item
+      DisplayName = 'File format'
+      StyleName = 'Types'
+      BlockName = 'F line'
+      TokenType = 2
+      Expression = '[FE]'
+      ColumnFrom = 22
+      ColumnTo = 22
+    end
+    item
+      DisplayName = 'Record Address type'
+      StyleName = 'Types'
+      BlockName = 'F line'
+      TokenType = 2
+      Expression = 'K'
+      ColumnFrom = 34
+      ColumnTo = 34
+    end
+    item
+      DisplayName = 'Device'
+      StyleName = 'Types'
+      BlockName = 'F line'
+      TokenType = 2
+      Expression = '\w+'
+      ColumnFrom = 36
+      ColumnTo = 42
+    end
+    item
+      DisplayName = 'F keywords'
+      StyleName = 'Types'
+      BlockName = 'F line'
+      TokenType = 2
+      Expression = '\w+'
+      ColumnFrom = 44
+      ColumnTo = 80
+    end
+    item
+      DisplayName = 'Control keywords'
+      StyleName = 'H keywords'
+      BlockName = 'H line'
+      TokenType = 2
+      Expression = '\x20[a-z,A-Z]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'B and E procedure'
+      StyleName = 'Types'
+      BlockName = 'P line'
+      TokenType = 2
+      Expression = '[BE]'
+      ColumnFrom = 24
+      ColumnTo = 24
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      AlwaysEnabled = True
+      TokenType = 7
+      Expression = #39'.*'#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      AlwaysEnabled = True
+      TokenType = 6
+      Expression = 
+        '#with exp. dot is optional '#13#10'\d+ \.? \d+ e [\+\-]? \d+ |'#13#10'#witho' +
+        'ut exp. dot is required'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      AlwaysEnabled = True
+      TokenType = 6
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex number'
+      StyleName = 'Number'
+      AlwaysEnabled = True
+      TokenType = 6
+      Expression = 'X'#39'[a-f\d]+'#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'ident'
+      AlwaysEnabled = True
+      TokenType = 2
+      Expression = '#any name'#13#10'\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Space'
+      Enabled = False
+      BlockName = 'C line'
+      Expression = '\x20+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '%names'
+      StyleName = '%name'
+      BlockName = 'C line'
+      TokenType = 2
+      Expression = '%\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Block comment'
+      StyleName = 'Comment background'
+      BlockName = 'Block comment'
+      NotParent = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      Highlight = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpBound
+      CollapseFmt = '     * ... *'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockName = 'Block comment'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcNotEqual
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'line end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 16
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Directive line'
+      ConditionList = <
+        item
+          TokenTypes = 32
+        end>
+      BlockEnd = 'line end'
+      NotCollapsed = True
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'C line'
+      StyleName = 'C background'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'C')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockOffset = 1
+      BlockEnd = 'line end'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'D line'
+      StyleName = 'D background'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'D')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockOffset = 1
+      BlockEnd = 'line end'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'F line'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'F')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'line end'
+      NotCollapsed = True
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'H line'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'H')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'line end'
+      NotCollapsed = True
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'I line'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'I')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'line end'
+      NotCollapsed = True
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'O line'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'O')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'line end'
+      NotCollapsed = True
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'P line'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'P')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockEnd = 'line end'
+      NotCollapsed = True
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'C keywords (only C specific)'
+      StyleName = 'C keywords'
+      BlockName = 'C line'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'add'
+            'adddur'
+            'alloc'
+            'and'
+            'begact'
+            'begsr'
+            'bitoff'
+            'biton'
+            'cab'
+            'cas'
+            'cat'
+            'chain'
+            'check'
+            'checkr'
+            'clear'
+            'close'
+            'clswin'
+            'commit'
+            'comp'
+            'dealloc'
+            'define'
+            'delete'
+            'div'
+            'dsply'
+            'else'
+            'elseif'
+            'end'
+            'endact'
+            'endcs'
+            'enddo'
+            'endfor'
+            'endif'
+            'endmon'
+            'endsl'
+            'endsr'
+            'eval'
+            'evalr'
+            'except'
+            'exsr'
+            'extrct'
+            'feod'
+            'for'
+            'getatr'
+            'goto'
+            'if'
+            'in'
+            'iter'
+            'kfld'
+            'klist'
+            'leave'
+            'leavesr'
+            'lookup'
+            'monitor'
+            'move'
+            'movea'
+            'movel'
+            'mult'
+            'mvr'
+            'not'
+            'occur'
+            'on-error'
+            'or'
+            'other'
+            'out'
+            'parm'
+            'plist'
+            'post'
+            'read'
+            'readc'
+            'reade'
+            'readp'
+            'readpe'
+            'reads'
+            'realloc'
+            'reset'
+            'return'
+            'rolbk'
+            'scan'
+            'select'
+            'setatr'
+            'setgt'
+            'setll'
+            'setoff'
+            'seton'
+            'showwin'
+            'sorta'
+            'sqrt'
+            'start'
+            'stop'
+            'sub'
+            'subdur'
+            'subst'
+            'tag'
+            'test'
+            'testb'
+            'testn'
+            'testz'
+            'time'
+            'to'
+            'unlock'
+            'update'
+            'when'
+            'write'
+            'xfoot'
+            'xlate'
+            'z-add'
+            'z-sub')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'D keywords'
+      StyleName = 'D keywords'
+      BlockName = 'D line'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'align'
+            'alt'
+            'ascend'
+            'based'
+            'button'
+            'ccsid'
+            'class'
+            'cltpgm'
+            'const'
+            'ctdata'
+            'datfmt'
+            'descend'
+            'dim'
+            'dll'
+            'dtaara'
+            'extfld'
+            'extfmt'
+            'extname'
+            'extpgm'
+            'extproc'
+            'fromfile'
+            'inz'
+            'like'
+            'likeds'
+            'likerec'
+            'linkage'
+            'msgdata'
+            'msgnbr'
+            'msgtext'
+            'msgtitle'
+            'noopt'
+            'nowait'
+            'occurs'
+            'options'
+            'overlay'
+            'packeven'
+            'perrcd'
+            'prefix'
+            'procptr'
+            'qualified'
+            'static'
+            'style'
+            'timfmt'
+            'tofile'
+            'value'
+            'varying')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Directive keywords'
+      StyleName = 'Compiler Directive'
+      BlockName = 'Directive line'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'defined'
+            'not')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '/IF'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/IF')
+          TokenTypes = 32
+          IgnoreCase = True
+        end>
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = 'IF ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '/ENDIF'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/ENDIF')
+          TokenTypes = 32
+          IgnoreCase = True
+        end>
+      BlockEnd = '/IF'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'procedure begin'
+      StyleName = 'P background'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'B')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'P')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      IdentIndex = 1
+      BlockOffset = 3
+      BlockEnd = 'procedure end'
+      Highlight = True
+      InvertColors = True
+      DynHighlight = dhBound
+      HighlightPos = cpBound
+      CollapseFmt = 'PROC   %s1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'procedure end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'E')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'P')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      BlockOffset = -1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '/FREE'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/FREE')
+          TokenTypes = 32
+          IgnoreCase = True
+        end>
+      BlockEnd = '/END-FREE'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '/ FREE SYNTAX /'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '/END-FREE'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/END-FREE')
+          TokenTypes = 32
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      StyleName = 'Current block'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 256
+        end>
+      BlockEnd = ')'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpBoundTagBegin
+      DynSelectMin = True
+      CollapseFmt = '( ... )'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 256
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'END'
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'END')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CASyy'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'cas'
+            'cas\w\w')
+          CondType = tcMask
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'END'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ENDCS'
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endcs')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'CASyy'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DO'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'DO'
+            'DOU'
+            'DOU\w\w'
+            'DOW'
+            'DOW\w\w')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'END'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ENDDO'
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'enddo')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'DO'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'IF'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'IF'
+            'IF\w\w')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'END'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ENDIF'
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endif')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'IF'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ELSE'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ELSE')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'ENDIF (for else)'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ENDIF (for else)'
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ENDIF')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'FOR'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'for')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'END'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ENDFOR'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endfor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'FOR'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'MONITOR'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'MONITOR')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'END'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ENDMON'
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ENDMON')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'MONITOR'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'SELECT'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'SELECT')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'END'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ENDSL'
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ENDSL')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'SELECT'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begsr'
+      AlwaysEnabled = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'begsr')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      DisplayInTree = False
+      HighlightPos = cpBound
+      CollapseFmt = 'begsr ... endsr'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'endsr'
+      AlwaysEnabled = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endsr')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'common keywords (C)'
+      StyleName = 'C keywords'
+      AlwaysEnabled = True
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'add'
+            'adddur'
+            'alloc'
+            'and'
+            'begact'
+            'begsr'
+            'bitoff'
+            'biton'
+            'chain'
+            'check'
+            'checkr'
+            'clear'
+            'close'
+            'clswin'
+            'commit'
+            'comp'
+            'dealloc'
+            'define'
+            'delete'
+            'div'
+            'do'
+            'dou'
+            'dow'
+            'dsply'
+            'else'
+            'elseif'
+            'end'
+            'endact'
+            'endcs'
+            'enddo'
+            'endfor'
+            'endif'
+            'endmon'
+            'endsl'
+            'endsr'
+            'eval'
+            'evalr'
+            'except'
+            'exsr'
+            'extrct'
+            'feod'
+            'for'
+            'getatr'
+            'goto'
+            'if'
+            'in'
+            'iter'
+            'kfld'
+            'klist'
+            'leave'
+            'leavesr'
+            'lookup'
+            'monitor'
+            'move'
+            'movea'
+            'movel'
+            'mult'
+            'mvr'
+            'not'
+            'occur'
+            'on-error'
+            'or'
+            'other'
+            'out'
+            'parm'
+            'plist'
+            'post'
+            'read'
+            'readc'
+            'reade'
+            'readp'
+            'readpe'
+            'reads'
+            'realloc'
+            'reset'
+            'return'
+            'rolbk'
+            'scan'
+            'select'
+            'setatr'
+            'setgt'
+            'setll'
+            'setoff'
+            'seton'
+            'showwin'
+            'sorta'
+            'sqrt'
+            'start'
+            'stop'
+            'sub'
+            'subdur'
+            'subst'
+            'tag'
+            'time'
+            'to'
+            'unlock'
+            'update'
+            'when'
+            'write'
+            'xfoot'
+            'xlate'
+            'z-add'
+            'z-sub')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'common masked keywords (C)'
+      StyleName = 'C keywords'
+      AlwaysEnabled = True
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ca[bst]'
+            'call[bp]?'
+            'cas\w\w'
+            'dou\w\w\b'
+            'dow\w\w'
+            'if\w\w'
+            'test[bnz]?')
+          CondType = tcMask
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'Free Syntax rule'
+      StyleName = 'Free syntax'
+      StartExpression = '(?i)/FREE'
+      EndExpression = '(?i)/END\-FREE'
+      SyntAnalyzer = SyntAnal111
+    end>
+  SampleText.Strings = (
+    '      /IF NOT DEFINED(DATA_TYPES)'
+    '      /DEFINE DATA_TYPES'
+    ''
+    '     ***********'
+    '     **  RPG  **'
+    '     ***********'
+    '     D short           S              5I 0'
+    '     D int             S             10I 0'
+    '     D long            S             10I 0'
+    '     D float           S              8F'
+    '     D double          S                   Like(float)'
+    '      /Free   '
+    '        do        '
+    '        // Comment'
+    '         dou'
+    '           if   '
+    '            monitor    '
+    '             select  '
+    '              CASfe'
+    '              endcs'
+    '             endsl'
+    '            endmon'
+    '           endif'
+    '         end'
+    '        enddo'
+    '        '
+    '      /end-free'
+    ''
+    '      /ENDIF'
+    '')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Line Type'
+    'Line End'
+    'Directives'
+    'Number'
+    'String'
+    'Symbol')
+  Extentions = 'rpg rpgle'
+  LexerName = 'RPG/IV'
+  SkipSpaces = False
+  RestartFromLineStart = True
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

@@ -1,0 +1,539 @@
+object SyntAnal68: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'uuid'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Keys'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Int const'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Preprocessor'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'UUID'
+      StyleName = 'uuid'
+      TokenType = 10
+      Expression = '[\dA-F]{8}-[\dA-F]{4}'#13#10'-[\dA-F]{4}-[\dA-F]{4}'#13#10'-[\dA-F]{12}'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Identifier'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '[a-z_]\w*'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '".*?("|$)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int const'
+      StyleName = 'Int const'
+      TokenType = 5
+      Expression = '[-+]?\d'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[=;\[\]\{\}\(\)]'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Multiline comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Preprocessor'
+      StyleName = 'Preprocessor'
+      TokenType = 9
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Key words'
+      StyleName = 'Keys'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '__int3264'
+            '__int64'
+            'aggregatable'
+            'allocate'
+            'appobject'
+            'arrays'
+            'async'
+            'async_uuid'
+            'auto_handle'
+            'bindable'
+            'boolean'
+            'broadcast'
+            'byte'
+            'byte_count'
+            'call_as'
+            'callback'
+            'char'
+            'coclass'
+            'code'
+            'comm_status'
+            'const'
+            'context_handle'
+            'context_handle_noserialize'
+            'context_handle_serialize'
+            'control'
+            'cpp_quote'
+            'custom'
+            'decode'
+            'default'
+            'defaultbind'
+            'defaultcollelem'
+            'defaultvalue'
+            'defaultvtable'
+            'dispinterface'
+            'displaybind'
+            'dllname'
+            'double'
+            'dual'
+            'enable_allocate'
+            'encode'
+            'endpoint'
+            'entry'
+            'enum'
+            'error_status_t'
+            'explicit_handle'
+            'fault_status'
+            'first_is'
+            'float'
+            'handle'
+            'handle_t'
+            'heap'
+            'helpcontext'
+            'helpfile'
+            'helpstring'
+            'helpstringcontext'
+            'helpstringdll'
+            'hidden'
+            'hyper'
+            'id'
+            'idempotent'
+            'ignore'
+            'iid_is'
+            'immediatebind'
+            'implicit_handle'
+            'import'
+            'importlib'
+            'in'
+            'in_line'
+            'include'
+            'int'
+            'interface'
+            'last_is'
+            'lcid'
+            'length_is'
+            'library'
+            'licensed'
+            'local'
+            'long'
+            'max_is'
+            'maybe'
+            'message'
+            'midl_pragma'
+            'midl_user_allocate'
+            'midl_user_free'
+            'min_is'
+            'module'
+            'ms_union'
+            'ncacn_at_dsp'
+            'ncacn_dnet_nsp'
+            'ncacn_http'
+            'ncacn_ip_tcp'
+            'ncacn_nb_ipx'
+            'ncacn_nb_nb'
+            'ncacn_nb_tcp'
+            'ncacn_np'
+            'ncacn_spx'
+            'ncacn_vns_spp'
+            'ncadg_ip_udp'
+            'ncadg_ipx'
+            'ncadg_mq'
+            'ncalrpc'
+            'nocode'
+            'nonbrowsable'
+            'noncreatable'
+            'nonextensible'
+            'notify'
+            'object'
+            'odl'
+            'oleautomation'
+            'optimize'
+            'optional'
+            'out'
+            'out_of_line'
+            'pipe'
+            'pointer_default'
+            'propget'
+            'propput'
+            'propputref'
+            'ptr'
+            'public'
+            'range'
+            'readonly'
+            'ref'
+            'represent_as'
+            'requestedit'
+            'restricted'
+            'retval'
+            'shape'
+            'short'
+            'signed'
+            'size_is'
+            'small'
+            'source'
+            'strict_context_handle'
+            'string'
+            'struct'
+            'switch'
+            'switch_is'
+            'switch_type'
+            'transmit_as'
+            'typedef'
+            'uidefault'
+            'union'
+            'unique'
+            'unsigned'
+            'user_marshal'
+            'usesgetlasterror'
+            'v1_enum'
+            'vararg'
+            'version'
+            'void'
+            'warning'
+            'wchar_t'
+            'wire_marshal')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'interface'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          CondType = tcNotEqual
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'interface')
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      BlockOffset = 2
+      BlockEnd = '}'
+      GroupFmt = 'Interfaces'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            '}')
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'module'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 12
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'module')
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      BlockOffset = 2
+      BlockEnd = '}'
+      GroupFmt = 'Modules'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'typedef'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'enum'
+            'struct')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'typedef')
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      BlockOffset = 3
+      BlockEnd = 'typedef end'
+      NameFmt = '%e1'
+      GroupFmt = '%s2s'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'library'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'library')
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      BlockOffset = 2
+      BlockEnd = '}'
+      NameFmt = '%s2 %s1'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'typedef 2'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'enum'
+            'struct')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'typedef')
+          TokenTypes = 4
+        end>
+      IdentIndex = 1
+      BlockOffset = 2
+      BlockEnd = 'typedef end'
+      NameFmt = '%e1'
+      GroupFmt = '%s1s'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'typedef end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment'
+      BlockName = 'Block comment'
+      NotParent = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Block comment end'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Block comment end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2045
+        end
+        item
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '/* CORBA IDL sample source  */'
+    '#include <sample.idl>'
+    '                           '
+    'const string TestString = "Hello World";'
+    'const long TestLong = 10;'
+    ''
+    'module TestModule {'
+    '  interface DemoInterface {'
+    '    boolean HelloWorld(in string Message);'
+    '  }'
+    '}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const'
+    'Hex const'
+    'Char const'
+    'Preprocessor'
+    'UUID')
+  MarkedBlockStyle = 'Marked block'
+  Extentions = 'idl'
+  LexerName = 'IDL files'
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

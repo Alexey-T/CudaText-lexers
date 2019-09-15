@@ -1,0 +1,7 @@
+[info]
+title=Graphviz DOT
+type=lexer
+subdir=-
+
+[lexer1]
+file=Graphviz DOT

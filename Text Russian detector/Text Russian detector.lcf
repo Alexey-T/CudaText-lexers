@@ -1,0 +1,48 @@
+object SyntAnal49: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Rus'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clYellow
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Digits'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftColor
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Rus'
+      StyleName = 'Rus'
+      Expression = '(?r)['#1072'-'#1103#1040'-'#1071#1105#1025']+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Digits'
+      StyleName = 'Digits'
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  TokenTypeNames.Strings = (
+    'Unknown')
+  LexerName = 'Text Russian detector'
+  Notes.Strings = (
+    'Author: Alex, uvviewsoft.com')
+  Charset = DEFAULT_CHARSET
+  Left = 144
+  Top = 184
+end

@@ -1,0 +1,8 @@
+[info]
+title=NSL Assembler
+type=lexer
+subdir=-
+
+[lexer1]
+file=NSL Assembler
+link1=NSIS

@@ -1,0 +1,28 @@
+[ref]
+0=CSS
+1=JavaScript
+2=JavaScript
+
+[comments]
+str1=#*
+str2=*#
+styles_cmt=Comment
+styles_str=
+
+[map]
+Text=Id
+Tag bound=TagBound
+Comment=Comment
+Tag param=String
+Tag properties=TagProp
+Unknown tag content=TagPropBad
+Tag id correct=TagId
+Tag id incorrect=TagIdBad
+Number=Number
+Tag back hl=BracketBG
+Tag border hl=BracketBG
+Sublexer BG=IncludeBG1
+Id #=Id2
+Id $=IdVar
+Symbol Java=Symbol
+String Java=String2

@@ -1,0 +1,7 @@
+[info]
+title=GLSL
+type=lexer
+subdir=-
+
+[lexer1]
+file=GLSL

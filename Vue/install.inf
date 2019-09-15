@@ -1,0 +1,10 @@
+[info]
+title=Vue
+type=lexer
+subdir=-
+
+[lexer1]
+file=Vue
+link1=XML
+link2=JavaScript
+link3=CSS

@@ -1,0 +1,12 @@
+[map]
+Default=-
+Marked block=-
+Comment=Comment
+String=String
+Symbol=Symbol
+Rules=Id1
+Quoted terminals=String2
+Terminals=Id2
+CharSet=Id3
+CharSet Const=Id4
+Tree Group=-

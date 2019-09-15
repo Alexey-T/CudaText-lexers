@@ -1,0 +1,16 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Default=Id
+Comment=Comment
+Comment2=Comment2
+DSCComment=CommentDoc
+Keywords=Id2
+EvaluatedName=Id3
+LiteralName=Id1
+Params=IdVar
+String=String
+Number=Number
+Symbol=Symbol

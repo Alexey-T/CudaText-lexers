@@ -1,0 +1,7 @@
+[info]
+title=Jinja2
+type=lexer
+subdir=-
+
+[lexer1]
+file=Jinja2

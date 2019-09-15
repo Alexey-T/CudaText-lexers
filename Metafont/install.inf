@@ -1,0 +1,7 @@
+[info]
+title=Metafont
+type=lexer
+subdir=-
+
+[lexer1]
+file=Metafont

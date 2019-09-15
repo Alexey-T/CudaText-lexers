@@ -1,0 +1,7 @@
+[info]
+title=Assembly PowerPC
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly PowerPC

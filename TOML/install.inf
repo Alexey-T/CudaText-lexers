@@ -1,0 +1,7 @@
+[info]
+title=TOML
+type=lexer
+subdir=-
+
+[lexer1]
+file=TOML

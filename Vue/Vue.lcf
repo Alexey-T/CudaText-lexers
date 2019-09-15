@@ -1,0 +1,241 @@
+object SyntAnal43: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Template BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14085057
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Style BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16766421
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Script BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 12320767
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag bound'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744576
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Tag param'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag string'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?ms)<!--.*?(-->|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<'
+      StyleName = 'Tag bound'
+      TokenType = 10
+      Expression = '<[/!\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '>'
+      StyleName = 'Tag bound'
+      TokenType = 11
+      Expression = '[/]?>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag string'
+      StyleName = 'Tag string'
+      TokenType = 4
+      Expression = '("|'#39').*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag param'
+      StyleName = 'Tag param'
+      Expression = '\w+ (?=\=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag ='
+      StyleName = 'Tag bound'
+      TokenType = 3
+      Expression = '='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag id'
+      StyleName = 'Tag id'
+      TokenType = 2
+      Expression = '\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'style begin'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '<')
+          TokenTypes = 1024
+        end>
+      BlockEnd = 'style end'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'style end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '</')
+          TokenTypes = 1024
+        end>
+      SameIdent = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'XML'
+      StyleName = 'Template BG'
+      StartExpression = '<template[^>]*?>'
+      EndExpression = '</template>'
+      SyntAnalyzer = SyntAnal41
+      IncludeBounds = True
+    end
+    item
+      DisplayName = 'JS'
+      StyleName = 'Script BG'
+      StartExpression = '<script[^>]*?>'
+      EndExpression = '</script>'
+      SyntAnalyzer = SyntAnal18
+    end
+    item
+      DisplayName = 'CSS'
+      StyleName = 'Style BG'
+      StartExpression = '<style[^>]*?>'
+      EndExpression = '</style>'
+      SyntAnalyzer = SyntAnal9
+    end>
+  SampleText.Strings = (
+    '<template>'
+    '    <div v-show="active"'
+    '         @click.self="onContainerClick">'
+    '        <div v-if="active" class="dialog">'
+    '            <slot>dialog</slot>'
+    '        </div>'
+    '    </div>'
+    '</template>'
+    ''
+    '<style lang="test" dd=20>'
+    '    .dialog-container {'
+    '        position: fixed;'
+    '        background-color: rgba(0, 0, 0, 0.6);'
+    '        display: flex;'
+    '    }'
+    '</style>'
+    ''
+    '<script lang="test" dd=20>'
+    '    import Vue from '#39'vue'#39
+    '    var keyCodes = Vue.directive('#39'on'#39').keyCodes;'
+    '</script>')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Number'
+    'Number2'
+    'Color'
+    'String2'
+    'Text'
+    'Open Tag'
+    'Close Tag')
+  Extentions = 'vue'
+  LexerName = 'Vue'
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,15 @@
+[map]
+Command=Id
+Comment=Comment
+Current=Id1
+Directive=Id3
+Number=Number
+Parameter=Id2
+String=String
+Variable=IdVar
+
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String

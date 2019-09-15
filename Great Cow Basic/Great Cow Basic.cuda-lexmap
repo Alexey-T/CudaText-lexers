@@ -1,0 +1,18 @@
+[map]
+Comment=Comment
+String=String
+Number=Number
+Id=Id
+Id keyword=IdKeyword
+Id spec=Id1
+Symbol=Symbol
+Function separator=SeparLine
+Function background=SectionBG1
+Current block bound=BracketBG
+Preprocessor=Id3
+OP Keywords=Id4
+Label=Label
+
+[comments]
+styles_cmt=Comment
+styles_str=String
