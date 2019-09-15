@@ -1,0 +1,469 @@
+object SyntAnal5: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Keywords'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Commands'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 8388672
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^[\x20\x09]* @? [\x20\x09]* rem\b .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\: [\:\+\=,;\x20] .*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      TokenType = 3
+      Expression = '^[\x20\x09]* :\w+ |'#13#10'(?<=goto\x20+)\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Variable'
+      StyleName = 'Var'
+      TokenType = 7
+      Expression = '%\d | %\w+%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'IP-Address'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = 
+        '[\+\-\*\(\)\[\]\{\}<>\.,~!&\|;=%\^\#@\\/] | \b equ \b | \b neq \' +
+        'b | \b lss \b | \b gtr \b | \b leq \b | \b geq \b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Echo'
+      StyleName = 'String'
+      StrictParent = True
+      TokenType = 4
+      Expression = '(?<=\b echo \x20) [^<>\|\n\r&]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '".*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[0-9a-f]+ | \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      TokenType = 2
+      Expression = '\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Keywords'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'assoc'
+            'break'
+            'call'
+            'cd'
+            'chdir'
+            'cls'
+            'color'
+            'copy'
+            'date'
+            'defined'
+            'del'
+            'dir'
+            'do'
+            'echo'
+            'echo.'
+            'else'
+            'endlocal'
+            'erase'
+            'errorlevel'
+            'exist'
+            'exit'
+            'for'
+            'ftype'
+            'goto'
+            'if'
+            'in'
+            'md'
+            'mkdir'
+            'mklink'
+            'move'
+            'not'
+            'path'
+            'pause'
+            'popd'
+            'prompt'
+            'pushd'
+            'rd'
+            'rem'
+            'ren'
+            'rename'
+            'rmdir'
+            'set'
+            'setlocal'
+            'shift'
+            'start'
+            'time'
+            'title'
+            'type'
+            'ver'
+            'verify'
+            'vol')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Commands'
+      StyleName = 'Commands'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'arp'
+            'at'
+            'atmadm'
+            'attrib'
+            'auditpol'
+            'autoconv'
+            'bcdboot'
+            'bcdedit'
+            'bdehdcfg'
+            'bitsadmin'
+            'bootcfg'
+            'cacls'
+            'certreq'
+            'certutil'
+            'change'
+            'chcp'
+            'chglogon'
+            'chgport'
+            'chgusr'
+            'chkdsk'
+            'chkntfs'
+            'choice'
+            'cipher'
+            'cleanmgr'
+            'clip'
+            'cmd'
+            'cmdkey'
+            'cmstp'
+            'comp'
+            'compact'
+            'convert'
+            'cscript'
+            'dcgpofix'
+            'defrag'
+            'dfsrmig'
+            'diantz'
+            'diskcomp'
+            'diskcopy'
+            'diskpart'
+            'diskperf'
+            'diskraid'
+            'diskshadow'
+            'dism'
+            'dispdiag'
+            'dnscmd'
+            'doskey'
+            'driverquery'
+            'edit'
+            'esentutl'
+            'eventcreate'
+            'evntcmd'
+            'expand'
+            'extract'
+            'fc'
+            'find'
+            'findstr'
+            'finger'
+            'flattemp'
+            'fondue'
+            'forfiles'
+            'format'
+            'freedisk'
+            'fsutil'
+            'ftp'
+            'getmac'
+            'gpfixup'
+            'gpresult'
+            'gpupdate'
+            'graftabl'
+            'help'
+            'hostname'
+            'hwrcomp'
+            'hwrreg'
+            'icacls'
+            'ipconfig'
+            'ipxroute'
+            'irftp'
+            'jetpack'
+            'klist'
+            'ksetup'
+            'ktmutil'
+            'ktpass'
+            'label'
+            'lodctr'
+            'logman'
+            'logoff'
+            'lpq'
+            'lpr'
+            'macfile'
+            'makecab'
+            'manage-bde'
+            'mapadmin'
+            'mode'
+            'more'
+            'mount'
+            'mountvol'
+            'mqbkup'
+            'mrinfo'
+            'msg'
+            'msiexec'
+            'mstsc'
+            'nbtstat'
+            'net'
+            'netcfg'
+            'netsh'
+            'netstat'
+            'nfsadmin'
+            'nfsshare'
+            'nfsstat'
+            'nlbmgr'
+            'nltest'
+            'nslookup'
+            'ntfrsutl'
+            'openfiles'
+            'pathping'
+            'perfmon'
+            'ping'
+            'pnpunattend'
+            'pnputil'
+            'powercfg'
+            'print'
+            'qappsrv'
+            'qprocess'
+            'query'
+            'quser'
+            'qwinsta'
+            'rasautou'
+            'rasdial'
+            'rdpsign'
+            'rdrleakdiag'
+            'reagentc'
+            'recover'
+            'reg'
+            'regini'
+            'regsvr32'
+            'relog'
+            'repair-bde'
+            'replace'
+            'reset'
+            'robocopy'
+            'route'
+            'rpcinfo'
+            'rpcping'
+            'runas'
+            'rundll32'
+            'rwinsta'
+            'sc'
+            'schtasks'
+            'sdbinst'
+            'secedit'
+            'serverceipoptin'
+            'setspn'
+            'setx'
+            'sfc'
+            'shadow'
+            'showmount'
+            'shutdown'
+            'sort'
+            'subst'
+            'sxstrace'
+            'systeminfo'
+            'takeown'
+            'tapicfg'
+            'taskkill'
+            'tasklist'
+            'tcmsetup'
+            'telnet'
+            'tftp'
+            'timeout'
+            'tlntadmn'
+            'tpmvscmgr'
+            'tracerpt'
+            'tracert'
+            'tree'
+            'tscon'
+            'tsdiscon'
+            'tsecimp'
+            'tskill'
+            'tsprof'
+            'tswpfwrp'
+            'typeperf'
+            'tzutil'
+            'unlodctr'
+            'vaultcmd'
+            'verifier'
+            'vssadmin'
+            'w32tm'
+            'waitfor'
+            'wbadmin'
+            'wdsutil'
+            'wecutil'
+            'wevtutil'
+            'where'
+            'whoami'
+            'winrs'
+            'wmic'
+            'wscript'
+            'wusa'
+            'xcopy')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'rem Batch file'
+    '@echo off'
+    'echo Params: %1 %2 %3'
+    '@rem'
+    '  @rem Comment'
+    ':label'
+    '::comment'
+    'somecmd Test Param'
+    'copy c:\%dirname%\*.pas "d:\dir name"'
+    'if %errorlevel% equ 2 echo File not found'
+    'if errorlevel 1 echo Error in copy action'
+    'goto label'
+    'ping 10.10.10.100')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Text'
+    'Label'
+    'String'
+    'Number'
+    'Symbol'
+    'Var')
+  Extentions = 'bat cmd'
+  LexerName = 'Batch files'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (SynWrite)')
+  RestartFromLineStart = True
+  LineComment = '::'
+  Charset = DEFAULT_CHARSET
+end

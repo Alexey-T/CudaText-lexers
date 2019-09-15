@@ -1,0 +1,19 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Comment=Comment
+Comment shebang=Comment2
+Keywords=IdKeyword
+Command=Id
+String=String
+Symbol=Symbol
+Var=IdVar
+Number=Number
+Var block BG=SectionBG1
+Ticks block BG=SectionBG2
+Command std=Id1
+Command param=Id2
+Func name=Id4
+Symbol2=Symbol2
