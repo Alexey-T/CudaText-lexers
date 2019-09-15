@@ -2,13 +2,13 @@
 import os
 import zipfile
 
-l = os.listdir('.')
-for item in l:
-    if not item.endswith('.zip'):
-        continue
-    name = item.split('.')[1].replace('_', ' ')
+items = os.listdir('.')
+items = [fn for fn in items if fn.endswith('zip')]
+for fn in items:
+    name = fn.split('.')[1].replace('_', ' ')
 
-    z = zipfile.ZipFile(item)
+    z = zipfile.ZipFile(fn)
     dir = os.path.join('.', name)
-    #os.mkdir(dir)
     z.extractall(dir)
+
+print('Zip files unpacked:', len(items))
