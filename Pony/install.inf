@@ -1,0 +1,7 @@
+[info]
+title=Pony
+type=lexer
+subdir=-
+
+[lexer1]
+file=Pony

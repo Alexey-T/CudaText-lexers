@@ -1,0 +1,397 @@
+object SyntAnal23: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword def'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = '1st Tree item'
+      StyleName = 'Id keyword def'
+      TokenType = 11
+      Expression = '^[\x20\x09]*(fun|new|class|actor|primitive|trait|interface)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Keyword'
+      StyleName = 'Id keyword'
+      TokenType = 10
+      Expression = 
+        '^[\x20\x09]*(use|var|let|new|be|if|ifdef|try|match|for|while|rep' +
+        'eat|else|end|consume|break|continue|until|with|object|type|embed' +
+        '|error|recover)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st Id'
+      StyleName = 'Id'
+      TokenType = 9
+      Expression = '^[\x20\x09]*[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment range'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String """'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)("""|'#39#39#39') .*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String "'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)" (\\.|.)*? ("|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String '#39
+      StyleName = 'String'
+      TokenType = 8
+      Expression = #39' (\\.|.)*? '#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'#39'?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int hex'
+      StyleName = 'Number'
+      TokenType = 7
+      Expression = '\b0x[0-9a-f_]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int bin'
+      StyleName = 'Number'
+      TokenType = 7
+      Expression = '\b0b[01_]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int/float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '\b \d[_\d]* \.\d[_\d]* (e[\-\+]?\d[_\d]*)? \b |'#13#10'\b\d[_\d]*\.? |' +
+        #13#10'\.\d[_\d]*\b |'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol single'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\(\)\[\]\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,\.;=<>\+\-\^@!%\\\|~&\?:\#]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'as'
+            'be'
+            'break'
+            'consume'
+            'continue'
+            'do'
+            'else'
+            'elseif'
+            'end'
+            'error'
+            'if'
+            'ifdef'
+            'in'
+            'is'
+            'isnt'
+            'iso'
+            'let'
+            'match'
+            'new'
+            'not'
+            'or'
+            'recover'
+            'ref'
+            'return'
+            'then'
+            'try'
+            'val'
+            'var'
+            'where'
+            'xor')
+          TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Types'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Any'
+            'Array'
+            'Bool'
+            'F32'
+            'F64'
+            'false'
+            'Float'
+            'Hashable'
+            'I128'
+            'I16'
+            'I32'
+            'I64'
+            'I8'
+            'ILong'
+            'Int'
+            'ISize'
+            'None'
+            'Number'
+            'Signed'
+            'String'
+            'true'
+            'U128'
+            'U16'
+            'U32'
+            'U64'
+            'U8'
+            'ULong'
+            'Unsigned'
+            'USize')
+          TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block for tree'
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'for'
+            'if'
+            'ifdef'
+            'match'
+            'object'
+            'recover'
+            'repeat'
+            'try'
+            'while'
+            'with')
+          TokenTypes = 1028
+        end>
+      BlockEnd = 'block end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 1028
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'use "collections"'
+    '//Comment'
+    '"""'
+    'Docs'
+    '"""'
+    'class val _MapCollisions['
+    '  K: Any #share, V: Any #share, H: mut.HashFunction[K] val]'
+    ''
+    '  embed bins: Array[Array[_MapEntry[K, V, H]] trn] trn'
+    ''
+    '  new trn create() =>'
+    '    bins = recover Array[Array[_MapEntry[K, V, H]] trn](4) end'
+    '    bins .> push([]) .> push([]) .> push([]) .> push([])'
+    ''
+    '  fun val clone(): _MapCollisions[K, V, H] trn^ =>'
+    '    let cs = recover trn _MapCollisions[K, V, H] end'
+    '    try'
+    '      for i in bins.keys() do'
+    '        for e in bins(i)?.values() do'
+    '          cs.bins(i)?.push(e)'
+    '        end'
+    '      end'
+    '    end'
+    '    consume cs'
+    ''
+    '  fun apply(hash: U32, k: K): (V | None) ? =>'
+    '    let idx = _Bits.mask32(hash, _Bits.collision_depth())'
+    '    let bin = bins(idx.usize_unsafe())?'
+    '    for node in bin.values() do'
+    '      if H.eq(k, node.key) then return node.value end'
+    '    end'
+    ''
+    '  fun val remove(hash: U32, k: K): _MapCollisions[K, V, H] ? =>'
+    '    let idx = _Bits.mask32(hash, _Bits.collision_depth())'
+    '    let bin = bins(idx.usize_unsafe())?'
+    '    for (i, node) in bin.pairs() do'
+    '      if H.eq(k, node.key) then'
+    '        let bin'#39' = recover bin.clone() end'
+    '        bin'#39'.delete(i)?'
+    '        let n = clone()'
+    '        n.bins(idx.usize_unsafe())? = consume bin'#39
+    '        return consume n'
+    '      end'
+    '    end'
+    '    error'
+    ''
+    '  fun val pull_last(): _MapEntry[K, V, H] ? =>'
+    '    for bin in bins.values() do'
+    '      if bin.size() > 0 then return bin(0)? end'
+    '    end'
+    '    error'
+    '')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Number float'
+    'Number hex'
+    'String char'
+    '1st word'
+    '1st keyword'
+    '1st word tree')
+  Extentions = 'pony'
+  LexerName = 'Pony'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end
