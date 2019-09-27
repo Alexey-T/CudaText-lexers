@@ -63,13 +63,23 @@ object SyntAnal23: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Id modifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
       DisplayName = '1st Tree item'
       StyleName = 'Id keyword def'
       TokenType = 11
-      Expression = '^[\x20\x09]*(fun|new|class|actor|primitive|trait|interface)\b'
+      Expression = 
+        '^[\x20\x09]*(fun|new|class|actor|primitive|trait|interface|type|' +
+        'struct|be)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -79,8 +89,8 @@ object SyntAnal23: TLibSyntAnalyzer
       TokenType = 10
       Expression = 
         '^[\x20\x09]*(use|var|let|new|be|if|ifdef|try|match|for|while|rep' +
-        'eat|else|end|consume|break|continue|until|with|object|type|embed' +
-        '|error|recover)\b'
+        'eat|else|end|consume|break|continue|until|with|object|embed|erro' +
+        'r|recover)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -192,13 +202,17 @@ object SyntAnal23: TLibSyntAnalyzer
           TagList.Strings = (
             'and'
             'as'
-            'be'
             'break'
+            'compile_error'
+            'compile_intrinsic'
             'consume'
             'continue'
+            'delegate'
+            'digestof'
             'do'
             'else'
             'elseif'
+            'embed'
             'end'
             'error'
             'if'
@@ -206,18 +220,17 @@ object SyntAnal23: TLibSyntAnalyzer
             'in'
             'is'
             'isnt'
-            'iso'
             'let'
             'match'
             'new'
             'not'
             'or'
             'recover'
-            'ref'
             'return'
             'then'
+            'this'
             'try'
-            'val'
+            'use'
             'var'
             'where'
             'xor')
@@ -251,6 +264,7 @@ object SyntAnal23: TLibSyntAnalyzer
             'ISize'
             'None'
             'Number'
+            'Pointer'
             'Signed'
             'String'
             'true'
@@ -263,6 +277,24 @@ object SyntAnal23: TLibSyntAnalyzer
             'Unsigned'
             'USize')
           TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Modifiers'
+      StyleName = 'Id modifier'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'box'
+            'iso'
+            'ref'
+            'tag'
+            'trn'
+            'val')
+          TokenTypes = 4
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
