@@ -1,4 +1,4 @@
-object SyntAnal9: TLibSyntAnalyzer
+object SyntAnal6: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Id'
@@ -22,10 +22,18 @@ object SyntAnal9: TLibSyntAnalyzer
     item
       DisplayName = 'Symbol'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
+      Font.Color = clMaroon
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol <>'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end
     item
       DisplayName = 'Comment'
@@ -54,10 +62,10 @@ object SyntAnal9: TLibSyntAnalyzer
     item
       DisplayName = 'Tag key'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
+      Font.Color = clNavy
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
+      Font.Style = []
     end
     item
       DisplayName = 'Tag param'
@@ -70,7 +78,7 @@ object SyntAnal9: TLibSyntAnalyzer
     item
       DisplayName = 'Id$'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlue
+      Font.Color = clGreen
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -96,10 +104,10 @@ object SyntAnal9: TLibSyntAnalyzer
     item
       DisplayName = 'CF keys'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clNavy
+      Font.Color = 10834008
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
+      Font.Style = []
     end
     item
       DisplayName = 'CF ident'
@@ -120,7 +128,7 @@ object SyntAnal9: TLibSyntAnalyzer
     item
       DisplayName = 'CF symbol#'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlue
+      Font.Color = clRed
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -132,6 +140,14 @@ object SyntAnal9: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'CF keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
     end
     item
       DisplayName = 'SQL bg'
@@ -152,6 +168,14 @@ object SyntAnal9: TLibSyntAnalyzer
       Font.Style = []
       BgColor = 15522265
       FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'HTML entity'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -172,7 +196,7 @@ object SyntAnal9: TLibSyntAnalyzer
     end
     item
       DisplayName = '<'
-      StyleName = 'Symbol'
+      StyleName = 'Symbol <>'
       TokenType = 10
       Expression = '<[/!\-]*'
       ColumnFrom = 0
@@ -180,14 +204,14 @@ object SyntAnal9: TLibSyntAnalyzer
     end
     item
       DisplayName = '>'
-      StyleName = 'Symbol'
+      StyleName = 'Symbol <>'
       TokenType = 11
-      Expression = '>'#13#10
+      Expression = '>'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Integer'
+      DisplayName = 'Number'
       StyleName = 'Number'
       TokenType = 5
       Expression = '\d+'
@@ -195,11 +219,10 @@ object SyntAnal9: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Hex'
-      Enabled = False
+      DisplayName = 'Number hex'
       StyleName = 'Number'
       TokenType = 7
-      Expression = '\#[a-f\d]+'
+      Expression = '&\#\#\d+ | &\#\#x\h+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -213,10 +236,10 @@ object SyntAnal9: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'string'
+      DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)".*?("|\Z)'
+      Expression = '(?s)("|'#39').*?(\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -233,7 +256,15 @@ object SyntAnal9: TLibSyntAnalyzer
       StyleName = 'Id'
       BlockName = 'Tag'
       TokenType = 2
-      Expression = '[a-z_]\w*'
+      Expression = '[a-z_][\w\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML entity'
+      StyleName = 'HTML entity'
+      TokenType = 8
+      Expression = '&\w+;'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -249,24 +280,7 @@ object SyntAnal9: TLibSyntAnalyzer
       DisplayName = 'symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[=\(\)\$\.,;\^%@\?!\[\]&\*\-\+]'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Html entity'
-      StyleName = 'Tag key'
-      TokenType = 9
-      Expression = '&\w+;'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Text'
-      Enabled = False
-      StyleName = 'Text'
-      TokenType = 9
-      Expression = '[^\#<>]+?'
+      Expression = '[=\(\)\$\.,;:\^%@\?!\[\]&\*\-\+\{\}/\|]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -310,22 +324,75 @@ object SyntAnal9: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'CF keywords'
+      DisplayName = 'CF operators'
       StyleName = 'CF symbol'
       BlockType = btTagDetect
       ConditionList = <
         item
           TagList.Strings = (
             'AND'
+            'CONTAIN'
+            'CONTAINS'
+            'DOES'
             'EQ'
+            'EQUAL'
+            'EQV'
+            'GE'
+            'GREATER'
             'GT'
+            'GTE'
+            'IMP'
             'IS'
+            'LE'
+            'LESS'
             'LT'
+            'LTE'
+            'MOD'
             'NEQ'
             'NOT'
-            'OR')
+            'OR'
+            'THAN'
+            'TO'
+            'XOR')
           TokenTypes = 4
           IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'CF keywords'
+      StyleName = 'CF keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abstract'
+            'break'
+            'case'
+            'catch'
+            'continue'
+            'default'
+            'do'
+            'else'
+            'false'
+            'final'
+            'finally'
+            'for'
+            'function'
+            'if'
+            'import'
+            'in'
+            'interface'
+            'local'
+            'null'
+            'pageencoding'
+            'return'
+            'switch'
+            'true'
+            'try'
+            'while')
+          TokenTypes = 4
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
@@ -493,93 +560,72 @@ object SyntAnal9: TLibSyntAnalyzer
       AlwaysEnabled = True
       StartExpression = '(?si)<style[^>]*> '#13#10
       EndExpression = '</style>'#13#10
-      SyntAnalyzer = SyntAnalyzer10
+      SyntAnalyzer = SyntAnal7
     end
     item
       DisplayName = 'VB script'
       AlwaysEnabled = True
       StartExpression = '(?si)<script[^>]*vbscript[^>]*>\s*(<!--)?'#13#10
       EndExpression = '(?i)(-->)?\s*</script>'#13#10
-      SyntAnalyzer = SyntAnal56
+      SyntAnalyzer = SyntAnal36
     end
     item
-      DisplayName = 'Javascript'
+      DisplayName = 'JavaScript'
       AlwaysEnabled = True
       StartExpression = '(?si)<script[^>]*javascript[^>]*>\s*(<!--)?'#13#10
       EndExpression = '(?i)(//)?(-->)?\s*</script>'#13#10
-      SyntAnalyzer = SyntAnal38
+      SyntAnalyzer = SyntAnal13
     end
     item
       DisplayName = 'ASP'
       AlwaysEnabled = True
       StartExpression = '<%'#13#10'#(?i)<%@[^>]*?vbscript[^>]*>'#13#10'#\s*<%'#13#10
       EndExpression = '%>'#13#10
-      SyntAnalyzer = SyntAnal56
+      SyntAnalyzer = SyntAnal36
     end
     item
-      DisplayName = 'Javascript2'
+      DisplayName = 'JavaScript2'
       AlwaysEnabled = True
       StartExpression = '(?si)<script>'#13#10
       EndExpression = '(?i)(//)?(-->)?\s*</script>'#13#10
-      SyntAnalyzer = SyntAnal38
+      SyntAnalyzer = SyntAnal13
     end
     item
       DisplayName = 'PHP'
       AlwaysEnabled = True
       StartExpression = '(?si)<script[^>]*php[^>]*>\s*(<!--)?'#13#10
       EndExpression = '(?i)(-->)?\s*</script>'#13#10
-      SyntAnalyzer = SyntAnal97
+      SyntAnalyzer = SyntAnal24
     end
     item
       DisplayName = 'PHP 2'
       AlwaysEnabled = True
       StartExpression = '(?i)<\?(php)?'#13#10
       EndExpression = '\?>'#13#10
-      SyntAnalyzer = SyntAnal97
+      SyntAnalyzer = SyntAnal24
     end
     item
       DisplayName = 'SQL'
       StyleName = 'SQL bg'
       StartExpression = '(?s)<cfquery\b[^>]*?>'
       EndExpression = '</cfquery>'
-      SyntAnalyzer = SyntAnal57
+      SyntAnalyzer = SyntAnal35
     end>
   SampleText.Strings = (
-    '<cfsetting requesttimeout="10000" showdebugoutput="false">'
-    '<cfparam name="params.type" default="core">'
-    '<cfif params.type NEQ "app">'
-    
-      #9'<cfset testResults = $createObjectFromRoot(path=application.whe' +
-      'els.wheelsComponentPath, fileName="Test", method="$WheelsRunner"' +
-      ', options=params)>'
-    '<cfelse>'
-    
-      #9'<cfset testResults = $createObjectFromRoot(path="tests", fileNa' +
-      'me="Test", method="$WheelsRunner", options=params)>'
+    '<cfif name NEQ for null  &name; 10>'
+    #9'<cfset testResults = $name(fileName="Test")>'
     '</cfif>'
-    
-      '<cfset linkParams = "?controller=wheels&action=wheels&view=tests' +
-      '&type=#params.type#">'
+    ''
     '<cfoutput>'
-    ''
     '<h1>Test Results</h1>'
-    ''
     '<cfif NOT isStruct(testResults)>'
-    ''
-    #9'<p style="margin-bottom: 50px;">Sorry, no tests were found.</p>'
-    ''
+    #9'<p style="margin-bottom: 50px;">Text</p>'
     '<cfelse>'
-    ''
-    
-      #9'<p><a href="#linkParams#">Run All Tests</a> | <a href="#linkPar' +
-      'ams#&reload=true">Reload Test Data</a></p>'
+    #9'<p><a href="#linkParams#">Run All Tests</a> | '
+    '    <a href="#linkParams#&reload=true">Reload Test Data</a></p>'
     ''
     #9'<cfif testResults.numCases GT 1>'
     #9#9'<table class="testing">'
-    #9#9#9'<tr>'
-    #9#9#9#9'<th>Package</th>'
-    #9#9#9#9'<th>Tests</th>'
-    #9#9#9'</tr>'
     
       #9#9#9'<cfloop from="1" to="#ArrayLen(testResults.summary)#" index="' +
       'testIndex">'
@@ -588,16 +634,11 @@ object SyntAnal9: TLibSyntAnalyzer
       #9#9#9#9'<tr class="<cfif summary.numFailures + summary.numErrors gt ' +
       '0>errRow<cfelse>sRow</cfif>">'
     #9#9#9#9#9'<td class="n">#summary.numTests#</td>'
-    
-      #9#9#9#9#9'<td class="n<cfif summary.numFailures neq 0> failed</cfif>"' +
-      '>#summary.numFailures#</td>'
     #9#9#9#9'</tr>'
     #9#9#9'</cfloop>'
     #9#9'</table>'
     #9'</cfif>'
-    ''
     '</cfif>'
-    ''
     '</cfoutput>'
     ''
     '<cfquery datasource="wheelstestdb">'
@@ -612,24 +653,28 @@ object SyntAnal9: TLibSyntAnalyzer
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
-    'Identifier'
+    'Id'
     'Symbol'
     'String'
-    'Integer const'
-    'Float const'
-    'Hex const'
-    'Char const'
+    'Number'
+    'Number float'
+    'Number hex'
+    'HTML entity'
     'Text'
     'Open Tag'
     'Close Tag'
     'CF ident'
     'CF symbol'
     'CF symbol#')
-  Extentions = 'cfm cfml cfc'
+  Extentions = 'cfm cfml'
   LexerName = 'ColdFusion'
   Notes.Strings = (
-    'Reworked by Alexey'
-    'Samples- https://github.com/cfwheels/cfwheels')
+    'Reworked by Alexey (CudaText)'
+    'Samples: https://github.com/cfwheels/cfwheels'
+    
+      'Samples: https://github.com/Alexey-T/lexer_tests/tree/master/lex' +
+      'ers/ColdFusion'
+    'Note: *.cfc files need separate lexer')
   Charset = DEFAULT_CHARSET
   Left = 144
   Top = 184
