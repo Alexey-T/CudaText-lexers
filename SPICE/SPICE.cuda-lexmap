@@ -6,10 +6,12 @@ styles_str=String
 
 [map]
 Id=Id
-Directive=Id2
+Command=Id1
 Symbol=Symbol
 Number=Number
 Comment=Comment
 String=String
 Id unit=Id3
-Id component=Id1
+Id component=IdVar
+Id keyword=IdKeyword
+Id func=Id2

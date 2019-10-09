@@ -1,7 +1,7 @@
 [info]
-title=Spice
+title=SPICE
 type=lexer
 subdir=-
 
 [lexer1]
-file=Spice
+file=SPICE

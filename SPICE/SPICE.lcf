@@ -9,9 +9,9 @@ object SyntAnal25: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Directive'
+      DisplayName = 'Command'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clPurple
+      Font.Color = clNavy
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -63,13 +63,37 @@ object SyntAnal25: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '\*.*'
+      Expression = '^[\x20\x09]*(\*|//).*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment inline'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '[;\$].*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -77,14 +101,14 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = #39'(\\'#39'|\\\\|.)*?('#39'|$)'
+      Expression = '('#39'|").*?(\1|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Directive'
-      StyleName = 'Directive'
-      Expression = '\.[a-z_]+'
+      DisplayName = 'Command'
+      StyleName = 'Command'
+      Expression = '^[\x20\x09]*\.[a-z_]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -92,15 +116,23 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\)\[\]\.,:;\-\+=/\\\$\^]'
+      Expression = '[\(\)\[\]\.,:;\-\+=/\\\$\^\|@]'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Id component'
+      DisplayName = 'Id device'
       StyleName = 'Id component'
       TokenType = 2
-      Expression = '^[MRCXVI]\w+'
+      Expression = '^[\x20\x09]*[axcdjklmnopqrstuwyz][\w@]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id source'
+      StyleName = 'Id component'
+      TokenType = 2
+      Expression = '^[\x20\x09]*[befghvi][\w@]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -108,7 +140,7 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'Id unit'
       StyleName = 'Id unit'
       TokenType = 6
-      Expression = '(?-i)[npumkf][smf]?\b'
+      Expression = '(?<=\d+)[npumftgk][smf]?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -116,7 +148,7 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '[a-z_]\w*'
+      Expression = '[a-z_][\w@]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -128,15 +160,75 @@ object SyntAnal25: TLibSyntAnalyzer
       ColumnFrom = 0
       ColumnTo = 0
     end>
-  BlockRules = <>
+  BlockRules = <
+    item
+      DisplayName = 'Id funcs'
+      StyleName = 'Id func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'acos'
+            'asin'
+            'atan'
+            'cos'
+            'cosh'
+            'db'
+            'dc'
+            'exp'
+            'int'
+            'log'
+            'log10'
+            'lv'
+            'lx'
+            'max'
+            'min'
+            'pow'
+            'pulse'
+            'pwl'
+            'pwr'
+            'sgn'
+            'sign'
+            'sin'
+            'sinh'
+            'sqrt'
+            'tan'
+            'tanh')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'deriv'
+            'find'
+            'params'
+            'targ'
+            'tran'
+            'trig'
+            'when')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
     'VIN input 0 DC 10'
     'F1 0 output VMEAS 0.5'
-    '* Comment'
-    'R5 output 0 50K'
-    '.OP'
+    '  * Comment'
+    '  R5 output 0 50K $ Inline comment'
+    '  .OP'
     '.TF V(output,0) VIN'
     '.DC VIN 0 20 2'
     '        '
@@ -145,15 +237,16 @@ object SyntAnal25: TLibSyntAnalyzer
     '.TRAN step=0.5p stop='#39'pulse_delay+2*period'#39
     '.TRAN 10ns 1us SWEEP load POI 3 1pf 5pf 10pf')
   TokenTypeNames.Strings = (
-    'Directive'
+    'Command'
     'Comment'
     'Id'
     'Symbol'
     'String'
     'Number'
     'Unit')
-  Extentions = 'sp hsp'
-  LexerName = 'Spice'
+  Extentions = 'sp hsp cdl mdl cir'
+  LexerName = 'SPICE'
+  SkipSpaces = False
   Notes.Strings = (
     'Alexey (CudaText)')
   LineComment = '*'
