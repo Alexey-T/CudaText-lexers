@@ -1,0 +1,7 @@
+[info]
+title=PyMOL
+type=lexer
+subdir=-
+
+[lexer1]
+file=PyMOL

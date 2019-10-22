@@ -1,0 +1,434 @@
+object SyntAnal21: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id command'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String """'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)""".*?("""|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39')(\\\1|.)*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id std func'
+      StyleName = 'Id func'
+      TokenType = 2
+      Expression = 
+        '(\b|\!)(backbone|bb\.|sidechain|resi|resid|resn|resname|resnam|n' +
+        'ame|alt|chain|segi|flag|sc\.|n\.|ele)(\b|\s)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id command'
+      StyleName = 'Id'
+      TokenType = 6
+      Expression = '^[a-z]\w*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'#39'?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d*\.\d+\b | \d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[,;\+\-\*\\!=\^\$\.>\|:~\#&@`]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Single symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\{\}\(\)\[\]\?/%<]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'around'
+            'aroundwithin'
+            'bycellneighbor'
+            'byfragment'
+            'bymolecule'
+            'byobject'
+            'byres'
+            'bysegment'
+            'expand'
+            'extend'
+            'for'
+            'from'
+            'gap'
+            'import'
+            'in'
+            'like'
+            'neighbor'
+            'not'
+            'of'
+            'or'
+            'print'
+            'within')
+          TokenTypes = 68
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id commands'
+      StyleName = 'Id command'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abort'
+            'alias'
+            'align'
+            'alignto'
+            'alter'
+            'alter_state'
+            'as'
+            'attach'
+            'backward'
+            'bg'
+            'bg_col'
+            'bg_color'
+            'bond'
+            'button'
+            'cache'
+            'capture'
+            'car'
+            'cbap'
+            'cbc'
+            'cd'
+            'center'
+            'clip'
+            'cls'
+            'cnc'
+            'color'
+            'commands'
+            'config_mouse'
+            'copy'
+            'count_atoms'
+            'count_frames'
+            'count_states'
+            'create'
+            'cycle_valence'
+            'delete'
+            'deprotect'
+            'deselect'
+            'disable'
+            'distance'
+            'draw'
+            'dss'
+            'edit'
+            'edit_keys'
+            'enable'
+            'ending'
+            'exit'
+            'extend'
+            'fab'
+            'feedback'
+            'fetch'
+            'fit'
+            'flag'
+            'fork'
+            'forward'
+            'fragment'
+            'frame'
+            'full_screen'
+            'fuse'
+            'get'
+            'get_angle'
+            'get_area'
+            'get_chains'
+            'get_color_indices'
+            'get_dihedral'
+            'get_distance'
+            'get_extent'
+            'get_model'
+            'get_names'
+            'get_names_of_type'
+            'get_object_matrix'
+            'get_pdbstr'
+            'get_position'
+            'get_session'
+            'get_symmetry'
+            'get_title'
+            'get_type'
+            'get_version'
+            'get_view'
+            'gradient'
+            'group'
+            'h_add'
+            'h_fill'
+            'hide'
+            'id_atom'
+            'identify'
+            'index'
+            'indicate'
+            'intra_fit'
+            'intra_rms'
+            'intra_rms_cur'
+            'invert'
+            'isodot'
+            'isolevel'
+            'isomesh'
+            'isosurface'
+            'iterate'
+            'iterate_state'
+            'label'
+            'lines'
+            'load'
+            'load_model'
+            'load_traj'
+            'ls'
+            'main_page'
+            'map_double'
+            'map_new'
+            'map_set'
+            'map_set_border'
+            'map_trim'
+            'mappend'
+            'mask'
+            'matrix_copy'
+            'mclear'
+            'mdo'
+            'mdump'
+            'mem'
+            'meter_reset'
+            'middle'
+            'mmatrix'
+            'morph'
+            'move'
+            'mplay'
+            'mpng'
+            'mset'
+            'mstop'
+            'order'
+            'orient'
+            'origin'
+            'pair_fit'
+            'png'
+            'protect'
+            'pseudoatom'
+            'push_undo'
+            'pwd'
+            'python'
+            'quit'
+            'ramp_new'
+            'ray'
+            'read_molstr'
+            'read_pdbstr'
+            'rebuild'
+            'recolor'
+            'redo'
+            'refresh'
+            'reinit'
+            'reinitialize'
+            'remove'
+            'remove_picked'
+            'rename'
+            'replace'
+            'reset'
+            'rewind'
+            'rigimol'
+            'rms'
+            'rms_cur'
+            'rock'
+            'rotate'
+            'run'
+            'save'
+            'sele'
+            'select'
+            'set'
+            'set_bond'
+            'set_color'
+            'set_colour'
+            'set_dihedral'
+            'set_geometry'
+            'set_key'
+            'set_name'
+            'set_symmetry'
+            'set_title'
+            'set_view'
+            'show'
+            'show_as'
+            'slice'
+            'slice_new'
+            'smooth'
+            'sort'
+            'space'
+            'spectrum'
+            'splash'
+            'split_states'
+            'ss'
+            'super'
+            'symexp'
+            'sync'
+            'system'
+            'talk'
+            'torsion'
+            'translate'
+            'turn'
+            'unbond'
+            'undo'
+            'unmask'
+            'unpick'
+            'unset'
+            'update'
+            'view'
+            'viewport'
+            'volume'
+            'volume_color'
+            'volume_ramp_new'
+            'window'
+            'wizard'
+            'zoom')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '# Comment'
+    '! @ $ % ^ &* ( ) [ ] { } \ | ~ ` <> . ? / '
+    '/print "BEGIN-LOG"'
+    'load $PYMOL_PATH/test/dat/pept.pdb '
+    'show sticks, resi 27+31+30+34 and name C+O'
+    'hide everything, name H*')
+  TokenTypeNames.Strings = (
+    'Var'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Id command'
+    'Id func')
+  Extentions = 'pml'
+  LexerName = 'PyMOL'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end
