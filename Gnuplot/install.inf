@@ -1,0 +1,7 @@
+[info]
+title=Gnuplot
+type=lexer
+subdir=-
+
+[lexer1]
+file=Gnuplot

@@ -1,0 +1,527 @@
+object SyntAnal8: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id reserved'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id standard'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id par'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StrLongBracket'
+      StyleName = 'String2'
+      TokenType = 4
+      Expression = '(?s)\[\[ .*? (\]\] | \Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StrLongBracket2'
+      StyleName = 'String2'
+      TokenType = 4
+      Expression = '(?s)\[(=+)\[ .*? (\]\1\] | \Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39')(\\"|\\'#39'|.)*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_IdFunc1'
+      StyleName = 'Id func'
+      TokenType = 6
+      Expression = '[\w\.:]+(?=\s*=\s*function\s*\()'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_IdFunc2'
+      StyleName = 'Id func'
+      TokenType = 6
+      Expression = '(?<=function\x20+)[\w\.:]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      Expression = '\$\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol single'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\(\)\[\]\{\}\\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\+\-/\*\<>\.,~!&\|;:=%\^\#\?]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'NumHex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[A-Fa-f0-9]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'NumFloat'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+(\.\d+)? e[\+\-]?\d+ |'#13#10'\d+\.\d+ '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id reserved'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'break'
+            'do'
+            'else'
+            'elseif'
+            'end'
+            'false'
+            'fit'
+            'for'
+            'function'
+            'if'
+            'in'
+            'load'
+            'local'
+            'nil'
+            'not'
+            'or'
+            'pause'
+            'plot'
+            'print'
+            'repeat'
+            'return'
+            'save'
+            'set'
+            'show'
+            'splot'
+            'then'
+            'true'
+            'unset'
+            'until'
+            'while')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id std'
+      StyleName = 'Id standard'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'acos'
+            'appendto'
+            'asin'
+            'assert'
+            'atan'
+            'atan2'
+            'binom'
+            'call'
+            'ceil'
+            'clock'
+            'closefile'
+            'collectgarbage'
+            'coroutine'
+            'cos'
+            'date'
+            'debug'
+            'deg'
+            'difftime'
+            'dofile'
+            'dostring'
+            'error'
+            'execute'
+            'exit'
+            'exp'
+            'floor'
+            'flush'
+            'foreach'
+            'foreachi'
+            'format'
+            'frexp'
+            'gcinfo'
+            'geometric'
+            'getenv'
+            'getfenv'
+            'getmetatable'
+            'getn'
+            'globals'
+            'gsub'
+            'hypgeo'
+            'imag'
+            'io'
+            'ipairs'
+            'ldexp'
+            'loadfile'
+            'loadlib'
+            'loadstring'
+            'log'
+            'log10'
+            'logistic'
+            'math'
+            'max'
+            'min'
+            'mod'
+            'negbin'
+            'newtype'
+            'next'
+            'normal'
+            'openfile'
+            'os'
+            'pairs'
+            'pcall'
+            'pi'
+            'poisson'
+            'print'
+            'rad'
+            'random'
+            'randomseed'
+            'rawegal'
+            'rawget'
+            'rawset'
+            'read'
+            'readfrom'
+            'real'
+            'remove'
+            'rename'
+            'require'
+            'seek'
+            'setfenv'
+            'setlocale'
+            'setmetatable'
+            'sin'
+            'sort'
+            'sqrt'
+            'strbyte'
+            'strchar'
+            'strfind'
+            'string'
+            'strlen'
+            'strlower'
+            'strrep'
+            'strsub'
+            'strupper'
+            'table'
+            'tan'
+            'time'
+            'tinsert'
+            'tmpfile'
+            'tmpname'
+            'tonumber'
+            'tostring'
+            'tremove'
+            'type'
+            'unpack'
+            'write'
+            'writeto'
+            'xpcall')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func'
+      ConditionList = <
+        item
+          TokenTypes = 1088
+        end>
+      BlockEnd = 'end'
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      NoEndRule = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'do'
+            'function'
+            'if')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'repeat'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'repeat')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'until'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'until'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'until')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id par'
+      StyleName = 'Id par'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'angles'
+            'arrow'
+            'at'
+            'auto'
+            'autoscale'
+            'border'
+            'data'
+            'dots'
+            'dummy'
+            'errorbars'
+            'from'
+            'hidden'
+            'hidden3d'
+            'isosample'
+            'isosamples'
+            'key'
+            'label'
+            'line'
+            'lines'
+            'noarrow'
+            'nocontour'
+            'nogrid'
+            'nohead'
+            'nokey'
+            'nolabel'
+            'noparam'
+            'noparametric'
+            'nopolar'
+            'notime'
+            'nozeroaxis'
+            'para'
+            'parametric'
+            'points'
+            'polar'
+            'radians'
+            'rrange'
+            'sample'
+            'samples'
+            'size'
+            'square'
+            'style'
+            'terminal'
+            'tics'
+            'ticslevel'
+            'title'
+            'to'
+            'trange'
+            'urange '
+            'view'
+            'vrange'
+            'with'
+            'xlabel'
+            'xrange'
+            'xtics'
+            'xtics '
+            'ylabel'
+            'yrange'
+            'ytics'
+            'zlabel'
+            'zrange'
+            'ztics')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '# set terminal pngcairo '
+    'set title "Fill area between two curves (above/below)" '
+    'set xrange [ 250.000 : 500.000 ] noreverse writeback'
+    'set rrange [ * : * ] noreverse writeback'
+    
+      'plot '#39'silver.dat'#39' u 1:2:($3+$1/50.) w filledcurves above title '#39 +
+      'Above'#39',                '#39#39' u 1:2:($3+$1/50.) w filledcurves below' +
+      ' title '#39'Below'#39', '#9'       '#39#39' u 1:2 lt -1 lw 2 title '#39'curve 1'#39', '#9'  ' +
+      '     '#39#39' u 1:($3+$1/50.) lt 3 lw 2 title '#39'curve 2'#39)
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Func name')
+  Extentions = 'gp gnu gnuplot gpi'
+  LexerName = 'Gnuplot'
+  Notes.Strings = (
+    'sergiokapone (CudaText forum)')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end
