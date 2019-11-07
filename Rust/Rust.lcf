@@ -1,4 +1,4 @@
-object SyntAnal30: TLibSyntAnalyzer
+object SyntAnal29: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -225,7 +225,7 @@ object SyntAnal30: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '\$\( | [/\+\-\*:=<>&/\|\^~\.\#]+'
+      Expression = '\$\( | [!%/\+\-\*:=<>&/\|\^~\.\#]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -233,7 +233,7 @@ object SyntAnal30: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\),@\?!\[\]]'
+      Expression = '[\(\),@\?\[\]]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
