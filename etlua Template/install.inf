@@ -1,0 +1,11 @@
+[info]
+title=etlua Template
+type=lexer
+subdir=-
+
+[lexer1]
+file=etlua Template
+link1=CSS
+link2=JavaScript
+link3=JavaScript
+link4=Lua

@@ -1,0 +1,19 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
+[map]
+header=IdKeyword
+item.done=-
+item.cancel=-
+url=Symbol2
+@tag=LightBG5
+@critical=LightBG1
+@high=LightBG2
+@low=LightBG3
+@today=LightBG4
+@timestamp=TagProp
+text.grey=TagBound
+Marked block=-

@@ -1,4 +1,4 @@
-object SyntAnal22: TLibSyntAnalyzer
+object SyntAnal28: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -133,7 +133,7 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Comment 2'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '(?s)\{.*?(\}|\Z)'
+      Expression = '(?s)\{(\{.*?\}|.)*?(\}|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -503,7 +503,7 @@ object SyntAnal22: TLibSyntAnalyzer
   LexerName = 'Pascal script'
   SkipSpaces = False
   Notes.Strings = (
-    'This lexer is used in Inno Setup to hilite [Code] blocks.')
+    'This lexer is used in Inno Setup to highlight [Code] blocks')
   Internal = True
   LineComment = '//'
   Charset = DEFAULT_CHARSET

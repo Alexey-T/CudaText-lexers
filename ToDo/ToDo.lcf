@@ -1,0 +1,290 @@
+object SyntAnal57: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'header'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clMoneyGreen
+    end
+    item
+      DisplayName = 'item.done'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'item.cancel'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'url'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clSkyBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = '@tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = '@critical'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clRed
+    end
+    item
+      DisplayName = '@high'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = 33023
+    end
+    item
+      DisplayName = '@low'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clBlack
+    end
+    item
+      DisplayName = '@today'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clYellow
+    end
+    item
+      DisplayName = '@timestamp'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'text.grey'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end>
+  TokenRules = <
+    item
+      DisplayName = '1header'
+      StyleName = 'header'
+      Expression = '^[\x20\x09]*.+?:[\x20\x09]*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1item.symbol.done'
+      StyleName = 'item.done'
+      TokenType = 1
+      Expression = 
+        '^[\x20\x09]*(\+|\x{2713}|\x{2714}|\x{2611}|\x{221a}|\[x\]|\[\+\]' +
+        ')'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1item.symbol.cancel'
+      StyleName = 'item.cancel'
+      TokenType = 1
+      Expression = '^[\x20\x09]*(x|\x{2718}|\[-\])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1item.symbol.open'
+      TokenType = 1
+      Expression = 
+        '^[\x20\x09]*(-|\x{274d}|\x{2751}|\x{25a0}|\x{25a1}|\x{2610}|\x{2' +
+        '5aa}|\x{25ab}|\x{2013}|\x{2014}|\x{2261}|\x{2192}|\x{203a}|\[\s\' +
+        ']|\[\])(?=\s*)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '1st String'
+      TokenType = 1
+      Expression = '^ [\x20\x09]* .*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'url'
+      StyleName = 'url'
+      TokenType = 4
+      Expression = '(<)\w+?(?!\s)(\.|:)(?!\s)[^\n]+?(>)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '@today'
+      StyleName = '@today'
+      TokenType = 3
+      Expression = '(?<=\s)@today|\x{272d}\x{1d1b}\x{1d0f}\x{1d05}\x{1d00}\x{28f}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '@low'
+      StyleName = '@low'
+      TokenType = 3
+      Expression = '(?<=\s)@low|\x{272d}\x6c\x6f\x77'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '@high'
+      StyleName = '@high'
+      TokenType = 3
+      Expression = '(?<=\s)@high|\x{272d}\x68\x69\x67\x68'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '@critical'
+      StyleName = '@critical'
+      TokenType = 3
+      Expression = '(?<=\s)@critical|\x{272d}\x63\x72\x69\x74\x69\x63\x61\x6c'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '@timestamp'
+      StyleName = '@timestamp'
+      TokenType = 3
+      Expression = '@(due|started|created|toggle)\(.*?\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '@tag'
+      StyleName = '@tag'
+      TokenType = 3
+      Expression = 
+        '(?<=\s)@(?!(high|today|critical|low|completed|done)[\s\(])[\w\d\' +
+        '.\(\)\-!? :\+]+[ \t]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'text done/cancelled'
+      StyleName = 'text.grey'
+      TokenType = 2
+      Expression = 
+        '(?<=^[\x20\x09]*(\+|\x{2713}|\x{2714}|\x{2611}|-|\[\+\]|x|\x{271' +
+        '8}|\[-\])).*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'head'
+      ConditionList = <
+        item
+          TokenTypes = 1
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%sz0 {...}'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'items'
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      EndOfTextClose = True
+      DisplayInTree = False
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%sz0 {...}'
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'How to Use PlainTasks:'
+    ''
+    '  Projects:'
+    '   - item1'
+    '   + item2'
+    '   [] item3'
+    ''
+    ' New one:'
+    '   - item4'
+    '   + item5'
+    '   [] item6'
+    '     [] item7'
+    '        + item   '
+    '          gdfgsd'
+    '   [] item'
+    '     [] item'
+    '     [] item  '
+    ''
+    'Priority:'
+    '  [] become @critical'
+    '  [] item @high'
+    '  [] item @low'
+    '  [] item @today'
+    ''
+    'Time Tracking:'
+    '  [] item @started(13-10-25 15:20)'
+    '  [] item @toggle(14-10-13 16:14)'
+    '  [] item @created(14-12-24 15:57)')
+  TokenTypeNames.Strings = (
+    '1Head'
+    '1Item'
+    'gray text'
+    'tag'
+    'url'
+    ''
+    '')
+  Extentions = 'todo todolist taskpaper tasks'
+  LexerName = 'ToDo'
+  SkipSpaces = False
+  Charset = DEFAULT_CHARSET
+end

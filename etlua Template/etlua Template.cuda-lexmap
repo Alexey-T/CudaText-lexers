@@ -1,0 +1,30 @@
+[ref]
+0=CSS
+1=JavaScript
+2=JavaScript
+3=Lua
+
+[comments]
+str1=<!--
+str2=-->
+styles_cmt=Comment
+styles_str=Tag param
+
+[map]
+Tag id=TagId
+Tag id - underlines=TagIdBad
+Text=Id
+Tag bound=TagBound
+Comment=Comment
+Tag attrib=TagProp
+Tag attrib - underlines=TagIdBad
+Tag param=String
+Unknown tag content=IdBad
+Tag Key=Symbol
+Number=Number
+Tree item (attribute)=-
+Tree item (tag)=-
+Current block BG=BracketBG
+Current tag bound BG=BracketBG
+Sublexer BG=IncludeBG2
+Spec BG=IncludeBG1
