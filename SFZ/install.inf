@@ -1,0 +1,7 @@
+[info]
+title=SFZ
+type=lexer
+subdir=-
+
+[lexer1]
+file=SFZ

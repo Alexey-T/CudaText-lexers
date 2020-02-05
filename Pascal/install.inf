@@ -1,0 +1,8 @@
+[info]
+title=Pascal
+type=lexer
+subdir=-
+
+[lexer1]
+file=Pascal
+link1=Assembly

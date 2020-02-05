@@ -1,4 +1,4 @@
-object SyntAnal3: TLibSyntAnalyzer
+object SyntAnal26: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -11,7 +11,7 @@ object SyntAnal3: TLibSyntAnalyzer
     item
       DisplayName = 'Number'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clPurple
+      Font.Color = clNavy
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
@@ -28,7 +28,7 @@ object SyntAnal3: TLibSyntAnalyzer
     item
       DisplayName = 'Identifier'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
+      Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -109,9 +109,7 @@ object SyntAnal3: TLibSyntAnalyzer
       DisplayName = 'Comment2'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = 
-        '#block from /* (at line start) to */ (at line start)'#13#10'(?s)^/\*.*' +
-        '?(^\*/|\Z)'
+      Expression = '(?s)^\s*/\*.*?(^\s*\*/|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -119,7 +117,7 @@ object SyntAnal3: TLibSyntAnalyzer
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '#all chars after ; to end of line'#13#10';.*'
+      Expression = ';.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -127,9 +125,7 @@ object SyntAnal3: TLibSyntAnalyzer
       DisplayName = 'Func'
       StyleName = 'Functions'
       TokenType = 10
-      Expression = 
-        '#first charecter can'#39't be digit'#13#10'^[\#!\^\+&<>\*~\$]* [a-z_]\w* :' +
-        '{1,2}?'
+      Expression = '^[\#!\^\+&<>\*~\$]* [a-z_]\w* :{1,2}?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -142,18 +138,10 @@ object SyntAnal3: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Any name'
-      StyleName = 'Identifier'
-      TokenType = 2
-      Expression = '#first charecter can'#39't be digit'#13#10'[a-z_]\w*'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Hex'
       StyleName = 'Number'
       TokenType = 7
-      Expression = '#Hex is started with 0x sign'#13#10'0x[\da-f]+'
+      Expression = '0x[\da-f]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -161,9 +149,7 @@ object SyntAnal3: TLibSyntAnalyzer
       DisplayName = 'Float'
       StyleName = 'Number'
       TokenType = 6
-      Expression = 
-        '#with exp. dot is optional '#13#10'(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'#wit' +
-        'hout exp. dot is required'#13#10'\d+ \. \d+'#13#10' '
+      Expression = '(\d+\.)? \d+ e [\+\-]? \d+ | \d+\.\d+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -171,14 +157,14 @@ object SyntAnal3: TLibSyntAnalyzer
       DisplayName = 'Integer'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '#any sequence of digits'#13#10'\d+'
+      Expression = '\d+'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
       DisplayName = 'Macros'
       StyleName = 'Macros'
-      Expression = '#first charecter can'#39't be digit'#13#10'^\#[a-z_]\w*'
+      Expression = '^\#[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -189,10 +175,18 @@ object SyntAnal3: TLibSyntAnalyzer
       Expression = '[/,\.;:\(\)=<>\+\-&%\*\{\}\$\^\~\?!\#]+'
       ColumnFrom = 0
       ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '(?r)\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
     end>
   BlockRules = <
     item
-      DisplayName = 'Key words'
+      DisplayName = 'Keywords'
       StyleName = 'Reserved word'
       BlockType = btTagDetect
       ConditionList = <
@@ -202,6 +196,8 @@ object SyntAnal3: TLibSyntAnalyzer
             'between'
             'BlockInput'
             'Break'
+            'catch'
+            'class'
             'Click'
             'ClipWait'
             'contains'
@@ -259,8 +255,11 @@ object SyntAnal3: TLibSyntAnalyzer
             'FileSelectFolder'
             'FileSetAttrib'
             'FileSetTime'
+            'finally'
+            'for'
             'FormatTime'
             'GetKeyState'
+            'global'
             'Gosub'
             'Goto'
             'GroupActivate'
@@ -362,6 +361,7 @@ object SyntAnal3: TLibSyntAnalyzer
             'SplashTextOff'
             'SplashTextOn'
             'SplitPath'
+            'static'
             'StatusBarGetText'
             'StatusBarWait'
             'StringCaseSense'
@@ -382,6 +382,7 @@ object SyntAnal3: TLibSyntAnalyzer
             'ToolTip'
             'Transform'
             'TrayTip'
+            'try'
             'URLDownloadToFile'
             'While'
             'WinActivate'
@@ -596,13 +597,13 @@ object SyntAnal3: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            '`'
+            '^'
             '!'
             '#'
-            '$'
-            '^'
-            '`'
-            '~'
             '+'
+            '~'
+            '$'
             'Alt'
             'AltDown'
             'AltUp'
@@ -833,11 +834,12 @@ object SyntAnal3: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    '/* Comment '
-    '*/'
+    '  /* Comment '
+    '  */'
     '#SingleInstance force'
     '#!^+&<>*~$Key:Test'
-    ''
+    'MsgBox testing... 20+30'
+    ' '
     'Tray:'
     '{'
     'WinWait, "Test" + 100 + LButton'
@@ -857,6 +859,7 @@ object SyntAnal3: TLibSyntAnalyzer
     'Func')
   Extentions = 'ahk'
   LexerName = 'AutoHotkey'
+  SkipSpaces = False
   Notes.Strings = (
     'Original by: RedTiF at ghisler.ch'
     'Improvements by: Alex (SynWrite)')

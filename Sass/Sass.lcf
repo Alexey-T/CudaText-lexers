@@ -1,4 +1,4 @@
-object SyntAnal25: TLibSyntAnalyzer
+object SyntAnal24: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -82,10 +82,18 @@ object SyntAnal25: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = 'Comment'
+      DisplayName = 'Comment 1'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '/[\*/] .*'
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
       ColumnFrom = 0
       ColumnTo = 0
     end

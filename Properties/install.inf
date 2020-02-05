@@ -1,0 +1,7 @@
+[info]
+title=Properties
+type=lexer
+subdir=-
+
+[lexer1]
+file=Properties

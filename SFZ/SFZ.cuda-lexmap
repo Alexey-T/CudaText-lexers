@@ -1,0 +1,16 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Id=Id
+Symbol=Symbol
+Number=Number
+Comment=Comment
+Tag=TagId
+String=String
+Directive=Id3
+Filename=Id1
+Var=IdVar

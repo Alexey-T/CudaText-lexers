@@ -1,0 +1,7 @@
+[info]
+title=Ruby
+type=lexer
+subdir=-
+
+[lexer1]
+file=Ruby

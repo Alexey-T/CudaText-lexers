@@ -1,4 +1,4 @@
-object SyntAnal15: TLibSyntAnalyzer
+object SyntAnal28: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Id'
@@ -69,7 +69,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '^;.*'
+      Expression = '^[\x20\x09]*;.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -90,10 +90,10 @@ object SyntAnal15: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Id'
+      DisplayName = 'Text'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '[a-z_]\w*'
+      Expression = '(?r)\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -117,7 +117,9 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Preproc'
       StyleName = 'Preprocessor'
       TokenType = 7
-      Expression = '^\s*\#.*'
+      Expression = 
+        '#support line continuation: space+backslash'#13#10'^[\x20\x09]*\#(\x20' +
+        '\\\z|.)+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -125,7 +127,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'String with vars'
       StyleName = 'String'
       TokenType = 4
-      Expression =
+      Expression = 
         '"       [\w\\\.\-\+\#\:\*\x20/\(\)<>]*? " |'#13#10'"       [\w\\\.\-\+' +
         '\#\:\*\x20/\(\)<>]*? (?=\{) |'#13#10'(?<=\}) [\w\\\.\-\+\#\:\*\x20/\(\' +
         ')<>]*? "'#13#10
@@ -364,7 +366,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Code'
       StartExpression = '(?i)\[code\]'#13#10
       EndExpression = '^\[\w+\]'
-      SyntAnalyzer = SyntAnal22
+      SyntAnalyzer = SyntAnal27
       ToTextEnd = True
     end>
   SampleText.Strings = (
@@ -373,17 +375,17 @@ object SyntAnal15: TLibSyntAnalyzer
     'Name: "german"; MessagesFile: "compiler:Languages\German.isl"'
     ''
     '[Tasks]'
-
+    
       'Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; Grou' +
       'pDescription: "{cm:AdditionalIcons}"'
     ';test'
     '[Files]'
-
+    
       'Source: "{app}\Plugins\wlx\SynWrite\HL\C#.acp"; DestDir: "{app}\' +
       'Plugins\wlx\SynWrite\HL"; MinVersion: 0.0,5.0; Flags: restartrep' +
       'lace overwritereadonly uninsrestartdelete ignoreversion uninsrem' +
       'overeadonly '
-
+    
       'Source: "{app}\Plugins\wlx\SynWrite\HL\C++.acp"; DestDir: "{app}' +
       '\Plugins\wlx\SynWrite\HL"; MinVersion: 0.0,5.0; Flags: restartre' +
       'place overwritereadonly uninsrestartdelete ignoreversion uninsre' +
@@ -391,7 +393,7 @@ object SyntAnal15: TLibSyntAnalyzer
     ''
     '#sub AddIconFiles'
     '#expr GetFileVars'
-
+    
       'Source: {#Copy (IconsMask, 0, RPos ("\", IconsMask)) + CurrentFi' +
       'leName}; DestDir: {app}; DestName: {#IconName}; Components: icon' +
       's\{#CurrentName}; Flags: ignoreversion'
@@ -421,7 +423,7 @@ object SyntAnal15: TLibSyntAnalyzer
   LexerName = 'Inno Setup'
   SkipSpaces = False
   Notes.Strings = (
-    'Reworked by Alex (Synwrite)')
+    'Reworked by Alexey (CudaText)')
   LineComment = ';'
   Charset = DEFAULT_CHARSET
 end

@@ -10,9 +10,10 @@ Macros=Id3
 Sent Keys=Id2
 Functions=Id1
 Registry=Id4
-
 [comments]
-str1=/*
-str2=*/
+str1=
+str2=
 styles_cmt=Comment
 styles_str=String
+full1=/*
+full2=*/

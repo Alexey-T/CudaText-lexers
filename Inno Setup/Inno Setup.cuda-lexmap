@@ -1,10 +1,15 @@
+[comments]
+styles_cmt=Comment
+styles_str=
+str1=
+str2=
 [ref]
 0=Pascal script
-
 [comments]
 styles_cmt=Comment
 styles_str=String
-
+str1=
+str2=
 [map]
 Id=Id
 Id keyword=IdKeyword
