@@ -1,0 +1,524 @@
+object SyntAnal17: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clGray
+      Font.Height = -15
+      Font.Name = 'Consolas'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Sub background'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Variable'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id#'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id@'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.* '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '`.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 5
+      Expression = '".*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Variable'
+      TokenType = 7
+      Expression = '\$?%[&\w]+%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id#'
+      StyleName = 'Id#'
+      Expression = '\#&?\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id@'
+      StyleName = 'Id@'
+      Expression = '[@&%\$]+\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label1'
+      StyleName = 'Label'
+      AlwaysEnabled = True
+      TokenType = 8
+      Expression = '(?<=goto\x20+)\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label2'
+      StyleName = 'Label'
+      TokenType = 8
+      Expression = '&+\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '0x[\da-f]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'SpecNumbers'
+      StyleName = 'Number'
+      Expression = '[LTWH]\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[%\$\^!/,;:\(\)=<>\+\-\[\]\|~]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol{}'
+      StyleName = 'Symbol2'
+      TokenType = 4
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '_END'
+            '_ENDFILE'
+            '_SUB'
+            'ADSL'
+            'BASE'
+            'BLOCK'
+            'BROW'
+            'CALC'
+            'CALL'
+            'CHEK'
+            'CLASS'
+            'CMPS'
+            'CODE'
+            'COME'
+            'Cur'
+            'DATE'
+            'DEVI'
+            'DFMT'
+            'DIR'
+            'DISK'
+            'DISP'
+            'DLL'
+            'DTIM'
+            'EDIT'
+            'EJEC'
+            'ENVI'
+            'EXEC'
+            'EXIT'
+            'FBWF'
+            'FDIR'
+            'FDRV'
+            'FEXT'
+            'FILE'
+            'FIND'
+            'FLNK'
+            'FNAM'
+            'FONT'
+            'FORM'
+            'FORX'
+            'FPOS'
+            'FTIME'
+            'FUNC'
+            'FVER'
+            'GETF'
+            'GOTO'
+            'GROU'
+            'HASH'
+            'HELP'
+            'HIDE'
+            'HIVE'
+            'HKEY'
+            'HOME'
+            'HOTK'
+            'IFEX'
+            'IMAG'
+            'IMPORT'
+            'INIT'
+            'IPAD'
+            'ISADMIN'
+            'ITEM'
+            'KILL'
+            'LABE'
+            'LINK'
+            'LIST'
+            'LOAD'
+            'LOCK'
+            'LOGO'
+            'LOGS'
+            'LOOP'
+            'LPOS'
+            'LSTR'
+            'MAIN'
+            'MDIR'
+            'MEMO'
+            'MENU'
+            'MESS'
+            'MOUN'
+            'MSTR'
+            'NAME'
+            'NOTE'
+            'NOTICE'
+            'NTPC'
+            'NUMK'
+            'PAGE'
+            'PART'
+            'PATH'
+            'PBAR'
+            'PCIP'
+            'PEBIT'
+            'PINT'
+            'PPID'
+            'PUTF'
+            'PWIN'
+            'RADI'
+            'RAMD'
+            'RAND'
+            'READ'
+            'RECY'
+            'REGI'
+            'RMENU'
+            'RPOS'
+            'RSTR'
+            'RUNS'
+            'SCRN'
+            'sed'
+            'SED '
+            'SEND'
+            'SERV'
+            'set'
+            'SET '
+            'SHEL'
+            'SHOW'
+            'SHUT'
+            'SITE'
+            'SIZE'
+            'SLID'
+            'SOCK'
+            'SPIN'
+            'SSTR'
+            'STRL'
+            'SUBJ'
+            'SWIN'
+            'TABL'
+            'TABS'
+            'TEAM'
+            'TEMP'
+            'TEXT'
+            'THRD'
+            'THREAD'
+            'TIME'
+            'TIPS'
+            'UPNP'
+            'USER'
+            'WAIT'
+            'WALL'
+            'WIM'
+            'WINDOW'
+            'WRIT')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      StyleName = 'Sub background'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 16
+        end>
+      BlockEnd = '}'
+      Highlight = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockName = '{'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 16
+        end>
+      BlockEnd = '{'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Sub start'
+      StyleName = 'Sub background'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '_sub')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'End'
+      Highlight = True
+      NameFmt = '%sz0 '
+      DynHighlight = dhRange
+      HighlightPos = cpRange
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Sub end'
+      BlockName = 'Sub start'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '_end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Sub start'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function'
+            'get'
+            'if'
+            'property'
+            'select'
+            'try'
+            'type'
+            'while'
+            'with')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          CondType = tcNotEqual
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'End'
+      DisplayInTree = False
+      HighlightPos = cpBound
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+      AutoCloseText = 'End %s0 '
+    end
+    item
+      DisplayName = 'End'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Sub start'
+      SameIdent = True
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '//Comment'
+    '"Test" + #test + #&hd + 0xFE + L234 + @test + $%&name% + &&test '
+    'goto Label'
+    '$T'
+    '$%T'
+    '$%&T'
+    '$%&&T'
+    '&T'
+    '&&T'
+    '%T'
+    '%%T'
+    '%&T'
+    '%%&T'
+    '@T'
+    '@@T'
+    '@&T'
+    ''
+    'TEAM SET$ &NL1=0d 0a|SET$ &NL2=0d'
+    'TEAM ENVI TypF=Wim|FDRV TDrv=%TEMP%'
+    '{'
+    'IFEX %&LDEV%,!FORX %Drv%\20pack\*.swm,WFil,0,CALL MyName'
+    'ENVI us=%USERPROFILE%\AppData\Local\Temp\80Pack.log'
+    '}'
+    ''
+    '_sub MyName'
+    'Test'
+    '_end')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'Symbol{}'
+    'String'
+    'Number'
+    'Variable'
+    'Label')
+  Extentions = 'wcs wsc pe'
+  LexerName = 'PECmd script'
+  Notes.Strings = (
+    'Alexey (CudaText), based on work from usbtor.ru')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

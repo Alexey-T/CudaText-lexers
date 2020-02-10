@@ -1,0 +1,7 @@
+[info]
+title=PECmd script
+type=lexer
+subdir=-
+
+[lexer1]
+file=PECmd script
