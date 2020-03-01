@@ -1,0 +1,7 @@
+[info]
+title=Power Query M
+type=lexer
+subdir=-
+
+[lexer1]
+file=Power Query M

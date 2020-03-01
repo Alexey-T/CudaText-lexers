@@ -1,0 +1,7 @@
+[info]
+title=Raku
+type=lexer
+subdir=-
+
+[lexer1]
+file=Raku
