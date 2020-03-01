@@ -119,6 +119,14 @@ object SyntAnal2: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'String2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -149,7 +157,7 @@ object SyntAnal2: TLibSyntAnalyzer
       DisplayName = 'Label'
       StyleName = 'Label'
       TokenType = 10
-      Expression = '(?r)^[\#!\^\+&<>\*~\$]* \w+ :{1,2}?'
+      Expression = '(?r)^[\#!\^\+&<>\*~\$]* [\w`]+ :{1,2}'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -188,7 +196,7 @@ object SyntAnal2: TLibSyntAnalyzer
     item
       DisplayName = 'Directive'
       TokenType = 7
-      Expression = '^\#\w+'
+      Expression = '^[\x20\x09]*\#\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -196,7 +204,30 @@ object SyntAnal2: TLibSyntAnalyzer
       DisplayName = 'Var'
       StyleName = 'Var'
       TokenType = 6
-      Expression = '%\d+%'
+      Expression = '%\w+%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'MsgBox string'
+      StyleName = 'String2'
+      Expression = '(?<=MsgBox[\x20,]).+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Back tick'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '`.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 12
+      Expression = '[\{\}]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -204,14 +235,7 @@ object SyntAnal2: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/,\.;:\(\)=<>\+\-&%\*\{\}\$\^\~\?!\#\|`]+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'MsgBox string'
-      StyleName = 'String'
-      Expression = '(?<=MsgBox\x20).+'
+      Expression = '[/,\.;:\(\)=<>\+\-&%\*\$\^\~\?!\#\|]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -244,6 +268,8 @@ object SyntAnal2: TLibSyntAnalyzer
             'between'
             'BlockInput'
             'Break'
+            'byref'
+            'case'
             'catch'
             'class'
             'Click'
@@ -263,6 +289,7 @@ object SyntAnal2: TLibSyntAnalyzer
             'ControlSetText'
             'CoordMode'
             'Critical'
+            'default'
             'DetectHiddenText'
             'DetectHiddenWindows'
             'Drive'
@@ -307,6 +334,7 @@ object SyntAnal2: TLibSyntAnalyzer
             'finally'
             'for'
             'FormatTime'
+            'get'
             'GetKeyState'
             'global'
             'Gosub'
@@ -342,11 +370,13 @@ object SyntAnal2: TLibSyntAnalyzer
             'IniWrite'
             'Input'
             'InputBox'
+            'is'
             'KeyHistory'
             'KeyWait'
             'ListHotkeys'
             'ListLines'
             'ListVars'
+            'local'
             'Loop'
             'Menu'
             'MouseClick'
@@ -356,7 +386,6 @@ object SyntAnal2: TLibSyntAnalyzer
             'MsgBox'
             'new'
             'not'
-            'OnExit'
             'or'
             'OutputDebug'
             'Parse'
@@ -386,6 +415,7 @@ object SyntAnal2: TLibSyntAnalyzer
             'SendMode'
             'SendPlay'
             'SendRaw'
+            'set'
             'SetBatchLines'
             'SetCapslockState'
             'SetControlDelay'
@@ -433,6 +463,7 @@ object SyntAnal2: TLibSyntAnalyzer
             'Suspend'
             'Switch'
             'SysGet'
+            'this'
             'Thread'
             'Throw'
             'ToolTip'
@@ -441,6 +472,7 @@ object SyntAnal2: TLibSyntAnalyzer
             'try'
             'Until'
             'URLDownloadToFile'
+            'value'
             'While'
             'While-loop'
             'WinActivate'
@@ -809,7 +841,9 @@ object SyntAnal2: TLibSyntAnalyzer
             'ObjRemoveAt'
             'ObjSetBase'
             'ObjSetCapacity'
+            'OnClipboardChange'
             'OnError'
+            'OnExit'
             'OnMessage'
             'Ord'
             'RegExMatch'
@@ -1039,7 +1073,7 @@ object SyntAnal2: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 4096
         end>
       BlockEnd = '}'
       Highlight = True
@@ -1047,6 +1081,7 @@ object SyntAnal2: TLibSyntAnalyzer
       DynHighlight = dhRange
       HighlightPos = cpAny
       DrawStaple = True
+      CollapseFmt = '{ ... }'
       IgnoreAsParent = False
     end
     item
@@ -1056,17 +1091,49 @@ object SyntAnal2: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '}')
-          TokenTypes = 8
+          TokenTypes = 4096
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Tree item'
+      DisplayName = 'Label in tree'
       ConditionList = <
         item
           TokenTypes = 1024
         end>
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Func in tree'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 4096
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 126
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 2048
+        end>
+      NotCollapsed = True
+      NameFmt = 'func %s0'
+      RefToCondEnd = True
       HighlightPos = cpAny
       NoEndRule = True
       IgnoreAsParent = False
@@ -1079,12 +1146,17 @@ object SyntAnal2: TLibSyntAnalyzer
     '#SingleInstance force'
     '#!^+&<>*~$Key:Test'
     'MsgBox testing... 20.30 + A_AppData + %2%'
-    'FileExist()'
+    'FileExist() %VarName% `n'
     ''
     'Tray:'
     '{'
     'WinWait, "Test" + 100 + LButton'
     'RegDelete, HKCU, Software\Micro, TotalMouseEX'
+    '}'
+    ''
+    'Add(x, y)'
+    '{'
+    '  return 0'
     '}')
   TokenTypeNames.Strings = (
     'Unknown'
@@ -1098,7 +1170,8 @@ object SyntAnal2: TLibSyntAnalyzer
     'Registry'
     'Preprocessor'
     'Label'
-    'Func name')
+    'Func name'
+    'Symbol {}')
   Extentions = 'ahk'
   LexerName = 'AutoHotkey'
   SkipSpaces = False

@@ -1,4 +1,4 @@
-object SyntAnal10: TLibSyntAnalyzer
+object SyntAnal44: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Default'
@@ -37,7 +37,7 @@ object SyntAnal10: TLibSyntAnalyzer
     item
       DisplayName = 'SymbolBrace'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clTeal
+      Font.Color = clRed
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
@@ -61,9 +61,10 @@ object SyntAnal10: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Number'
+      Enabled = False
       StyleName = 'Number'
       TokenType = 2
-      Expression = '\d+'
+      Expression = '\b\d+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -124,6 +125,6 @@ object SyntAnal10: TLibSyntAnalyzer
   Extentions = 'rtf'
   LexerName = 'RTF'
   Notes.Strings = (
-    'Alexey (Synwrite)')
+    'Alexey (CudaText)')
   Charset = DEFAULT_CHARSET
 end

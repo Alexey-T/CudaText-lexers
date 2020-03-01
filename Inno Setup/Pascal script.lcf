@@ -1,4 +1,4 @@
-object SyntAnal27: TLibSyntAnalyzer
+object SyntAnal15: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -25,28 +25,52 @@ object SyntAnal27: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Identifier'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
-      DisplayName = 'Reserved word'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-    end
-    item
       DisplayName = 'Comment'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGray
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id standard'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id class'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id const'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end
     item
       DisplayName = 'Preprocessor'
@@ -57,7 +81,7 @@ object SyntAnal27: TLibSyntAnalyzer
       Font.Style = [fsItalic]
     end
     item
-      DisplayName = 'Function separator'
+      DisplayName = 'Function sep'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -88,8 +112,8 @@ object SyntAnal27: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = 'Any name'
-      StyleName = 'Identifier'
+      DisplayName = 'Id'
+      StyleName = 'Id'
       TokenType = 2
       Expression = '[a-z_]\w*'
       ColumnFrom = 0
@@ -106,10 +130,8 @@ object SyntAnal27: TLibSyntAnalyzer
     item
       DisplayName = 'Float'
       StyleName = 'Number'
-      TokenType = 6
-      Expression = 
-        '#with exp. dot is optional '#13#10'\d+ \.? \d+ e [\+\-]? \d+ |'#13#10'#witho' +
-        'ut exp. dot is required'#13#10'\d+ \. \d+'
+      TokenType = 5
+      Expression = '\d+\.?\d+ e[\+\-]? \d+\b |'#13#10'\d+\.\d+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -117,7 +139,7 @@ object SyntAnal27: TLibSyntAnalyzer
       DisplayName = 'Integer'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+'
+      Expression = '\d+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -146,10 +168,10 @@ object SyntAnal27: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'HEX'
+      DisplayName = 'Hex'
       StyleName = 'Number'
-      TokenType = 7
-      Expression = '\$[a-f\d]+'
+      TokenType = 5
+      Expression = '\$[a-f\d]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -164,23 +186,23 @@ object SyntAnal27: TLibSyntAnalyzer
     item
       DisplayName = 'Char'
       StyleName = 'String'
-      TokenType = 8
-      Expression = '\#(\d+|\$[\da-f]+)'
+      TokenType = 4
+      Expression = '\#(\d+|\$[\da-f]+)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
       DisplayName = 'Preprocessor'
       StyleName = 'Preprocessor'
-      TokenType = 1
+      TokenType = 6
       Expression = '^\s*\#.*$'
       ColumnFrom = 0
       ColumnTo = 0
     end>
   BlockRules = <
     item
-      DisplayName = 'Key words'
-      StyleName = 'Reserved word'
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
       BlockType = btTagDetect
       ConditionList = <
         item
@@ -275,6 +297,608 @@ object SyntAnal27: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'Id event funcs'
+      StyleName = 'Id standard'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BackButtonClick'
+            'CancelButtonClick'
+            'CheckPassword'
+            'CheckSerial'
+            'CurInstallProgressChanged'
+            'CurPageChanged'
+            'CurStepChanged'
+            'CurUninstallStepChanged'
+            'DeinitializeSetup'
+            'DeinitializeUninstall'
+            'GetCustomSetupExitCode'
+            'InitializeSetup'
+            'InitializeUninstall'
+            'InitializeUninstallProgressForm'
+            'InitializeWizard'
+            'NeedRestart'
+            'NextButtonClick'
+            'PrepareToInstall'
+            'RegisterExtraCloseApplicationsResources'
+            'RegisterPreviousData'
+            'ShouldSkipPage'
+            'UninstallNeedRestart'
+            'UpdateReadyMemo')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id support funcs'
+      StyleName = 'Id standard'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Abort'
+            'ActiveLanguage'
+            'AddBackslash'
+            'AddPeriod'
+            'AddQuotes'
+            'AnsiLowercase'
+            'AnsiUppercase'
+            'Beep'
+            'BringToFrontAndRestore'
+            'BrowseForFolder'
+            'CallDLLProc'
+            'CastIntegerToString'
+            'CastStringToInteger'
+            'ChangeFileExt'
+            'CharLength'
+            'CharToOemBuff'
+            'CheckForMutexes'
+            'Chr'
+            'CoFreeUnusedLibraries'
+            'CompareStr'
+            'CompareText'
+            'ConvertPercentStr'
+            'Copy'
+            'CreateComObject'
+            'CreateCustomForm'
+            'CreateCustomPage'
+            'CreateDir'
+            'CreateInputDirPage'
+            'CreateInputFilePage'
+            'CreateInputOptionPage'
+            'CreateInputQueryPage'
+            'CreateMutex'
+            'CreateOleObject'
+            'CreateOutputMsgMemoPage'
+            'CreateOutputMsgPage'
+            'CreateOutputProgressPage'
+            'CreateShellLink'
+            'CurrentFilename'
+            'CurrentSourceFilename'
+            'CustomMessage'
+            'DecrementSharedCount'
+            'DelayDeleteFile'
+            'Delete'
+            'DeleteFile'
+            'DeleteIniEntry'
+            'DeleteIniSection'
+            'DelTree'
+            'DirExists'
+            'DLLGetLastError'
+            'EnableFsRedirection'
+            'Exec'
+            'ExecAsOriginalUser'
+            'ExitSetupMsgBox'
+            'ExpandConstant'
+            'ExpandConstantEx'
+            'ExpandFileName'
+            'ExpandUNCFileName'
+            'ExtractFileDir'
+            'ExtractFileDrive'
+            'ExtractFileExt'
+            'ExtractFileName'
+            'ExtractFilePath'
+            'ExtractRelativePath'
+            'ExtractTemporaryFile'
+            'ExtractTemporaryFiles'
+            'FileCopy'
+            'FileExists'
+            'FileOrDirExists'
+            'FileSearch'
+            'FileSize'
+            'FindClose'
+            'FindFirst'
+            'FindNext'
+            'FindWindowByClassName'
+            'FindWindowByWindowName'
+            'FloatToStr'
+            'FmtMessage'
+            'FontExists'
+            'ForceDirectories'
+            'Format'
+            'FreeDLL'
+            'GenerateUniqueName'
+            'GetActiveOleObject'
+            'GetArrayLength'
+            'GetCmdTail'
+            'GetComputerNameString'
+            'GetCurrentDir'
+            'GetDateTimeString'
+            'GetEnv'
+            'GetExceptionMessage'
+            'GetIniBool'
+            'GetIniInt'
+            'GetIniString'
+            'GetMD5OfFile'
+            'GetMD5OfString'
+            'GetMD5OfUnicodeString'
+            'GetOpenFileName'
+            'GetOpenFileNameMulti'
+            'GetPreviousData'
+            'GetSaveFileName'
+            'GetSHA1OfFile'
+            'GetSHA1OfString'
+            'GetSHA1OfUnicodeString'
+            'GetShellFolder'
+            'GetShellFolderByCSIDL'
+            'GetShortName'
+            'GetSpaceOnDisk'
+            'GetSpaceOnDisk64'
+            'GetSystemDir'
+            'GetSysWow64Dir'
+            'GetTempDir'
+            'GetUILanguage'
+            'GetUserNameString'
+            'GetVersionNumbers'
+            'GetVersionNumbersString'
+            'GetWinDir'
+            'GetWindowsVersion'
+            'GetWindowsVersionEx'
+            'GetWindowsVersionString'
+            'IDispatchInvoke'
+            'IncrementSharedCount'
+            'IniKeyExists'
+            'Insert'
+            'InstallOnThisVersion'
+            'IntToStr'
+            'Is64BitInstallMode'
+            'IsAdminLoggedOn'
+            'IsARM64'
+            'IsComponentSelected'
+            'IsIA64'
+            'IsIniSectionEmpty'
+            'IsPowerUserLoggedOn'
+            'IsProtectedSystemFile'
+            'IsTaskSelected'
+            'IsUninstaller'
+            'IsWildcard'
+            'IsWin64'
+            'IsX64'
+            'IsX86'
+            'Length'
+            'LoadDLL'
+            'LoadStringFromFile'
+            'LoadStringsFromFile'
+            'Log'
+            'Lowercase'
+            'MakePendingFileRenameOperationsChecksum'
+            'MinimizePathName'
+            'ModifyPifFile'
+            'MsgBox'
+            'Null'
+            'OemToCharBuff'
+            'OleCheck'
+            'Ord'
+            'PageFromID'
+            'PageIndexFromID'
+            'ParamCount'
+            'ParamStr'
+            'Pos'
+            'PostBroadcastMessage'
+            'PostMessage'
+            'ProcessorArchitecture'
+            'RaiseException'
+            'Random'
+            'RegDeleteKeyIfEmpty'
+            'RegDeleteKeyIncludingSubkeys'
+            'RegDeleteValue'
+            'RegGetSubkeyNames'
+            'RegGetValueNames'
+            'RegisterExtraCloseApplicationsResource'
+            'RegisterServer'
+            'RegisterTypeLibrary'
+            'RegisterWindowMessage'
+            'RegKeyExists'
+            'RegQueryBinaryValue'
+            'RegQueryDWordValue'
+            'RegQueryMultiStringValue'
+            'RegQueryStringValue'
+            'RegValueExists'
+            'RegWriteBinaryValue'
+            'RegWriteDWordValue'
+            'RegWriteExpandStringValue'
+            'RegWriteMultiStringValue'
+            'RegWriteStringValue'
+            'RemoveBackslash'
+            'RemoveBackslashUnlessRoot'
+            'RemoveDir'
+            'RemoveQuotes'
+            'RenameFile'
+            'RestartReplace'
+            'RmSessionStarted'
+            'SaveStringsToFile'
+            'SaveStringsToUTF8File'
+            'SaveStringToFile'
+            'ScaleX'
+            'ScaleY'
+            'SelectDisk'
+            'SendBroadcastMessage'
+            'SendBroadcastNotifyMessage'
+            'SendMessage'
+            'SendNotifyMessage'
+            'SetArrayLength'
+            'SetCurrentDir'
+            'SetIniBool'
+            'SetIniInt'
+            'SetIniString'
+            'SetLength'
+            'SetNTFSCompression'
+            'SetPreviousData'
+            'SetupMessage'
+            'ShellExec'
+            'ShellExecAsOriginalUser'
+            'ShowExceptionMessage'
+            'Sleep'
+            'StringChange'
+            'StringChangeEx'
+            'StringOfChar'
+            'StringToGUID'
+            'StrToFloat'
+            'StrToInt'
+            'StrToInt64'
+            'StrToInt64Def'
+            'StrToIntDef'
+            'SuppressibleMsgBox'
+            'SysErrorMessage'
+            'Terminated'
+            'Trim'
+            'TrimLeft'
+            'TrimRight'
+            'Unassigned'
+            'UninstallSilent'
+            'UnloadDLL'
+            'UnpinShellLink'
+            'UnregisterFont'
+            'UnregisterServer'
+            'UnregisterTypeLibrary'
+            'Uppercase'
+            'VarIsClear'
+            'VarIsEmpty'
+            'VarIsNull'
+            'VarType'
+            'WildcardMatch'
+            'WizardDirValue'
+            'WizardGroupValue'
+            'WizardNoIcons'
+            'WizardSelectedComponents'
+            'WizardSelectedTasks'
+            'WizardSetupType'
+            'WizardSilent')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id classes'
+      StyleName = 'Id class'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'TAlphaBitmap'
+            'TBevel'
+            'TBitmap'
+            'TBitmapImage'
+            'TBrush'
+            'TButton'
+            'TButtonControl'
+            'TCanvas'
+            'TCheckBox'
+            'TComboBox'
+            'TComponent'
+            'TControl'
+            'TCustomCheckBox'
+            'TCustomComboBox'
+            'TCustomControl'
+            'TCustomEdit'
+            'TCustomFolderTreeView'
+            'TCustomLabel'
+            'TCustomListBox'
+            'TCustomMemo'
+            'TCustomPanel'
+            'TEdit'
+            'TFileStream'
+            'TFolderTreeView'
+            'TFont'
+            'TForm'
+            'TGraphic'
+            'TGraphicControl'
+            'TGraphicsObject'
+            'THandleStream'
+            'TInputDirWizardPage'
+            'TInputFileWizardPage'
+            'TInputOptionWizardPage'
+            'TInputQueryWizardPage'
+            'TLabel'
+            'TListBox'
+            'TMainForm'
+            'TMemo'
+            'TNewButton'
+            'TNewCheckBox'
+            'TNewCheckListBox'
+            'TNewComboBox'
+            'TNewEdit'
+            'TNewListBox'
+            'TNewMemo'
+            'TNewNotebook'
+            'TNewNotebookPage'
+            'TNewProgressBar'
+            'TNewRadioButton'
+            'TNewStaticText'
+            'TObject'
+            'TOutputMsgMemoWizardPage'
+            'TOutputMsgWizardPage'
+            'TOutputProgressWizardPage'
+            'TPanel'
+            'TPasswordEdit'
+            'TPen'
+            'TPersistent'
+            'TRadioButton'
+            'TRichEditViewer'
+            'TScrollingWinControl'
+            'TSetupForm'
+            'TStartMenuFolderTreeView'
+            'TStream'
+            'TStringList'
+            'TStrings'
+            'TStringStream'
+            'TUIStateForm'
+            'TUninstallProgressForm'
+            'TWinControl'
+            'TWizardForm'
+            'TWizardPage')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id consts'
+      StyleName = 'Id const'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'afDefined'
+            'afIgnored'
+            'afPremultiplied'
+            'alBottom'
+            'alClient'
+            'alLeft'
+            'alNone'
+            'alRight'
+            'alTop'
+            'biHelp'
+            'biMaximize'
+            'biMinimize'
+            'biSystemMenu'
+            'bsBDiagonal'
+            'bsBottomLine'
+            'bsBox'
+            'bsClear'
+            'bsCross'
+            'bsDiagCross'
+            'bsDialog'
+            'bsFDiagonal'
+            'bsFrame'
+            'bsHorizontal'
+            'bsLeftLine'
+            'bsLowered'
+            'bsNone'
+            'bsRaised'
+            'bsRightLine'
+            'bsSingle'
+            'bsSizeable'
+            'bsSizeToolWin'
+            'bsSolid'
+            'bsSpacer'
+            'bsToolWindow'
+            'bsTopLine'
+            'bsVertical'
+            'bvLowered'
+            'bvNone'
+            'bvRaised'
+            'bvSpace'
+            'caFree'
+            'caHide'
+            'caMinimize'
+            'caNone'
+            'cbChecked'
+            'cbGrayed'
+            'cbUnchecked'
+            'coCheck'
+            'coCheckWithChildren'
+            'coUncheck'
+            'csDropDown'
+            'csDropDownList'
+            'csOwnerDrawFixed'
+            'csOwnerDrawVariable'
+            'csSimple'
+            'ecLowerCase'
+            'ecNormal'
+            'ecUpperCase'
+            'fsBold'
+            'fsItalic'
+            'fsStrikeOut'
+            'fsUnderline'
+            'HKCC'
+            'HKCC32'
+            'HKCC64'
+            'HKCR'
+            'HKCR32'
+            'HKCR64'
+            'HKCU'
+            'HKCU32'
+            'HKCU64'
+            'HKEY_CLASSES_ROOT'
+            'HKEY_CLASSES_ROOT_32'
+            'HKEY_CLASSES_ROOT_64'
+            'HKEY_CURRENT_CONFIG'
+            'HKEY_CURRENT_CONFIG_32'
+            'HKEY_CURRENT_CONFIG_64'
+            'HKEY_CURRENT_USER'
+            'HKEY_CURRENT_USER_32'
+            'HKEY_CURRENT_USER_64'
+            'HKEY_DYN_DATA'
+            'HKEY_LOCAL_MACHINE'
+            'HKEY_LOCAL_MACHINE_32'
+            'HKEY_LOCAL_MACHINE_64'
+            'HKEY_PERFORMANCE_DATA'
+            'HKEY_USERS'
+            'HKEY_USERS_32'
+            'HKEY_USERS_64'
+            'HKLM'
+            'HKLM32'
+            'HKLM64'
+            'HKU'
+            'HKU32'
+            'HKU64'
+            'IDABORT'
+            'IDCANCEL'
+            'IDIGNORE'
+            'IDNO'
+            'IDOK'
+            'IDRETRY'
+            'IDYES'
+            'lbOwnerDrawFixed'
+            'lbOwnerDrawVariable'
+            'lbStandard'
+            'MB_ABORTRETRYIGNORE'
+            'MB_DEFBUTTON1'
+            'MB_DEFBUTTON2'
+            'MB_DEFBUTTON3'
+            'MB_OK'
+            'MB_OKCANCEL'
+            'MB_RETRYCANCEL'
+            'MB_SETFOREGROUND'
+            'MB_YESNO'
+            'MB_YESNOCANCEL'
+            'mbConfirmation'
+            'mbCriticalError'
+            'mbError'
+            'mbInformation'
+            'npbsError'
+            'npbsNormal'
+            'npbsPaused'
+            'npbstMarquee'
+            'npbstNormal'
+            'pmBlack'
+            'pmCopy'
+            'pmMask'
+            'pmMaskNotPen'
+            'pmMaskPenNot'
+            'pmMerge'
+            'pmMergeNotPen'
+            'pmMergePenNot'
+            'pmNop'
+            'pmNot'
+            'pmNotCopy'
+            'pmNotMask'
+            'pmNotMerge'
+            'pmNotXor'
+            'pmWhite'
+            'pmXor'
+            'poDefault'
+            'poDefaultPosOnly'
+            'poDefaultSizeOnly'
+            'poDesigned'
+            'poDesktopCenter'
+            'poMainFormCenter'
+            'poOwnerFormCenter'
+            'poScreenCenter'
+            'psClear'
+            'psDash'
+            'psDashDot'
+            'psDashDotDot'
+            'psDot'
+            'psInsideFrame'
+            'psSolid'
+            'sbHorizontal'
+            'sbVertical'
+            'sfAppData'
+            'sfDesktop'
+            'sfDocs'
+            'sfFavorites'
+            'sfFonts'
+            'sfLocalAppData'
+            'sfPrograms'
+            'sfSendTo'
+            'sfStartMenu'
+            'sfStartup'
+            'sfTemplates'
+            'srNo'
+            'srUnknown'
+            'srYes'
+            'ssAlt'
+            'ssBoth'
+            'ssCtrl'
+            'ssDone'
+            'ssDouble'
+            'ssHorizontal'
+            'ssInstall'
+            'ssLeft'
+            'ssMiddle'
+            'ssNone'
+            'ssPostInstall'
+            'ssRight'
+            'ssShift'
+            'ssVertical'
+            'SW_HIDE'
+            'SW_SHOW'
+            'SW_SHOWMAXIMIZED'
+            'SW_SHOWMINIMIZED'
+            'SW_SHOWMINNOACTIVE'
+            'SW_SHOWNORMAL'
+            'taCenter'
+            'taLeftJustify'
+            'taRightJustify'
+            'wpFinished'
+            'wpInfoAfter'
+            'wpInfoBefore'
+            'wpInstalling'
+            'wpLicense'
+            'wpPassword'
+            'wpPreparing'
+            'wpReady'
+            'wpSelectComponents'
+            'wpSelectDir'
+            'wpSelectProgramGroup'
+            'wpSelectTasks'
+            'wpUserInfo'
+            'wpWelcome')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = 'begin'
       StyleName = 'Current block'
       ConditionList = <
@@ -285,7 +909,7 @@ object SyntAnal27: TLibSyntAnalyzer
             'try')
           TokenTypes = 4
         end>
-      BlockEnd = 'End'
+      BlockEnd = 'end'
       DisplayInTree = False
       DynHighlight = dhBound
       HighlightPos = cpRange
@@ -293,7 +917,7 @@ object SyntAnal27: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'End'
+      DisplayName = 'end'
       BlockType = btRangeEnd
       ConditionList = <
         item
@@ -314,7 +938,7 @@ object SyntAnal27: TLibSyntAnalyzer
           TokenTypes = 4
           IgnoreCase = True
         end>
-      BlockEnd = 'End'
+      BlockEnd = 'end'
       Highlight = True
       InvertColors = True
       DisplayInTree = False
@@ -350,37 +974,6 @@ object SyntAnal27: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = '('
-      StyleName = 'Current block'
-      ConditionList = <
-        item
-          TagList.Strings = (
-            '('
-            '[')
-          TokenTypes = 8
-        end>
-      BlockEnd = ')'
-      NotCollapsed = True
-      DisplayInTree = False
-      DynHighlight = dhBound
-      HighlightPos = cpBoundTag
-      DynSelectMin = True
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = ')'
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TagList.Strings = (
-            ')'
-            ']')
-          TokenTypes = 8
-        end>
-      HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
       DisplayName = 'Block comment'
       BlockName = 'Block comment'
       NotParent = True
@@ -408,8 +1001,8 @@ object SyntAnal27: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Function separator'
-      StyleName = 'Function separator'
+      DisplayName = 'Function sep'
+      StyleName = 'Function sep'
       BlockType = btLineBreak
       ConditionList = <
         item
@@ -471,35 +1064,22 @@ object SyntAnal27: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    '{Syntax highlighting}'
-    '  #ifdef'
-    '  #endif'
-    'procedure Button1Click(Sender: TObject);'
-    'var'
-    ' Number: integer;'
-    ' FloatNumber: double;'
+    '//Comment'
+    '#ifdef name'
+    'procedure MyName(Sender: TStrings);'
     'begin'
-    ' Number := 123;  // View integer number style'
-    
-      ' Form.Caprion := '#39'This Number is '#39' + IntToStr(Number); // View s' +
-      'tring style'
-    ' Inc(Number, $1FA7); // View HEX style'
-    ' {Assembler style}'
-    ' asm'
-    '   MOV  AX, 1234H'
-    '   MOV Number, AX'
-    ' end;'
-    'end;')
+    ' Sleep(123 + $ff20);'
+    ' Some := '#39'Data:  '#39' + IntToStr(Value);'
+    'end;'
+    '#endif')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
-    'Identifier'
+    'Id'
     'Symbol'
     'String'
-    'Integer const'
-    'Float const'
-    'Hex const'
-    'Char const')
+    'Number'
+    'Preproc')
   LexerName = 'Pascal script'
   SkipSpaces = False
   Notes.Strings = (

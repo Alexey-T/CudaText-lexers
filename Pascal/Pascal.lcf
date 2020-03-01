@@ -1,9 +1,9 @@
-object SyntAnal16: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Default'
       Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
+      Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -37,7 +37,7 @@ object SyntAnal16: TLibSyntAnalyzer
     item
       DisplayName = 'Identifier'
       Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
+      Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -45,7 +45,7 @@ object SyntAnal16: TLibSyntAnalyzer
     item
       DisplayName = 'Reserved word'
       Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
+      Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
@@ -75,21 +75,6 @@ object SyntAnal16: TLibSyntAnalyzer
       Font.Style = []
       BgColor = 15724510
       FormatType = ftBackGround
-    end
-    item
-      DisplayName = 'Marked block'
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clHighlightText
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-      BgColor = clHighlight
-      FormatType = ftColor
-      BorderColorLeft = clRed
-      BorderColorTop = clRed
-      BorderColorRight = clRed
-      BorderColorBottom = clRed
-      MultiLineBorder = True
     end
     item
       DisplayName = 'Interface section'
@@ -152,25 +137,6 @@ object SyntAnal16: TLibSyntAnalyzer
       MultiLineBorder = True
     end
     item
-      DisplayName = 'Current Line'
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-      BgColor = 16772341
-      FormatType = ftBackGround
-    end
-    item
-      DisplayName = 'Search Match'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindow
-      Font.Height = -16
-      Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      BgColor = clBlack
-    end
-    item
       DisplayName = 'Group (tree)'
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clNavy
@@ -207,6 +173,14 @@ object SyntAnal16: TLibSyntAnalyzer
       DisplayName = 'Id std'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Func modifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -346,7 +320,6 @@ object SyntAnal16: TLibSyntAnalyzer
             'bitpacked'
             'break'
             'case'
-            'cdecl'
             'class'
             'const'
             'constructor'
@@ -358,7 +331,6 @@ object SyntAnal16: TLibSyntAnalyzer
             'div'
             'do'
             'downto'
-            'dynamic'
             'else'
             'end'
             'except'
@@ -377,7 +349,6 @@ object SyntAnal16: TLibSyntAnalyzer
             'in'
             'inherited'
             'initialization'
-            'inline'
             'interface'
             'is'
             'label'
@@ -390,11 +361,8 @@ object SyntAnal16: TLibSyntAnalyzer
             'operator'
             'or'
             'out'
-            'overload'
-            'override'
             'package'
             'packed'
-            'pascal'
             'private'
             'procedure'
             'program'
@@ -405,17 +373,14 @@ object SyntAnal16: TLibSyntAnalyzer
             'raise'
             'read'
             'record'
-            'register'
             'repeat'
             'requires'
             'resourcestring'
-            'safecall'
             'self'
             'set'
             'shl'
             'shr'
             'specialize'
-            'stdcall'
             'strict'
             'string'
             'then'
@@ -427,8 +392,6 @@ object SyntAnal16: TLibSyntAnalyzer
             'until'
             'uses'
             'var'
-            'varargs'
-            'virtual'
             'while'
             'with'
             'write'
@@ -446,10 +409,83 @@ object SyntAnal16: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'AnsiChar'
+            'AnsiString'
+            'Boolean'
+            'Boolean16'
+            'Boolean32'
+            'Boolean64'
+            'Boolean8'
+            'Byte'
+            'ByteBool'
+            'Cardinal'
+            'Char'
+            'Comp'
+            'Currency'
+            'Double'
+            'Exclude'
+            'Extended'
             'False'
+            'Include'
+            'Int64'
+            'Integer'
+            'LongBool'
+            'Longint'
+            'Longword'
             'nil'
+            'Pchar'
+            'Pointer'
+            'Punicodechar'
+            'QWord'
+            'QWordBool'
+            'Real'
             'Result'
-            'True')
+            'Shortint'
+            'ShortString'
+            'Single'
+            'SmallInt'
+            'True'
+            'UnicodeString'
+            'WideChar'
+            'WideString'
+            'Word'
+            'WordBool')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id modifiers'
+      StyleName = 'Func modifier'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'alias'
+            'cdecl'
+            'dynamic'
+            'export'
+            'inline'
+            'interrupt'
+            'iocheck'
+            'local'
+            'message'
+            'noreturn'
+            'nostackframe'
+            'overload'
+            'override'
+            'pascal'
+            'register'
+            'reintroduce'
+            'safecall'
+            'saveregisters'
+            'softfloat'
+            'static'
+            'stdcall'
+            'varargs'
+            'virtual')
           TokenTypes = 4
           IgnoreCase = True
         end>
@@ -1355,7 +1391,7 @@ object SyntAnal16: TLibSyntAnalyzer
     '    '
     'type                        '
     '  TForm1 = class(TForm)    '
-    '    procedure Button1Click(Sender: TObject);'
+    '    procedure Button1Click(Sender: TObject); virtual stdcall;'
     '  end;                             '
     '                   '
     'implementation                                      '
@@ -1364,15 +1400,10 @@ object SyntAnal16: TLibSyntAnalyzer
       '       '
     '{Syntax highlighting}  '
     'procedure TForm1.Button1Click(Sender: TObject);'
-    'var'
-    ' Number: integer;'
-    ' FloatNumber: double;'
     'begin'
     ' Number := 10 + 1.2e-3 + $eb;'
     ' Caption := '#39'Number is '#39' + IntToStr(Number);'
     ' Result := Number;'
-    ' if Result>1 then Exit;'
-    ' {Assembler style}'
     ' asm'
     '   MOV  AX, 1234H'
     '   MOV Number, AX'
@@ -1407,7 +1438,6 @@ object SyntAnal16: TLibSyntAnalyzer
     'NextToken;'#13#10'IntfNextToken = '#39'['#39' | <Identifier>; '#13#10#13#10'InheritedLis' +
     't = '#39'('#39' IdentList '#39')'#39';'#13#10'IdentList = <Identifier> ('#39','#39' <Identifie' +
     'r>)*;'#13#10
-  CurrentLineStyle = 'Current Line'
   Extentions = 'pas inc dpr lpr p pp'
   LexerName = 'Pascal'
   Notes.Strings = (

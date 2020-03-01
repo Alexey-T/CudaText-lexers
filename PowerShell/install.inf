@@ -1,7 +1,7 @@
 [info]
-title=Perl 6
+title=PowerShell
 type=lexer
 subdir=-
 
 [lexer1]
-file=Perl 6
+file=PowerShell
