@@ -1,4 +1,4 @@
-object SyntAnal15: TLibSyntAnalyzer
+object SyntAnal21: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -213,6 +213,7 @@ object SyntAnal15: TLibSyntAnalyzer
             'as'
             'asm'
             'begin'
+            'break'
             'case'
             'class'
             'const'
@@ -227,7 +228,9 @@ object SyntAnal15: TLibSyntAnalyzer
             'else'
             'end'
             'except'
+            'exit'
             'exports'
+            'external'
             'file'
             'finalization'
             'finally'
@@ -679,6 +682,30 @@ object SyntAnal15: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'Id types'
+      StyleName = 'Id class'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'boolean'
+            'cardinal'
+            'char'
+            'double'
+            'extended'
+            'int64'
+            'integer'
+            'pchar'
+            'result'
+            'single'
+            'word')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = 'Id consts'
       StyleName = 'Id const'
       BlockType = btTagDetect
@@ -743,6 +770,7 @@ object SyntAnal15: TLibSyntAnalyzer
             'ecLowerCase'
             'ecNormal'
             'ecUpperCase'
+            'False'
             'fsBold'
             'fsItalic'
             'fsStrikeOut'
@@ -878,6 +906,7 @@ object SyntAnal15: TLibSyntAnalyzer
             'taCenter'
             'taLeftJustify'
             'taRightJustify'
+            'True'
             'wpFinished'
             'wpInfoAfter'
             'wpInfoBefore'
