@@ -1,4 +1,4 @@
-object SyntAnal11: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -68,7 +68,7 @@ object SyntAnal11: TLibSyntAnalyzer
     item
       DisplayName = 'Id const'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clNavy
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -77,7 +77,7 @@ object SyntAnal11: TLibSyntAnalyzer
     item
       DisplayName = 'Id modifier'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlue
+      Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -258,6 +258,7 @@ object SyntAnal11: TLibSyntAnalyzer
             'native'
             'new'
             'package'
+            'record'
             'return'
             'strictfp'
             'super'
@@ -322,6 +323,7 @@ object SyntAnal11: TLibSyntAnalyzer
             'boolean'
             'byte'
             'char'
+            'Date'
             'double'
             'float'
             'int'
@@ -475,6 +477,50 @@ object SyntAnal11: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'func no modifier'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 1024
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 62
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 512
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 62
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 512
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'void')
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = '%sz0'
+      SelfClose = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = '{'
       ConditionList = <
         item
@@ -526,10 +572,13 @@ object SyntAnal11: TLibSyntAnalyzer
     'import java.util.*;'
     ''
     'public List<String, int> test() {'
+    '  return false + true;'
     '}'
     ''
     '@SupressWarnings("serial")'
     'public class Ruler extends JFrame {'
+    '  void f() {'
+    '  }'
     '  public void setModel(TableModel model) {'
     '    super.setModel(model);'
     '    reallocateIndexes();'
