@@ -1,0 +1,7 @@
+[info]
+title=Kontakt Script Processor
+type=lexer
+subdir=-
+
+[lexer1]
+file=Kontakt Script Processor
