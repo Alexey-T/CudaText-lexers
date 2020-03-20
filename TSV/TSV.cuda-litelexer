@@ -1,0 +1,7 @@
+{
+  "about": "TSV pseudo lexer by Alexey T.",
+  "files": "*.tsv",
+  "case_sens": true,
+  "rules": {
+  }
+}

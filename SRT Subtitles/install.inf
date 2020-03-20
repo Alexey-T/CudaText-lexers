@@ -1,0 +1,7 @@
+[info]
+title=SRT Subtitles
+type=lexer
+subdir=-
+
+[lexer1]
+file=SRT Subtitles

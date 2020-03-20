@@ -1,4 +1,4 @@
-object SyntAnal2: TLibSyntAnalyzer
+object SyntAnal25: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -138,6 +138,14 @@ object SyntAnal2: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String multiline'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)^\($.+?^\)$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Comment2'
       StyleName = 'Comment'
       TokenType = 1
@@ -243,7 +251,7 @@ object SyntAnal2: TLibSyntAnalyzer
       DisplayName = 'Func name'
       StyleName = 'Id'
       TokenType = 11
-      Expression = '(?r)\w+(?=\x20*\()'
+      Expression = '(?r)\w+(?=\()'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -716,6 +724,7 @@ object SyntAnal2: TLibSyntAnalyzer
             '#IfWinExist'
             '#IfWinNotActive'
             '#IfWinNotExist'
+            '#include'
             '#Include'
             '#IncludeAgain'
             '#InputLevel'
@@ -1133,6 +1142,23 @@ object SyntAnal2: TLibSyntAnalyzer
         end>
       NotCollapsed = True
       NameFmt = 'func %s0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Class in tree'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'class')
+          TokenTypes = 4
+        end>
+      NameFmt = 'class %s-1'
       RefToCondEnd = True
       HighlightPos = cpAny
       NoEndRule = True

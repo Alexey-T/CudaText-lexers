@@ -1,0 +1,12 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
+[map]
+Index=Number
+Time=Id1
+Symbol=Symbol
+Text=Id
+Tag=TagId
