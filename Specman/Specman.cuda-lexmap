@@ -1,0 +1,24 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Number=Number
+Id.types=Id2
+Id.constans=Id4
+Id.func=Label
+Id.built_in_variables=IdVar
+Id.keyword.declaration=IdKeyword
+Id.keyword.control=Id1
+Id.keyword.modifier=Id4
+Id.keyword.other=Id4
+Id.keyword.preprocessor_directives=Id3
+String=String
+Symbol=Symbol
+Comment=Comment
+code-symbol=TagInclude
+Field.Ungenerated=TagId
+Field.Phisical=TagProp
+Marked block=-

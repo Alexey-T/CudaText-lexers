@@ -1,0 +1,18 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
+[map]
+Id.types=Id2
+Id.func=IdKeyword
+Id.annotation=String2
+Id.keyword.other=Id4
+Id.keyword=Id1
+Id.modifier=Id3
+String=String
+Symbol=Symbol
+Comment=Comment
+Number=Number
+Marked block=-

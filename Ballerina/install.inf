@@ -1,0 +1,7 @@
+[info]
+title=Ballerina
+type=lexer
+subdir=-
+
+[lexer1]
+file=Ballerina

@@ -1,0 +1,693 @@
+object SyntAnal3: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Id.types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id.func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id.annotation'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id.keyword.other'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id.keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id.modifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = '[rbuf]? ("|'#39') (\\.|.)*? (\1)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'hex'
+      StyleName = 'Number'
+      TokenType = 4
+      Expression = '\b0x([0-9a-f]+(\.[0-9a-f]*)?|\.[0-9a-f]+)(p[\+-]\d+)?[df]?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 4
+      Expression = '(\d+\.\d*|\.\d+)(e[\+-]\d+)?[fd]?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int'
+      StyleName = 'Number'
+      TokenType = 4
+      Expression = '\d+d?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Annotation'
+      StyleName = 'Id.annotation'
+      TokenType = 7
+      Expression = '@[a-zA-Z0-9_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol { }'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Single symbol'
+      StyleName = 'Symbol'
+      TokenType = 2
+      Expression = '[\(\)\[\],;:\.\?]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 2
+      Expression = '[/\+\-\*=<>&\|\^~!%\#]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      Expression = '[^`][a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'codetree.service'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 21
+        end
+        item
+          TagList.Strings = (
+            'service')
+          TokenTypes = 1
+        end>
+      BlockOffset = -1
+      BlockEnd = '}'
+      NameFmt = '%s0 %s-1~[{]1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = '%s-1~[{]1'
+      TreeItemImage = 3
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'codetree.type'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 1
+        end
+        item
+          TagList.Strings = (
+            'type')
+          TokenTypes = 1
+        end>
+      BlockOffset = -1
+      BlockEnd = '}'
+      NameFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      TreeItemImage = 2
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'codetree.func'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 1
+        end>
+      BlockOffset = -1
+      NameFmt = '%s-1'
+      HighlightPos = cpBound
+      CancelNextRules = True
+      NoEndRule = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      NameFmt = '%sz0'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 256
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.types'
+      StyleName = 'Id.types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'any'
+            'anydata'
+            'array'
+            'blob'
+            'boolean'
+            'byte'
+            'datatable'
+            'decimal'
+            'error'
+            'exception'
+            'false'
+            'float'
+            'function'
+            'future'
+            'handle'
+            'int'
+            'json'
+            'list'
+            'map'
+            'mapping'
+            'nil'
+            'object'
+            'optional'
+            'record'
+            'service'
+            'singleton'
+            'string'
+            'table'
+            'true'
+            'tuple'
+            'typedesc'
+            'union'
+            'var'
+            'xml'
+            'xmlns')
+          TokenTypes = 1
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.func'
+      StyleName = 'Id.func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'action'
+            'connector'
+            'function'
+            'resource'
+            'service'
+            'worker')
+          TokenTypes = 1
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.keyword'
+      StyleName = 'Id.keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'annotation'
+            'as'
+            'attach'
+            'const'
+            'create'
+            'documentation'
+            'endpoint'
+            'false'
+            'import'
+            'lock'
+            'native'
+            'new'
+            'package'
+            'parameter'
+            'public'
+            'reply'
+            'struct'
+            'transformer'
+            'true'
+            'type'
+            'version')
+          TokenTypes = 1
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.keyword.other'
+      StyleName = 'Id.keyword.other'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abort'
+            'aborted'
+            'all'
+            'bind'
+            'break'
+            'catch'
+            'committed'
+            'else'
+            'enum'
+            'failed'
+            'finally'
+            'foreach'
+            'fork'
+            'if'
+            'import'
+            'in'
+            'is'
+            'iterator'
+            'join'
+            'lengthof'
+            'match'
+            'next'
+            'on'
+            'panic'
+            'retries'
+            'return'
+            'returns'
+            'some'
+            'throw'
+            'timeout'
+            'transaction'
+            'try'
+            'typeof'
+            'var'
+            'while'
+            'with')
+          TokenTypes = 1
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.modifier'
+      StyleName = 'Id.modifier'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abstract'
+            'client'
+            'private'
+            'public'
+            'remote')
+          TokenTypes = 1
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'import ballerina/io;'
+    ''
+    
+      '// Define an abstract object called '#39'Person'#39'. It should only des' +
+      'cribe the '
+    
+      '// type of each field and method. Note that an abstract object c' +
+      'annot have'
+    '// a constructor method, or any attached functions.'
+    'type Person abstract object {'
+    '    public int age;'
+    '    public string firstName;'
+    '    public string lastName;'
+    ''
+    
+      '    // Function declarations can be within the object. But the f' +
+      'unction cannot '
+    '    // have a body.'
+    '    function getFullName() returns string;'
+    ''
+    '    function checkAndModifyAge(int condition, int a);'
+    '};'
+    ''
+    
+      '// Define a non-abstract object called '#39'Employee'#39', which is stru' +
+      'cturally equivalent'
+    
+      '// to '#39'Person'#39'. Note that a non-abstract object cannot have any ' +
+      'member functions '
+    '// without a body.'
+    'type Employee object {'
+    '    public int age;'
+    '    public string firstName;'
+    '    public string lastName;'
+    ''
+    '    // Non-abstract object can have a constructor method.'
+    '    new(age, firstName, lastName) {'
+    '    }'
+    ''
+    '    // Member function should have a body.'
+    '    function getFullName() returns string {'
+    '        return firstName + " " + lastName; '
+    '    }'
+    ''
+    '    // Otherwise must be defined outside.'
+    '    function checkAndModifyAge(int condition, int a);'
+    '};'
+    ''
+    '// Implement the declared function.'
+    'function Employee::checkAndModifyAge(int condition, int a) {'
+    '    if (self.age < condition) {'
+    '        self.age = a;'
+    '    }'
+    '}'
+    ''
+    'public function main() {'
+    
+      '    // An abstract object type cannot be initialized. It does no' +
+      't have '
+    '    // an implicit initial value.'
+    ''
+    
+      '    // Initialize a value using the non-abstract object '#39'Employe' +
+      'e'#39','
+    
+      '    // and then assign the value to the abstract object type var' +
+      'iable.'
+    '    Person p = new Employee(5, "John", "Doe");'
+    '    io:println(p.getFullName());'
+    ''
+    '    p.checkAndModifyAge(10, 50);'
+    ''
+    '    io:println(p);'
+    '}'
+    ''
+    '125.54f'
+    '123.'
+    '.125e-2'
+    '0x121.58p-1'
+    ''
+    ''
+    ''
+    ''
+    'service helloContinue on new http:Listener(9090) {'
+    '    @http:ResourceConfig {'
+    '        path: "/"'
+    '    }'
+    
+      '    resource function hello(http:Caller caller, http:Request req' +
+      'uest) {'
+    '        if (request.expects100Continue()) {'
+    '            if (request.hasHeader("X-Status")) {'
+    '                log:printInfo("Sending 100-Continue response");'
+    '                var responseError = caller->continue();'
+    '                if (responseError is error) {'
+    
+      '                    log:printError("Error sending response", res' +
+      'ponseError);'
+    '                }'
+    '            } else {'
+    
+      '                log:printInfo("Ignore payload by sending 417 res' +
+      'ponse");'
+    '                http:Response res = new;'
+    '                res.statusCode = 417;'
+    '                res.setPayload("Do not send me any payload");'
+    '                var responseError = caller->respond(res);'
+    '                if (responseError is error) {'
+    
+      '                    log:printError("Error sending response", res' +
+      'ponseError);'
+    '                }'
+    '                return;'
+    '            }'
+    '        }'
+    ''
+    '        http:Response res = new;'
+    '        var result  = request.getTextPayload();'
+    ''
+    '        if (result is string) {'
+    
+      '            var responseError = caller->respond(<@untainted> res' +
+      'ult);'
+    '            if (responseError is error) {'
+    
+      '                log:printError("Error sending response", respons' +
+      'eError);'
+    '            }'
+    '        } else {'
+    '            error err = result;'
+    '            res.statusCode = 500;'
+    '            res.setPayload(<@untainted> err.reason());'
+    
+      '            log:printError("Failed to retrieve payload from requ' +
+      'est: " + err.reason());'
+    '            var responseError = caller->respond(res);'
+    '            if (responseError is error) {'
+    
+      '                log:printError("Error sending response", respons' +
+      'eError);'
+    '            }'
+    '        }'
+    '    }'
+    ''
+    '    @http:ResourceConfig {'
+    '        methods: ["POST"]'
+    '    }'
+    
+      '    resource function getFormParam(http:Caller caller, http:Requ' +
+      'est req) {'
+    '        string replyMsg = "Result =";'
+    '        var bodyParts = req.getBodyParts();'
+    '        if (bodyParts is mime:Entity[]) {'
+    '            int i = 0;'
+    '            while (i < bodyParts.length()) {'
+    '                mime:Entity part = bodyParts[i];'
+    
+      '                mime:ContentDisposition contentDisposition = par' +
+      't.getContentDisposition();'
+    '                var result = part.getText();'
+    '                if (result is string) {'
+    
+      '                    replyMsg += " Key:" + contentDisposition.nam' +
+      'e + " Value: " + result;'
+    '                } else {'
+    
+      '                    replyMsg += <string> " Key:" + contentDispos' +
+      'ition.name + " Value: " + result.detail()["message"];'
+    '                }'
+    '                i += 1;'
+    '            }'
+    
+      '            var responseError = caller->respond(<@untainted> rep' +
+      'lyMsg);'
+    '            if (responseError is error) {'
+    '                error err = responseError;'
+    
+      '                log:printError(<string> err.detail()["message"],' +
+      ' responseError);'
+    '            }'
+    '        } else {'
+    '            error err = bodyParts;'
+    
+      '            log:printError(<string> err.detail()["message"], bod' +
+      'yParts);'
+    '        }'
+    '    }'
+    ''
+    
+      '    resource function testPassthrough(http:Caller caller, http:R' +
+      'equest req) {'
+    '        if (req.expects100Continue()) {'
+    '            req.removeHeader("Expect");'
+    '            var responseError = caller->continue();'
+    '            if (responseError is error) {'
+    
+      '                log:printError("Error sending response", respons' +
+      'eError);'
+    '            }'
+    '        }'
+    
+      '        var res = clientEndpoint->forward("/backend/hello", <@un' +
+      'tainted> req);'
+    '        if (res is http:Response) {'
+    '            var responseError = caller->respond(res);'
+    '            if (responseError is error) {'
+    
+      '                log:printError("Error sending response", respons' +
+      'eError);'
+    '            }'
+    '        } else {'
+    '            error err = res;'
+    
+      '            log:printError(<string> err.detail()["message"], res' +
+      ');'
+    '        }'
+    '    }'
+    '}'
+    'service backend on new http:Listener(9224) {'
+    
+      '    resource function hello(http:Caller caller, http:Request req' +
+      'uest) {'
+    '        http:Response response = new;'
+    '        var payload = request.getTextPayload();'
+    '        if (payload is string) {'
+    '            response.setTextPayload(<@untainted> payload);'
+    '        } else {'
+    '            error err = payload;'
+    '            response.setTextPayload(<@untainted> err.reason());'
+    '        }'
+    '        var responseError = caller->respond(response);'
+    '        if (responseError is error) {'
+    
+      '            log:printError("Error sending response", responseErr' +
+      'or);'
+    '        }'
+    '    }'
+    '}')
+  TokenTypeNames.Strings = (
+    'Id'
+    'Comment'
+    'Symbol'
+    'String'
+    'Number'
+    'Func'
+    'Type'
+    'Annotation'
+    'Symbol {}')
+  Extentions = 'bal'
+  LexerName = 'Ballerina'
+  SkipSpaces = False
+  Notes.Strings = (
+    'By Oleh Lutsak, https://github.com/OlehL')
+  ParseEndOfLine = True
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

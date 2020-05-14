@@ -1,0 +1,1146 @@
+object SyntAnal35: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id.types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id.constans'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id.func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id.built_in_variables'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id.keyword.declaration'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id.keyword.control'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id.keyword.modifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id.keyword.other'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id.keyword.preprocessor_directives'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clLime
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'code-symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clYellow
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Field.Ungenerated'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Field.Phisical'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment.1.1'
+      StyleName = 'Comment'
+      TokenType = 3
+      Expression = '(?s)\A.*?(?=<'#39')'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment.1.2'
+      StyleName = 'Comment'
+      TokenType = 3
+      Expression = '(?s)(?<='#39'>).*?(?=<'#39')'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment.1.3'
+      StyleName = 'Comment'
+      TokenType = 3
+      Expression = '(?s)(?<='#39'>).*?\Z'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment.2'
+      StyleName = 'Comment'
+      TokenType = 3
+      Expression = '(//|--).*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '[rbuf]? (") (\\.|.)*? (\1)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int bin'
+      StyleName = 'Number'
+      TokenType = 2
+      Expression = '\b(\d+'#39'b|0b)[0-1][_0-1]*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int oct'
+      StyleName = 'Number'
+      TokenType = 2
+      Expression = '\b(\d+'#39'o|0o)[0-7][_0-7]*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int hex'
+      StyleName = 'Number'
+      TokenType = 2
+      Expression = '\b(\d+'#39'x|\d+'#39'h|0x)[0-9a-f][_0-9a-f]*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id.Keyword.Special'
+      TokenType = 1
+      Expression = 'DPI-C'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      TokenType = 1
+      Expression = '\#?[a-z_][a-z0-9_]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 2
+      Expression = '\d+ (\.\d+)? e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int'
+      StyleName = 'Number'
+      TokenType = 2
+      Expression = '(\d+'#39'd)?\d[_0-9]*(k|K|m|M)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'code-symbol'
+      StyleName = 'code-symbol'
+      Expression = '<'#39'|'#39'>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Field.Ungenerated'
+      StyleName = 'Field.Ungenerated'
+      TokenType = 5
+      Expression = '(?<=\s)!\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Field.Phisical'
+      StyleName = 'Field.Phisical'
+      TokenType = 5
+      Expression = '(?<=\s)%\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol { }'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Single symbol'
+      StyleName = 'Symbol'
+      Expression = '[\(\)\[\],;\.\?]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      Expression = '[/\+\-\*:=<'#39'>&/\|\^~!%\#@]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = '<'#39
+      StyleName = 'Marked block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '<'#39)
+          TokenTypes = 1
+        end>
+      BlockEnd = #39'>'
+      EndOfTextClose = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpBoundTagBegin
+      DynSelectMin = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = #39'>'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          CondType = tcSkip
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            #39'>')
+          TokenTypes = 1
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'codetree.unit'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 39
+        end
+        item
+          TagList.Strings = (
+            'unit')
+          TokenTypes = 2
+        end>
+      BlockOffset = -1
+      BlockEnd = '}'
+      NameFmt = '%sl-1'
+      RefToCondEnd = True
+      HighlightPos = cpBound
+      CancelNextRules = True
+      TreeItemImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'codetree.extend'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 39
+        end
+        item
+          TagList.Strings = (
+            'extend')
+          TokenTypes = 2
+        end>
+      BlockOffset = -1
+      BlockEnd = '}'
+      NameFmt = '%sl-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'codetree.struct'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 3
+        end
+        item
+          TagList.Strings = (
+            'struct')
+          TokenTypes = 2
+        end>
+      BlockOffset = -1
+      BlockEnd = '}'
+      NameFmt = '%s-0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      TreeItemImage = 4
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'codetree.define'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 39
+        end
+        item
+          TagList.Strings = (
+            'define')
+          TokenTypes = 2
+        end>
+      BlockOffset = -1
+      BlockEnd = '}'
+      NameFmt = '%sl-6'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'codetree.type'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 39
+        end
+        item
+          TagList.Strings = (
+            'type')
+          TokenTypes = 2
+          IgnoreCase = True
+        end>
+      BlockOffset = -1
+      BlockEnd = '}'
+      NameFmt = '%sl-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end>
+      BlockEnd = '}'
+      EndOfTextClose = True
+      DisplayInTree = False
+      NameFmt = '%sz0'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.keyword.preprocessor_directives'
+      StyleName = 'Id.keyword.preprocessor_directives'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '#define'
+            '#else'
+            '#ifdef'
+            '#ifndef'
+            '#undef')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.types'
+      StyleName = 'Id.types'
+      BlockName = '<'#39
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'any_buffer_port'
+            'any_sequence'
+            'any_struct'
+            'any_unit'
+            'bit'
+            'bool'
+            'byte'
+            'cover'
+            'custom_numeric'
+            'enum'
+            'external_pointer'
+            'int'
+            'interface'
+            'list'
+            'locker'
+            'longint'
+            'longuint'
+            'nibble'
+            'numeric'
+            'object'
+            'objection_kind'
+            'port'
+            'rdv_semaphore'
+            'real'
+            'scalar'
+            'semaphore'
+            'set'
+            'string'
+            'struct'
+            'time'
+            'uint'
+            'untyped')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.constans'
+      StyleName = 'Id.constans'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'FALSE'
+            'MAX_INT'
+            'MAX_LONGINT'
+            'MAX_LONGUINT'
+            'MAX_UINT'
+            'MIN_INT'
+            'MIN_LONGINT'
+            'NULL'
+            'TRUE'
+            'UNDEF')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.func'
+      StyleName = 'Id.func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'add'
+            'add0'
+            'agent'
+            'agent_code'
+            'all'
+            'all_different'
+            'all_indices'
+            'all_values'
+            'analog_agent_code'
+            'analog_code'
+            'and_all'
+            'append'
+            'appendf'
+            'apply'
+            'assert'
+            'average'
+            'bin'
+            'bitwise_and'
+            'bitwise_nand'
+            'bitwise_nor'
+            'bitwise_or'
+            'bitwise_xnor'
+            'bitwise_xor'
+            'check'
+            'clear'
+            'collect_all_ranges'
+            'copy'
+            'count'
+            'crc_32'
+            'crc_32_flip'
+            'crc_8'
+            'dec'
+            'deep_compare'
+            'deep_compare_physical'
+            'deep_copy'
+            'delayed'
+            'delete'
+            'diff'
+            'dist_normal'
+            'dist_uniform'
+            'div_round_up'
+            'do_print'
+            'double_from_specman_scale'
+            'double_to_specman_scale'
+            'driver'
+            'driver_delay'
+            'dut_error'
+            'dut_errorf'
+            'e_impl'
+            'e_path'
+            'edge'
+            'error'
+            'even'
+            'exec'
+            'exists'
+            'exit'
+            'external_type'
+            'extract'
+            'extract_test'
+            'fast_delete'
+            'fatal'
+            'finalize'
+            'finalize_test'
+            'finish'
+            'first'
+            'first_index'
+            'flatten'
+            'from_real_specman_scale'
+            'from_specman_scale'
+            'from_specman_scale_trunc'
+            'full_external_uvm_path'
+            'full_hdl_path'
+            'full_set_of_values'
+            'get_all_ranges'
+            'get_all_units'
+            'get_children'
+            'get_config'
+            'get_enclosing_unit'
+            'get_hdl_language'
+            'get_indices'
+            'get_native_path_name'
+            'get_parent_unit'
+            'get_ports'
+            'get_ports_recursively'
+            'get_printed_lines'
+            'get_range'
+            'get_range_above'
+            'get_range_below'
+            'get_timescale'
+            'get_unit'
+            'has'
+            'hdl_convertor'
+            'hdl_expression'
+            'hdl_path'
+            'hex'
+            'ilog10'
+            'ilog2'
+            'init'
+            'initialize'
+            'insert'
+            'int_max'
+            'int_min'
+            'intersect'
+            'inverse'
+            'ipow'
+            'is_a_permutation'
+            'is_empty'
+            'is_gui'
+            'isqrt'
+            'key'
+            'key_exists'
+            'key_index'
+            'last'
+            'last_index'
+            'lock'
+            'max'
+            'max_index'
+            'max_is_int'
+            'max_is_uint'
+            'max_value'
+            'message'
+            'messagef'
+            'min'
+            'min_index'
+            'min_is_int'
+            'min_is_uint'
+            'min_value'
+            'odd'
+            'or_all'
+            'out'
+            'outf'
+            'pack'
+            'pack_options'
+            'pack_struct'
+            'per_inst_cover'
+            'pli_access'
+            'pli_field_access'
+            'pop'
+            'pop0'
+            'post_generate'
+            'post_restore'
+            'pre_generate'
+            'pre_restore'
+            'pre_save'
+            'print'
+            'print_stack_trace'
+            'product'
+            'push'
+            'push0'
+            'quit'
+            'quote'
+            'range'
+            'rdist_normal'
+            'rdist_uniform'
+            'read_only'
+            'read_type'
+            'release'
+            'remap_tick_access'
+            'rerun'
+            'reset_soft'
+            'resize'
+            'reverse'
+            'run'
+            'run_test'
+            'set_config'
+            'set_of_values'
+            'set_unit'
+            'setup'
+            'setup_test'
+            'short_name'
+            'short_name_path'
+            'short_name_style'
+            'simulator_exists'
+            'simulator_save'
+            'size'
+            'size_is_uint'
+            'sn_plusarg_value'
+            'sn_plusargs_exists'
+            'sn_unique_id_for_struct'
+            'sort'
+            'sort_by_field'
+            'split'
+            'start'
+            'stop_run'
+            'str_chop'
+            'str_empty'
+            'str_exactly'
+            'str_insensitive'
+            'str_join'
+            'str_len'
+            'str_lower'
+            'str_match'
+            'str_pad'
+            'str_replace'
+            'str_split'
+            'str_split_all'
+            'str_sub'
+            'str_upper'
+            'sum'
+            'swap'
+            'to_real_specman_scale'
+            'to_specman_scale'
+            'to_specman_scale_trunc'
+            'to_string'
+            'top'
+            'top0'
+            'try_enclosing_unit'
+            'uint_max'
+            'uint_min'
+            'uint_size'
+            'union'
+            'unique'
+            'unlock'
+            'unpack'
+            'value'
+            'warning'
+            'wave_setup')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.built_in_variables'
+      StyleName = 'Id.built_in_variables'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'index'
+            'it'
+            'me'
+            'result')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.keyword.control'
+      StyleName = 'Id.keyword.control'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'all'
+            'always'
+            'and'
+            'before'
+            'break'
+            'case'
+            'casex'
+            'casez'
+            'choose'
+            'continue'
+            'default'
+            'do'
+            'each'
+            'else'
+            'for'
+            'from'
+            'if'
+            'ifdef'
+            'ifndef'
+            'import'
+            'in'
+            'index'
+            'keeping'
+            'matches'
+            'next'
+            'of'
+            'repeat'
+            'return'
+            'step'
+            'then'
+            'to'
+            'try'
+            'undef'
+            'until'
+            'while')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.keyword.other'
+      StyleName = 'Id.keyword.control'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'as'
+            'at_least'
+            'call'
+            'change'
+            'clock'
+            'compute'
+            'computed'
+            'count_only'
+            'cover'
+            'cross'
+            'cycle'
+            'cycles'
+            'define'
+            'delay'
+            'detach'
+            'emit'
+            'event'
+            'events'
+            'eventually'
+            'expect'
+            'export'
+            'extend'
+            'fall'
+            'files'
+            'forever'
+            'gen'
+            'global'
+            'high'
+            'idle'
+            'ignore'
+            'illegal'
+            'initial'
+            'is'
+            'item'
+            'keep'
+            'load'
+            'low'
+            'message_manager'
+            'module'
+            'negedge'
+            'network'
+            'new'
+            'not'
+            'ntv'
+            'on'
+            'others'
+            'packing'
+            'posedge'
+            'radix'
+            'ranges'
+            'read'
+            'rf_manager'
+            'rise'
+            'routine'
+            'sample'
+            'script'
+            'select'
+            'sim'
+            'soft'
+            'source_ref'
+            'specman'
+            'sync'
+            'sys'
+            'task'
+            'template'
+            'text'
+            'tf_domain_manager'
+            'that'
+            'trace_only'
+            'traceable'
+            'transition'
+            'true'
+            'untraceable'
+            'using'
+            'utils'
+            'variable'
+            'verilog'
+            'vhdl'
+            'wait'
+            'within'
+            'write')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.keyword.declaration'
+      StyleName = 'Id.keyword.declaration'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'conditions'
+            'created_driver'
+            'created_kind'
+            'DPI-C'
+            'exp'
+            'final'
+            'implementing'
+            'import_python'
+            'interface'
+            'like'
+            'method_type'
+            'numeric_type'
+            'package'
+            'private'
+            'protected'
+            'static'
+            'struct'
+            'testflow'
+            'type'
+            'unit'
+            'uvm_build_config'
+            'var'
+            'when')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id.keyword.modifier'
+      StyleName = 'Id.keyword.control'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'also'
+            'attribute'
+            'check'
+            'const'
+            'empty'
+            'first'
+            'inout'
+            'instance'
+            'is'
+            'only'
+            'out'
+            'reset_soft'
+            'undefined')
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    ''
+    'This is comment'
+    'extend sys'
+    'for each in bla {'
+    ''
+    '}'
+    ''
+    '<'#39
+    ' export DPI-C verifier.e_impl();'
+    'export DPI-C verifier.e_impl();'
+    '// 99 Bottles of beer'
+    '// By Thorsten Dworzak'
+    ''
+    'extend sys  {'
+    '   lyrics: list of string;'
+    '   keep lyrics.size() == 200;'
+    '   keep beer_c is for each (o) using index (n) in lyrics  {'
+    
+      '      n==0                   => it == appendf("Go to the store a' +
+      'nd buy some more, 99 bottles of beer on the wall.");'
+    
+      '      ((n%2==1) and (n!= 0)) => it == appendf("%s bottle%s of be' +
+      'er on the wall, %s bottle%s of beer.",'
+    
+      '                                                  (n==1 ? "No mo' +
+      're":(n/2).as_a(string)),'
+    
+      '                                                  (n==3) ? "":"s' +
+      '",'
+    
+      '                                                  (n==1 ? "no mo' +
+      're":(n/2).as_a(string)),'
+    
+      '                                                  (n==3) ? "":"s' +
+      '");'
+    
+      '      (n%2==0) and (n!=0) => it == appendf("Take one down and pa' +
+      'ss it around, %s bottle%s of beer on the wall.",'
+    
+      '                                           (n==2 ? "no more":(n/' +
+      '2-1).as_a(string)),'
+    '                                           ((n-1)==3) ? "":"s");'
+    '   };'
+    ''
+    '   run() is also {'
+    '      for each in lyrics.reverse() {'
+    '         outf("%s\n", append(it, (index % 2 == 1 ? "\n":"")));'
+    '      };'
+    '   };'
+    '};'
+    ''
+    #39'>'
+    ''
+    'This is comment'
+    ''
+    ''
+    '<'#39
+    '  extend bla_s {'
+    ''
+    '  };'
+    ''
+    #39'>'
+    ''
+    ''
+    ''
+    'This is comment'
+    ''
+    ''
+    '<'#39
+    '  extend bla_s {'
+    ''
+    '  };  '
+    '12'
+    '55_32'
+    '-764'
+    '0b100111,'
+    '0b1100_0101'
+    '0xff,'
+    '0x99_aa_bb_cc'
+    '32K, 32k, 128k'
+    '1m, 4m, 4M'
+    '8'#39'b11001010'
+    ' 6'#39'o45  '
+    '  16'#39'd63453 '
+    '   32'#39'X12ffab04  '
+    '     var s: string := l1.apply(it > 127 ? 1'#39'b1 : 1'#39'b0);'
+    #39'>'
+    ''
+    ''
+    ''
+    ''
+    '<'#39
+    ''
+    'unit ifx_irq_source {'
+    '   on state_change$ {'
+    
+      '      messagef(IFX_IRQ, HIGH, "(%s) : \"string-within-string\"",' +
+      ' trans.state, name, trans);'
+    
+      '      messagef(IFX_IRQ, HIGH, "Raw IRQ %s change dected (%s): %s' +
+      '", trans.state, name, trans);'
+    '      chg_raw$.write(trans);'
+    '   };'
+    ''
+    ''
+    '   run() is also {'
+    '      trans = new with {'
+    '         .origin = me;'
+    '      };'
+    '      state = CLEAR;'
+    '      sel   = 0;'
+    '   };'
+    '};'
+    ''
+    'extend ifx_irq_trans {'
+    '   origin : ifx_irq_source;'
+    '};'
+    ''
+    'extend NESTED test {'
+    '    %n1    : nest;'
+    '    !n1    : nest;'
+    '};'
+    ''
+    #39'>')
+  TokenTypeNames.Strings = (
+    'Symbol'
+    'Id'
+    'Number'
+    'Comment'
+    'String'
+    'Field'
+    'Symbol {}')
+  Extentions = 'e'
+  LexerName = 'Specman'
+  SkipSpaces = False
+  Notes.Strings = (
+    'By Oleh Lutsak, https://github.com/OlehL')
+  LineComment = '//'
+  AlwaysSyncBlockAnal = True
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,7 @@
+[info]
+title=Specman
+type=lexer
+subdir=-
+
+[lexer1]
+file=Specman

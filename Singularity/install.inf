@@ -1,0 +1,7 @@
+[info]
+title=Singularity
+type=lexer
+subdir=-
+
+[lexer1]
+file=Singularity

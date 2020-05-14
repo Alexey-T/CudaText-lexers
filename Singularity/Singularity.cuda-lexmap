@@ -1,0 +1,14 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
+[ref]
+0=Bash script
+
+[map]
+Comment=Comment
+Id.Header=Id1
+Id.Section=IdKeyword
+Marked block=-
