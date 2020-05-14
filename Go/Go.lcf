@@ -1,4 +1,4 @@
-object SyntAnal29: TLibSyntAnalyzer
+object SyntAnal7: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -71,6 +71,22 @@ object SyntAnal29: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id field'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -86,6 +102,23 @@ object SyntAnal29: TLibSyntAnalyzer
       StyleName = 'Comment'
       TokenType = 1
       Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id field'
+      StyleName = 'Id field'
+      BlockName = 'struct'
+      TokenType = 8
+      Expression = '^[\x20\x09]*[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      TokenType = 7
+      Expression = '^[\x20\x09]*[a-z_]\w*:(?!\=)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -261,7 +294,23 @@ object SyntAnal29: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'field in struct'
+      BlockName = 'struct'
+      ConditionList = <
+        item
+          TokenTypes = 256
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      NoEndRule = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = 'func'
+      BlockName = 'struct'
+      NotParent = True
       ConditionList = <
         item
           TagList.Strings = (
@@ -273,6 +322,37 @@ object SyntAnal29: TLibSyntAnalyzer
       HighlightPos = cpAny
       CollapseFmt = '%sz0...'
       NoEndRule = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'struct'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end
+        item
+          TagList.Strings = (
+            'struct')
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'type')
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      NameFmt = 'struct %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = 'struct %s-1'
+      TreeItemImage = 2
       IgnoreAsParent = False
     end
     item
@@ -346,6 +426,7 @@ object SyntAnal29: TLibSyntAnalyzer
     '// cmt2'
     ''
     'func NewChain(prefixLen int) *Chain {'
+    '  Label:'
     #9'return `mul'
     '    string`'
     '}'
@@ -357,8 +438,13 @@ object SyntAnal29: TLibSyntAnalyzer
     #9'return "Text\"end" + '#39'Test'#39
     '}'
     ''
-    'func (p Prefix) Shift(word string) {'
-    '}    ')
+    'type MyContainer struct {'
+    '  name1 func(arg string)'
+    '  name2 func(arg interface{})'
+    '  name3 package.MyType `tag1:""`'
+    '  name4 interface{} `tag1:""`'
+    '  name5 map[string]int `t`'
+    '}')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
@@ -366,9 +452,12 @@ object SyntAnal29: TLibSyntAnalyzer
     'Symbol'
     'String'
     'Number'
-    'Symbol {}')
+    'Symbol {}'
+    'Label'
+    'Id field')
   Extentions = 'go'
   LexerName = 'Go'
+  SkipSpaces = False
   Notes.Strings = (
     'Alexey (CudaText)')
   LineComment = '//'

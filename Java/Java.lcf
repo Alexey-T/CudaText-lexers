@@ -1,4 +1,4 @@
-object SyntAnal22: TLibSyntAnalyzer
+object SyntAnal21: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -160,6 +160,14 @@ object SyntAnal22: TLibSyntAnalyzer
       StyleName = 'Id'
       TokenType = 2
       Expression = '[a-z_\$][\w\$]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number hex float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[\da-f]([\da-f_]*[\da-f])?\.[\da-f_]+p[\-\+]?\d+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -619,7 +627,7 @@ object SyntAnal22: TLibSyntAnalyzer
       '  (not correct for funcs out of classes, for nested classes, but' +
       ' for most cases OK)'
     '+ annotations'
-    '+ hex/dec/float nums'
+    '+ hex/dec/float numbers'
     '+ underscores in numbers')
   LineComment = '//'
   Charset = DEFAULT_CHARSET

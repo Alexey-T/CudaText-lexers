@@ -1,4 +1,4 @@
-object SyntAnal30: TLibSyntAnalyzer
+object SyntAnal25: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -125,7 +125,7 @@ object SyntAnal30: TLibSyntAnalyzer
       DisplayName = 'Id key'
       StyleName = 'Id key'
       TokenType = 6
-      Expression = '^([\w\-\x20\x09]|'#39'[^'#39']*'#39'|"[^"]*")+ (?=:)'
+      Expression = '^[\x20\x09]*\w.*(?=:)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -274,7 +274,7 @@ object SyntAnal30: TLibSyntAnalyzer
     '- model: 10.20'
     '  test "quote" '#39'here'#39': Null'
     '  property_map:'
-    '    - property: __key__'
+    '    - /some/path: __key__'
     '      external_name: ID'
     '    - property: name'
     '      import_template: "%(First Name)s %(Last Name)s"'

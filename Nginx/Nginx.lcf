@@ -1,4 +1,4 @@
-object SyntAnal58: TLibSyntAnalyzer
+object SyntAnal17: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -41,12 +41,36 @@ object SyntAnal58: TLibSyntAnalyzer
       Font.Style = []
     end
     item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
       DisplayName = 'Number'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clNavy
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id 1st'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Filename'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -66,9 +90,18 @@ object SyntAnal58: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String mulline'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)'#39'(\\'#39'|.)*?('#39'|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Var'
       StyleName = 'Var'
-      Expression = '\$\{.+?\} |'#13#10'\$\(.+?\)'
+      TokenType = 7
+      Expression = '\$\{.+?\} | \$\(.+?\) | \$\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -81,10 +114,34 @@ object SyntAnal58: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Id 1st'
+      StyleName = 'Id 1st'
+      TokenType = 6
+      Expression = '^[\x20\x09]*\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '\w+'
+      Expression = '\w[\w\.\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Filename'
+      StyleName = 'Filename'
+      TokenType = 8
+      Expression = '\x20/[\w\-\./]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 9
+      Expression = '[\{\}]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -92,18 +149,31 @@ object SyntAnal58: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]\{\}%\|\&\\~]+'
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]%\|\&\\~]+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
   BlockRules = <
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'return')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
     item
       DisplayName = '{'
       ConditionList = <
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 512
         end>
       BlockEnd = '}'
       NameFmt = '%sl0'
@@ -121,7 +191,7 @@ object SyntAnal58: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '}')
-          TokenTypes = 8
+          TokenTypes = 512
         end>
       HighlightPos = cpBound
       IgnoreAsParent = False
@@ -163,20 +233,17 @@ object SyntAnal58: TLibSyntAnalyzer
   SampleText.Strings = (
     '#comment'
     'events {'
-    '    worker_connections  $(var), "test str";'
+    '    worker_connections  $(var), "test str" + '#39'test'
+    '    multi line str'#39';'
     '}'
     ''
     'http {'
-    '    include       mime.types;'
-    '    default_type  application/octet-stream;'
-    '    '
     '    server {'
-    '        listen       80;'
-    '        server_name  localhost;'
+    '        server_name  $some/$var;'
+    '        return $smth'
     ''
     '        location / {'
     '            root   html;'
-    '            index  index.html index.htm;'
     '        }'
     ''
     '        error_page   400 401 402;'
@@ -191,13 +258,18 @@ object SyntAnal58: TLibSyntAnalyzer
     'Id'
     'Symbol'
     'String'
-    'Number')
+    'Number'
+    'Id 1st'
+    'Var'
+    'Filename'
+    'Symbol {}')
   Extentions = '/nginx.conf'
   LexerName = 'Nginx'
+  SkipSpaces = False
   Notes.Strings = (
-    'Alex (Synwrite)'
-    'Test: http://nginx.org'
-    '  file nginx.conf')
+    'Alexey (CudaText)'
+    'Thanks to Artem https://github.com/Artem3213212'
+    'Test: http://nginx.org , file nginx.conf')
   LineComment = '#'
   Charset = DEFAULT_CHARSET
 end
