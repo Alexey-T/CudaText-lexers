@@ -502,7 +502,8 @@ object SyntAnal7: TLibSyntAnalyzer
             'hr'
             'image'
             'img'
-            'link')
+            'link'
+            'p')
           TokenTypes = 4
           IgnoreCase = True
         end
@@ -540,7 +541,8 @@ object SyntAnal7: TLibSyntAnalyzer
             'hr'
             'image'
             'img'
-            'link')
+            'link'
+            'p')
           CondType = tcNotEqual
           TokenTypes = 4
           IgnoreCase = True
@@ -803,15 +805,15 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = 'JavaScript'
       StyleName = 'Sublexer BG'
       AlwaysEnabled = True
-      StartExpression = '(?si)<script[^>]*javascript [^>]* [^\?] > \s*(<!--)?'
-      EndExpression = '(?i)(//)?(-->)?\s*</script>'
+      StartExpression = '(?si)<script\s[^>]*javascript [^>\?]* > \s*(<!\-\-)?'
+      EndExpression = '(?i)(//)?(\-\->)?\s*</script\s*>'
       SyntAnalyzer = SyntAnal9
     end
     item
       DisplayName = 'JavaScript simple'
       StyleName = 'Sublexer BG'
-      StartExpression = '<script>'
-      EndExpression = '</script>'
+      StartExpression = '<script\s*>'
+      EndExpression = '</script\s*>'
       SyntAnalyzer = SyntAnal9
     end
     item
@@ -862,7 +864,7 @@ object SyntAnal7: TLibSyntAnalyzer
     'Close Tag'
     'Include Tag')
   Extentions = 
-    'htm html htt hta htx htc htd shtml phtml xhtml asp aspx ascx asm' +
+    'html htm htt hta htx htc htd shtml phtml xhtml asp aspx ascx asm' +
     'x jsp hhc dtd'
   LexerName = 'HTML'
   Notes.Strings = (
