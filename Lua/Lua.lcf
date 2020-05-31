@@ -65,14 +65,6 @@ object SyntAnal12: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Func name'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlue
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
       DisplayName = 'String2'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
@@ -138,22 +130,6 @@ object SyntAnal12: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'FuncName1'
-      StyleName = 'Func name'
-      TokenType = 10
-      Expression = '[\w\.:]+(?=\x20*=\x20*function\x20*\()'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'FuncName2'
-      StyleName = 'Func name'
-      TokenType = 10
-      Expression = '(?<=function\x20+)[\w\.:]+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Label'
       StyleName = 'Label'
       TokenType = 6
@@ -170,10 +146,18 @@ object SyntAnal12: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Symbol ()'
+      StyleName = 'Symbol'
+      TokenType = 7
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\)\[\]\{\}]'
+      Expression = '[\[\]\{\}]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -443,14 +427,126 @@ object SyntAnal12: TLibSyntAnalyzer
       DisplayName = 'func'
       ConditionList = <
         item
-          TokenTypes = 1024
+          TagList.Strings = (
+            '(')
+          TokenTypes = 128
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
         end>
       BlockEnd = 'end'
+      NameFmt = '%s-1'
+      RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
       DrawStaple = True
-      NoEndRule = True
+      CollapseFmt = '%sz0'
       TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func in class'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 128
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':'
+            '.')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      NameFmt = '%s-3'
+      GroupFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 5
+      TreeGroupImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func in class 2'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':'
+            '.')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':'
+            '.')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      NameFmt = '%s-3%s-4%s-5'
+      GroupFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 5
+      TreeGroupImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func anon'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 128
+        end
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'end'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
       IgnoreAsParent = False
     end
     item
@@ -471,7 +567,6 @@ object SyntAnal12: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'do'
-            'function'
             'if')
           TokenTypes = 4
         end>
@@ -508,6 +603,33 @@ object SyntAnal12: TLibSyntAnalyzer
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 8
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
@@ -524,11 +646,11 @@ object SyntAnal12: TLibSyntAnalyzer
     ' n = 2 + 2.22 + 22.22e-2 + 0.22E1 + 0xF0 + .5 + 5.  '
     ' ::name:: , goto name'
     ''
-    'function Set.mt.__lt (a,b)'
-    '  return a <= b and not (b <= a)'
+    'function Test.mt.__lt (a,b)'
+    '  return a <= b'
     'end'
     ''
-    'function perm:app (a, n)'
+    'function Test:app (a, n)'
     '  if n == 0 then'
     '    coroutine.yield(a)'
     '  else'
@@ -538,7 +660,7 @@ object SyntAnal12: TLibSyntAnalyzer
     '  end'
     'end'
     ''
-    'function perm (a)'
+    'function tst(a)'
     '  local n = table.getn(a)'
     '  return coroutine.wrap(function () permgen(a, n) end)'
     'end'
@@ -549,6 +671,7 @@ object SyntAnal12: TLibSyntAnalyzer
     '  end'
     '  io.write("\n")'
     'end'
+    ''
     'repeat'
     '  print "aa"'
     'until true ')
@@ -560,7 +683,7 @@ object SyntAnal12: TLibSyntAnalyzer
     'String'
     'Number'
     'Label'
-    '-'
+    'Symbol ()'
     '-'
     'Preprocessor'
     'Func name')
