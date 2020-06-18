@@ -90,77 +90,52 @@ object SyntAnal16: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = '1st Tree item'
+      DisplayName = '^Tree item'
       StyleName = 'Id keyword def'
       TokenType = 11
-      Expression = '^[\x20\x09]*(def|class|async [\x20\x09]+ def)\b'
+      Expression = '(def|class|async[\x20\x09]+def)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Keyword'
+      DisplayName = '^Keyword'
       StyleName = 'Id keyword'
       TokenType = 10
       Expression = 
-        '^[\x20\x09]*(if|else|elif|for|while|try|except|finally|switch|ca' +
-        'se|with)\b'
+        '(?<=^[\x20\x09]*) (if|else|elif|for|while|try|except|finally|swi' +
+        'tch|case|with)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st String'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = '(?s) ^[\x20\x09]* [rbuf]*? ("""|'#39#39#39') .*? (\1|\Z)'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = '1st String 2'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = '^[\x20\x09]* [rbuf]* ("|'#39') (\\.|.)*? (\1|$)'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = '1st Id'
+      DisplayName = '^Id'
       StyleName = 'Id'
-      TokenType = 9
-      Expression = '(?r)^[\x20\x09]*[a-z_]\w*'
+      TokenType = 2
+      Expression = '(?r)[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Attrib'
-      StyleName = 'Symbol'
-      TokenType = 9
-      Expression = '^[\x20\x09]*@'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = '1st Symbol'
+      DisplayName = '^Attrib'
       StyleName = 'Symbol'
       TokenType = 8
-      Expression = '^[\x20\x09]*[\(\)\[\]\{\}]'
+      Expression = '@'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Comment'
-      Enabled = False
-      StyleName = 'Comment'
-      TokenType = 7
-      Expression = '^[\x20\x09]* \#.*'
+      DisplayName = '^Symbol'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\(\)\[\]\{\}]'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'String """'
+      DisplayName = 'String '#39#39#39
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s) [rbuf]? ("""|'#39#39#39') .*? (\1|\Z)'
+      Expression = '(?s)[rbuf]*? ("""|'#39#39#39') .*? (\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -201,14 +176,6 @@ object SyntAnal16: TLibSyntAnalyzer
       StyleName = 'Id func name'
       TokenType = 2
       Expression = '(?r)(?<=\bclass\x20+)\w+ |'#13#10'(?r)(?<=\bdef\x20+)\w+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Id'
-      StyleName = 'Id'
-      TokenType = 2
-      Expression = '(?r)[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -255,18 +222,10 @@ object SyntAnal16: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Symbol :'
+      DisplayName = 'Ending :'
       StyleName = 'Symbol'
       TokenType = 12
-      Expression = ':'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Symbol single'
-      StyleName = 'Symbol'
-      TokenType = 3
-      Expression = '[\(\)\[\]\{\}]'
+      Expression = ':\x20*$ | :(?=\x20*\#.*$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -275,6 +234,14 @@ object SyntAnal16: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = '[/\*,\.;=<>\+\-\^@!%\\\|~&]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol :'
+      StyleName = 'Symbol'
+      TokenType = 9
+      Expression = ':'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -559,13 +526,11 @@ object SyntAnal16: TLibSyntAnalyzer
       DisplayName = 'block for tree'
       ConditionList = <
         item
-          TagList.Strings = (
-            ':')
           TokenTypes = 4096
         end
         item
           CondType = tcSkip
-          TokenTypes = 2046
+          TokenTypes = 1534
         end
         item
           TokenTypes = 2048
@@ -584,13 +549,11 @@ object SyntAnal16: TLibSyntAnalyzer
       DisplayName = 'block for tree (ex)'
       ConditionList = <
         item
-          TagList.Strings = (
-            ':')
           TokenTypes = 4096
         end
         item
           CondType = tcSkip
-          TokenTypes = 2046
+          TokenTypes = 1534
         end
         item
           TokenTypes = 2048
@@ -613,7 +576,7 @@ object SyntAnal16: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 124
+          TokenTypes = 380
         end
         item
           TokenTypes = 1024
@@ -660,7 +623,7 @@ object SyntAnal16: TLibSyntAnalyzer
     'str = r'#39'\test\test'#39' + u'#39'test'#39' + r"\test"'
     'func = lambda x: x'
     ''
-    'def func(num):'
+    'def func(num):      #cmt  '
     '    for n in range(len(sys.argv)):'
     '      print "Arg %s" % sys.argv[n]'
     '      if n>2:'
@@ -669,7 +632,7 @@ object SyntAnal16: TLibSyntAnalyzer
     '    '
     'async def get_json(client, url):  '
     '    async with client.get(url) as response:'
-    '        assert response.status == 100'
+    '        assert test = {'#39'aa'#39': 2, '#39'bb'#39': None}'
     '        return await response.read()'
     ''
     'class MyName(object):      '
@@ -681,20 +644,19 @@ object SyntAnal16: TLibSyntAnalyzer
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
-    'Id'
+    '^Id'
     'Symbol'
-    'String'
+    '^String'
     'Number'
     'Number2'
-    '1st comment'
-    '1st symbol'
-    '1st word'
-    '1st keyword'
-    '1st word tree'
-    'Symbol :')
+    '^Comment'
+    '^Symbol'
+    'Usual :'
+    '^Id keyword'
+    '^Id tree'
+    'Ending :')
   Extentions = 'py pyw rpy cpy sconstruct pyi'
   LexerName = 'Python'
-  SkipSpaces = False
   Notes.Strings = (
     'Python lexer by Alexey (CudaText)'
     'For indent-based folding lexer was imporved:'
