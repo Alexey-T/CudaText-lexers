@@ -1,4 +1,4 @@
-object SyntAnal31: TLibSyntAnalyzer
+object SyntAnal24: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -95,7 +95,7 @@ object SyntAnal31: TLibSyntAnalyzer
       DisplayName = '1Tag'
       StyleName = 'Tag'
       TokenType = 6
-      Expression = '^[\x20\x09]* (</?)? \w+ >?'
+      Expression = '(?<=^[\x20\x09]*) (</?)? \w+ >?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -103,7 +103,7 @@ object SyntAnal31: TLibSyntAnalyzer
       DisplayName = '1TagProp'
       StyleName = 'TagProp'
       TokenType = 7
-      Expression = '^[\x20\x09]* [\#\.] \w+'
+      Expression = '(?<=^[\x20\x09]*) [\#\.] \w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -259,14 +259,13 @@ object SyntAnal31: TLibSyntAnalyzer
     'Symbol'
     'String'
     'Number'
-    '1Tag'
-    '1TagProp'
-    '1Symbol')
+    '^Tag'
+    '^TagProp'
+    '^Symbol')
   Extentions = 'slim'
   LexerName = 'Slim'
-  SkipSpaces = False
   Notes.Strings = (
-    'Alex (Synwrite)'
+    'Alexey (CudaText)'
     'Doc: http://www.rubydoc.info/gems/slim/frames#Syntax_example')
   Charset = DEFAULT_CHARSET
 end

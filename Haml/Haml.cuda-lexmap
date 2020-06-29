@@ -8,7 +8,8 @@ Var=IdVar
 Id=Id
 Id keyw=IdKeyword
 Class=Id1
-
 [comments]
 styles_cmt=Comment
 styles_str=String
+str1=
+str2=

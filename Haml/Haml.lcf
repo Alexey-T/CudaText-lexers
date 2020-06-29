@@ -1,4 +1,4 @@
-object SyntAnal29: TLibSyntAnalyzer
+object SyntAnal28: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -101,7 +101,7 @@ object SyntAnal29: TLibSyntAnalyzer
       DisplayName = '1Tag'
       StyleName = 'Tag'
       TokenType = 6
-      Expression = '^[\x20\x09]* %\w+'
+      Expression = '(?<=^[\x20\x09]*) %\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -109,7 +109,7 @@ object SyntAnal29: TLibSyntAnalyzer
       DisplayName = '1TagProp'
       StyleName = 'Class'
       TokenType = 7
-      Expression = '^[\x20\x09]* \#\w+'
+      Expression = '(?<=^[\x20\x09]*) \#\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -121,15 +121,15 @@ object SyntAnal29: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = '1Symb'
+      DisplayName = '1Symbol'
       StyleName = 'Symbol'
       TokenType = 8
-      Expression = '^[\x20\x09]* [\:\.,;\-\+/\*\(\)\{\}\[\]<>=%!\#\|\?~\\]'
+      Expression = '(?<=^[\x20\x09]*) [\:\.,;\-\+/\*\(\)\{\}\[\]<>=%!\#\|\?~\\]'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Symb'
+      DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
       Expression = '[\:\.,;\-\+/\*\(\)\{\}\[\]<>=%!\#\|\?~\\]'
@@ -189,14 +189,13 @@ object SyntAnal29: TLibSyntAnalyzer
     'Symbol'
     'String'
     'Number'
-    '1Tag'
-    '1TagProp'
-    '1Symbol')
+    '^Tag'
+    '^TagProp'
+    '^Symbol')
   Extentions = 'haml'
   LexerName = 'Haml'
-  SkipSpaces = False
   Notes.Strings = (
-    'Alex (Synwrite)')
+    'Alexey (CudaText)')
   LineComment = '/ '
   Charset = DEFAULT_CHARSET
 end

@@ -9,7 +9,8 @@ Id keyword=IdKeyword
 Var=IdVar
 Var2=Id3
 Var BG=IncludeBG1
-
 [comments]
 styles_cmt=Comment
 styles_str=String
+str1=
+str2=

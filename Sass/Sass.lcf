@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal25: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -109,7 +109,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = '1Id'
       StyleName = 'Id'
       TokenType = 7
-      Expression = '^ [\x20\x09]* \w[\w\-]*'
+      Expression = '(?<=^[\x20\x09]*) \w[\w\-]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -117,7 +117,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = '1Param'
       StyleName = 'Id'
       TokenType = 8
-      Expression = '^ [\x20\x09]* [:\#\.=\-\*&]+ [\w\-]+'
+      Expression = '(?<=^[\x20\x09]*) [:\#\.=\-\*&]+ [\w\-]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -229,12 +229,11 @@ object SyntAnal24: TLibSyntAnalyzer
     'String'
     'Number'
     'Id'
-    '1Id'
-    '1Param'
+    '^Id'
+    '^Param'
     'Unit')
   Extentions = 'sass'
   LexerName = 'Sass'
-  SkipSpaces = False
   Notes.Strings = (
     'Alexey (CudaText)'
     'Test: https://github.com/sass/sass (folder test/sass/templates)')
