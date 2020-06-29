@@ -1,4 +1,4 @@
-object SyntAnal43: TLibSyntAnalyzer
+object SyntAnal20: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Id'
@@ -11,15 +11,9 @@ object SyntAnal43: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = 'Word1st'
-      TokenType = 1
-      Expression = '^[\x20\x09]* .+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Word'
-      Expression = '.+'
+      DisplayName = 'Text'
+      StyleName = 'Id'
+      Expression = '(?<=^[\x20\x09]*).+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -28,7 +22,7 @@ object SyntAnal43: TLibSyntAnalyzer
       DisplayName = 'block begin'
       ConditionList = <
         item
-          TokenTypes = 2
+          TokenTypes = 1
         end>
       EndOfTextClose = True
       DisplayInTree = False
@@ -57,12 +51,10 @@ object SyntAnal43: TLibSyntAnalyzer
     '  test tt'
     '       ')
   TokenTypeNames.Strings = (
-    'Unknown'
-    '1st word')
+    '^Text')
   LexerName = 'Text with indentation'
-  SkipSpaces = False
   FullRefreshSize = 40000
   Notes.Strings = (
-    'Demo lexer to show indentation-based folding.')
+    'Demo lexer to show indentation-based folding')
   Charset = DEFAULT_CHARSET
 end
