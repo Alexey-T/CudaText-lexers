@@ -1,4 +1,4 @@
-object SyntAnal29: TLibSyntAnalyzer
+object SyntAnal23: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -245,17 +245,25 @@ object SyntAnal29: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'abstract'
             'as'
+            'async'
+            'await'
+            'become'
+            'box'
             'break'
             'const'
             'continue'
             'copy'
+            'crate'
             'do'
             'drop'
+            'dyn'
             'else'
             'enum'
             'extern'
             'false'
+            'final'
             'fn'
             'for'
             'if'
@@ -263,9 +271,12 @@ object SyntAnal29: TLibSyntAnalyzer
             'in'
             'let'
             'loop'
+            'macro'
             'match'
             'mod'
+            'move'
             'mut'
+            'override'
             'priv'
             'pub'
             'ref'
@@ -276,11 +287,16 @@ object SyntAnal29: TLibSyntAnalyzer
             'super'
             'trait'
             'true'
+            'try'
             'type'
+            'typeof'
             'unsafe'
+            'unsized'
             'use'
+            'virtual'
             'where'
-            'while')
+            'while'
+            'yield')
           TokenTypes = 1028
         end>
       HighlightPos = cpBound

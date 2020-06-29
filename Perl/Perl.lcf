@@ -1,4 +1,4 @@
-object SyntAnal31: TLibSyntAnalyzer
+object SyntAnal14: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Id'
@@ -75,7 +75,31 @@ object SyntAnal31: TLibSyntAnalyzer
     item
       DisplayName = 'Comment doc'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 7768644
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Data block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String heredoc'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clLime
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String q'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clLime
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -100,7 +124,7 @@ object SyntAnal31: TLibSyntAnalyzer
     item
       DisplayName = 'Variable'
       StyleName = 'Variable'
-      TokenType = 2
+      TokenType = 6
       Expression = '\$\w+::\w+ |'#13#10'[\$\#%@]+\w+'#13#10
       ColumnFrom = 0
       ColumnTo = 0
@@ -130,6 +154,14 @@ object SyntAnal31: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Data block'
+      StyleName = 'Data block'
+      TokenType = 7
+      Expression = '(?S)(__DATA__|__END__)\b.*\Z'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
@@ -138,7 +170,15 @@ object SyntAnal31: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String'
+      DisplayName = 'String q/qq/qw'
+      StyleName = 'String q'
+      TokenType = 8
+      Expression = '(?<=\bq[qw])\(.*?\) | (?<=\bq)\(.*?\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String "'
       StyleName = 'String'
       TokenType = 4
       Expression = '"(\\\\|\\"|.)*?("|$)'
@@ -146,10 +186,10 @@ object SyntAnal31: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String 2'
+      DisplayName = 'String '#39
       StyleName = 'String 2'
       TokenType = 9
-      Expression = #39'.*?('#39'|$)'#13#10
+      Expression = #39'(\\'#39'|.)*?('#39'|$)'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -158,6 +198,14 @@ object SyntAnal31: TLibSyntAnalyzer
       StyleName = 'String'
       TokenType = 4
       Expression = '`.*?`'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String heredoc'
+      StyleName = 'String heredoc'
+      TokenType = 11
+      Expression = '(?s)<<"(\w+)";\z .+? ^\1$ '
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -180,7 +228,7 @@ object SyntAnal31: TLibSyntAnalyzer
     item
       DisplayName = 'Float'
       StyleName = 'Number'
-      TokenType = 6
+      TokenType = 5
       Expression = '\d+ \.? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
       ColumnFrom = 0
       ColumnTo = 0
@@ -464,13 +512,14 @@ object SyntAnal31: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'sub')
-          TokenTypes = 1028
+          TokenTypes = 4
         end>
       NameFmt = 'sub %s-1'
       RefToCondEnd = True
       HighlightPos = cpAny
       CollapseFmt = 'sub %s-1'
       NoEndRule = True
+      TreeItemImage = 5
       IgnoreAsParent = False
     end
     item
@@ -550,7 +599,7 @@ object SyntAnal31: TLibSyntAnalyzer
     '}'
     ''
     'sub MyOpen(*$) {  # debug'
-    '  my ($sKey);'
+    '  q(test tes2), qw(test test), qq(test)'
     '}  '
     ''
     'sub WriteBack() {'
@@ -564,23 +613,27 @@ object SyntAnal31: TLibSyntAnalyzer
     '  while (test) {'
     '    print "TT";'
     '  }  '
-    '}')
+    '}'
+    '__END__'
+    'some 12 '#39'test'#39' data')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
-    'Identifier'
+    'Id'
     'Symbol'
     'String'
-    'Integer const'
-    'Float const'
-    'Hex const'
-    'Char const'
+    'Number'
+    'Var'
+    'Data block'
+    'String q'
     'String 2'
-    'Comment shebang')
-  Extentions = 'pl pm cgi pod plx'
+    'Cmt shebang'
+    'String heredoc')
+  Extentions = 'pl pm cgi plx'
   LexerName = 'Perl'
   Notes.Strings = (
-    'Fixes by Alexey (CudaText)')
+    'Based on lexer from EControl'
+    'Reworked by Alexey (CudaText)')
   LineComment = '#'
   Charset = DEFAULT_CHARSET
 end

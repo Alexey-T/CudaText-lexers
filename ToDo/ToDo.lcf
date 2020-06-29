@@ -1,4 +1,4 @@
-object SyntAnal57: TLibSyntAnalyzer
+object SyntAnal19: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'header'
@@ -80,10 +80,10 @@ object SyntAnal57: TLibSyntAnalyzer
     item
       DisplayName = '@timestamp'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMaroon
+      Font.Color = clPurple
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
+      Font.Style = []
     end
     item
       DisplayName = 'text.grey'
@@ -94,55 +94,55 @@ object SyntAnal57: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Marked block'
+      DisplayName = 'text.normal'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
+      Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = clHighlight
-      FormatType = ftColor
     end>
   TokenRules = <
     item
-      DisplayName = '1header'
+      DisplayName = 'header'
       StyleName = 'header'
-      Expression = '^[\x20\x09]*.+?:[\x20\x09]*$'
+      Expression = '(?<=^[\x20\x09]*).+?:[\x20\x09]*$'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1item.symbol.done'
+      DisplayName = 'item.symbol.done'
       StyleName = 'item.done'
       TokenType = 1
       Expression = 
-        '^[\x20\x09]*(\+|\x{2713}|\x{2714}|\x{2611}|\x{221a}|\[x\]|\[\+\]' +
-        ')'
+        '(?<=^[\x20\x09]*)(\+|\x{2713}|\x{2714}|\x{2611}|\x{221a}|\[x\]|\' +
+        '[\+\])'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1item.symbol.cancel'
+      DisplayName = 'item.symbol.cancel'
       StyleName = 'item.cancel'
       TokenType = 1
-      Expression = '^[\x20\x09]*(x|\x{2718}|\[-\])'
+      Expression = '(?<=^[\x20\x09]*)(x|\x{2718}|\[-\])'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1item.symbol.open'
+      DisplayName = 'item.symbol.open'
+      StyleName = 'text.normal'
       TokenType = 1
       Expression = 
-        '^[\x20\x09]*(-|\x{274d}|\x{2751}|\x{25a0}|\x{25a1}|\x{2610}|\x{2' +
-        '5aa}|\x{25ab}|\x{2013}|\x{2014}|\x{2261}|\x{2192}|\x{203a}|\[\s\' +
-        ']|\[\])(?=\s*)'
+        '(?<=^[\x20\x09]*)(-|\x{274d}|\x{2751}|\x{25a0}|\x{25a1}|\x{2610}' +
+        '|\x{25aa}|\x{25ab}|\x{2013}|\x{2014}|\x{2261}|\x{2192}|\x{203a}|' +
+        '\[\s\]|\[\])(?=\s*)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st String'
+      DisplayName = 'text'
+      StyleName = 'text.normal'
       TokenType = 1
-      Expression = '^ [\x20\x09]* .*$'
+      Expression = '(?<=^[\x20\x09]*).+$'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -276,15 +276,15 @@ object SyntAnal57: TLibSyntAnalyzer
     '  [] item @toggle(14-10-13 16:14)'
     '  [] item @created(14-12-24 15:57)')
   TokenTypeNames.Strings = (
-    '1Head'
-    '1Item'
+    '^Head'
+    '^Item'
     'gray text'
     'tag'
-    'url'
-    ''
-    '')
+    'url')
   Extentions = 'todo todolist taskpaper tasks'
   LexerName = 'ToDo'
-  SkipSpaces = False
+  Notes.Strings = (
+    'Lexer for "Plain Tasks" plugin'
+    'Author: OlehL at GitHub')
   Charset = DEFAULT_CHARSET
 end

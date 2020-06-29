@@ -16,4 +16,4 @@ url=Symbol2
 @today=LightBG4
 @timestamp=TagProp
 text.grey=TagBound
-Marked block=-
+text.normal=Id
