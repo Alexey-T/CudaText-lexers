@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal29: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -78,7 +78,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '--[^\+\*/].*$'
+      Expression = '--[^\+\*/>\|\^=].*$'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -283,7 +283,7 @@ object SyntAnal23: TLibSyntAnalyzer
   SampleText.Strings = (
     'main = print "test", "t", '#39'_'#39' --comment'
     '--this is comment'
-    '---this too'
+    '-->not comment, lexema'
     'foobar --+ a_second_argument'
     ''
     '{-'

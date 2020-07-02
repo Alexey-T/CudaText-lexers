@@ -16,3 +16,6 @@ String raw=String2
 Id const=Id1
 Label=Label
 Id field=Id4
+Invalid=IdBad
+Brackets {{}}=Symbol2
+Var=IdVar
