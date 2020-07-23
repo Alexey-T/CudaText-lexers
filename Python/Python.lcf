@@ -1,4 +1,4 @@
-object SyntAnal16: TLibSyntAnalyzer
+object SyntAnal21: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -108,34 +108,10 @@ object SyntAnal16: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = '^Id'
-      StyleName = 'Id'
-      TokenType = 2
-      Expression = '(?r)[a-z_]\w*'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = '^Attrib'
-      StyleName = 'Symbol'
-      TokenType = 8
-      Expression = '@'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = '^Symbol'
-      StyleName = 'Symbol'
-      TokenType = 8
-      Expression = '[\(\)\[\]\{\}]'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'String '#39#39#39
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)[rbuf]*? ("""|'#39#39#39') .*? (\1|\Z)'
+      Expression = '(?s)[rbuf]* ("""|'#39#39#39') .*? (\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -168,6 +144,30 @@ object SyntAnal16: TLibSyntAnalyzer
       StyleName = 'String'
       TokenType = 4
       Expression = '(b|u|f)? ("|'#39') (\\.|.)*? (\2|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '(?r)[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Attrib'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '@'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Symbol'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\(\)\[\]\{\}]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -208,8 +208,8 @@ object SyntAnal16: TLibSyntAnalyzer
       StyleName = 'Number'
       TokenType = 5
       Expression = 
-        '\b \d[_\d]* \.\d[_\d]* (e[\-\+]?\d[_\d]*)?j? \b |'#13#10'\b\d[_\d]*[\.' +
-        'Lj]?\b |'#13#10'\.\d[_\d]*\b |'
+        '\b \d[_\d]* \.(\d[_\d]*)? (e[\-\+]?\d[_\d]*)?j? \b |'#13#10'\B\.\d[_\d' +
+        ']* (e[\-\+]?\d[_\d]*)?j? \b |'#13#10'\b\d[_\d]*\.? ([Lj]\b)?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -658,9 +658,8 @@ object SyntAnal16: TLibSyntAnalyzer
   Extentions = 'py pyw rpy cpy sconstruct pyi'
   LexerName = 'Python'
   Notes.Strings = (
-    'Python lexer by Alexey (CudaText)'
-    'For indent-based folding lexer was imporved:'
-    'see SynWrite lexer documentation about these tweaks.')
+    'Python lexer by Alexey (CudaText)')
+  RestartFromLineStart = True
   LineComment = '#'
   Charset = DEFAULT_CHARSET
   Left = 144
