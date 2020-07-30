@@ -3,6 +3,7 @@ styles_cmt=Comment
 styles_str=String
 str1=
 str2=
+
 [map]
 Comment=Comment
 Comment shebang=Comment2
@@ -16,5 +17,10 @@ Var block BG=SectionBG1
 Ticks block BG=SectionBG2
 Command std=Id1
 Command param=Id2
-Func name=Id4
+Func name=Label
 Symbol2=Symbol2
+Var %=Id3
+Math BG=SectionBG3
+Heredoc BG=SectionBG4
+Heredoc begin=TagInclude
+String regexp=String2
