@@ -159,6 +159,16 @@ object SyntAnal2: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Id bad'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BorderTypeBottom = blSolid
+      BorderColorBottom = clRed
     end>
   TokenRules = <
     item
@@ -368,6 +378,14 @@ object SyntAnal2: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Id keyword line-start'
+      StyleName = 'Keywords'
+      TokenType = 2
+      Expression = '(?<=^[\x20\x09]*)(for|if) (?=\x20*\()'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id func name'
       StyleName = 'Func name'
       TokenType = 7
@@ -416,10 +434,25 @@ object SyntAnal2: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Number'
+      DisplayName = 'Number octal'
       StyleName = 'Number'
       TokenType = 6
-      Expression = '\d+\b'
+      Expression = '\b0[1-7]*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\b[1-9]\d*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number bad'
+      StyleName = 'Id bad'
+      Expression = '\d+'
       ColumnFrom = 0
       ColumnTo = 0
     end

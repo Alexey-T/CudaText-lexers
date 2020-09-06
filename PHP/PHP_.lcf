@@ -244,7 +244,7 @@ object SyntAnal14: TLibSyntAnalyzer
       DisplayName = 'Heredoc end'
       StyleName = 'Id'
       TokenType = 12
-      Expression = '(?<=^[\x20\x09]*)[a-z_]\w*(?=;$)'
+      Expression = '(?<=^[\x20\x09]*)[a-z_]\w*(?=[;,\)\n])'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -276,7 +276,7 @@ object SyntAnal14: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 1
-      Expression = '[a-z_]\w*'
+      Expression = '[a-z_\x7f-\x{ffff}][a-z_0-9\x7f-\x{ffff}]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -339,6 +339,7 @@ object SyntAnal14: TLibSyntAnalyzer
             'interface'
             'isset'
             'list'
+            'match'
             'namespace'
             'new'
             'or'
@@ -755,7 +756,7 @@ object SyntAnal14: TLibSyntAnalyzer
     ''
     'function outer1(int $a){'
     '  $a = 10 + 10.10 + 0xAF + 0b1100;'
-    '  $this->var = 100;'
+    '  $this?->var = 100;'
     '  echo [ $a, $b, $aa ]'
     '  echo '#39'test'#39'."\\";'
     '  if (a){'
