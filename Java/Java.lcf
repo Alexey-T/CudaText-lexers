@@ -1,4 +1,4 @@
-object SyntAnal21: TLibSyntAnalyzer
+object SyntAnal23: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -298,7 +298,8 @@ object SyntAnal21: TLibSyntAnalyzer
             'to'
             'transitive'
             'uses'
-            'with')
+            'with'
+            'yield')
           TokenTypes = 4
         end>
       HighlightPos = cpAny
