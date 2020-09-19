@@ -1,11 +1,11 @@
 [ref]
 0=Lua
 1=Python
-
 [comments]
 styles_cmt=Comment
 styles_str=Str title,Str section
-
+str1=
+str2=
 [map]
 Comment directive=Comment2
 Comment=Comment

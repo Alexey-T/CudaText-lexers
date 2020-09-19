@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal26: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'String'
@@ -35,10 +35,10 @@ object SyntAnal23: TLibSyntAnalyzer
     item
       DisplayName = 'Id keyword'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clNavy
+      Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = []
+      Font.Style = [fsBold]
     end
     item
       DisplayName = 'Preprocessor'
@@ -76,7 +76,7 @@ object SyntAnal23: TLibSyntAnalyzer
     item
       DisplayName = 'Preprocessor'
       StyleName = 'Preprocessor'
-      Expression = '\#.*'
+      Expression = '\#\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -124,7 +124,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\+\-\*:=<>&/\|\^\.\{\}]+'
+      Expression = '[/\+\-\*:=<>&/\|\^\.\{\},]+'
       ColumnFrom = 0
       ColumnTo = 0
     end>

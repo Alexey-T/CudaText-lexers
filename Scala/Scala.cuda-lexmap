@@ -1,3 +1,9 @@
+[comments]
+styles_cmt=Comment,Comment doc
+styles_str=String,String2
+str1=
+str2=
+
 [map]
 Comment=Comment
 Comment doc=CommentDoc
@@ -10,8 +16,6 @@ Id reserved=IdKeyword
 Id type=Id2
 Id const=Id1
 Unicode=String3
-Xml=Comment2
-
-[comments]
-styles_cmt=Comment,Comment doc
-styles_str=String,String2
+Tag brackets=TagBound
+Tag name=TagId
+Tag attrib=TagProp

@@ -1,4 +1,4 @@
-object SyntAnal48: TLibSyntAnalyzer
+object SyntAnal19: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -89,13 +89,28 @@ object SyntAnal48: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Xml'
+      DisplayName = 'Tag brackets'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
+      Font.Color = clGray
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = clMoneyGreen
+    end
+    item
+      DisplayName = 'Tag name'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag attrib'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -119,6 +134,62 @@ object SyntAnal48: TLibSyntAnalyzer
       StyleName = 'Comment'
       TokenType = 1
       Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '{'
+      StyleName = 'Symbol'
+      TokenType = 10
+      Expression = '\{'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '}'
+      StyleName = 'Symbol'
+      TokenType = 11
+      Expression = '\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag name'
+      StyleName = 'Tag name'
+      BlockName = '<'
+      StrictParent = True
+      TokenType = 6
+      Expression = '(?<=</?)\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag numbers'
+      StyleName = 'Number'
+      BlockName = '<'
+      StrictParent = True
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag attrib'
+      StyleName = 'Tag attrib'
+      BlockName = '<'
+      StrictParent = True
+      TokenType = 9
+      Expression = '[\w\-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag string'
+      StyleName = 'String'
+      BlockName = '<'
+      StrictParent = True
+      TokenType = 4
+      Expression = '(?s)("|'#39') (\\.|.)*? \1'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -149,6 +220,8 @@ object SyntAnal48: TLibSyntAnalyzer
     item
       DisplayName = 'Id'
       StyleName = 'Id'
+      BlockName = '<'
+      NotParent = True
       TokenType = 2
       Expression = '[a-z_]\w*'
       ColumnFrom = 0
@@ -187,10 +260,34 @@ object SyntAnal48: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Xml'
-      StyleName = 'Xml'
-      TokenType = 6
-      Expression = '<[/\?]?\w+ | <!--.+?--> | [/\?]?>'
+      DisplayName = 'Tag comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '<!--.+?-->'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol 1'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '<\-|=>|\->|=='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<'
+      StyleName = 'Tag brackets'
+      TokenType = 7
+      Expression = '</?(?=\w)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '>'
+      StyleName = 'Tag brackets'
+      TokenType = 8
+      Expression = '/> | ((?<=\w)>)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -198,7 +295,7 @@ object SyntAnal48: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\{\}\(\)\[\],;\./\+\-\*:=<>&/\|\^~!\?%\#@'#39'\\]'
+      Expression = '[\(\)\[\],;\./\+\-\*:=<>&/\|\^~!\?%\#@'#39'\\]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -297,31 +394,16 @@ object SyntAnal48: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = '}'
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TagList.Strings = (
-            '}')
-          TokenTypes = 8
-        end>
-      HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
       DisplayName = 'Tree items'
       ConditionList = <
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 1024
         end
         item
           CondType = tcSkip
-        end
-        item
-          CondType = tcSkip
-          TokenTypes = 4
+          TokenTypes = 22
         end
         item
           TagList.Strings = (
@@ -338,6 +420,30 @@ object SyntAnal48: TLibSyntAnalyzer
       HighlightPos = cpRange
       CancelNextRules = True
       CollapseFmt = '%sz0'
+      TreeItemImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TokenTypes = 1024
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2048
+        end>
+      HighlightPos = cpBound
       IgnoreAsParent = False
     end
     item
@@ -357,51 +463,28 @@ object SyntAnal48: TLibSyntAnalyzer
       HighlightPos = cpAny
       CollapseFmt = '{...}'
       NoEndRule = True
+      TreeItemImage = 5
       IgnoreAsParent = False
     end
     item
-      DisplayName = '{'
+      DisplayName = '<'
       ConditionList = <
         item
-          TagList.Strings = (
-            '{')
-          TokenTypes = 8
+          TokenTypes = 128
         end>
-      IdentIndex = 1
-      BlockEnd = '}'
+      BlockEnd = '>'
       DisplayInTree = False
-      HighlightPos = cpRange
-      DynSelectMin = True
-      CollapseFmt = '{ ... }'
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Block comment'
-      BlockName = 'Block comment'
-      NotParent = True
-      ConditionList = <
-        item
-          TokenTypes = 2
-        end>
-      BlockEnd = 'Block comment end'
-      DisplayInTree = False
-      HighlightPos = cpBound
-      CollapseFmt = '/* ... */'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment end'
+      DisplayName = '>'
       BlockType = btRangeEnd
       ConditionList = <
         item
-          CondType = tcNotEqual
-          TokenTypes = 2
-        end
-        item
-          TokenTypes = 2
+          TokenTypes = 256
         end>
-      BlockOffset = 1
-      HighlightPos = cpBound
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end>
   CodeTemplates = <>
@@ -411,6 +494,9 @@ object SyntAnal48: TLibSyntAnalyzer
     '"String with \" char" + \u000D +'
     '"""String spans'
     'two lines"""'
+    '<!-- Comment  -->'
+    '<div class="some'
+    '  string" value=20 />'
     ''
     'val c = <version>{scalaBook.version}</version>'
     '0.0 + 1e30f + 3.1415F + 1.0e-100 + .1 + `Test`'
@@ -423,12 +509,6 @@ object SyntAnal48: TLibSyntAnalyzer
     '  abstract class SeqBuffer {'
     '    type T; val element: Seq[T]; def length = element.length'
     '  }'
-    '  def newIntBuffer(el: Int) = new Buffer {'
-    '    type T = Int; val element = el'
-    '  }'
-    '  def newIntBuffer(el: Int*) = new SeqBuffer {'
-    '    type T = Int; val element = el'
-    '  }'
     '  println(newIntBuffer(1, 2, 3).length)'
     '}')
   TokenTypeNames.Strings = (
@@ -438,11 +518,16 @@ object SyntAnal48: TLibSyntAnalyzer
     'Symbol'
     'String'
     'Number'
-    'Xml tag')
+    'Tag name'
+    '<'
+    '>'
+    'Tag attrib'
+    '{'
+    '}')
   Extentions = 'scala'
   LexerName = 'Scala'
   Notes.Strings = (
-    'Author: Alex (SynWrite)'
+    'Alexey (CudaText)'
     'Doc: http://www.scala-lang.org/old/node/198'
     'Tests: http://www.scala-lang.org/old/node/219'
     ''

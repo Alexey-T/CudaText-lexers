@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal11: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -167,7 +167,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Number hex float'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x[\da-f]([\da-f_]*[\da-f])?\.[\da-f_]+p[\-\+]?\d+\b'
+      Expression = '0x([\da-f_]*[\da-f])?\.[\da-f_]+(p[\-\+]?[\da-f]+)?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -293,6 +293,7 @@ object SyntAnal23: TLibSyntAnalyzer
             'module'
             'open'
             'opens'
+            'permits'
             'provides'
             'requires'
             'to'
@@ -357,6 +358,7 @@ object SyntAnal23: TLibSyntAnalyzer
             'private'
             'protected'
             'public'
+            'sealed'
             'static'
             'synchronized'
             'volatile')
@@ -576,9 +578,13 @@ object SyntAnal23: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    '/* Java */'
+    '/* Comment */'
     '/** Doc comment */'
     'import java.util.*;'
+    ''
+    '  b = e instanceof a?1__1:0b11110101; //int, binary'
+    '  c = 0x.aap0f-0x.aP-1F; //hex+float numbers'
+    '  d = 0x.aap0-0x.aP+1;  //hex+float numbers'
     ''
     'public List<String, int> test() {'
     '  return false + true;'
@@ -590,7 +596,6 @@ object SyntAnal23: TLibSyntAnalyzer
     '  }'
     '  public void setModel(TableModel model) {'
     '    super.setModel(model);'
-    '    reallocateIndexes();'
     '  }'
     '  public static void testTest() {'
     '  }'
@@ -598,15 +603,13 @@ object SyntAnal23: TLibSyntAnalyzer
     ''
     'public class Sample {'
     '  public static void main(String[] args) {'
-    '    long i = 0L;'
-    '    float f = 0.5f / 2.0;'
+    '    long i = 0L + 0.5f / 2.0;'
     '    String s = "aa\"" + "bb" + '#39'\'#39#39' + '#39'\n'#39';'
     '    for (i=0; i<10; i++)'
     '      System.out.println("Hello world");'
     '  }'
     '}'
-    ''
-    '//end')
+    '')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'

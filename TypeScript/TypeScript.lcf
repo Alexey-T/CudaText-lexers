@@ -177,7 +177,7 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'Symbol simple'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\[\],;\.\?/]'
+      Expression = '[\[\],;\.\?/@]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -198,6 +198,8 @@ object SyntAnal25: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'as'
+            'async'
+            'await'
             'break'
             'case'
             'catch'
@@ -457,54 +459,6 @@ object SyntAnal25: TLibSyntAnalyzer
       BlockEnd = 'treeitem'
       HighlightPos = cpAny
       CancelNextRules = True
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'var'
-      Enabled = False
-      ConditionList = <
-        item
-          TokenTypes = 4
-        end
-        item
-          TagList.Strings = (
-            'var')
-          TokenTypes = 4
-        end>
-      NotCollapsed = True
-      NameFmt = '%s0 %s-1'
-      HighlightPos = cpAny
-      NoEndRule = True
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment'
-      BlockName = 'Block comment'
-      NotParent = True
-      AlwaysEnabled = True
-      ConditionList = <
-        item
-          TokenTypes = 2
-        end>
-      BlockEnd = 'Block comment end'
-      DisplayInTree = False
-      HighlightPos = cpBound
-      CollapseFmt = '/* ... */'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment end'
-      BlockName = 'Block comment'
-      StrictParent = True
-      AlwaysEnabled = True
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          CondType = tcNotEqual
-          TokenTypes = 2
-        end>
-      BlockOffset = 1
-      HighlightPos = cpBound
       IgnoreAsParent = False
     end>
   CodeTemplates = <>

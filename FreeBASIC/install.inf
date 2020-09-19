@@ -1,0 +1,7 @@
+[info]
+title=FreeBASIC
+type=lexer
+subdir=-
+
+[lexer1]
+file=FreeBASIC

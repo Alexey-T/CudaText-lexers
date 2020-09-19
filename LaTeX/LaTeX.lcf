@@ -1,4 +1,4 @@
-object SyntAnal19: TLibSyntAnalyzer
+object SyntAnal13: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment directive'
@@ -237,7 +237,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Cmd'
       StyleName = 'Cmd'
       TokenType = 2
-      Expression = '\\[a-z@\*]+'
+      Expression = '\\[a-z@\*_]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -253,7 +253,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\{\}\[\]\(\)\|=\*:\#~%\+\-\^\.,\\/]'
+      Expression = '[\{\}\[\]\(\)\|=\*:\#~%\+\-\^\.,/]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -327,6 +327,14 @@ object SyntAnal19: TLibSyntAnalyzer
       StyleName = 'Id'
       TokenType = 4
       Expression = '\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Escaped char'
+      StyleName = 'Str verbatim'
+      TokenType = 3
+      Expression = '\\.'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -587,14 +595,14 @@ object SyntAnal19: TLibSyntAnalyzer
       StyleName = 'Sublexer BG'
       StartExpression = '\\begin\{luacode\*?\}'
       EndExpression = '\\end\{luacode\*?\}'
-      SyntAnalyzer = SyntAnal22
+      SyntAnalyzer = SyntAnal14
     end
     item
       DisplayName = 'Python'
       StyleName = 'Sublexer BG'
       StartExpression = '\\begin\{py(console|code)\*?\}'
       EndExpression = '\\end\{py(console|code)\*?\}'
-      SyntAnalyzer = SyntAnal31
+      SyntAnalyzer = SyntAnal18
     end>
   SampleText.Strings = (
     '% !TeX program = lualatex'
@@ -786,8 +794,7 @@ object SyntAnal19: TLibSyntAnalyzer
   Extentions = 'tex sty aux toc idx cls'
   LexerName = 'LaTeX'
   Notes.Strings = (
-    'by Alexey (SynWrite)'
-    'with help of sergiokapone (SynWrite forum)')
+    'Alexey (CudaText) with help of sergiokapone (SynWrite forum)')
   LineComment = '%'
   Charset = DEFAULT_CHARSET
 end

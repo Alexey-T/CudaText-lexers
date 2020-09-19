@@ -41,6 +41,7 @@ Keyword null
 Keyword operator
 Keyword outer
 Keyword package
+Keyword permits
 Keyword private
 Keyword protected
 Keyword public
@@ -62,6 +63,7 @@ Keyword var
 Keyword void
 Keyword volatile
 Keyword while
+Keyword yield
 Class AbstractAction
 Class AbstractBorder
 Class AbstractButton
