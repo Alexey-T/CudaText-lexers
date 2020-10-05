@@ -1,4 +1,4 @@
-object SyntAnal11: TLibSyntAnalyzer
+object SyntAnal9: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -85,7 +85,7 @@ object SyntAnal11: TLibSyntAnalyzer
     item
       DisplayName = 'Annotation'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clOlive
+      Font.Color = clGreen
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -152,6 +152,14 @@ object SyntAnal11: TLibSyntAnalyzer
       StyleName = 'Id keyword'
       TokenType = 6
       Expression = '\b(if|else|new)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id modifier'
+      StyleName = 'Id modifier'
+      TokenType = 7
+      Expression = '\bnon-sealed\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -228,10 +236,26 @@ object SyntAnal11: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Symbol <>'
+      StyleName = 'Symbol'
+      TokenType = 11
+      Expression = '[<>]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol [ ]'
+      StyleName = 'Symbol'
+      TokenType = 12
+      Expression = '[\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\[\],;\./\+\-\*:=<>&/\|\^~!\?%]+'
+      Expression = '[,;\./\+\-\*:=&/\|\^~!\?%]+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -280,10 +304,11 @@ object SyntAnal11: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       HighlightPos = cpBound
+      TokenType = 6
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Keywords Java9'
+      DisplayName = 'Keywords new'
       StyleName = 'Id keyword'
       BlockType = btTagDetect
       ConditionList = <
@@ -296,7 +321,6 @@ object SyntAnal11: TLibSyntAnalyzer
             'permits'
             'provides'
             'requires'
-            'to'
             'transitive'
             'uses'
             'with'
@@ -304,6 +328,7 @@ object SyntAnal11: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       HighlightPos = cpAny
+      TokenType = 6
       IgnoreAsParent = False
     end
     item
@@ -335,9 +360,13 @@ object SyntAnal11: TLibSyntAnalyzer
             'char'
             'Date'
             'double'
+            'Double'
             'float'
+            'Float'
             'int'
+            'Integer'
             'long'
+            'Long'
             'short'
             'String'
             'void')
@@ -390,17 +419,13 @@ object SyntAnal11: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 14
-        end
-        item
-          CondType = tcSkip
-          TokenTypes = 4
+          TokenTypes = 6222
         end
         item
           TagList.Strings = (
             'class'
             'interface')
-          TokenTypes = 4
+          TokenTypes = 64
         end>
       BlockEnd = '}'
       EndOfTextClose = True
@@ -409,7 +434,6 @@ object SyntAnal11: TLibSyntAnalyzer
       HighlightPos = cpBound
       CancelNextRules = True
       CollapseFmt = '%s0 %s-1 ...'
-      SelfClose = True
       TreeItemImage = 1
       IgnoreAsParent = False
     end
@@ -423,7 +447,7 @@ object SyntAnal11: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 14
+          TokenTypes = 4110
         end
         item
           TokenTypes = 4
@@ -431,7 +455,7 @@ object SyntAnal11: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'enum')
-          TokenTypes = 4
+          TokenTypes = 64
         end>
       BlockEnd = '}'
       EndOfTextClose = True
@@ -440,7 +464,6 @@ object SyntAnal11: TLibSyntAnalyzer
       HighlightPos = cpAny
       CancelNextRules = True
       CollapseFmt = 'enum %s-1 ...'
-      SelfClose = True
       TreeItemImage = 3
       IgnoreAsParent = False
     end
@@ -454,7 +477,7 @@ object SyntAnal11: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 62
+          TokenTypes = 6270
         end
         item
           TagList.Strings = (
@@ -463,50 +486,7 @@ object SyntAnal11: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 62
-        end
-        item
-          TagList.Strings = (
-            '(')
-          TokenTypes = 512
-        end
-        item
-          CondType = tcSkip
-          TokenTypes = 142
-        end
-        item
-          TokenTypes = 128
-        end>
-      BlockEnd = '}'
-      NameFmt = '%sz0'
-      RefToCondEnd = True
-      HighlightPos = cpAny
-      CancelNextRules = True
-      CollapseFmt = '%sz0'
-      SelfClose = True
-      TreeItemImage = 5
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'func no modifier'
-      ConditionList = <
-        item
-          TagList.Strings = (
-            '{')
-          TokenTypes = 1024
-        end
-        item
-          CondType = tcSkip
-          TokenTypes = 62
-        end
-        item
-          TagList.Strings = (
-            ')')
-          TokenTypes = 512
-        end
-        item
-          CondType = tcSkip
-          TokenTypes = 62
+          TokenTypes = 6206
         end
         item
           TagList.Strings = (
@@ -517,17 +497,15 @@ object SyntAnal11: TLibSyntAnalyzer
           TokenTypes = 4
         end
         item
-          TagList.Strings = (
-            'void')
-          TokenTypes = 4
+          TokenTypes = 2180
         end>
       BlockEnd = '}'
-      NameFmt = '%sz0'
+      EndOfTextClose = True
+      NameFmt = '%sz-1'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
-      CollapseFmt = '%sz0'
-      SelfClose = True
+      CollapseFmt = '%sz-1'
       TreeItemImage = 5
       IgnoreAsParent = False
     end
@@ -544,35 +522,6 @@ object SyntAnal11: TLibSyntAnalyzer
       HighlightPos = cpRange
       DynSelectMin = True
       CollapseFmt = '{ ... }'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment'
-      BlockName = 'Block comment'
-      NotParent = True
-      ConditionList = <
-        item
-          TokenTypes = 2
-        end>
-      BlockEnd = 'Block comment end'
-      DisplayInTree = False
-      HighlightPos = cpBound
-      CollapseFmt = '/* ... */'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment end'
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          CondType = tcNotEqual
-          TokenTypes = 2
-        end
-        item
-          TokenTypes = 2
-        end>
-      BlockOffset = 1
-      HighlightPos = cpBound
       IgnoreAsParent = False
     end>
   CodeTemplates = <>
@@ -591,13 +540,13 @@ object SyntAnal11: TLibSyntAnalyzer
     '}'
     ''
     '@SupressWarnings("serial")'
-    'public class Ruler extends JFrame {'
-    '  void f() {'
+    'non-sealed public class Ruler<T> extends Option<T> {'
+    '  void f1() {'
     '  }'
-    '  public void setModel(TableModel model) {'
+    '  public void f2(TableModel model) {'
     '    super.setModel(model);'
     '  }'
-    '  public static void testTest() {'
+    '  public static T f3() {'
     '  }'
     '}'
     ''
@@ -621,7 +570,9 @@ object SyntAnal11: TLibSyntAnalyzer
     'Modifier'
     'Annot'
     'Symbol ( )'
-    'Symbol { }')
+    'Symbol { }'
+    'Symbol <>'
+    'Symbol [ ]')
   Extentions = 'java jav'
   LexerName = 'Java'
   Notes.Strings = (
