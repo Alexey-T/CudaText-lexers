@@ -1,4 +1,4 @@
-object SyntAnal28: TLibSyntAnalyzer
+object SyntAnal26: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Brackets'
@@ -51,10 +51,10 @@ object SyntAnal28: TLibSyntAnalyzer
     item
       DisplayName = 'Id standard'
       Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clBlue
+      Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = []
+      Font.Style = [fsBold]
     end
     item
       DisplayName = ':Id'
@@ -151,7 +151,9 @@ object SyntAnal28: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '(?r)\w[\w-\?\!]*'
+      Expression = 
+        '(?r)(def\w*|ns)(\x20+[\w\-/\?\!\.\*\+\$\|]+)?|\w[\w\-/\?\!\.\*\+' +
+        '\$\|]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -787,7 +789,7 @@ object SyntAnal28: TLibSyntAnalyzer
   Extentions = 'clj'
   LexerName = 'Clojure'
   Notes.Strings = (
-    'Author: Alexey (SynWrite)'
+    'Alexey (CudaText)'
     'Ref: www.clojure.org'
     '(must-see "test_clojure\predicates.clj")')
   LineComment = ';'
