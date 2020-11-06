@@ -1,4 +1,4 @@
-object SyntAnal29: TLibSyntAnalyzer
+object SyntAnal25: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -101,7 +101,15 @@ object SyntAnal29: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '('#39'|"|`) (\\\1|\\\\|.)*? (\1|$)'
+      Expression = '(?s)('#39'|") (\\\1|\\\\|.)*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Str2'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = '`.+?`'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -109,7 +117,7 @@ object SyntAnal29: TLibSyntAnalyzer
       DisplayName = 'Hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x[0-9a-f]+'
+      Expression = '0x[0-9a-f_]+\b | 0b[01_]+\b | 0o[0-7_]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -118,8 +126,8 @@ object SyntAnal29: TLibSyntAnalyzer
       StyleName = 'Number'
       TokenType = 5
       Expression = 
-        '\d+\.?\d* e [\+\-]? \d+ i? |'#13#10'\d+\.\d* i? |'#13#10'\.\d+ e [\+\-]? \d+' +
-        ' i? |'#13#10'\.\d+ i?'
+        '\d+\.?\d* e [\+\-]? \d+ i?\b |'#13#10'\d+\.\d* i?\b |'#13#10'\.\d+ e [\+\-]?' +
+        ' \d+ i?\b |'#13#10'\.\d+ i?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -127,7 +135,7 @@ object SyntAnal29: TLibSyntAnalyzer
       DisplayName = 'Integer'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+'
+      Expression = '\d[\d_]*\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -151,7 +159,7 @@ object SyntAnal29: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\)\[\],;]'
+      Expression = '[\(\)\[\],;\?]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -171,9 +179,16 @@ object SyntAnal29: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            '__global'
+            'as'
+            'assert'
+            'break'
             'case'
+            'chan'
             'const'
+            'continue'
             'default'
+            'defer'
             'else'
             'enum'
             'fn'
@@ -182,12 +197,17 @@ object SyntAnal29: TLibSyntAnalyzer
             'import'
             'in'
             'interface'
+            'is'
+            'match'
             'module'
             'mut'
+            'or'
             'pub'
             'return'
             'struct'
-            'switch')
+            'switch'
+            'type'
+            'unsafe')
           TokenTypes = 4
         end>
       HighlightPos = cpBound
@@ -200,9 +220,11 @@ object SyntAnal29: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'any'
             'bool'
             'byte'
             'byteptr'
+            'charptr'
             'f32'
             'f64'
             'i128'
@@ -212,6 +234,7 @@ object SyntAnal29: TLibSyntAnalyzer
             'i8'
             'int'
             'rune'
+            'size_t'
             'string'
             'u128'
             'u16'
@@ -225,18 +248,49 @@ object SyntAnal29: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'id const'
+      DisplayName = 'id std'
       StyleName = 'Id const'
       BlockType = btTagDetect
       ConditionList = <
         item
           TagList.Strings = (
+            'exit'
             'false'
             'None'
+            'panic'
+            'print'
+            'print_backtrace'
+            'println'
             'true')
           TokenTypes = 4
         end>
       HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree fn'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 62
+        end
+        item
+          TagList.Strings = (
+            'fn')
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 5
       IgnoreAsParent = False
     end
     item
@@ -265,23 +319,7 @@ object SyntAnal29: TLibSyntAnalyzer
             '}')
           TokenTypes = 64
         end>
-      BlockEnd = '{'
       HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'tree fn'
-      ConditionList = <
-        item
-          TagList.Strings = (
-            'fn')
-          TokenTypes = 4
-        end>
-      NameFmt = '%sz0'
-      RefToCondEnd = True
-      HighlightPos = cpAny
-      NoEndRule = True
-      TreeItemImage = 5
       IgnoreAsParent = False
     end
     item
@@ -294,6 +332,7 @@ object SyntAnal29: TLibSyntAnalyzer
         end>
       NameFmt = '%s-1'
       HighlightPos = cpAny
+      CancelNextRules = True
       NoEndRule = True
       TreeItemImage = 4
       IgnoreAsParent = False
@@ -304,43 +343,14 @@ object SyntAnal29: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'enum'
-            'struct')
+            'struct'
+            'type')
           TokenTypes = 4
         end>
       NameFmt = '%s-1'
       HighlightPos = cpAny
       NoEndRule = True
       TreeItemImage = 3
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment'
-      BlockName = 'Block comment'
-      NotParent = True
-      AlwaysEnabled = True
-      ConditionList = <
-        item
-          TokenTypes = 2
-        end>
-      BlockEnd = 'Block comment end'
-      DisplayInTree = False
-      HighlightPos = cpBound
-      CollapseFmt = '{ ... }'
-      GrammaRuleName = 'comments'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment end'
-      BlockName = 'Block comment'
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          CondType = tcNotEqual
-          TokenTypes = 2
-          IgnoreCase = True
-        end>
-      BlockOffset = 1
-      HighlightPos = cpBound
       IgnoreAsParent = False
     end>
   CodeTemplates = <>
