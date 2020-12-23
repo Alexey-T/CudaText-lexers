@@ -1,4 +1,4 @@
-object SyntAnal29: TLibSyntAnalyzer
+object SyntAnal7: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -78,7 +78,7 @@ object SyntAnal29: TLibSyntAnalyzer
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '--[^\+\*/>\|\^=].*$'
+      Expression = '--+([\x20\t\w"'#39#39'(),;\[\]`{}].*)?$\n?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -128,7 +128,7 @@ object SyntAnal29: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[!\?\#\-\+/\*=<>\(\)\[\]\.\:;@\|\\_`\{\}~,&\$\^%]+'
+      Expression = '[\[\]\(\)\{\}]|[!\?\#\-\+/\*=<>\.\:;@\|\\_`~,&\$\^%]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -310,7 +310,10 @@ object SyntAnal29: TLibSyntAnalyzer
     'Help: https://www.haskell.org/onlinereport/lexemes.html'
     
       'Example: http://www.haskell.org/haskellwiki/Haskell_Tutorial_for' +
-      '_C_Programmers#Downloads')
+      '_C_Programmers#Downloads'
+    
+      'Comment rule: see https://github.com/sublimehq/Packages/pull/267' +
+      '1')
   LineComment = '--'
   Charset = DEFAULT_CHARSET
 end
