@@ -1,4 +1,4 @@
-object SyntAnal34: TLibSyntAnalyzer
+object SyntAnal14: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -25,6 +25,14 @@ object SyntAnal34: TLibSyntAnalyzer
       Font.Style = []
     end
     item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
       DisplayName = 'Id'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
@@ -41,27 +49,43 @@ object SyntAnal34: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'Comment'
+      DisplayName = 'Id type'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
+      Font.Color = clPurple
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsItalic]
+      Font.Style = []
     end
     item
-      DisplayName = 'Func'
+      DisplayName = 'Id func'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMoneyGreen
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
     end>
   TokenRules = <
     item
-      DisplayName = 'Comment 2'
+      DisplayName = 'Comment block'
+      StyleName = 'Comment block'
+      TokenType = 1
+      Expression = '(?s)^\s*%\{\s*$ .*? ^\s*%\}\s*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment ...'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '(?s) ^%\{ .*? ^%\}'
+      Expression = '\.\.\..*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -78,8 +102,16 @@ object SyntAnal34: TLibSyntAnalyzer
       StyleName = 'String'
       TokenType = 4
       Expression = 
-        '#first '#39' must not be after wordchar, ), ]'#13#10'(?<![\w\)\]]) '#39' .*? (' +
-        #39'|$)'
+        '#first '#39' must not be after wordchar, closing bracket, dot'#13#10'(?<![' +
+        '\w\)\]\}\.]) '#39'.*?'#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String2'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\.|.)*?"'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -95,7 +127,15 @@ object SyntAnal34: TLibSyntAnalyzer
       DisplayName = 'Float'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d* \. \d+'
+      Expression = '\d*\.?\d+ e[\+\-]?\d+[ij]?\b |'#13#10'\d*\.\d+[ij]?\b'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0b[01]*\b | 0x\h+([us]\d+)?|\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -103,7 +143,7 @@ object SyntAnal34: TLibSyntAnalyzer
       DisplayName = 'Integer'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+'
+      Expression = '\d+[ij]?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -117,7 +157,7 @@ object SyntAnal34: TLibSyntAnalyzer
     end>
   BlockRules = <
     item
-      DisplayName = 'Keyword'
+      DisplayName = 'Keywords'
       StyleName = 'Id keyword'
       BlockType = btTagDetect
       ConditionList = <
@@ -154,8 +194,23 @@ object SyntAnal34: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Func'
-      StyleName = 'Func'
+      DisplayName = 'Std const'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'false'
+            'true')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Std funcs'
+      StyleName = 'Id func'
       BlockType = btTagDetect
       ConditionList = <
         item
@@ -520,15 +575,50 @@ object SyntAnal34: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'Class'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'classdef')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end'
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 0
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Func'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end'
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = 'begin'
       ConditionList = <
         item
           TagList.Strings = (
-            'classdef'
             'enumeration'
             'events'
             'for'
-            'function'
             'if'
             'methods'
             'parfor'
@@ -561,14 +651,49 @@ object SyntAnal34: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    'x = [1 2 3 4 5 6 7 8 9 10];'
-    'y1 = [.16 .08 .04 .02 .013 .007 ];'
+    '   %{'
+    '   Comment'
+    '   block'
+    '   %}'
+    '% comment'
+    ' 1'
+    ' .1'
+    ' 1.1'
+    ' .1e1'
+    ' 1.1e1'
+    ' 1e1'
+    ' 1i - (4i)'
+    ' 1j'
+    ' 1e2j'
+    ' 0x2A'
+    ' 0X2A'
+    ' 0b101010'
+    ' 0B101010'
+    ' 0x2Au8'
+    ' 0x2As32'
     ''
     'semilogy(x,y1,'#39'-bo;y1;'#39',x,y2,'#39'-kx;y2;'#39');'
     'title('#39'Plot title'#39');'
     'xlabel('#39'X Axis'#39');'
-    'ylabel('#39'Y Axis'#39');'
-    'print -deps graph.eps')
+    'print -deps graph.eps'
+    ''
+    'classdef (Sealed = false) classname < baseclass'
+    '   properties (SetAccess = private, GetAccess = true)'
+    '      PropName'
+    '   end'
+    '   methods'
+    '      methodName'
+    '   end'
+    '   events'
+    '      EventName'
+    '   end'
+    '   enumeration'
+    '      EnumName'
+    '   end'
+    'end'
+    ''
+    'function y = average(x)'
+    'end')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
@@ -578,9 +703,9 @@ object SyntAnal34: TLibSyntAnalyzer
     'Number')
   Extentions = 'm'
   LexerName = 'MATLAB'
+  SkipSpaces = False
   Notes.Strings = (
-    'Alexey (SynWrite)'
-    'Test: http://math.la.asu.edu/~kuang/class/dmfile.htm')
+    'Alexey (CudaText)')
   LineComment = '%'
   Charset = DEFAULT_CHARSET
 end

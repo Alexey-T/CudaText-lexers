@@ -1,14 +1,17 @@
 [comments]
-styles_cmt=Comment
+styles_cmt=Comment,Comment block
 styles_str=String
-str1=%{
-str2=%}
-
+str1=
+str2=
+full1=%{
+full2=%}
 [map]
 Symbol=Symbol
 Number=Number
 String=String
+Comment=Comment
 Id=Id
 Id keyword=IdKeyword
-Comment=Comment
-Func=Id1
+Id type=Id2
+Id func=Id1
+Comment block=Comment2

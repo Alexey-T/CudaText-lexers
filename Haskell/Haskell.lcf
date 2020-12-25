@@ -72,6 +72,14 @@ object SyntAnal7: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Directive'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -121,6 +129,14 @@ object SyntAnal7: TLibSyntAnalyzer
       Expression = 
         '(\d[\d_]*\.)? \d[\d_]* e[\+\-]? [\d_]+\b |'#13#10'\d[\d_]*\.[\d_]* |'#13#10 +
         '\.[\d_]+\b '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Directive'
+      StyleName = 'Directive'
+      TokenType = 6
+      Expression = '^\#\w.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -285,6 +301,7 @@ object SyntAnal7: TLibSyntAnalyzer
     '--this is comment'
     '-->not comment, lexema'
     'foobar --+ a_second_argument'
+    '#if 0'
     ''
     '{-'
     'comment'
@@ -302,7 +319,8 @@ object SyntAnal7: TLibSyntAnalyzer
     'Identifier'
     'Symbol'
     'String'
-    'Number')
+    'Number'
+    'Directive')
   Extentions = 'hs lhs as las'
   LexerName = 'Haskell'
   Notes.Strings = (
