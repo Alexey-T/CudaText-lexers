@@ -1,0 +1,7 @@
+[info]
+title=Snowflake SQL
+type=lexer
+subdir=-
+
+[lexer1]
+file=Snowflake SQL

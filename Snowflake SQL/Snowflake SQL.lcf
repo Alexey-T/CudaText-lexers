@@ -1,0 +1,686 @@
+object SyntAnal28: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id const'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(//|\-\-).*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?\*/'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id keywords'
+      StyleName = 'Id keyword'
+      TokenType = 6
+      Expression = 
+        '\b(alter\x20account|alter\x20api\x20integration|alter\x20column|' +
+        'alter\x20database|alter\x20external\x20function|alter\x20externa' +
+        'l\x20table|alter\x20file\x20format|alter\x20function|alter\x20in' +
+        'tegration|alter\x20masking\x20policy|alter\x20materialized\x20vi' +
+        'ew|alter\x20network\x20policy|alter\x20notification\x20integrati' +
+        'on|alter\x20pipe|alter\x20procedure|alter\x20resource\x20monitor' +
+        '|alter\x20role|alter\x20schema|alter\x20security\x20integration|' +
+        'alter\x20sequence|alter\x20session|alter\x20share|alter\x20stage' +
+        '|alter\x20storage\x20integration|alter\x20stream|alter\x20table|' +
+        'alter\x20task|alter\x20user|alter\x20view|alter\x20warehouse|beg' +
+        'in|call|clone|cluster\x20by|comment|commit|constraint|copy\x20in' +
+        'to|create\x20api\x20integration|create\x20database|create\x20ext' +
+        'ernal\x20function|create\x20external\x20table|create\x20file\x20' +
+        'format|create\x20function|create\x20integration|create\x20manage' +
+        'd\x20account|create\x20masking\x20policy|create\x20materialized\' +
+        'x20view|create\x20network\x20policy|create\x20notification\x20in' +
+        'tegration|create\x20or\x20replace\x20table|create\x20pipe|create' +
+        '\x20procedure|create\x20resource\x20monitor|create\x20role|creat' +
+        'e\x20schema|create\x20security\x20integration|create\x20sequence' +
+        '|create\x20share|create\x20stage|create\x20storage\x20integratio' +
+        'n|create\x20stream|create\x20table|create\x20task|create\x20user' +
+        '|create\x20view|create\x20warehouse|delete|describe\x20external\' +
+        'x20table|describe\x20file\x20format|describe\x20function|describ' +
+        'e\x20integration|describe\x20masking\x20policy|describe\x20mater' +
+        'ialized\x20view|describe\x20network\x20policy|describe\x20pipe|d' +
+        'escribe\x20procedure|describe\x20result|describe\x20sequence|des' +
+        'cribe\x20share|describe\x20stage|describe\x20stream|describe\x20' +
+        'table|describe\x20task|describe\x20user|describe\x20view|drop\x2' +
+        '0database|drop\x20external\x20table|drop\x20file\x20format|drop\' +
+        'x20function|drop\x20integration|drop\x20managed\x20account|drop\' +
+        'x20masking\x20policy|drop\x20materialized\x20view|drop\x20networ' +
+        'k\x20policy|drop\x20pipe|drop\x20procedure|drop\x20resource\x20m' +
+        'onitor|drop\x20role|drop\x20schema|drop\x20sequence|drop\x20shar' +
+        'e|drop\x20stage|drop\x20stream|drop\x20table|drop\x20task|drop\x' +
+        '20user|drop\x20view|drop\x20warehouse|explain|from\x20role|from\' +
+        'x20share|get|grant\x20ownership|grant\x20role|if\x20not\x20exist' +
+        's|insert\x20into|list|merge|put|remove|resume|revoke|revoke|revo' +
+        'ke\x20role|rollback|set|show\x20columns|show\x20databases|show\x' +
+        '20delegated\x20authorizations|show\x20external\x20functions|show' +
+        '\x20external\x20tables|show\x20file\x20formats|show\x20functions' +
+        '|show\x20global\x20accounts|show\x20grants|show\x20integrations|' +
+        'show\x20locks|show\x20managed\x20accounts|show\x20masking\x20pol' +
+        'icies|show\x20materialized\x20views|show\x20network\x20policies|' +
+        'show\x20objects|show\x20parameters|show\x20pipes|show\x20procedu' +
+        'res|show\x20regions|show\x20replication\x20accounts|show\x20repl' +
+        'ication\x20databases|show\x20resource\x20monitors|show\x20roles|' +
+        'show\x20schemas|show\x20sequences|show\x20shares|show\x20stages|' +
+        'show\x20streams|show\x20tables|show\x20tasks|show\x20transaction' +
+        's|show\x20user\x20functions|show\x20users|show\x20variables|show' +
+        '\x20views|show\x20warehouses|suspend|to\x20role|to\x20share|trun' +
+        'cate\x20materialized\x20view|truncate\x20table|undrop\x20databas' +
+        'e|undrop\x20schema|undrop\x20table|unset|update|use\x20database|' +
+        'use\x20role|use\x20schema|use\x20warehouse)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id keywords 2'
+      StyleName = 'Id keyword'
+      TokenType = 6
+      Expression = 
+        '\b(all|and|any|asc|(not\s+)?between|desc|exists|except|(not\s+)?' +
+        'in|intersect|is\s+(not\s+)?distinct\x20from|is\s+(not\s+)?|minus' +
+        '|not|or|union)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id keywords 3'
+      StyleName = 'Id keyword'
+      TokenType = 6
+      Expression = 
+        '\b(as|at|before|case|changes|connect\x20by|cross|else|end|from|f' +
+        'ull|group\x20by|group\x20by\x20cube|group\x20by\x20grouping\x20s' +
+        'ets|group\x20by\x20rollup|having|ilike|ilike\x20any|insert|join|' +
+        'left|like|like\x20all|like\x20any|limit|natural|order\x20by|pivo' +
+        't|qualify|on|outer|rlike|right|sample|select|tablesample|then|un' +
+        'pivot|using|values|when|where|with|top)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id types'
+      StyleName = 'Id type'
+      TokenType = 2
+      Expression = 
+        '\b(array|bigint|binary|boolean|char|character|date|datetime|deci' +
+        'mal|double|double\x20precision|float|float4|float8|geography|int' +
+        '|integer|normal|number|numeric|object|random|randstr|real|seq1|s' +
+        'eq2|seq4|seq8|smallint|string|text|time|timestamp|timestamp_ltz|' +
+        'timestamp_ntz|timestamp_tz|uniform|varbinary|varchar|variant|zip' +
+        'f)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\.?\d*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '\(|\)|\[|\]|\+|\-|\*|\/|\%|=|!=|<>|<=|<|>=|>|;|\.|,|&+|\|+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39') (\\.|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id const'
+      StyleName = 'Id const'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'false'
+            'null'
+            'true')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id funcs'
+      StyleName = 'Id func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'acos'
+            'acosh'
+            'add_months'
+            'any_value'
+            'approx_count_distinct'
+            'approx_percentile'
+            'approx_percentile_accumulate'
+            'approx_percentile_combine'
+            'approx_percentile_estimate'
+            'approx_top_k'
+            'approx_top_k_accumulate'
+            'approx_top_k_combine'
+            'approx_top_k_estimate'
+            'approximate_jaccard_index'
+            'approximate_similarity'
+            'array_agg'
+            'ascii'
+            'asin'
+            'asinh'
+            'atan'
+            'atan2'
+            'atanh'
+            'avg'
+            'base64_decode_binary'
+            'base64_decode_string'
+            'base64_encode'
+            'bit_length'
+            'bitand'
+            'bitand_agg'
+            'bitnot'
+            'bitor'
+            'bitor_agg'
+            'bitshiftleft'
+            'bitshiftright'
+            'bitxor'
+            'bitxor_agg'
+            'booland'
+            'booland_agg'
+            'boolnot'
+            'boolor'
+            'boolor_agg'
+            'boolxor'
+            'boolxor_agg'
+            'case'
+            'cast'
+            'cbrt'
+            'ceil'
+            'char'
+            'charindex'
+            'chr'
+            'coalesce'
+            'collate'
+            'collation'
+            'compress'
+            'concat'
+            'concat_ws'
+            'conditional_change_event'
+            'conditional_true_event'
+            'contains'
+            'convert_timezone'
+            'corr'
+            'cos'
+            'cosh'
+            'cot'
+            'count'
+            'count_if'
+            'covar_pop'
+            'covar_samp'
+            'cume_dist'
+            'current_date'
+            'current_time'
+            'current_timestamp'
+            'date'
+            'date_from_parts'
+            'date_part'
+            'date_trunc'
+            'dateadd'
+            'datediff'
+            'day'
+            'dayname'
+            'dayofmonth'
+            'dayofweek'
+            'dayofweekiso'
+            'dayofyear'
+            'decode'
+            'decompress_binary'
+            'decompress_string'
+            'decrypt'
+            'decrypt_raw'
+            'degrees'
+            'dense_rank'
+            'div0'
+            'editdistance'
+            'encrypt'
+            'encrypt_raw'
+            'endswith'
+            'equal_null'
+            'exp'
+            'extract'
+            'factorial'
+            'first_value'
+            'floor'
+            'get_ddl'
+            'getbit'
+            'greatest'
+            'grouping'
+            'grouping_id'
+            'hash'
+            'hash_agg'
+            'haversine'
+            'hex_decode_binary'
+            'hex_decode_string'
+            'hex_encode'
+            'hll'
+            'hll_accumulate'
+            'hll_combine'
+            'hll_estimate'
+            'hll_export'
+            'hll_import'
+            'hour'
+            'iff'
+            'ifnull'
+            'initcap'
+            'kurtosis'
+            'lag'
+            'last_day'
+            'last_value'
+            'lead'
+            'least'
+            'len'
+            'length'
+            'listagg'
+            'ln'
+            'log'
+            'lower'
+            'lpad'
+            'ltrim'
+            'max'
+            'md5'
+            'md5_binary'
+            'md5_hex'
+            'median'
+            'min'
+            'minhash'
+            'minhash_combine'
+            'minute'
+            'mod'
+            'mode'
+            'month'
+            'monthname'
+            'next_day'
+            'nth_value'
+            'ntile'
+            'nullif'
+            'nullifzero'
+            'nvl'
+            'nvl2'
+            'object_agg'
+            'octet_length'
+            'parse_ip'
+            'parse_url'
+            'percent_rank'
+            'percentile_cont'
+            'percentile_disc'
+            'pi'
+            'position'
+            'pow'
+            'power'
+            'previous_day'
+            'quarter'
+            'radians'
+            'rank'
+            'ratio_to_report'
+            'regexp'
+            'regexp_count'
+            'regexp_instr'
+            'regexp_like'
+            'regexp_replace'
+            'regexp_substr'
+            'regr_avgx'
+            'regr_avgy'
+            'regr_count'
+            'regr_intercept'
+            'regr_r2'
+            'regr_slope'
+            'regr_sxx'
+            'regr_sxy'
+            'regr_syy'
+            'regr_valx'
+            'regr_valy'
+            'repeat'
+            'replace'
+            'reverse'
+            'round'
+            'row_number'
+            'rpad'
+            'rtrim'
+            'rtrimmed_length'
+            'second'
+            'sha1'
+            'sha1_binary'
+            'sha1_hex'
+            'sha2'
+            'sha2_binary'
+            'sha2_hex'
+            'sign'
+            'sin'
+            'sinh'
+            'skew'
+            'soundex'
+            'space'
+            'split'
+            'split_part'
+            'split_to_table'
+            'sqrt'
+            'square'
+            'st_area'
+            'st_asbinary'
+            'st_asewkb'
+            'st_asewkt'
+            'st_asgeojson'
+            'st_astext'
+            'st_aswkb'
+            'st_aswkt'
+            'st_azimuth'
+            'st_centroid'
+            'st_collect'
+            'st_contains'
+            'st_coveredby'
+            'st_covers'
+            'st_dimension'
+            'st_disjoint'
+            'st_distance'
+            'st_dwithin'
+            'st_envelope'
+            'st_geogfromgeohash'
+            'st_geographyfromwkb'
+            'st_geographyfromwkt'
+            'st_geohash'
+            'st_hausdorffdistance'
+            'st_intersects'
+            'st_length'
+            'st_makeline'
+            'st_makepoint'
+            'st_makepolygon'
+            'st_npoints'
+            'st_numpoints'
+            'st_perimeter'
+            'st_point'
+            'st_polygon'
+            'st_simplify'
+            'st_srid'
+            'st_within'
+            'st_x'
+            'st_xmax'
+            'st_xmin'
+            'st_y'
+            'st_ymax'
+            'st_ymin'
+            'startswith'
+            'stddev'
+            'stddev_pop'
+            'stddev_samp'
+            'strtok'
+            'strtok_split_to_table'
+            'substr'
+            'substring'
+            'sum'
+            'tan'
+            'tanh'
+            'time'
+            'time_from_parts'
+            'time_slice'
+            'timeadd'
+            'timediff'
+            'timestamp_from_parts'
+            'timestampadd'
+            'timestampdiff'
+            'to_binary'
+            'to_boolean'
+            'to_char'
+            'to_date'
+            'to_decimal'
+            'to_double'
+            'to_geography'
+            'to_number'
+            'to_numeric'
+            'to_time'
+            'to_timestamp'
+            'to_timestamp_ltz'
+            'to_timestamp_ntz'
+            'to_timestamp_tz'
+            'to_varchar'
+            'to_variant'
+            'translate'
+            'trim'
+            'trunc'
+            'truncate'
+            'try_base64_decode_binary'
+            'try_base64_decode_string'
+            'try_cast'
+            'try_hex_decode_binary'
+            'try_hex_decode_string'
+            'try_to_binary'
+            'try_to_boolean'
+            'try_to_date'
+            'try_to_decimal'
+            'try_to_double'
+            'try_to_geography'
+            'try_to_number'
+            'try_to_numeric'
+            'try_to_time'
+            'try_to_timestamp'
+            'try_to_timestamp_ltz'
+            'try_to_timestamp_ntz'
+            'try_to_timestamp_tz'
+            'unicode'
+            'upper'
+            'uuid_string'
+            'var_pop'
+            'var_samp'
+            'variance'
+            'variance_pop'
+            'variance_samp'
+            'week'
+            'weekiso'
+            'weekofyear'
+            'year'
+            'yearofweek'
+            'yearofweekiso'
+            'zeroifnull')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '/*'
+    'A test script */'
+    '// USE DATABASE "DEV";'
+    ''
+    'CREATE TABLE pkmn.top_fire  -- TODO'
+    'SELECT'
+    '  cast(number AS INT),'
+    '  name,'
+    '  type_1,'
+    '  type_2,'
+    '  "\* \n \"SOMETHING" AS test_1,'
+    '  max(abs(attack)) AS attack,'
+    '  max(abs(defense)) && 2 AS defense,'
+    '  case'
+    '    when (attack + defense) > (special_attack + special_defense)'
+    '    then '#39'physical'#39
+    '    else '#39'special'#39
+    '  end as strategy'
+    ''
+    'FROM'
+    '  pkmn.stats'
+    'WHERE'
+    '  type_1 = '#39'fire'#39
+    '  OR type_2 <> '#39'water'#39
+    '  and mega = TRUE'
+    '  and gen is not null'
+    '  or number not in (150, 300, 450)'
+    'GROUP BY'
+    '  number,'
+    '  name,'
+    '  type_1,'
+    '  type_2'
+    'HAVING'
+    '  attack between -200.0 AND 100.10;'
+    ''
+    'SELECT'
+    'TOP 4'
+    'FROM'
+    '  "DEV"."ZENDESK"."TICKETS"'
+    'WHERE'
+    '  datepartition BETWEEN '#39'2020-09-01'#39' AND current_date()'
+    'ORDER BY'
+    '  ticket_id DESC;'
+    ''
+    'ALTER TASK "DEV"."ZENDESK"."TICKETS" SUSPEND;'
+    ''
+    
+      'create or replace table monthly_sales(empid int, amount int, mon' +
+      'th text)'
+    '    as select * from values'
+    '    (2, 800, '#39'APR'#39'),'
+    '    (2, 4500, '#39'APR'#39');'
+    ''
+    'select'
+    '  empid as emp_id,'
+    '  case'
+    '    when month = '#39'JAN'#39' then '#39'january'#39' else month'
+    '  end,'
+    '  "'#39'JAN'#39'" as january,'
+    '  "'#39'FEB'#39'" as february,'
+    '  "'#39'MAR'#39'" as march,'
+    '  "'#39'APR'#39'" as april'
+    'from monthly_sales'
+    
+      '  pivot(bitshiftleft(amount) for month in ('#39'JAN'#39', '#39'FEB'#39', '#39'MAR'#39', ' +
+      #39'APR'#39')) as p'
+    'order by empid desc;'
+    ''
+    'SELECT *'
+    'FROM my.table as t'
+    'LEFT JOIN my.other as o ON t.id = o.id'
+    ''
+    ''
+    'create table collation_demo ('
+    '  uncollated_phrase varchar,'
+    '  utf8_phrase varchar collate '#39'utf8'#39
+    '  );'
+    ''
+    
+      'insert into collation_demo (uncollated_phrase, utf8_phrase, engl' +
+      'ish_phrase, spanish_phrase) '
+    '   values ('#39'pinata'#39', '#39'pinata'#39', '#39'pinata'#39', '#39'pi'#241'ata'#39');')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Keyword')
+  Extentions = 'snowql'
+  LexerName = 'Snowflake SQL'
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Based on https://github.com/okeeffdp/snowflake-sublime-text')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end
