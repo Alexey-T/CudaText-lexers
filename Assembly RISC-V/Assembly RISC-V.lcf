@@ -1,0 +1,280 @@
+object SyntAnal24: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Directive'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Func name'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id command'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(\#|//).*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 1'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Directive'
+      StyleName = 'Directive'
+      TokenType = 7
+      Expression = '\.[a-z]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Func name'
+      StyleName = 'Func name'
+      TokenType = 9
+      Expression = '^<.+?>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = 
+        '<<|>>|&&|\|\||<\=|>\=|\=\=|<|>|\!\=|\+|\-|\*|/|%|&|\||\^|~|!|\?|' +
+        ':|\(|\{|\[|\)|\}|\]|,|\.|;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      TokenType = 8
+      Expression = '^[\x20\x09]*\w+:'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x\h+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\.?\d*L?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Cmd'
+      StyleName = 'Id command'
+      TokenType = 2
+      Expression = 
+        '\b(add|addi|addiw|addw|amoadd\.d|amoadd\.w|amoand\.d|amoand\.w|a' +
+        'momax\.d|amomax\.w|amomaxu\.d|amomaxu\.w|amomin\.d|amomin\.w|amo' +
+        'minu\.d|amominu\.w|amoor\.d|amoor\.w|amoswap\.d|amoswap\.w|amoxo' +
+        'r\.d|amoxor\.w|and|andi|andn|auipc|bdep|beq|bext|bfp|bge|bgeu|bg' +
+        'ez|beqz|blt|bltu|bne|bnez|ret|call|snez|j|c\.add|c\.addi|c\.addi' +
+        '16sp|c\.addi4spn|c\.addiw|c\.addw|c\.and|c\.andi|c\.beqz|c\.bnez' +
+        '|c\.ebreak|c\.fld|c\.fldsp|c\.flw|c\.flwsp|c\.fsd|c\.fsdsp|c\.fs' +
+        'w|c\.fswsp|c\.j|c\.jal|c\.jalr|c\.jr|c\.ld|c\.ldsp|c\.li|c\.lui|' +
+        'c\.lw|c\.lwsp|c\.mv|c\.nop|c\.or|c\.sd|c\.sdsp|c\.slli|c\.srai|c' +
+        '\.srli|c\.sub|c\.subw|c\.sw|c\.swsp|c\.xor|clmul|clmulh|clmulr|c' +
+        'lz|cmix|cmov|crc32\.b|crc32\.h|crc32\.w|crc32c\.b|crc32c\.h|crc3' +
+        '2c\.w|csrrc|csrrci|csrrs|csrrsi|csrrw|csrr|csrw|csrrwi|ctz|div|d' +
+        'ivu|divuw|divw|dret|ebreak|ecall|fadd\.d|fadd\.q|fadd\.s|fclass\' +
+        '.d|fclass\.q|fclass\.s|fcvt\.d\.l|fcvt\.d\.lu|fcvt\.d\.q|fcvt\.d' +
+        '\.s|fcvt\.d\.w|fcvt\.d\.wu|fcvt\.l\.d|fcvt\.l\.q|fcvt\.l\.s|fcvt' +
+        '\.lu\.d|fcvt\.lu\.q|fcvt\.lu\.s|fcvt\.q\.d|fcvt\.q\.l|fcvt\.q\.l' +
+        'u|fcvt\.q\.s|fcvt\.q\.w|fcvt\.q\.wu|fcvt\.s\.d|fcvt\.s\.l|fcvt\.' +
+        's\.lu|fcvt\.s\.q|fcvt\.s\.w|fcvt\.s\.wu|fcvt\.w\.d|fcvt\.w\.q|fc' +
+        'vt\.w\.s|fcvt\.wu\.d|fcvt\.wu\.q|fcvt\.wu\.s|fdiv\.d|fdiv\.q|fdi' +
+        'v\.s|fence|fence\.i|fence\.tso|feq\.d|feq\.q|feq\.s|fld|fle\.d|f' +
+        'le\.q|fle\.s|flq|flt\.d|flt\.q|flt\.s|flw|fmadd\.d|fmadd\.q|fmad' +
+        'd\.s|fmax\.d|fmax\.q|fmax\.s|fmin\.d|fmin\.q|fmin\.s|fmsub\.d|fm' +
+        'sub\.q|fmsub\.s|fmul\.d|fmul\.q|fmul\.s|fmv\.d\.x|fmv\.q\.x|fmv\' +
+        '.s\.x|fmv\.w\.x|fmv\.x\.d|fmv\.x\.q|fmv\.x\.s|fmv\.x\.w|fnmadd\.' +
+        'd|fnmadd\.q|fnmadd\.s|fnmsub\.d|fnmsub\.q|fnmsub\.s|frcsr|frflag' +
+        's|frrm|fscsr|fsd|fsflags|fsflagsi|fsgnj\.d|fsgnj\.q|fsgnj\.s|fsg' +
+        'njn\.d|fsgnjn\.q|fsgnjn\.s|fsgnjx\.d|fsgnjx\.q|fsgnjx\.s|fsl|fsq' +
+        '|fsqrt\.d|fsqrt\.q|fsqrt\.s|fsr|fsri|fsrm|fsrmi|fsub\.d|fsub\.q|' +
+        'fsub\.s|fsw|gorc|gorci|grev|grevi|hfence\.bvma|hfence\.gvma|jal|' +
+        'jalr|li|la|neg|lb|lbu|ld|lh|lhu|lr\.d|lr\.w|lui|lw|lwu|max|maxu|' +
+        'min|minu|mret|mul|mulh|mulhsu|mulhu|mulw|mv|or|ori|orn|pack|pack' +
+        'h|packu|pcnt|rdcycle|rdcycleh|rdinstret|rdinstreth|rdtime|rdtime' +
+        'h|rem|remu|remuw|remw|rol|ror|rori|sb|sbclr|sbclri|sbext|sbexti|' +
+        'sbinv|sbinvi|sbreak|sbset|sbseti|sc\.d|sc\.w|scall|sd|sext\.b|se' +
+        'xt\.h|sfence\.vma|sh|sh1add|sh2add|sh3add|shfl|shfli|sll|slli|sl' +
+        'li\.rv32|slliw|sllw|slo|sloi|slt|slti|sltiu|sltu|sra|srai|srai\.' +
+        'rv32|sraiw|sraw|sret|srl|srli|srli\.rv32|srliw|srlw|sro|sroi|sub' +
+        '|subw|sw|unshfl|unshfli|uret|wfi|xnor|xor|xori)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Types'
+      StyleName = 'Id types'
+      TokenType = 2
+      Expression = 
+        '\b(ra|[sgtf]p)\b|'#13#10'\b([xf][0-9]|[xf][012][0-9]|[xf]3[012]|ra|[sg' +
+        'tf]p|t[0-6]|f?s[0-9]|f?s1[01]|ft[0-7])\b |'#13#10'\b(f?a[0-7])\b |'#13#10'\b' +
+        'zero\b |'#13#10'\b(mhartid|misa)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39') (\\.|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Label'
+      ConditionList = <
+        item
+          TokenTypes = 768
+        end>
+      NameFmt = '%s0'
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '.section .text'
+    '.global delay_counter'
+    ''
+    '.equ F_CPU,         320000000L'
+    '.equ CYCLES_PER_MS, (F_CPU / (1000 * 2))'
+    ''
+    '# Arguments:'
+    'delay_counter:'
+    '    addi sp, sp, -16    # Allocate stack frame'
+    '    sw ra, 12(sp)'
+    ''
+    '1:  beqz t0, exit'
+    '    addi t0, t0, -1'
+    '    j wait_ms  '
+    ''
+    '.data'
+    'helloworld:      .ascii "Hello World!\n"')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Register'
+    'Directive'
+    'Label'
+    'FuncName')
+  Extentions = 's S asm'
+  LexerName = 'Assembly RISC-V'
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

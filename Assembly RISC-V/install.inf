@@ -1,0 +1,7 @@
+[info]
+title=Assembly RISC-V
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly RISC-V

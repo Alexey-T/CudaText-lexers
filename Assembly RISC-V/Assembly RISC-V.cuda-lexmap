@@ -1,0 +1,18 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Symbol=Symbol
+Comment=Comment
+Number=Number
+String=String
+Id=Id
+Directive=Id3
+Label=Label
+Func name=Id4
+Id keyword=IdKeyword
+Id command=Id1
+Id types=Id2
