@@ -1,0 +1,7 @@
+[info]
+title=Assembly STM32
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly STM32
