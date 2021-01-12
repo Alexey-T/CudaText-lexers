@@ -1,4 +1,4 @@
-object SyntAnal34: TLibSyntAnalyzer
+object SyntAnal24: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -65,32 +65,38 @@ object SyntAnal34: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Current block'
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clMaroon
+      DisplayName = 'Sys'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      BgColor = 13369046
-      FormatType = ftColor
-      BorderTypeLeft = blSolid
-      BorderColorLeft = clGray
-      BorderTypeTop = blSolid
-      BorderColorTop = clGray
-      BorderTypeRight = blSolid
-      BorderColorRight = clGray
-      BorderTypeBottom = blSolid
-      BorderColorBottom = clGray
+      Font.Style = []
     end
     item
-      DisplayName = 'Sys'
+      DisplayName = 'Id modifier'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Id non-std type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
+    item
+      DisplayName = 'Id non-std type'
+      StyleName = 'Id non-std type'
+      TokenType = 2
+      Expression = '(?-i)[A-Z]\w*[a-z]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
     item
       DisplayName = 'Id'
       StyleName = 'Identifier'
@@ -164,6 +170,14 @@ object SyntAnal34: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
@@ -175,7 +189,7 @@ object SyntAnal34: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\{\}\(\)\[\],;:]'
+      Expression = '[\(\)\[\],;:]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -187,7 +201,6 @@ object SyntAnal34: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
-            'abstract'
             'break'
             'callback'
             'case'
@@ -197,11 +210,9 @@ object SyntAnal34: TLibSyntAnalyzer
             'continue'
             'default'
             'do'
-            'dynamic'
             'else'
             'enum'
             'extends'
-            'extern'
             'false'
             'for'
             'function'
@@ -210,15 +221,11 @@ object SyntAnal34: TLibSyntAnalyzer
             'implements'
             'import'
             'in'
-            'inline'
             'interface'
             'never'
             'new'
             'null'
-            'override'
             'package'
-            'private'
-            'public'
             'return'
             'static'
             'super'
@@ -292,13 +299,33 @@ object SyntAnal34: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'modifiers'
+      StyleName = 'Id modifier'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abstract'
+            'dynamic'
+            'extern'
+            'inline'
+            'override'
+            'private'
+            'public'
+            'static')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = 'class'
       StrictParent = True
       ConditionList = <
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 256
         end
         item
           CondType = tcSkip
@@ -341,49 +368,16 @@ object SyntAnal34: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Block comment'
-      BlockName = 'Block comment'
-      NotParent = True
-      AlwaysEnabled = True
-      ConditionList = <
-        item
-          TokenTypes = 2
-        end>
-      BlockEnd = 'Block comment end'
-      DisplayInTree = False
-      HighlightPos = cpBound
-      CollapseFmt = '/* ... */'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment end'
-      BlockName = 'Block comment'
-      StrictParent = True
-      AlwaysEnabled = True
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          CondType = tcNotEqual
-          TokenTypes = 2
-        end>
-      BlockOffset = 1
-      HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
       DisplayName = '{'
-      StyleName = 'Current block'
       ConditionList = <
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 256
         end>
       BlockEnd = '}'
       DisplayInTree = False
-      DynHighlight = dhBound
       HighlightPos = cpRange
-      DynSelectMin = True
       DrawStaple = True
       CollapseFmt = '{ ... %ez0'
       IgnoreAsParent = False
@@ -397,7 +391,7 @@ object SyntAnal34: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '}')
-          TokenTypes = 8
+          TokenTypes = 256
         end>
       HighlightPos = cpBound
       IgnoreAsParent = False
@@ -425,12 +419,13 @@ object SyntAnal34: TLibSyntAnalyzer
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
-    'Identifier'
+    'Id'
     'Symbol'
     'String'
     'Number'
     'Preprocessor'
-    'Sys')
+    'Sys'
+    'Symbol {}')
   Extentions = 'hx'
   LexerName = 'Haxe'
   Notes.Strings = (

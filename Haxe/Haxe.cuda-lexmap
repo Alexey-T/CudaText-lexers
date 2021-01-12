@@ -1,3 +1,9 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String
+
 [map]
 Symbol=Symbol
 Number=Number
@@ -6,12 +12,7 @@ Identifier=Id
 Id keyword=IdKeyword
 Id type=Id2
 Comment=Comment
-Preprocessor=Id3
-Current block=BracketBG
-Sys=Id4
-
-[comments]
-str1=/*
-str2=*/
-styles_cmt=Comment
-styles_str=String
+Preprocessor=Id4
+Sys=Label
+Id modifier=Id3
+Id non-std type=Id1

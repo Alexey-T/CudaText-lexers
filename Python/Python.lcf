@@ -1,4 +1,4 @@
-object SyntAnal16: TLibSyntAnalyzer
+object SyntAnal17: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -87,6 +87,14 @@ object SyntAnal16: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Decorator'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 51200
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -148,6 +156,14 @@ object SyntAnal16: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = '^Id='
+      StyleName = 'Id'
+      TokenType = 15
+      Expression = '(?r)(?<!:\x20*)[a-z_]\w*(?=\x20*=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id func name'
       StyleName = 'Id func name'
       TokenType = 13
@@ -168,14 +184,6 @@ object SyntAnal16: TLibSyntAnalyzer
       StyleName = 'Id'
       TokenType = 2
       Expression = '(?r)[a-z_]\w*'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = '^Attrib'
-      StyleName = 'Symbol'
-      TokenType = 8
-      Expression = '@'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -241,7 +249,7 @@ object SyntAnal16: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\*,\.;=<>\+\-\^@!%\\\|~&]+'
+      Expression = '[/\*,\.;=<>\+\-\^!%\\\|~&]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -250,6 +258,14 @@ object SyntAnal16: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 9
       Expression = ':'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Decorator'
+      StyleName = 'Decorator'
+      TokenType = 16
+      Expression = '(?r)@\w[\w\.]*'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -500,37 +516,6 @@ object SyntAnal16: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Block comment'
-      BlockName = 'Block comment'
-      NotParent = True
-      AlwaysEnabled = True
-      ConditionList = <
-        item
-          TokenTypes = 8192
-        end>
-      BlockEnd = 'Block comment end'
-      EndOfTextClose = True
-      DisplayInTree = False
-      HighlightPos = cpBound
-      CollapseFmt = '{ ... }'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment end'
-      BlockName = 'Block comment'
-      StrictParent = True
-      AlwaysEnabled = True
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          CondType = tcNotEqual
-          TokenTypes = 8192
-        end>
-      BlockOffset = 1
-      HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
       DisplayName = 'block for tree'
       ConditionList = <
         item
@@ -538,7 +523,7 @@ object SyntAnal16: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 26622
+          TokenTypes = 59390
         end
         item
           TokenTypes = 2048
@@ -561,7 +546,7 @@ object SyntAnal16: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 26622
+          TokenTypes = 59390
         end
         item
           TokenTypes = 2048
@@ -584,7 +569,7 @@ object SyntAnal16: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 26622
+          TokenTypes = 59390
         end
         item
           TokenTypes = 1024
@@ -644,7 +629,7 @@ object SyntAnal16: TLibSyntAnalyzer
     '        return await response.read()'
     ''
     'class MyName(object):      '
-    '  @staticmethod'
+    '  @Decor.name('#39'test'#39')'
     '  def func1(num):'
     '    pass'
     '   '
@@ -664,7 +649,9 @@ object SyntAnal16: TLibSyntAnalyzer
     '^Id tree'
     'Ending :'
     'Id func name'
-    'Id after .')
+    'Id after .'
+    '^Id='
+    '^@Id')
   Extentions = 'py pyw rpy cpy sconstruct pyi'
   LexerName = 'Python'
   Notes.Strings = (
