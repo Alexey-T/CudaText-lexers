@@ -1,0 +1,7 @@
+[info]
+title=Maya
+type=lexer
+subdir=-
+
+[lexer1]
+file=Maya

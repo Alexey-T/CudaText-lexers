@@ -14,5 +14,5 @@ Comment=Comment
 Comment doc=CommentDoc
 Id type=Id2
 Id const=Id1
-Id modifier=Id4
-Annotation=Id3
+Id modifier=Id3
+Annotation=TagId

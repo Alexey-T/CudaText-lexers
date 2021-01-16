@@ -1,4 +1,4 @@
-object SyntAnal14: TLibSyntAnalyzer
+object SyntAnal26: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -127,7 +127,7 @@ object SyntAnal14: TLibSyntAnalyzer
       DisplayName = 'Float'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d*\.?\d+ e[\+\-]?\d+[ij]?\b |'#13#10'\d*\.\d+[ij]?\b'#13#10
+      Expression = '\d*\.?\d+ e[\+\-]?\d+[ij]?\b |'#13#10'\d+\.\d*[ij]? |'#13#10'\d*\.\d+[ij]?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -151,7 +151,7 @@ object SyntAnal14: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\\/\*,\.;:\(\)=<>\+\-\[\]\{\}'#39'"~!\?@\$\^&\|]'
+      Expression = '\.\?|==|[\\/\*,\.;:\(\)=<>\+\-\[\]\{\}'#39'"~!\?@\$\^&\|]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -163,6 +163,7 @@ object SyntAnal14: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'arguments'
             'break'
             'case'
             'catch'
@@ -224,6 +225,7 @@ object SyntAnal14: TLibSyntAnalyzer
             'add_param'
             'all'
             'and'
+            'ans'
             'any'
             'asin'
             'asinh'
@@ -554,6 +556,8 @@ object SyntAnal14: TLibSyntAnalyzer
             'unix'
             'uplus'
             'upper'
+            'varargin'
+            'varargout'
             'version'
             'vertcat'
             'vms'
@@ -607,6 +611,7 @@ object SyntAnal14: TLibSyntAnalyzer
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       TreeItemImage = 5
       IgnoreAsParent = False
@@ -616,6 +621,7 @@ object SyntAnal14: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'arguments'
             'enumeration'
             'events'
             'for'

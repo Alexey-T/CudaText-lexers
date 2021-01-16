@@ -1,0 +1,19 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Comment=Comment
+String=String
+Number=Number
+Symbol=Symbol
+Id=Id
+Id keyword=IdKeyword
+Id std=Id2
+Param=Id1
+Var=IdVar
+String2=String2
+Subst BG=IncludeBG1
+Preprocessor=Id4
