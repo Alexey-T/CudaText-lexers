@@ -1,7 +1,0 @@
-[info]
-title=NFO files
-type=lexer
-subdir=-
-
-[lexer1]
-file=NFO files
