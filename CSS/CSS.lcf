@@ -63,7 +63,7 @@ object SyntAnal6: TLibSyntAnalyzer
     item
       DisplayName = 'Color'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clOlive
+      Font.Color = clLime
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
@@ -869,6 +869,17 @@ object SyntAnal6: TLibSyntAnalyzer
             'screen'
             'scroll'
             'scroll-behavior'
+            'scroll-padding'
+            'scroll-padding-block'
+            'scroll-padding-block-end'
+            'scroll-padding-block-start'
+            'scroll-padding-bottom'
+            'scroll-padding-inline'
+            'scroll-padding-inline-end'
+            'scroll-padding-inline-start'
+            'scroll-padding-left'
+            'scroll-padding-right'
+            'scroll-padding-top'
             'scroll-position'
             'scroll-snap-coordinate'
             'scroll-snap-destination'
@@ -1783,6 +1794,7 @@ object SyntAnal6: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'activetext'
             'AliceBlue'
             'AntiqueWhite'
             'Aqua'
@@ -1796,13 +1808,19 @@ object SyntAnal6: TLibSyntAnalyzer
             'BlueViolet'
             'Brown'
             'BurlyWood'
+            'buttonborder'
+            'buttonface'
+            'buttontext'
             'CadetBlue'
+            'canvas'
+            'canvastext'
             'Chartreuse'
             'Chocolate'
             'Coral'
             'CornflowerBlue'
             'Cornsilk'
             'Crimson'
+            'currentcolor'
             'Cyan'
             'DarkBlue'
             'DarkCyan'
@@ -1828,6 +1846,8 @@ object SyntAnal6: TLibSyntAnalyzer
             'DimGray'
             'DimGrey'
             'DodgerBlue'
+            'field'
+            'fieldtext'
             'FireBrick'
             'FloralWhite'
             'ForestGreen'
@@ -1837,9 +1857,12 @@ object SyntAnal6: TLibSyntAnalyzer
             'Gold'
             'GoldenRod'
             'Gray'
+            'graytext'
             'Green'
             'GreenYellow'
             'Grey'
+            'highlight'
+            'highlighttext'
             'HoneyDew'
             'HotPink'
             'IndianRed'
@@ -1868,7 +1891,10 @@ object SyntAnal6: TLibSyntAnalyzer
             'Lime'
             'LimeGreen'
             'Linen'
+            'linktext'
             'Magenta'
+            'mark'
+            'marktext'
             'Maroon'
             'MediumAquaMarine'
             'MediumBlue'
@@ -1927,6 +1953,7 @@ object SyntAnal6: TLibSyntAnalyzer
             'Transparent'
             'Turquoise'
             'Violet'
+            'visitedtext'
             'Wheat'
             'White'
             'WhiteSmoke'
@@ -1977,6 +2004,30 @@ object SyntAnal6: TLibSyntAnalyzer
           TokenTypes = 1024
         end>
       HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{ @media'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 1
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 1164
+        end
+        item
+          TokenTypes = 32
+        end>
+      BlockEnd = '}'
+      NameFmt = '%s0~[{]1'
+      GroupFmt = '\Media'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = '%sz0'
       IgnoreAsParent = False
     end
     item
@@ -2104,7 +2155,7 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'PHP'
       StartExpression = '<\?(php)?'
       EndExpression = '\?>'
-      SyntAnalyzer = SyntAnal14
+      SyntAnalyzer = SyntAnal15
     end>
   SampleText.Strings = (
     '/* Comment */'
