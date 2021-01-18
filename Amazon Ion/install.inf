@@ -1,0 +1,7 @@
+[info]
+title=Amazon Ion
+type=lexer
+subdir=-
+
+[lexer1]
+file=Amazon Ion
