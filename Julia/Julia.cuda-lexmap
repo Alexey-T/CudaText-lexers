@@ -1,3 +1,9 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+str1=#=
+str2==#
+
 [map]
 Symbol=Symbol
 Number=Number
@@ -5,9 +11,7 @@ String=String
 Comment=Comment
 Id=Id
 Id keyword=IdKeyword
-Id type=Id1
-@Id=Id2
-
-[comments]
-styles_cmt=Comment
-styles_str=String
+Id const=Id2
+Id class=Id1
+@Id=TagId
+String2=String2
