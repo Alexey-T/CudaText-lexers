@@ -1,4 +1,4 @@
-object SyntAnal14: TLibSyntAnalyzer
+object SyntAnal25: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -112,6 +112,14 @@ object SyntAnal14: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Code'
+      StyleName = 'Code'
+      TokenType = 5
+      Expression = '^(\x20{1,}|\x09{1,}) .+$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'List'
       StyleName = 'List'
       TokenType = 4
@@ -138,14 +146,6 @@ object SyntAnal14: TLibSyntAnalyzer
       DisplayName = 'Italic'
       StyleName = 'Italic'
       Expression = #39#39' .+? '#39#39
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Code'
-      StyleName = 'Code'
-      TokenType = 5
-      Expression = '^(\x20{1,}|\x09{1,}) .+$'
       ColumnFrom = 0
       ColumnTo = 0
     end
