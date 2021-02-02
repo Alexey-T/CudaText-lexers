@@ -1,4 +1,4 @@
-object SyntAnal15: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Id'
@@ -125,7 +125,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Variable'
       StyleName = 'Variable'
       TokenType = 6
-      Expression = '\$\w+::\w+ |'#13#10'[\$\#%@]+\w+'#13#10
+      Expression = '\$\w+::\w+ | \$\^\w+ |'#13#10'[\$\#%@]+\w+ | <DATA> | \$[!@"]'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -138,18 +138,122 @@ object SyntAnal15: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String Regex subst'
+      DisplayName = 'Regex s{}{}'
       StyleName = 'String regex'
-      TokenType = 4
-      Expression = '\bs/ (\\/|.)*? / (\\/|.)*? / ([msixpodualngcer]+\b)?'
+      TokenType = 12
+      Expression = '(?s)\bs\{.*?\}\{.*?\} ([imosxge]+\b)?'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'String Regex'
+      DisplayName = 'Regex s[][]'
       StyleName = 'String regex'
-      TokenType = 4
-      Expression = '/ (\\/|.)+? / ([msixpodualngcer]+\b)?'
+      TokenType = 12
+      Expression = '(?s)\bs\[.*?\]\[.*?\] ([imosxge]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex s()()'
+      StyleName = 'String regex'
+      TokenType = 12
+      Expression = '(?s)\bs\(.*?\)\(.*?\) ([imosxge]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex s///'
+      StyleName = 'String regex'
+      TokenType = 12
+      Expression = '(?s)\bs/ (\\/|.)*? / (\\/|.)*? / ([imosxge]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex m{}'
+      StyleName = 'String regex'
+      TokenType = 12
+      Expression = '(?s)\bm\{.*?\} ([msixpodualngcer]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex m[]'
+      StyleName = 'String regex'
+      TokenType = 12
+      Expression = '(?s)\bm\[.*?\] ([msixpodualngcer]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex m()'
+      StyleName = 'String regex'
+      TokenType = 12
+      Expression = '(?s)\bm\(.*?\) ([msixpodualngcer]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex m//'
+      StyleName = 'String regex'
+      TokenType = 12
+      Expression = '(?s)\bm/ (\\/|.)+? / ([msixpodualngcer]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex ( //'
+      StyleName = 'String regex'
+      TokenType = 12
+      Expression = '(?s)(?<=\(\s*)/ (\\/|.)*? / ([msixpodualngcer]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex =~ //'
+      StyleName = 'String regex'
+      TokenType = 12
+      Expression = '(?s)(?<=[=!]~\s*)/ (\\/|.)*? / ([msixpodualngcer]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tr ///'
+      StyleName = 'String regex'
+      TokenType = 12
+      Expression = '(?s)\btr/ (\\/|.)*? / (\\/|.)*? / ([cds]+\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String q()'
+      StyleName = 'String q'
+      TokenType = 8
+      Expression = '(?s)\b(qw|qq|qr|q)\s*\(.*?\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String q[]'
+      StyleName = 'String q'
+      TokenType = 8
+      Expression = '(?s)\b(qw|qq|qr|q)\s*\[.*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String q{}'
+      StyleName = 'String q'
+      TokenType = 8
+      Expression = '(?s)\b(qw|qq|qr|q)\s*\{.*?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String q//'
+      StyleName = 'String q'
+      TokenType = 8
+      Expression = '(?s)\b(qw|qq|qr|q)\s*/.*?/'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -157,7 +261,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Data block'
       StyleName = 'Data block'
       TokenType = 7
-      Expression = '(?S)(__DATA__|__END__)\b.*\Z'
+      Expression = '(?S)^(__DATA__|__END__)$.*\Z'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -170,18 +274,10 @@ object SyntAnal15: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String q/qq/qw'
-      StyleName = 'String q'
-      TokenType = 8
-      Expression = '(?<=\bq[qw])\(.*?\) | (?<=\bq)\(.*?\)'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'String "'
+      DisplayName = 'String " mulline'
       StyleName = 'String'
       TokenType = 4
-      Expression = '"(\\\\|\\"|.)*?("|$)'
+      Expression = '(?s)"(\\.|.)*?("|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -189,7 +285,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'String '#39
       StyleName = 'String 2'
       TokenType = 9
-      Expression = #39'(\\'#39'|.)*?('#39'|$)'#13#10
+      Expression = #39'(\\.|.)*?('#39'|$)'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -210,10 +306,28 @@ object SyntAnal15: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Decimal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '\d[\d_]*(\.[\d_]+)? e[\+\-]?[\d_]+\b |'#13#10'\.[\d_]+ e[\+\-]?[\d_]+\' +
+        'b |'#13#10'\d*[\d_]*\.[\d_]+\b |'#13#10'\d[\d_]*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 13
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\)\[\]\{\}]'
+      Expression = '[\(\)\[\]\\]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -221,23 +335,15 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\*,\.;:=<>\+\-\?!@&%\|~]+'
+      Expression = '\$\{| %\{| [/\*,\.;:=<>\+\-\?!@&%\|~]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Float'
+      DisplayName = 'Hex/binary'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+ \.? \d+ e [\+\-]? \d+ |'#13#10'\d+ \. \d+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Integer'
-      StyleName = 'Number'
-      TokenType = 5
-      Expression = '\d+'
+      Expression = '0x[\h_]+ (\.[\h_]+)? (p[\-\+][\h_]+)?\b |'#13#10'0b[01_]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -369,7 +475,6 @@ object SyntAnal15: TLibSyntAnalyzer
             'log'
             'lstat'
             'LT'
-            'm'
             'map'
             'mkdir'
             'msgctl'
@@ -421,7 +526,6 @@ object SyntAnal15: TLibSyntAnalyzer
             'rewinddir'
             'rindex'
             'rmdir'
-            's'
             'scalar'
             'seek'
             'seekdir'
@@ -550,7 +654,7 @@ object SyntAnal15: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 8192
         end>
       BlockEnd = '}'
       DisplayInTree = False
@@ -566,7 +670,7 @@ object SyntAnal15: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '}')
-          TokenTypes = 8
+          TokenTypes = 8192
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
@@ -578,18 +682,15 @@ object SyntAnal15: TLibSyntAnalyzer
     'require "cgi-lib.pl";   '
     'use sigtrap;'
     'do '#39'envars.pl'#39';'
-    ''
     '=begin name'
     'dd'
     '=end name'
-    ''
-    '$r ~= /ab/ ; $re = /text/i; #Usual regex'
-    '$sLine =~ s/x/y/; #Subst regex'
-    '$sLine =~ s/x\/y/y\*z/g; #Subst too'
-    ''
-    '20+20.30'
-    '$MyVar or $MyLib::MyVar'
-    'or @MyArray=`tick string` or $#MyArray or %MyHash'
+    '$lang =~ /^(Objective-C|MATLAB|Mathematica)$/i'
+    '$s =~ s/x/y/; #Subst regex'
+    '$s =~ s/x\/y/y\*z/g; #Subst too'
+    '1_230+1.2e+3 + 0x1.99p-4 + 0xdeadbeef + 0b01_00 + .20e-2'
+    '$MyVar or $MyLib::MyVar '
+    'or @MyArray=`string` or $#MyArray or %MyHash'
     ''
     'sub outer {'
     '   my $inner = sub {'
@@ -604,14 +705,11 @@ object SyntAnal15: TLibSyntAnalyzer
     ''
     'sub WriteBack() {'
     '        while ($_ ne "fred")    {'
-    '                sleep 5;'
     '        }'
     '}'
     ''
     'sub Some {'
-    '  print "Test";'
     '  while (test) {'
-    '    print "TT";'
     '  }  '
     '}'
     '__END__'
@@ -628,12 +726,14 @@ object SyntAnal15: TLibSyntAnalyzer
     'String q'
     'String 2'
     'Cmt shebang'
-    'String heredoc')
+    'String heredoc'
+    'String regex'
+    'Symbol {}')
   Extentions = 'pl pc pm pmc pod t'
   LexerName = 'Perl'
   Notes.Strings = (
-    'Based on lexer from EControl'
-    'Reworked by Alexey (CudaText)')
+    'Alexey (CudaText)')
+  RestartFromLineStart = True
   LineComment = '#'
   Charset = DEFAULT_CHARSET
 end
