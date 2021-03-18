@@ -1,0 +1,7 @@
+[info]
+title=DOORS DXL
+type=lexer
+subdir=-
+
+[lexer1]
+file=DOORS DXL
