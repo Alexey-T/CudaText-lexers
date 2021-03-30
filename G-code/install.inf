@@ -1,0 +1,7 @@
+[info]
+title=G-code
+type=lexer-lite
+subdir=-
+
+[lexer1]
+file=G-code

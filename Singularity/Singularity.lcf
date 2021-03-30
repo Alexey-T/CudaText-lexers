@@ -1,4 +1,4 @@
-object SyntAnal34: TLibSyntAnalyzer
+object SyntAnal25: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -24,16 +24,6 @@ object SyntAnal34: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
-    end
-    item
-      DisplayName = 'Marked block'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-      BgColor = clHighlight
-      FormatType = ftColor
     end>
   TokenRules = <
     item
@@ -44,25 +34,18 @@ object SyntAnal34: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Id.Header'
+      DisplayName = '^Header'
       StyleName = 'Id.Header'
       TokenType = 1
-      Expression = '^[\x20\x09]*\w+:'
+      Expression = '(?<=^[\x20\x09]*)\w+:'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Section'
+      DisplayName = '^Section'
       StyleName = 'Id.Section'
       TokenType = 2
       Expression = '^%\w+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = '1st Item'
-      TokenType = 3
-      Expression = '^[\x20\x09]*.+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -102,15 +85,12 @@ object SyntAnal34: TLibSyntAnalyzer
       BlockName = 'Section'
       StartExpression = '^[\x20\x09]+'
       EndExpression = '^%\w+\b'
-      SyntAnalyzer = SyntAnal4
+      SyntAnalyzer = SyntAnal2
     end>
   SampleText.Strings = (
     '# SYNTAX TEST "Singularity.sublime-syntax"'
     'Bootstrap: library'
-    '# <- source.singularity'
-    '    # <- keyword.control'
     'From: ubuntu:18.04'
-    'Stage: build'
     ''
     '%setup'
     '    touch /file1'
@@ -152,21 +132,18 @@ object SyntAnal34: TLibSyntAnalyzer
     '    Version v0.0.1'
     ''
     '%help      '
-    
-      '    This is a demo container used to illustrate a def file that ' +
-      'uses all'
-    '    supported sections.')
+    '    This is a demo container')
   TokenTypeNames.Strings = (
     'Comment'
-    'Id.Header'
-    '1st Section'
-    '1st Item')
+    '^Header'
+    '^Section')
   Extentions = '/singularity'
   LexerName = 'Singularity'
   SkipSpaces = False
   FullRefreshSize = 2000
   Notes.Strings = (
-    'By Oleh Lutsak, https://github.com/OlehL')
+    'By Oleh Lutsak, https://github.com/OlehL'
+    'Fixes by Alexey (CudaText)')
   ParseEndOfLine = True
   LineComment = '#'
   Charset = DEFAULT_CHARSET

@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal34: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -74,31 +74,31 @@ object SyntAnal23: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = '1st Tree item'
+      DisplayName = '^Tree item'
       StyleName = 'Id keyword def'
       TokenType = 11
       Expression = 
-        '^[\x20\x09]*(fun|new|class|actor|primitive|trait|interface|type|' +
-        'struct|be)\b'
+        '(?<=^[\x20\x09]*)(fun|new|class|actor|primitive|trait|interface|' +
+        'type|struct|be)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Keyword'
+      DisplayName = '^Keyword'
       StyleName = 'Id keyword'
       TokenType = 10
       Expression = 
-        '^[\x20\x09]*(use|var|let|new|be|if|ifdef|try|match|for|while|rep' +
-        'eat|else|end|consume|break|continue|until|with|object|embed|erro' +
-        'r|recover)\b'
+        '(?<=^[\x20\x09]*)(use|var|let|new|be|if|ifdef|try|match|for|whil' +
+        'e|repeat|else|end|consume|break|continue|until|with|object|embed' +
+        '|error|recover)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Id'
+      DisplayName = '^Id'
       StyleName = 'Id'
       TokenType = 9
-      Expression = '^[\x20\x09]*[a-z_]\w*'
+      Expression = '(?<=^[\x20\x09]*)[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -416,9 +416,9 @@ object SyntAnal23: TLibSyntAnalyzer
     'Number float'
     'Number hex'
     'String char'
-    '1st word'
-    '1st keyword'
-    '1st word tree')
+    '^word'
+    '^keyword'
+    '^word tree')
   Extentions = 'pony'
   LexerName = 'Pony'
   SkipSpaces = False

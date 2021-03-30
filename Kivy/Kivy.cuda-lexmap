@@ -8,7 +8,8 @@ Id keyword=IdKeyword
 Id node=Id1
 Id node class=Id2
 Id spec=Id4
-
 [comments]
 styles_cmt=Comment
 styles_str=String
+str1=
+str2=

@@ -1,4 +1,4 @@
-object SyntAnal11: TLibSyntAnalyzer
+object SyntAnal38: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Id'
@@ -76,17 +76,17 @@ object SyntAnal11: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = 'Id 1st'
+      DisplayName = '^Id'
       StyleName = 'Id'
-      Expression = '^[\x20\x09]* \w+'
+      Expression = '(?<=^[\x20\x09]*) \w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '#Id 1st'
+      DisplayName = '^#Id'
       StyleName = '#Id'
       TokenType = 1
-      Expression = '^[\x20\x09]* \#\w+'
+      Expression = '(?<=^[\x20\x09]*) \#\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -382,8 +382,8 @@ object SyntAnal11: TLibSyntAnalyzer
     '        Jade is a terse and simple'
     '        templating language')
   TokenTypeNames.Strings = (
-    '1st id'
-    '1st #id'
+    '^id'
+    '^#id'
     'Id'
     'String'
     'Number'
@@ -396,7 +396,7 @@ object SyntAnal11: TLibSyntAnalyzer
   LexerName = 'Jade'
   SkipSpaces = False
   Notes.Strings = (
-    'Author: Alex (SynWrite)'
+    'Alexey (CudaText)'
     'Ref: http://jade-lang.com/')
   LineComment = '//'
   Charset = DEFAULT_CHARSET

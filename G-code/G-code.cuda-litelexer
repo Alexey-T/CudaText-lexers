@@ -1,0 +1,70 @@
+{
+  "about": "G-code lexer by Alexey Torgashin",
+  "files": "*.eia;*.nc;*.ngc;*.prg;*.mpf;*.gcode",
+  "cmt_line": ";",
+  "cmt_block_1": "(",
+  "cmt_block_2": ")",
+  "case_sens": true,
+  "rules": {
+    "cmt1": {
+      "regex": "\\(.*?\\)",
+      "style": "CommentDoc"
+    },
+    "cmt2": {
+      "regex": ";.*",
+      "style": "Comment"
+    },
+    "num": {
+      "regex": "\\-?\\d[\\d\\.]*",
+      "style": "Number"
+    },
+    "symbol": {
+      "regex": "[%\\[\\]\\+\\-:=,]",
+      "style": "Symbol"
+    },
+    "keyw": {
+      "regex": "\\b(IF|THEN|AND|OR|WHILE|GOTO)\\b",
+      "style": "IdKeyword"
+    },
+    "operators": {
+      "regex": "\\b(GT|LT|GE|LE|EQ)\\b",
+      "style": "Symbol2"
+    },
+    "func": {
+      "regex": "\\b(ABS|ACOS|ASIN|ATAN|COS|LN|EXP|FIX|FUP|MOD|ROUND|SQRT|SIN|TAN)\\b",
+      "style": "Id1"
+    },
+    "m": {
+      "regex": "[MT](?=[\\d\\-\\.])",
+      "style": "Id2"
+    },
+    "id": {
+      "regex": "[GP](?=[\\d\\-\\.])",
+      "style": "Id3"
+    },
+    "pos": {
+      "regex": "[XYZABCR](?=[\\d\\-\\.])",
+      "style": "Id4"
+    },
+    "markup": {
+      "regex": "\\b[IJK]",
+      "style": "TagId"
+    },
+    "goto": {
+      "regex": "\\b(GOTO|DO)",
+      "style": "Label"
+    },
+    "var": {
+      "regex": "\\#\\d+",
+      "style": "IdVar"
+    },
+    "var_param": {
+      "regex": "\\b[FS]",
+      "style": "TagProp"
+    },
+    "other": {
+      "regex": "\\w",
+      "style": "Id"
+    }
+  }
+}

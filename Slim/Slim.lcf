@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal31: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -92,7 +92,7 @@ object SyntAnal24: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = '1Tag'
+      DisplayName = '^Tag'
       StyleName = 'Tag'
       TokenType = 6
       Expression = '(?<=^[\x20\x09]*) (</?)? \w+ >?'
@@ -100,7 +100,7 @@ object SyntAnal24: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = '1TagProp'
+      DisplayName = '^TagProp'
       StyleName = 'TagProp'
       TokenType = 7
       Expression = '(?<=^[\x20\x09]*) [\#\.] \w+'
@@ -133,12 +133,12 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '^[\x20\x09]* / .*'
+      Expression = '(?<=^[\x20\x09]*) / .*'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1Symb'
+      DisplayName = '^Symbol'
       StyleName = 'Symbol'
       TokenType = 8
       Expression = '^[\x20\x09]* [\:\.,;\-\+/\*\(\)\{\}\[\]<>=%!\#\|\?~\\@]'
@@ -153,7 +153,7 @@ object SyntAnal24: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Symb'
+      DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
       Expression = '[\:\.,;\-\+/\*\(\)\{\}\[\]<>=%!\#\|\?~\\@]'

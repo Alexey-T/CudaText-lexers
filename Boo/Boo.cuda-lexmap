@@ -6,7 +6,8 @@ Comment=Comment
 Identifier=Id
 Id keyword=IdKeyword
 Id function=Id1
-
 [comments]
 styles_cmt=Comment
 styles_str=String
+str1=
+str2=

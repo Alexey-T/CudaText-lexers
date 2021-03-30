@@ -1,4 +1,4 @@
-object SyntAnal18: TLibSyntAnalyzer
+object SyntAnal36: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -74,59 +74,59 @@ object SyntAnal18: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = '1st Tree <item>'
+      DisplayName = '^Tree <item>'
       StyleName = 'Id node class'
       TokenType = 11
-      Expression = '^[\x20\x09]* (<.+?>| \[.+?\]) :?\x20* $'
+      Expression = '(?<=^[\x20\x09]*) (<.+?>| \[.+?\]) :?\x20* $'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Tree item'
+      DisplayName = '^Tree item'
       StyleName = 'Id node'
       TokenType = 11
-      Expression = '^[\x20\x09]* \w[\w\.]*: \x20* $'
+      Expression = '(?<=^[\x20\x09]*) \w[\w\.]*: \x20* $'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Number'
+      DisplayName = '^Number'
       StyleName = 'Number'
       TokenType = 9
-      Expression = '^[\x20\x09]* \d+(\.\d+)?'
+      Expression = '(?<=^[\x20\x09]*) \d+(\.\d+)?'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st String'
+      DisplayName = '^String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s) ^[\x20\x09]* [rbu] ("""|'#39#39#39') .*? (\1|\Z)'
+      Expression = '(?s)(?<=^[\x20\x09]*) [rbu] ("""|'#39#39#39') .*? (\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Id'
+      DisplayName = '^Id'
       StyleName = 'Id'
       TokenType = 9
-      Expression = '^[\x20\x09]*\w+'
+      Expression = '(?<=^[\x20\x09]*)\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Attrib'
+      DisplayName = '^Attrib'
       StyleName = 'Symbol'
       TokenType = 9
-      Expression = '^[\x20\x09]*@'
+      Expression = '(?<=^[\x20\x09]*)@'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '1st Comment'
+      DisplayName = '^Comment'
       Enabled = False
       StyleName = 'Comment'
       TokenType = 13
-      Expression = '^[\x20\x09]* \#.*'
+      Expression = '(?<=^[\x20\x09]*) \#.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -356,16 +356,16 @@ object SyntAnal18: TLibSyntAnalyzer
     'Number2'
     'Number3'
     'String2'
-    '1st word'
-    '1st keyword'
-    '1st word tree'
+    '^word'
+    '^keyword'
+    '^word tree'
     'Symbol :'
-    '1st comment')
+    '^comment')
   Extentions = 'kv'
   LexerName = 'Kivy'
   SkipSpaces = False
   Notes.Strings = (
-    'Alexey (Synwrite)')
+    'Alexey (CudaText)')
   LineComment = '#'
   Charset = DEFAULT_CHARSET
 end

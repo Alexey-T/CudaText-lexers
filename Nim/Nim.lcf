@@ -1,4 +1,4 @@
-object SyntAnal37: TLibSyntAnalyzer
+object SyntAnal35: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -66,49 +66,49 @@ object SyntAnal37: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = 'Word1stTreeItem'
+      DisplayName = '^TreeItem'
       StyleName = 'Id keyword'
       TokenType = 11
-      Expression = '^[\x20\x09]*(block|template|proc|func)\b'
+      Expression = '(?<=^[\x20\x09]*)(block|template|proc|func)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Word1stKeyword'
+      DisplayName = '^Keyword'
       StyleName = 'Id keyword'
       TokenType = 10
       Expression = 
-        '^[\x20\x09]*(of|if|else|elif|for|while|try|except|finally|switch' +
-        '|case|with|block|var)\b'
+        '(?<=^[\x20\x09]*)(of|if|else|elif|for|while|try|except|finally|s' +
+        'witch|case|with|block|var)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Word1stInteger'
+      DisplayName = '^Integer'
       StyleName = 'Number'
       TokenType = 9
-      Expression = '^[\x20\x09]* \d+(\.\d+)?'
+      Expression = '(?<=^[\x20\x09]*) \d+(\.\d+)?'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Word1stId'
+      DisplayName = '^Id'
       StyleName = 'Id'
       TokenType = 9
-      Expression = '^[\x20\x09]*\w+'
+      Expression = '(?<=^[\x20\x09]*)\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Word1stAttrib'
+      DisplayName = '^Attrib'
       StyleName = 'Symbol'
       TokenType = 9
-      Expression = '^[\x20\x09]*@'
+      Expression = '(?<=^[\x20\x09]*)@'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Word1stCommentMLine'
+      DisplayName = 'CommentMLine'
       StyleName = 'Comment'
       TokenType = 13
       Expression = '(?s)\#\[ (\#\[.*?\]\#|.)*? \]\#'
@@ -116,10 +116,10 @@ object SyntAnal37: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Word1stComment'
+      DisplayName = '^Comment'
       StyleName = 'Comment'
       TokenType = 13
-      Expression = '^[\x20\x09]* \#.*'
+      Expression = '(?<=^[\x20\x09]*) \#.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -473,11 +473,11 @@ object SyntAnal37: TLibSyntAnalyzer
     'Float const'
     'Hex const'
     'Char const'
-    '1st word'
-    '1st keyword'
-    '1st word tree'
+    '^word'
+    '^keyword'
+    '^word tree'
     'Symbol :'
-    '1st comment')
+    '^comment')
   Extentions = 'nim'
   LexerName = 'Nim'
   SkipSpaces = False
