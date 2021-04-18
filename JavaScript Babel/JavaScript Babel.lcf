@@ -1,4 +1,4 @@
-object SyntAnal17: TLibSyntAnalyzer
+object SyntAnal40: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -35,7 +35,7 @@ object SyntAnal17: TLibSyntAnalyzer
     item
       DisplayName = 'String alt'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
+      Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -65,35 +65,17 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Bracket bg'
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clMaroon
+      DisplayName = 'Tag bracket'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 8404992
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
-      BgColor = 13369046
-      FormatType = ftBackGround
-      BorderTypeLeft = blSolid
-      BorderColorLeft = clGray
-      BorderTypeTop = blSolid
-      BorderColorTop = clGray
-      BorderTypeRight = blSolid
-      BorderColorRight = clGray
-      BorderTypeBottom = blSolid
-      BorderColorBottom = clGray
-    end
-    item
-      DisplayName = 'Tag bracket'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
     end
     item
       DisplayName = 'Tag name'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -115,6 +97,14 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = []
       BorderTypeBottom = blWavyLine
       BorderColorBottom = clRed
+    end
+    item
+      DisplayName = 'Entity'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -189,16 +179,6 @@ object SyntAnal17: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Tag param bad ='
-      StyleName = 'Tag param bad'
-      StatesPresent = 2
-      StatesAbsent = 8
-      TokenType = 7
-      Expression = '[=/]\s* [\w\-\$]+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Tag param'
       StyleName = 'Tag param'
       StatesPresent = 2
@@ -220,7 +200,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x[\da-f]*'
+      Expression = '0x[\da-f]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -278,6 +258,14 @@ object SyntAnal17: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Entity'
+      StyleName = 'Entity'
+      TokenType = 9
+      Expression = '&\w+\x20*;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Single symbol'
       StyleName = 'Symbol'
       TokenType = 3
@@ -289,7 +277,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\+\-\*:=<>&/\|\^\$~!%]+'
+      Expression = '/=?|=>|[\+\-\*:=&\|\^\$~!%]+|<|>'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -402,39 +390,7 @@ object SyntAnal17: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'for/if'
-      Enabled = False
-      ConditionList = <
-        item
-          TagList.Strings = (
-            ')')
-          TokenTypes = 8
-        end
-        item
-          CondType = tcSkip
-        end
-        item
-          TagList.Strings = (
-            '(')
-          TokenTypes = 8
-        end
-        item
-          TagList.Strings = (
-            'for'
-            'if')
-          TokenTypes = 4
-        end>
-      NotCollapsed = True
-      DisplayInTree = False
-      NameFmt = '%sz0'
-      RefToCondEnd = True
-      HighlightPos = cpAny
-      NoEndRule = True
-      IgnoreAsParent = False
-    end
-    item
       DisplayName = '{'
-      StyleName = 'Bracket bg'
       ConditionList = <
         item
           TagList.Strings = (
@@ -444,8 +400,7 @@ object SyntAnal17: TLibSyntAnalyzer
       BlockEnd = '}'
       DisplayInTree = False
       NameFmt = '{ ... }'
-      DynHighlight = dhBound
-      HighlightPos = cpRange
+      HighlightPos = cpAny
       DrawStaple = True
       CollapseFmt = '{ ... }'
       IgnoreAsParent = False
@@ -556,13 +511,11 @@ object SyntAnal17: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    ''
     '  render() {'
     '    var {email} = this.state;'
     '    return ('
     '      <div {...this.props}>'
-    '        <input'
-    '          value={email}'
+    '        <input value={email}'
     '          required />'
     '      </div>'
     '    );'
@@ -656,11 +609,12 @@ object SyntAnal17: TLibSyntAnalyzer
     'Number'
     'TagBracket'
     'TagParam'
-    'TagName')
+    'TagName'
+    'Entity')
   Extentions = 'jsx babel es6'
   LexerName = 'JavaScript Babel'
   Notes.Strings = (
-    'Alexey (Synwrite)'
+    'Alexey (CudaText)'
     ''
     'Uses parser-states (to hilite tag attribs):'
     ' 1: set by "<", reset by ">"'
