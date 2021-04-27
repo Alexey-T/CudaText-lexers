@@ -259,7 +259,7 @@ object SyntAnal2: TLibSyntAnalyzer
       DisplayName = 'Id after wordchar'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '(?<=\w[\x20\x09\n\r]+)\w+'
+      Expression = '(?<=\w[\x20\x09]+)\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
