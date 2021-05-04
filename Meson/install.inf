@@ -1,0 +1,7 @@
+[info]
+title=Meson
+type=lexer
+subdir=-
+
+[lexer1]
+file=Meson
