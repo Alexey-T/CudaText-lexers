@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [comments]
 str1=
 str2=
@@ -15,21 +14,3 @@ Symbol2=Symbol2
 <Id>=Id2
 Func=Label
 $(Var)=Id4
-=======
-[comments]
-str1=
-str2=
-styles_cmt=Comment
-styles_str=String
-[map]
-Comment=Comment
-Keywords=IdKeyword
-Id=Id
-String=String
-Symbol=Symbol
-Number=Number
-Symbol2=Symbol2
-<Id>=Id2
-Func=Label
-$(Var)=Id4
->>>>>>> 365bc49aeb82c74197c95e30788a802e83f01c15
