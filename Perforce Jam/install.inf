@@ -1,0 +1,7 @@
+[info]
+title=Perforce Jam
+type=lexer
+subdir=-
+
+[lexer1]
+file=Perforce Jam
