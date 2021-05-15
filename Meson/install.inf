@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [info]
 title=Meson
 type=lexer
@@ -5,3 +6,12 @@ subdir=-
 
 [lexer1]
 file=Meson
+=======
+[info]
+title=Meson
+type=lexer
+subdir=-
+
+[lexer1]
+file=Meson
+>>>>>>> 365bc49aeb82c74197c95e30788a802e83f01c15
