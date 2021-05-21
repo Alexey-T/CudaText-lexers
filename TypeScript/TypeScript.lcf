@@ -1,4 +1,4 @@
-object SyntAnal20: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -233,7 +233,6 @@ object SyntAnal20: TLibSyntAnalyzer
             'constructor'
             'continue'
             'debugger'
-            'declare'
             'default'
             'delete'
             'do'
@@ -326,6 +325,8 @@ object SyntAnal20: TLibSyntAnalyzer
             'abstract'
             'asserts'
             'const'
+            'declare'
+            'override'
             'private'
             'protected'
             'public'

@@ -95,7 +95,7 @@ object SyntAnal5: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = 'L?"(\\"|\\\\|\\\n|.)*?("|$)'
+      Expression = '(u8|L|u|U)?"(\\.|.)*?("s?|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -103,7 +103,9 @@ object SyntAnal5: TLibSyntAnalyzer
       DisplayName = 'String raw'
       StyleName = 'String'
       TokenType = 4
-      Expression = 'R"\( .+? \)" |'#13#10'R"(.+?)\( .+? \)\1"'
+      Expression = 
+        '(?s)(u8R|LR|uR|UR|R)"\( .+? \)"s? |'#13#10'(?s)(u8R|LR|uR|UR|R)"(.+?)\' +
+        '( .+? \)\1"s?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -140,10 +142,26 @@ object SyntAnal5: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(u8|L|u|U)?'#39'.*?('#39'|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = '~Id'
       StyleName = 'Id'
       TokenType = 15
-      Expression = '(?<=^\s*)~[a-z_]\w*'
+      Expression = '(?<=^\s*) ~[a-z_]\w* (?=\x20*\()'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '~Id with ::'
+      StyleName = 'Id'
+      TokenType = 16
+      Expression = '(?<=::) ~[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -264,14 +282,6 @@ object SyntAnal5: TLibSyntAnalyzer
       Expression = 
         '\[\[| \]\]| \.\.\.| [\[\],\.:\\\?] |<=> |'#13#10'[\-\+<>\|\&]{2}=? | \' +
         '#{1,2}|'#13#10'[\+\-\*/&\|\^!<>=~%]=?'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Char'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = #39'.*?('#39'|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -468,21 +478,12 @@ object SyntAnal5: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
-            '{')
-          TokenTypes = 264
-        end
-        item
-          CondType = tcSkip
-          TokenTypes = 70
-        end
-        item
-          TagList.Strings = (
             ')')
           TokenTypes = 1024
         end
         item
           CondType = tcSkip
-          TokenTypes = 574
+          TokenTypes = 622
         end
         item
           TagList.Strings = (
@@ -490,7 +491,13 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 1024
         end
         item
-          TokenTypes = 4
+          TokenTypes = 65540
+        end
+        item
+          TokenTypes = 512
+        end
+        item
+          TokenTypes = 65540
         end
         item
           TokenTypes = 512
@@ -499,18 +506,50 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 4
         end
         item
-          TokenTypes = 512
-        end
-        item
-          TokenTypes = 4
+          TagList.Strings = (
+            '-'
+            '^'
+            '^^'
+            ','
+            ';'
+            ':'
+            '::'
+            '!='
+            '?'
+            '.'
+            '('
+            ')'
+            '['
+            ']'
+            '{'
+            '}'
+            '&'
+            '&&'
+            '<'
+            '<<'
+            '<='
+            '='
+            '=='
+            '>'
+            '->'
+            '>='
+            '>>'
+            '|'
+            '||'
+            'else'
+            'new'
+            'return')
+          CondType = tcNotEqual
+          TokenTypes = 14216
         end>
-      BlockEnd = '}'
-      NameFmt = '%s-4'
-      GroupFmt = '%s0\%s-2'
+      BlockOffset = -1
+      NameFmt = '%s-5'
+      GroupFmt = '%s-1\%s-3'
       RefToCondEnd = True
       HighlightPos = cpAny
-      CancelNextRules = True
       CollapseFmt = '%sz0'
+      SelfClose = True
+      NoEndRule = True
       TreeItemImage = 6
       TreeGroupImage = 1
       IgnoreAsParent = False
@@ -520,21 +559,12 @@ object SyntAnal5: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
-            '{')
-          TokenTypes = 264
-        end
-        item
-          CondType = tcSkip
-          TokenTypes = 2246
-        end
-        item
-          TagList.Strings = (
             ')')
           TokenTypes = 1024
         end
         item
           CondType = tcSkip
-          TokenTypes = 2622
+          TokenTypes = 2670
         end
         item
           TagList.Strings = (
@@ -542,21 +572,59 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 1024
         end
         item
-          TokenTypes = 4
+          TokenTypes = 65540
         end
         item
           TokenTypes = 512
         end
         item
           TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '-'
+            '^'
+            '^^'
+            ','
+            ';'
+            ':'
+            '::'
+            '!='
+            '?'
+            '.'
+            '('
+            ')'
+            '['
+            ']'
+            '{'
+            '}'
+            '&'
+            '&&'
+            '<'
+            '<<'
+            '<='
+            '='
+            '=='
+            '>'
+            '->'
+            '>='
+            '>>'
+            '|'
+            '||'
+            'else'
+            'new'
+            'return')
+          CondType = tcNotEqual
+          TokenTypes = 14216
         end>
-      BlockEnd = '}'
-      NameFmt = '%s-2'
-      GroupFmt = '%s0'
+      BlockOffset = -1
+      NameFmt = '%s-3'
+      GroupFmt = '%s-1'
       RefToCondEnd = True
       HighlightPos = cpBound
-      CancelNextRules = True
       CollapseFmt = '%sz0'
+      SelfClose = True
+      NoEndRule = True
       TreeItemImage = 6
       TreeGroupImage = 1
       IgnoreAsParent = False
@@ -567,11 +635,11 @@ object SyntAnal5: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 256
+          TokenTypes = 264
         end
         item
           CondType = tcSkip
-          TokenTypes = 6734
+          TokenTypes = 6862
         end
         item
           TagList.Strings = (
@@ -596,25 +664,48 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           TagList.Strings = (
+            '-'
+            '^'
+            '^^'
             ','
+            ';'
             ':'
+            '::'
+            '!='
+            '?'
             '.'
             '('
+            ')'
+            '['
+            ']'
+            '{'
             '}'
+            '&'
+            '&&'
             '<'
+            '<<'
+            '<='
             '='
             '=='
-            '>')
+            '>'
+            '->'
+            '>='
+            '>>'
+            '|'
+            '||'
+            'else'
+            'new'
+            'return')
           CondType = tcNotEqual
-          TokenTypes = 9480
+          TokenTypes = 14216
         end>
       BlockOffset = -1
-      BlockEnd = '}'
-      NameFmt = '%s-1~[{]1'
+      NameFmt = '%s-1'
       RefToCondEnd = True
       HighlightPos = cpBound
-      CancelNextRules = True
-      CollapseFmt = '%s-1~[{]1 ...'
+      CollapseFmt = '%sz-1'
+      SelfClose = True
+      NoEndRule = True
       TreeItemImage = 5
       IgnoreAsParent = False
     end
@@ -636,38 +727,12 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 128
         end>
       BlockEnd = '}'
-      NameFmt = '%s0~[{]1'
+      NameFmt = '%s-1~[{]1'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
       CollapseFmt = '%sz0'
-      TreeItemImage = 3
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'namespace'
-      ConditionList = <
-        item
-          TagList.Strings = (
-            '{')
-          TokenTypes = 256
-        end
-        item
-          CondType = tcSkip
-          TokenTypes = 6
-        end
-        item
-          TagList.Strings = (
-            'namespace')
-          TokenTypes = 128
-        end>
-      BlockEnd = '}'
-      NameFmt = '%s0~[{]1'
-      RefToCondEnd = True
-      HighlightPos = cpAny
-      CancelNextRules = True
-      CollapseFmt = '%sz0'
-      TreeItemImage = 0
+      TreeItemImage = 4
       IgnoreAsParent = False
     end
     item
@@ -675,24 +740,14 @@ object SyntAnal5: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
-            '{')
-          TokenTypes = 256
-        end
-        item
-          CondType = tcSkip
-          TokenTypes = 7182
-        end
-        item
-          TagList.Strings = (
             'operator')
           TokenTypes = 128
         end>
-      BlockEnd = '}'
-      NameFmt = '%sz0'
+      NameFmt = '%s0 %s-1'
       RefToCondEnd = True
       HighlightPos = cpAny
-      CancelNextRules = True
       CollapseFmt = '%sz0'
+      NoEndRule = True
       TreeItemImage = 7
       IgnoreAsParent = False
     end
@@ -709,7 +764,7 @@ object SyntAnal5: TLibSyntAnalyzer
       HighlightPos = cpAny
       DynSelectMin = True
       DrawStaple = True
-      CollapseFmt = '{ ... %ez0'
+      CollapseFmt = '{ ... }'
       IgnoreAsParent = False
       AutoCloseText = '}'
     end
@@ -787,19 +842,21 @@ object SyntAnal5: TLibSyntAnalyzer
     '}'
     ''
     'struct Books {'
-    '   int   book_id;'
+    '  int book_id;'
     '};'
     ''
     'typedef struct Name1'
     '{'
-    #9'int flags;'
+    '  int flags;'
     '} Struct1;'
     ''
     'template <name T>'
     'struct somedata<IReader>{'
     '  IReader* val;'
     '  int val2;'
-    '};')
+    '};'
+    ''
+    'operator >=(v1, v2) {}')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
@@ -816,18 +873,12 @@ object SyntAnal5: TLibSyntAnalyzer
     'Symbol ->'
     'Symbol ;'
     'Goto label'
-    'Id after ~')
+    'Id after ~'
+    'Id after ::~')
   Extentions = 'cpp cxx h hh hpp hxx inl cc cp c++ h++ inl ipp'
   LexerName = 'C++'
   Notes.Strings = (
-    'Reworked C++ lexer by Alexey (CudaText)'
-    'Notes:'
-    
-      '- rules "block comments" are disabled, they mess with func rules' +
-      ' a little'
-    
-      '- many token types "symbol ..." is for rules: so rules can skip ' +
-      'most symbols but not all (; -> {} etc)')
+    'Alexey (CudaText)')
   LineComment = '//'
   Charset = DEFAULT_CHARSET
 end
