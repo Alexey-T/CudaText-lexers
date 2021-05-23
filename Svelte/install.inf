@@ -1,0 +1,9 @@
+[info]
+title=Svelte
+type=lexer
+subdir=-
+
+[lexer1]
+file=Svelte
+link1=CSS
+link2=JavaScript
