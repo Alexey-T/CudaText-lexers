@@ -7,3 +7,6 @@ subdir=-
 file=Svelte
 link1=CSS
 link2=JavaScript
+link3=SCSS
+link4=LESS
+link5=TypeScript

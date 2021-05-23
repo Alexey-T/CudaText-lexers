@@ -1,4 +1,4 @@
-object SyntAnal20: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Tag symbol'
@@ -742,8 +742,7 @@ object SyntAnal20: TLibSyntAnalyzer
     item
       DisplayName = 'CSS'
       StyleName = 'Sublexer BG'
-      AlwaysEnabled = True
-      StartExpression = '<style>'
+      StartExpression = '<style(\x20lang=['#39'"]javascript['#39'"])?>'
       EndExpression = '</style>'
       SyntAnalyzer = SyntAnal6
     end
@@ -753,8 +752,41 @@ object SyntAnal20: TLibSyntAnalyzer
       StartExpression = '<script>'
       EndExpression = '</script>'
       SyntAnalyzer = SyntAnal9
+    end
+    item
+      DisplayName = 'SCSS'
+      StyleName = 'Sublexer BG'
+      StartExpression = '<style\x20lang=['#39'"]scss['#39'"]>'
+      EndExpression = '</style>'
+      SyntAnalyzer = SyntAnal20
+    end
+    item
+      DisplayName = 'LESS'
+      StyleName = 'Sublexer BG'
+      StartExpression = '<style\x20lang=['#39'"]less['#39'"]>'
+      EndExpression = '</style>'
+      SyntAnalyzer = SyntAnal12
+    end
+    item
+      DisplayName = 'TS'
+      StyleName = 'Sublexer BG'
+      StartExpression = '<script\x20lang=['#39'"]ts['#39'"]>'
+      EndExpression = '</script>'
+      SyntAnalyzer = SyntAnal23
     end>
   SampleText.Strings = (
+    '<style>'
+    '  body { background: #aabbee; }'
+    '</style>'
+    ''
+    '<script>'
+    'function aa(b, d) { return "test"; }'
+    '</script>'
+    ''
+    '<script lang="ts">'
+    '  export const hello: string = '#39'world'#39';'
+    '</script>'
+    ''
     '<div prop="string" prop=#aabbcc &nbsp; />'
     '<Widget foo={bar} answer={42} text="hello"/>'
     '<p>{a} + {b} = {a + b}.</p>'

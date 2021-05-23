@@ -3,11 +3,12 @@ str1=<!--
 str2=-->
 styles_cmt=Comment
 styles_str=String
-
 [ref]
 0=CSS
 1=JavaScript
-
+2=SCSS
+3=LESS
+4=TypeScript
 [map]
 Tag symbol=TagBound
 Comment=Comment
