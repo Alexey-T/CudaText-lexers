@@ -6,9 +6,10 @@ styles_str=String
 [ref]
 0=CSS
 1=JavaScript
-2=SCSS
-3=LESS
-4=TypeScript
+2=TypeScript
+3=SCSS
+4=Sass
+5=LESS
 [map]
 Tag symbol=TagBound
 Comment=Comment

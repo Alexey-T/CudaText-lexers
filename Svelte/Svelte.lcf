@@ -742,44 +742,51 @@ object SyntAnal22: TLibSyntAnalyzer
     item
       DisplayName = 'CSS'
       StyleName = 'Sublexer BG'
-      StartExpression = '<style(\x20lang=['#39'"]javascript['#39'"])?>'
+      StartExpression = '<style>'
       EndExpression = '</style>'
       SyntAnalyzer = SyntAnal6
     end
     item
       DisplayName = 'JS'
       StyleName = 'Sublexer BG'
-      StartExpression = '<script>'
+      StartExpression = '<script(\x20lang=(['#39'"])(java|ecma)script\2)? [^>]*>'
       EndExpression = '</script>'
       SyntAnalyzer = SyntAnal9
     end
     item
+      DisplayName = 'TS'
+      StyleName = 'Sublexer BG'
+      StartExpression = '<script\x20lang=(['#39'"])(ts|typescript)\1 [^>]*>'
+      EndExpression = '</script>'
+      SyntAnalyzer = SyntAnal23
+    end
+    item
       DisplayName = 'SCSS'
       StyleName = 'Sublexer BG'
-      StartExpression = '<style\x20lang=['#39'"]scss['#39'"]>'
+      StartExpression = '<style\x20lang=(['#39'"])scss\1 [^>]*>'
       EndExpression = '</style>'
       SyntAnalyzer = SyntAnal20
     end
     item
-      DisplayName = 'LESS'
+      DisplayName = 'Sass'
       StyleName = 'Sublexer BG'
-      StartExpression = '<style\x20lang=['#39'"]less['#39'"]>'
+      StartExpression = '<style\x20lang=(['#39'"])sass\1 [^>]*>'
       EndExpression = '</style>'
-      SyntAnalyzer = SyntAnal12
+      SyntAnalyzer = SyntAnal26
     end
     item
-      DisplayName = 'TS'
+      DisplayName = 'LESS'
       StyleName = 'Sublexer BG'
-      StartExpression = '<script\x20lang=['#39'"]ts['#39'"]>'
-      EndExpression = '</script>'
-      SyntAnalyzer = SyntAnal23
+      StartExpression = '<style\x20lang=(['#39'"])less\1 [^>]*>'
+      EndExpression = '</style>'
+      SyntAnalyzer = SyntAnal12
     end>
   SampleText.Strings = (
     '<style>'
     '  body { background: #aabbee; }'
     '</style>'
     ''
-    '<script>'
+    '<script lang='#39'javascript'#39' test="dd" >'
     'function aa(b, d) { return "test"; }'
     '</script>'
     ''
