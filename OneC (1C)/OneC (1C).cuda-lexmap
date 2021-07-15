@@ -1,23 +1,19 @@
+[comments]
+str1={
+str2=}
+styles_cmt=Comment
+styles_str=String
+
 [map]
-Marked block=-
-Default=Id
+Id=Id
+Id operator=IdKeyword
+Id with &=Id1
+Id with #=Id3
 Symbol=Symbol
 Number=Number
 String=String
-Identifier=Id
-Reserved word=IdKeyword
 Comment=Comment
-Preprocessor=String2
-Assembler=String3
-Style 1=Id1
-Interface section=SectionBG1
-Implemenation Section=SectionBG2
-Function separator=SeparLine
-Current block=BracketBG
-Current function=CurBlockBG
-Current Line=-
-Search Match=-
-Group (tree)=-
-Intern. function (tree)=-
-class (tree)=-
-Invalid symbol=SymbolBad
+Preproc=Comment2
+Symbol bad=SymbolBad
+Func name=Label
+Id spec=Id2
