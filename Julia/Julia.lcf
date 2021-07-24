@@ -1,4 +1,4 @@
-object SyntAnal13: TLibSyntAnalyzer
+object SyntAnal24: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -71,14 +71,6 @@ object SyntAnal13: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-    end
-    item
-      DisplayName = 'String2'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clOlive
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
     end>
   TokenRules = <
     item
@@ -136,14 +128,6 @@ object SyntAnal13: TLibSyntAnalyzer
       StyleName = 'Comment'
       TokenType = 1
       Expression = '\#.*$'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'String :name'
-      StyleName = 'String2'
-      TokenType = 6
-      Expression = ':[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -440,7 +424,6 @@ object SyntAnal13: TLibSyntAnalyzer
             'NaN32'
             'NaN64'
             'nothing'
-            'p'
             'pi'
             'PROGRAM_FILE'
             'QuickSort'

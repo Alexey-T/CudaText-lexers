@@ -167,11 +167,11 @@ object SyntAnal14: TLibSyntAnalyzer
       StyleName = 'Id operator'
       TokenType = 7
       Expression = 
-        '(?r)\b('#1080'|'#1080#1083#1080'|'#1085#1077'|'#1080#1079'|'#1087#1086'|'#1055#1088#1086#1076#1086#1083#1078#1080#1090#1100'|'#1042#1099#1079#1074#1072#1090#1100#1048#1089#1082#1083#1102#1095#1077#1085#1080#1077'|'#1042#1099#1087#1086#1083#1085#1080#1090#1100'|'#1042#1099#1095 +
-        #1080#1089#1083#1080#1090#1100'|'#1044#1083#1103'|'#1050#1072#1078#1076#1086#1075#1086'|'#1062#1080#1082#1083'|'#1050#1086#1085#1077#1094#1062#1080#1082#1083#1072'|'#1044#1086#1073#1072#1074#1080#1090#1100#1054#1073#1088#1072#1073#1086#1090#1095#1080#1082'|'#1045#1089#1083#1080'|'#1048#1085#1072#1095#1077 +
-        #1045#1089#1083#1080'|'#1058#1086#1075#1076#1072'|'#1048#1085#1072#1095#1077'|'#1050#1086#1085#1077#1094#1045#1089#1083#1080'|'#1046#1076#1072#1090#1100'|'#1053#1086#1074#1099#1081'|'#1055#1077#1088#1077#1081#1090#1080'|'#1055#1077#1088#1077#1084'|'#1069#1082#1089#1087#1086#1088#1090'|'#1047#1085#1072 +
-        #1095'|'#1055#1086#1082#1072'|'#1055#1086#1087#1099#1090#1082#1072'|'#1048#1089#1082#1083#1102#1095#1077#1085#1080#1077'|'#1050#1086#1085#1077#1094#1055#1086#1087#1099#1090#1082#1080'|'#1055#1088#1086#1094#1077#1076#1091#1088#1072'|'#1050#1086#1085#1077#1094#1055#1088#1086#1094#1077#1076#1091#1088#1099'|' +
-        #1060#1091#1085#1082#1094#1080#1103'|'#1059#1076#1072#1083#1080#1090#1100#1054#1073#1088#1072#1073#1086#1090#1095#1080#1082'|Null|'#1053#1077#1086#1087#1088#1077#1076#1077#1083#1077#1085#1086')\b'
+        '(?r)\b('#1080'|'#1080#1083#1080'|'#1085#1077'|'#1080#1079'|'#1087#1086'|'#1042#1086#1079#1074#1088#1072#1090'|'#1055#1088#1086#1076#1086#1083#1078#1080#1090#1100'|'#1042#1099#1079#1074#1072#1090#1100#1048#1089#1082#1083#1102#1095#1077#1085#1080#1077'|'#1042#1099#1087#1086#1083 +
+        #1085#1080#1090#1100'|'#1042#1099#1095#1080#1089#1083#1080#1090#1100'|'#1044#1083#1103'|'#1050#1072#1078#1076#1086#1075#1086'|'#1062#1080#1082#1083'|'#1050#1086#1085#1077#1094#1062#1080#1082#1083#1072'|'#1044#1086#1073#1072#1074#1080#1090#1100#1054#1073#1088#1072#1073#1086#1090#1095#1080#1082'|'#1045#1089 +
+        #1083#1080'|'#1048#1085#1072#1095#1077#1045#1089#1083#1080'|'#1058#1086#1075#1076#1072'|'#1048#1085#1072#1095#1077'|'#1050#1086#1085#1077#1094#1045#1089#1083#1080'|'#1046#1076#1072#1090#1100'|'#1053#1086#1074#1099#1081'|'#1055#1077#1088#1077#1081#1090#1080'|'#1055#1077#1088#1077#1084'|'#1069#1082#1089 +
+        #1087#1086#1088#1090'|'#1047#1085#1072#1095'|'#1055#1086#1082#1072'|'#1055#1086#1087#1099#1090#1082#1072'|'#1048#1089#1082#1083#1102#1095#1077#1085#1080#1077'|'#1050#1086#1085#1077#1094#1055#1086#1087#1099#1090#1082#1080'|'#1055#1088#1086#1094#1077#1076#1091#1088#1072'|'#1050#1086#1085#1077#1094#1055#1088 +
+        #1086#1094#1077#1076#1091#1088#1099'|'#1060#1091#1085#1082#1094#1080#1103'|'#1059#1076#1072#1083#1080#1090#1100#1054#1073#1088#1072#1073#1086#1090#1095#1080#1082'|Null|'#1053#1077#1086#1087#1088#1077#1076#1077#1083#1077#1085#1086')\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -269,10 +269,66 @@ object SyntAnal14: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Id with #'
+      DisplayName = '#If'
       StyleName = 'Id with #'
-      TokenType = 9
-      Expression = '(?r)\#['#1072'-'#1103#1040'-'#1071'\w]*\b'
+      TokenType = 18
+      Expression = '\#('#1045#1089#1083#1080'|If)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#If end'
+      StyleName = 'Id with #'
+      TokenType = 19
+      Expression = '\#('#1050#1086#1085#1077#1094#1045#1089#1083#1080'|EndIf)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#Region'
+      StyleName = 'Id with #'
+      TokenType = 20
+      Expression = '\#('#1054#1073#1083#1072#1089#1090#1100'|Region)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#Region end'
+      StyleName = 'Id with #'
+      TokenType = 21
+      Expression = '\#('#1050#1086#1085#1077#1094#1054#1073#1083#1072#1089#1090#1080'|EndRegion)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#Insert'
+      StyleName = 'Id with #'
+      TokenType = 22
+      Expression = '\#('#1042#1089#1090#1072#1074#1082#1072'|Insert)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#Insert end'
+      StyleName = 'Id with #'
+      TokenType = 23
+      Expression = '\#('#1050#1086#1085#1077#1094#1042#1089#1090#1072#1074#1082#1080'|EndInsert)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#Del'
+      StyleName = 'Id with #'
+      TokenType = 24
+      Expression = '\#('#1059#1076#1072#1083#1077#1085#1080#1077'|Delete)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#Del end'
+      StyleName = 'Id with #'
+      TokenType = 25
+      Expression = '\#('#1050#1086#1085#1077#1094#1059#1076#1072#1083#1077#1085#1080#1103'|EndDelete)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -280,7 +336,23 @@ object SyntAnal14: TLibSyntAnalyzer
       DisplayName = 'Id with &'
       StyleName = 'Id with &'
       TokenType = 8
-      Expression = '(?r)&['#1072'-'#1103#1040'-'#1071'\w]*\b'
+      Expression = 
+        '(?r)(&After|&Around|&AtClient|&AtClientAtServer(NoContext)?|&AtS' +
+        'erver(NoContext)?|&Before|&ChangeAndValidate|&'#1042#1084#1077#1089#1090#1086'|&'#1048#1079#1084#1077#1085#1077#1085#1080#1077#1048 +
+        #1050#1086#1085#1090#1088#1086#1083#1100'|&'#1053#1072#1050#1083#1080#1077#1085#1090#1077'|&'#1053#1072#1050#1083#1080#1077#1085#1090#1077#1053#1072#1057#1077#1088#1074#1077#1088#1077'('#1041#1077#1079#1050#1086#1085#1090#1077#1082#1089#1090#1072')?|&'#1053#1072#1057#1077#1088#1074#1077#1088 +
+        #1077'('#1041#1077#1079#1050#1086#1085#1090#1077#1082#1089#1090#1072')?|&'#1055#1077#1088#1077#1076'|&'#1055#1086#1089#1083#1077')\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id with #'
+      StyleName = 'Id with #'
+      TokenType = 9
+      Expression = 
+        '(?r)(\#Delete|\#Else|\#ElsIf|\#EndDelete|\#EndIf|\#EndInsert|\#E' +
+        'ndRegion|\#If|\#Insert|\#Region|\#Then|\#'#1042#1089#1090#1072#1074#1082#1072'|\#'#1045#1089#1083#1080'|\#'#1048#1085#1072#1095#1077'|' +
+        '\#'#1048#1085#1072#1095#1077#1045#1089#1083#1080'|\#'#1050#1086#1085#1077#1094#1042#1089#1090#1072#1074#1082#1080'|\#'#1050#1086#1085#1077#1094#1045#1089#1083#1080'|\#'#1050#1086#1085#1077#1094#1054#1073#1083#1072#1089#1090#1080'|\#'#1050#1086#1085#1077#1094#1059#1076#1072 +
+        #1083#1077#1085#1080#1103'|\#'#1054#1073#1083#1072#1089#1090#1100'|\#'#1058#1086#1075#1076#1072'|\#'#1059#1076#1072#1083#1077#1085#1080#1077')\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -397,6 +469,94 @@ object SyntAnal14: TLibSyntAnalyzer
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#if'
+      ConditionList = <
+        item
+          TokenTypes = 262144
+        end>
+      BlockEnd = '#if end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#if end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 524288
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#region'
+      ConditionList = <
+        item
+          TokenTypes = 1048576
+        end>
+      BlockEnd = '#region end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#region end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2097152
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#insert'
+      ConditionList = <
+        item
+          TokenTypes = 4194304
+        end>
+      BlockEnd = '#insert end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#insert end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 8388608
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#delete'
+      ConditionList = <
+        item
+          TokenTypes = 16777216
+        end>
+      BlockEnd = '#delete end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '#delete end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 33554432
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
@@ -418,11 +578,20 @@ object SyntAnal14: TLibSyntAnalyzer
     'Loop begin'
     'Loop end'
     'If begin'
-    'If end')
+    'If end'
+    '#If'
+    '#If end'
+    '#Region'
+    '#Region end'
+    '#Insert'
+    '#Insert end'
+    '#Delete'
+    '#Delete end')
   Extentions = 'bsl'
   LexerName = 'OneC (1C)'
   Notes.Strings = (
-    'Reworked lexer by Alexey Torgashin (CudaText)')
+    'Lexer by Alexey Torgashin (CudaText)'
+    'Thanks to king.midas from CudaText forum')
   LineComment = '//'
   Charset = DEFAULT_CHARSET
   Left = 144
