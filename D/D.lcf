@@ -1,4 +1,4 @@
-object SyntAnal26: TLibSyntAnalyzer
+object SyntAnal7: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -218,7 +218,15 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[,;@\?!:\$]'
+      Expression = '[,;@\?!\$]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol :'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = ':'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -426,7 +434,8 @@ object SyntAnal26: TLibSyntAnalyzer
           TokenTypes = 128
         end
         item
-          TokenTypes = 4
+          CondType = tcSkip
+          TokenTypes = 70
         end
         item
           TagList.Strings = (
@@ -462,7 +471,7 @@ object SyntAnal26: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 62
+          TokenTypes = 2110
         end
         item
           TagList.Strings = (
@@ -509,7 +518,7 @@ object SyntAnal26: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 62
+          TokenTypes = 2110
         end
         item
           TagList.Strings = (
@@ -645,6 +654,9 @@ object SyntAnal26: TLibSyntAnalyzer
     '}'
     ''
     'enum Name {'
+    '}'
+    ''
+    'class Test2 : Test1 {'
     '}')
   TokenTypeNames.Strings = (
     'Unknown'
@@ -653,7 +665,7 @@ object SyntAnal26: TLibSyntAnalyzer
     'Symbol'
     'String'
     'Number'
-    '-'
+    'Symbol :'
     'Symbol {}'
     'Symbol ()'
     'Attrib'
