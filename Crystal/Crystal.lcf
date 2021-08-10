@@ -87,16 +87,18 @@ object SyntAnal6: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'HereDoc BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
     end>
   TokenRules = <
-    item
-      DisplayName = 'Comment line'
-      StyleName = 'Comment'
-      TokenType = 1
-      Expression = '\#.*'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
     item
       DisplayName = 'if not block-begin'
       StyleName = 'Id keyword'
@@ -110,6 +112,14 @@ object SyntAnal6: TLibSyntAnalyzer
       StyleName = 'Id keyword'
       TokenType = 10
       Expression = '(?-i)(?<=abstract\x20*)def\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id up-case'
+      StyleName = 'Id'
+      TokenType = 12
+      Expression = '(?-i)[A-Z_]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -214,8 +224,17 @@ object SyntAnal6: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        '::|:|\.|,|;|!|\{\{|\}\}|\{%|%\}|\#\{|\{|\}|'#13#10'[=!]~|<<|>>|===|<=>' +
-        '|\*\*|[\-\+~]@|'#13#10'[<>=\+\-\*/]=?|'#13#10'&{1,2}|\|{1,2}|\?|%|~|\^'
+        '::|:|\.|,|;|!|\{\{|\}\}|\{%|%\}|\#\{|\{|\}|'#13#10'[=!]~|<<\-?|>>|===|' +
+        '<=>|\*\*|[\-\+~]@|'#13#10'[<>=\+\-\*/]=?|\#\{|'#13#10'&{1,2}|\|{1,2}|\?|%|~|' +
+        '\^'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -420,6 +439,39 @@ object SyntAnal6: TLibSyntAnalyzer
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'HereDoc begin'
+      StyleName = 'HereDoc BG'
+      ConditionList = <
+        item
+          TokenTypes = 4096
+        end
+        item
+          TagList.Strings = (
+            '<<-')
+          TokenTypes = 8
+        end>
+      IdentIndex = -1
+      BlockEnd = 'HereDoc end'
+      DisplayInTree = False
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'HereDoc end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4096
+        end>
+      SameIdent = True
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
@@ -466,7 +518,8 @@ object SyntAnal6: TLibSyntAnalyzer
     'Symbol []'
     'Var'
     'If not block'
-    'String RegEx')
+    'String RegEx'
+    'Id up-case')
   Extentions = 'cr'
   LexerName = 'Crystal'
   Notes.Strings = (

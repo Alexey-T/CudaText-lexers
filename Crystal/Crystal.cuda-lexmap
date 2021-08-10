@@ -16,3 +16,4 @@ Id types=Id2
 Id spec=Id4
 Var=IdVar
 RegEx=String3
+HereDoc BG=IncludeBG1
