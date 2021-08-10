@@ -1,0 +1,7 @@
+[info]
+title=Crystal
+type=lexer
+subdir=-
+
+[lexer1]
+file=Crystal
