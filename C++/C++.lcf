@@ -293,11 +293,14 @@ object SyntAnal5: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            '__asm'
+            '_asm'
             '_Pragma'
             'alignas'
             'alignof'
             'and'
             'and_eq'
+            'asm'
             'bitand'
             'bitor'
             'break'
@@ -805,13 +808,18 @@ object SyntAnal5: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <
     item
-      DisplayName = 'asm_string'
-      Enabled = False
+      DisplayName = '__asm block'
       StyleName = 'Asm BG'
-      StartExpression = '\#\x20*asm\x20*\(\x20*"'
-      EndExpression = '"\)'
+      StartExpression = '\b__?asm\x20*\{'
+      EndExpression = '\}'
       SyntAnalyzer = SyntAnal1
-      IncludeBounds = True
+    end
+    item
+      DisplayName = '__asm line'
+      StyleName = 'Asm BG'
+      StartExpression = '\b__?asm\x20*(?=\w)'
+      EndExpression = '\x20*(;|\b__?asm\b)'
+      SyntAnalyzer = SyntAnal1
     end>
   SampleText.Strings = (
     '/* Test */'
