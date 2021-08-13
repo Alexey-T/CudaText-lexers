@@ -1,0 +1,376 @@
+object SyntAnal6: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id keyword 2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id func name'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)\(\*.*?\*\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = 
+        '!|\#\[|%|&|'#39'|\(|\(\)|\)|\*|\+|,|\-|\->|'#13#10'\.+|\.\(|::=|:=|:|:>|;|' +
+        '<\+|<-|<:|<|'#13#10'<<:|<=|=>|=|>->|>=|>|\?|@\{|@|\[|\]|\_|'#13#10'`\(|`\{|\' +
+        '{\||\{|\||\}|'#13#10'\*\*|\[=|\|-|\|\||\->|/\\?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id label'
+      StyleName = 'Id func name'
+      TokenType = 2
+      Expression = 
+        '(?-i)(?<=\bLemma\x20+)\w+ |'#13#10'(?-i)(?<=\bAxiom\x20+)\w+ |'#13#10'(?-i)(' +
+        '?<=\bDefinition\x20+)\w+ |'#13#10'(?-i)(?<=\bSection\x20+)\w+ |'#13#10'(?-i)' +
+        '(?<=\bClass\x20+)\w+ |'#13#10'(?-i)(?<=\bTheorem\x20+)\w+ |'#13#10'(?-i)(?<=' +
+        '\bFixpoint\x20+)\w+'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number int'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\.|.)*?"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '_'
+            'admit'
+            'apply'
+            'as'
+            'assert'
+            'assumption'
+            'at'
+            'auto'
+            'autounfold'
+            'by'
+            'case'
+            'clear'
+            'cofix'
+            'compute'
+            'constructor'
+            'contradiction'
+            'dependent'
+            'destruct'
+            'discriminate'
+            'do'
+            'eapply'
+            'easy'
+            'eauto'
+            'elim'
+            'else'
+            'end'
+            'exact'
+            'exfalso'
+            'exists'
+            'exists2'
+            'firstorder'
+            'fix'
+            'for'
+            'forall'
+            'fun'
+            'generalize'
+            'give_up'
+            'if'
+            'in'
+            'induction'
+            'injection'
+            'into'
+            'intro'
+            'intros'
+            'intuition'
+            'inversion'
+            'let'
+            'match'
+            'mod'
+            'omega'
+            'pattern'
+            'pose'
+            'refine'
+            'reflexivity'
+            'remember'
+            'rename'
+            'repeat'
+            'replace'
+            'return'
+            'revert'
+            'rewrite'
+            'ring'
+            'set'
+            'simpl'
+            'specialize'
+            'split'
+            'subst'
+            'symmetry'
+            'tauto'
+            'then'
+            'trivial'
+            'try'
+            'unfold'
+            'using'
+            'where'
+            'with')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id keyword 2'
+      StyleName = 'Id keyword 2'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Abort'
+            'Admitted'
+            'Arguments'
+            'Axiom'
+            'Canonical'
+            'Check'
+            'Class'
+            'CoFixpoint'
+            'CoInductive'
+            'Compute'
+            'Conjecture'
+            'Corollary'
+            'Defined'
+            'Definition'
+            'End'
+            'Example'
+            'Export'
+            'Fact'
+            'Fail'
+            'Fixpoint'
+            'Global'
+            'Goal'
+            'Hypotheses'
+            'Hypothesis'
+            'IF'
+            'Import'
+            'Inductive'
+            'Instance'
+            'Lemma'
+            'Let'
+            'Local'
+            'Ltac'
+            'Module'
+            'Notation'
+            'Number'
+            'Parameter'
+            'Parameters'
+            'Print'
+            'Program'
+            'Proof'
+            'Prop'
+            'Proposition'
+            'Qed'
+            'Record'
+            'Remark'
+            'Require'
+            'Save'
+            'Section'
+            'Set'
+            'SProp'
+            'Structure'
+            'Theorem'
+            'Type'
+            'Variable'
+            'Variables')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id type'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'bool'
+            'False'
+            'list'
+            'nat'
+            'True')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id constructor'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'cons'
+            'false'
+            'nil'
+            'O'
+            'S'
+            'true')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tree item'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'Axiom'
+            'Class'
+            'Definition'
+            'Fixpoint'
+            'Inductive'
+            'Lemma'
+            'Ltac'
+            'Program'
+            'Section'
+            'Theorem')
+          TokenTypes = 4
+        end>
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '(* Comment *)'
+    'Require Import ssreflect.'
+    'Set Implicit Arguments.'
+    'Axiom P : nat -> nat -> Prop.'
+    ''
+    'Axiom tr :'
+    '  forall x y z, P x y -> P y z -> P x z.'
+    ''
+    'Lemma test a b c : P a c -> P a b.'
+    'Proof.'
+    'intro H.'
+    'Fail have [: s1 s2] H1 : P a b := @tr _ _ _ s1 s2.'
+    'Abort.')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number')
+  Extentions = 'v'
+  LexerName = 'Coq'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  Charset = DEFAULT_CHARSET
+end
