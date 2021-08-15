@@ -128,7 +128,7 @@ object SyntAnal8: TLibSyntAnalyzer
     'Symbol'
     'Value'
     'Section')
-  Extentions = 'ini dsk dti dof inf lng srv reg sas cfg desktop'
+  Extentions = 'ini dsk dti dof inf lng srv reg sas cfg desktop conf service'
   LexerName = 'Ini files'
   Notes.Strings = (
     'Alexey (CudaText)')
