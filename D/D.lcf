@@ -1,4 +1,4 @@
-object SyntAnal7: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -346,7 +346,6 @@ object SyntAnal7: TLibSyntAnalyzer
             'union'
             'unittest'
             'version'
-            'void'
             'volatile'
             'while'
             'with')
@@ -389,6 +388,7 @@ object SyntAnal7: TLibSyntAnalyzer
             'uint'
             'ulong'
             'ushort'
+            'void'
             'wchar'
             'wstring')
           TokenTypes = 4

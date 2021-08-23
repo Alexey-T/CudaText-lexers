@@ -588,7 +588,7 @@ object SyntAnal14: TLibSyntAnalyzer
     '#Delete'
     '#Delete end')
   Extentions = 'bsl'
-  LexerName = 'OneC (1C)'
+  LexerName = '1C'
   Notes.Strings = (
     'Lexer by Alexey Torgashin (CudaText)'
     'Thanks to king.midas from CudaText forum')
