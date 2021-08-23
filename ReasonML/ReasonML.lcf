@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal18: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -93,7 +93,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '(?s)/\*.*?(\*/|\Z)'
+      Expression = '(?s)/\*(/\*.*?\*/|.)*?(\*/|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -106,6 +106,14 @@ object SyntAnal23: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String mul-line'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = '(?s)\{\|.*?\|\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
@@ -114,10 +122,18 @@ object SyntAnal23: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Id type'
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = #39'.'#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'#39
       StyleName = 'Id'#39
       TokenType = 8
-      Expression = #39'[a-z\$_][\w\$]*'
+      Expression = '['#39'`][a-z\$_][\w\$]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -156,7 +172,7 @@ object SyntAnal23: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Number float'
+      DisplayName = 'Number float/dec'
       StyleName = 'Number'
       TokenType = 4
       Expression = '\b[0-9][0-9_]*([Lln]|(\.[0-9_]*)?(e[-+]?[0-9_]+)?)?\b'
@@ -164,7 +180,7 @@ object SyntAnal23: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Number hex'
+      DisplayName = 'Number hex/bin'
       StyleName = 'Number'
       TokenType = 4
       Expression = 
@@ -327,20 +343,20 @@ object SyntAnal23: TLibSyntAnalyzer
       '  let createElement: (~initialVal: string=?, '#39'other) => React.el' +
       'em(tree);'
     '} = {'
+    '  /* Comment */'
     '  let createElement ='
-    
-      '      (~initialVal="deafult", children) => ((~state=initialVal, ' +
-      'self) => ('
+    '      (~initialVal="deafult", children) => ('
     '    fun'
     '    | React.Changed(s) => 0xFF20 + 0b10_10 + 0 + 1.2e+3,'
-    '    React.One(Dom.div(~className="helloClass", Empty)),'
+    '    React.One(Dom.div(~className= {|string'
+    '           string end|}, Empty)),'
     '  ) : React.elem(tree);'
     '};'
     ''
     'let passDisplay = () =>'
     
-      '    <Pastel color=Green inverse=true bold=true> " PASS " </Paste' +
-      'l>;')
+      '    <Pastel color=Green inverse=true bold=true> '#39't'#39' + '#39'e'#39' </Past' +
+      'el>;')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
