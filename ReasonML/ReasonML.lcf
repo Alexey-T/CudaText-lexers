@@ -141,7 +141,7 @@ object SyntAnal18: TLibSyntAnalyzer
       DisplayName = 'Id'#39
       StyleName = 'Id'#39
       TokenType = 8
-      Expression = '['#39'`][a-z\$_][\w\$]*'
+      Expression = #39'[a-z\$_][\w\$]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -174,8 +174,8 @@ object SyntAnal18: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 5
       Expression = 
-        ';|\[|\]|={1,3}|=>|\.{1,3}|,|:|\-|/\.|/|'#13#10#39'|\?|\|>|\\|<|>|&&|\^|!' +
-        '=|@|'#13#10'\+{1,2}|\*{1,2}|\|{1,2}|\+\.|\*\.'
+        ';|\[|\]|={1,3}|=>|\.{1,3}|,|:|\-|/\.|/|'#13#10'\?|\|>|\\|<|>|&&|\^|!=?' +
+        '|@|`|'#13#10'\+{1,2}|\*{1,2}|\|{1,2}|\+\.|\*\.'
       ColumnFrom = 0
       ColumnTo = 0
     end
