@@ -1,7 +1,7 @@
 [info]
-title=Caml
+title=OCaml
 type=lexer
 subdir=-
 
 [lexer1]
-file=Caml
+file=OCaml
