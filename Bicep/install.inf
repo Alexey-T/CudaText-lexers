@@ -1,0 +1,7 @@
+[info]
+title=Bicep
+type=lexer
+subdir=-
+
+[lexer1]
+file=Bicep
