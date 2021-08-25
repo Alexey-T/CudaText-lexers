@@ -1,4 +1,4 @@
-object SyntAnal26: TLibSyntAnalyzer
+object SyntAnal4: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -110,7 +110,7 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = #39'(\\.|.)*?'#39
+      Expression = #39'(\\.|\$\{.+?\}|.)*?('#39'|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -155,6 +155,7 @@ object SyntAnal26: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'for'
+            'if'
             'in'
             'module'
             'output'
@@ -191,6 +192,7 @@ object SyntAnal26: TLibSyntAnalyzer
             'bool'
             'false'
             'int'
+            'null'
             'object'
             'string'
             'true')
@@ -276,7 +278,7 @@ object SyntAnal26: TLibSyntAnalyzer
   SampleText.Strings = (
     'bool int array var param existing /* ... */'
     #39'string'#39' + '#39#39#39'str'
-    'end'#39#39#39' @somename; 12+34'
+    'end'#39#39#39' @somename; 12+34; '#39'${name'#39'name'#39'} ${name}'#39
     ''
     'resource stg '#39'Microsoft.Storage/storageAccounts'#39' = {'
     '    name: storageAccountName'
