@@ -295,6 +295,7 @@ object SyntAnal20: TLibSyntAnalyzer
             'List'
             'Number'
             'RawArray'
+            'Set'
             'String'
             'true')
           TokenTypes = 4
@@ -310,6 +311,7 @@ object SyntAnal20: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'print'
+            'range'
             'self')
           TokenTypes = 4
         end>
