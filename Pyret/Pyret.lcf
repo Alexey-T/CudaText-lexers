@@ -378,7 +378,7 @@ object SyntAnal20: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = ';'
+      DisplayName = '; 1'
       StatesAbsent = 1
       BlockType = btRangeEnd
       ConditionList = <
@@ -387,7 +387,24 @@ object SyntAnal20: TLibSyntAnalyzer
             ';')
           TokenTypes = 8
         end>
+      BlockEnd = 'block begin'
       HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '; 2'
+      StatesAbsent = 1
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'block begin tree'
+      HighlightPos = cpAny
+      CancelNextRules = True
       IgnoreAsParent = False
     end
     item
