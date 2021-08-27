@@ -324,7 +324,6 @@ object SyntAnal20: TLibSyntAnalyzer
             'ask'
             'block'
             'cases'
-            'check'
             'for'
             'if'
             'include from'
@@ -350,6 +349,7 @@ object SyntAnal20: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'check'
             'data'
             'fun'
             'method')
