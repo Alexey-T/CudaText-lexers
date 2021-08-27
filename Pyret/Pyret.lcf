@@ -100,7 +100,7 @@ object SyntAnal20: TLibSyntAnalyzer
     item
       DisplayName = 'Id '#39'include from'#39
       StyleName = 'Id keyword'
-      TokenType = 9
+      TokenType = 2
       Expression = '(?-i)\binclude\x20+from\b'
       ColumnFrom = 0
       ColumnTo = 0
@@ -117,7 +117,7 @@ object SyntAnal20: TLibSyntAnalyzer
       DisplayName = 'Id '#39'provide *'#39
       StyleName = 'Id keyword'
       TokenType = 9
-      Expression = '(?-i)\bprovide(\-types)?\x20+\*'
+      Expression = '(?-i)\b(data|provide(\-types)?)\x20+\*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -125,7 +125,7 @@ object SyntAnal20: TLibSyntAnalyzer
       DisplayName = 'Id '#39'block:'#39
       StyleName = 'Id keyword'
       TokenType = 9
-      Expression = '(?-i)(?<=\w\x20)block(?=:)'
+      Expression = '(?-i)(?<=[\w\)\]]\x20)block(?=:)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -149,7 +149,7 @@ object SyntAnal20: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '<=|>=|==|::|\->'
+      Expression = '<=>|<=|>=|==|::|\->|=~'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -241,6 +241,7 @@ object SyntAnal20: TLibSyntAnalyzer
             'init'
             'is'
             'is-not'
+            'is-roughly'
             'lam'
             'let'
             'letrec'
@@ -257,6 +258,7 @@ object SyntAnal20: TLibSyntAnalyzer
             'ref'
             'row'
             'sanitize'
+            'satisfies'
             'select'
             'self'
             'shadow'
@@ -354,7 +356,7 @@ object SyntAnal20: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       BlockEnd = 'block end'
-      NameFmt = '%s0 %s-1'
+      NameFmt = '%sz0'
       RefToCondEnd = True
       HighlightPos = cpAny
       DrawStaple = True
