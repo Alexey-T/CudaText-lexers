@@ -186,6 +186,15 @@ object SyntAnal20: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Symbol ; at end'
+      StyleName = 'Symbol'
+      StatesAbsent = 1
+      TokenType = 10
+      Expression = ';'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
@@ -371,40 +380,11 @@ object SyntAnal20: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            ';'
             'end')
-          TokenTypes = 4
+          TokenTypes = 1028
         end>
       HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = '; 1'
-      StatesAbsent = 1
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TagList.Strings = (
-            ';')
-          TokenTypes = 8
-        end>
-      BlockEnd = 'block begin'
-      HighlightPos = cpAny
-      CancelNextRules = True
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = '; 2'
-      StatesAbsent = 1
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TagList.Strings = (
-            ';')
-          TokenTypes = 8
-        end>
-      BlockEnd = 'block begin tree'
-      HighlightPos = cpAny
-      CancelNextRules = True
       IgnoreAsParent = False
     end
     item
@@ -470,7 +450,8 @@ object SyntAnal20: TLibSyntAnalyzer
     'Symbol ()'
     'Symbol :'
     'Symbol {}'
-    'Id spec')
+    'Id spec'
+    'Symbol ; at end')
   Extentions = 'arr'
   LexerName = 'Pyret'
   SkipSpaces = False
