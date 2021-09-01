@@ -1,4 +1,4 @@
-object SyntAnal9: TLibSyntAnalyzer
+object SyntAnal27: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -252,7 +252,6 @@ object SyntAnal9: TLibSyntAnalyzer
             'extends'
             'external'
             'factory'
-            'false'
             'final'
             'finally'
             'for'
@@ -281,11 +280,9 @@ object SyntAnal9: TLibSyntAnalyzer
             'switch'
             'this'
             'throw'
-            'true'
             'try'
             'typedef'
             'var'
-            'void'
             'while'
             'with'
             'yield')
@@ -304,11 +301,13 @@ object SyntAnal9: TLibSyntAnalyzer
             'bool'
             'double'
             'dynamic'
+            'false'
             'int'
             'List'
             'Map'
             'num'
             'String'
+            'true'
             'var'
             'void')
           TokenTypes = 4
@@ -329,6 +328,7 @@ object SyntAnal9: TLibSyntAnalyzer
       DynHighlight = dhBound
       HighlightPos = cpRange
       DrawStaple = True
+      CollapseFmt = '{ ... }'
       IgnoreAsParent = False
     end
     item
@@ -442,6 +442,7 @@ object SyntAnal9: TLibSyntAnalyzer
       NameFmt = '%s0 %s-1'
       RefToCondEnd = True
       HighlightPos = cpAny
+      CollapseFmt = '%sz0'
       SelfClose = True
       TreeItemImage = 1
       IgnoreAsParent = False
