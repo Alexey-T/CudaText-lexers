@@ -1,0 +1,902 @@
+object SyntAnal24: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword def'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id function'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id func name'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id exception'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id const'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Decorator'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 51200
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = '^Tree def'
+      StyleName = 'Id keyword def'
+      TokenType = 11
+      Expression = '(?-i)\b((c(p|type)?)?def|async[\x20\x09]+def)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Tree class'
+      StyleName = 'Id keyword def'
+      TokenType = 17
+      Expression = '(?-i)\bclass\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Keyword'
+      StyleName = 'Id keyword'
+      TokenType = 10
+      Expression = 
+        '(?-i)(?<=^[\x20\x09]*) (if|else|elif|for|async\x20+for|while|try' +
+        '|except|finally|switch|case|with|async\x20+with|match)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String '#39#39#39
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)[rbuf]* ("""|'#39#39#39') .*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String raw \ at eol'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(r|rf|rb|br|ur) ("|'#39') (\\\z|\\.|.)*? \2'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String \ at eol'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(b|u|f)? ("|'#39') (\\\z|\\.|.)*? \2'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String raw'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(r|rf|fr|rb|br|ur) ("|'#39') (\\.|.)*? (\2|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(b|u|f)? ("|'#39') (\\.|.)*? (\2|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Id const'
+      StyleName = 'Id const'
+      TokenType = 2
+      Expression = '(?-i)[A-Z_][A-Z0-9_]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Id='
+      StyleName = 'Id'
+      TokenType = 15
+      Expression = '(?r)(?<!:\x20*)[a-z_]\w*(?=\x20*=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id func name'
+      StyleName = 'Id func name'
+      TokenType = 13
+      Expression = 
+        '(?r-i)(?<=\bclass\x20+)\w+ |'#13#10'(?r-i)(?<=\bc?def\x20+)\w+ |'#13#10'(?r-' +
+        'i)(?<=\bcpdef\x20+)\w+ |'#13#10'(?r-i)(?<=\bctypedef\x20+)\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id after .'
+      StyleName = 'Id'
+      TokenType = 14
+      Expression = '(?r)(?<=\.)[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '(?r)[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Symbol'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\(\)\[\]\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0x(_?[0-9a-f])+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int octal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0o(_?[0-7])+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int bin'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0b(_?[01])+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int/float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '\b \d[_\d]* \.?\d*[_\d]* (e[\-\+]?\d[_\d]*)?j? \b |'#13#10'\B\.\d[_\d]' +
+        '* (e[\-\+]?\d[_\d]*)?j? \b |'#13#10'\b\d[_\d]*\.? ([Lj]\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Ending :'
+      StyleName = 'Symbol'
+      TokenType = 12
+      Expression = ':\x20*$ | :(?=\x20*\#.*$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\*,\.;=<>\+\-\^!%\\\|~&]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol :'
+      StyleName = 'Symbol'
+      TokenType = 9
+      Expression = ':'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Decorator'
+      StyleName = 'Decorator'
+      TokenType = 16
+      Expression = '(?r)@\w[\w\.]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keywords def'
+      StyleName = 'Id keyword def'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'class'
+            'def'
+            'global'
+            'lambda'
+            'nonlocal')
+          TokenTypes = 1540
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'api'
+            'as'
+            'assert'
+            'async'
+            'await'
+            'break'
+            'by'
+            'cimport'
+            'const'
+            'continue'
+            'DEF'
+            'del'
+            'elif'
+            'ELIF'
+            'else'
+            'ELSE'
+            'except'
+            'extern'
+            'finally'
+            'for'
+            'from'
+            'gil'
+            'if'
+            'IF'
+            'import'
+            'in'
+            'include'
+            'inline'
+            'is'
+            'nogil'
+            'not'
+            'or'
+            'pass'
+            'public'
+            'raise'
+            'readonly'
+            'return'
+            'try'
+            'volatile'
+            'while'
+            'with'
+            'yield')
+          TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Functions'
+      StyleName = 'Id function'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '__future__'
+            '__import__'
+            '_exit'
+            'abort'
+            'abs'
+            'add'
+            'aenter'
+            'aexit'
+            'aiter'
+            'all'
+            'and'
+            'anext'
+            'any'
+            'apply'
+            'ascii'
+            'atexit'
+            'await'
+            'bin'
+            'bsearch'
+            'call'
+            'callable'
+            'calloc'
+            'ceil'
+            'chr'
+            'cinit'
+            'cls'
+            'cmp'
+            'coerce'
+            'compile'
+            'contains'
+            'copy'
+            'dealloc'
+            'deepcopy'
+            'del'
+            'delattr'
+            'delete'
+            'delitem'
+            'dir'
+            'div'
+            'divmod'
+            'enter'
+            'enumerate'
+            'eq'
+            'eval'
+            'exec'
+            'execfile'
+            'exit'
+            'filter'
+            'floor'
+            'floordiv'
+            'format'
+            'free'
+            'ge'
+            'get'
+            'getattr'
+            'getattribute'
+            'getenv'
+            'getinitargs'
+            'getitem'
+            'getnewargs'
+            'getstate'
+            'globals'
+            'gt'
+            'hasattr'
+            'hash'
+            'help'
+            'hex'
+            'iadd'
+            'iand'
+            'id'
+            'idiv'
+            'ifloordiv'
+            'ilshift'
+            'imul'
+            'index'
+            'init'
+            'input'
+            'instancecheck'
+            'intern'
+            'invert'
+            'ior'
+            'ipow'
+            'irshift'
+            'isinstance'
+            'issubclass'
+            'isub'
+            'iter'
+            'itruediv'
+            'ixor'
+            'labs'
+            'ldiv'
+            'le'
+            'len'
+            'llabs'
+            'lldiv'
+            'locals'
+            'lshift'
+            'lt'
+            'malloc'
+            'max'
+            'metaclass'
+            'min'
+            'missing'
+            'mod'
+            'mul'
+            'ne'
+            'neg'
+            'new'
+            'next'
+            'oct'
+            'open'
+            'or'
+            'ord'
+            'pos'
+            'pow'
+            'prepare'
+            'print'
+            'qsort'
+            'radd'
+            'rand'
+            'range'
+            'raw_input'
+            'rdiv'
+            'rdivmod'
+            'realloc'
+            'reduce'
+            'reduce_ex'
+            'reload'
+            'repr'
+            'reversed'
+            'rfloordiv'
+            'rlshift'
+            'rmod'
+            'rmul'
+            'ror'
+            'round'
+            'rpow'
+            'rrshift'
+            'rshift'
+            'rsub'
+            'rtruediv'
+            'rxor'
+            'self'
+            'setattr'
+            'setitem'
+            'setstate'
+            'signatures'
+            'sizeof'
+            'sorted'
+            'srand'
+            'str'
+            'sub'
+            'subclasscheck'
+            'subclasshook'
+            'sum'
+            'system'
+            'truediv'
+            'trunc'
+            'unichr'
+            'vars'
+            'weakref'
+            'xor'
+            'xrange'
+            'zip')
+          TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Type-related'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'basestring'
+            'bint'
+            'bool'
+            'buffer'
+            'bytearray'
+            'bytes'
+            'char'
+            'classmethod'
+            'complex'
+            'const'
+            'dict'
+            'double'
+            'Ellipsis'
+            'enum'
+            'EXIT_FAILURE'
+            'EXIT_SUCCESS'
+            'False'
+            'file'
+            'float'
+            'frozenset'
+            'fused'
+            'int'
+            'list'
+            'long'
+            'longlong'
+            'map'
+            'memoryview'
+            'None'
+            'NotImplemented'
+            'NULL'
+            'object'
+            'property'
+            'RAND_MAX'
+            'set'
+            'short'
+            'signed'
+            'slice'
+            'staticmethod'
+            'str'
+            'struct'
+            'super'
+            'True'
+            'tuple'
+            'type'
+            'UNAME_MACHINE'
+            'UNAME_NODENAME'
+            'UNAME_RELEASE'
+            'UNAME_SYSNAME'
+            'UNAME_VERSION'
+            'unicode'
+            'union'
+            'unsigned'
+            'void')
+          TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Exceptions'
+      StyleName = 'Id exception'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'AbortedError'
+            'ADirectoryError'
+            'ArithmeticError'
+            'AssertionError'
+            'AttributeError'
+            'BaseException'
+            'BlockingIOError'
+            'BrokenPipeError'
+            'BufferError'
+            'BytesWarning'
+            'ChildProcessError'
+            'ConnectionError'
+            'DecodeError'
+            'DeprecationWarning'
+            'EncodeError'
+            'EnvironmentError'
+            'EOFError'
+            'Exception'
+            'FileExistsError'
+            'FileNotFoundError'
+            'FloatingPointError'
+            'FutureWarning'
+            'GeneratorExit'
+            'ImportError'
+            'ImportWarning'
+            'IndentationError'
+            'IndexError'
+            'InterruptedError'
+            'IOError'
+            'IsError'
+            'KeyboardInterrupt'
+            'KeyError'
+            'LookupError'
+            'MemoryError'
+            'NameError'
+            'NotError'
+            'NotImplementedError'
+            'OSError'
+            'OverflowError'
+            'PendingDeprecationWarning'
+            'PermissionError'
+            'ProcessLookupError'
+            'ReferenceError'
+            'RefusedError'
+            'ResetError'
+            'ResourceWarning'
+            'RuntimeError'
+            'RuntimeWarning'
+            'StopAsyncIteration'
+            'StopIteration'
+            'SyntaxError'
+            'SyntaxWarning'
+            'SystemError'
+            'SystemExit'
+            'TabError'
+            'TimeoutError'
+            'TranslateError'
+            'TypeError'
+            'UnboundLocalError'
+            'UnicodeError'
+            'UserWarning'
+            'ValueError'
+            'VMSError'
+            'Warning'
+            'WindowsError'
+            'ZeroDivisionError')
+          TokenTypes = 516
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block for tree, class'
+      ConditionList = <
+        item
+          TokenTypes = 4096
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 59390
+        end
+        item
+          TokenTypes = 131072
+        end>
+      EndOfTextClose = True
+      NameFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%s0 %s-1...'
+      TreeItemImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block for tree'
+      ConditionList = <
+        item
+          TokenTypes = 4096
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 59390
+        end
+        item
+          TokenTypes = 2048
+        end>
+      EndOfTextClose = True
+      NameFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%s0 %s-1...'
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block for tree (ex)'
+      ConditionList = <
+        item
+          TokenTypes = 4096
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 59390
+        end
+        item
+          TokenTypes = 2048
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%s0 %s-1...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block not for tree'
+      ConditionList = <
+        item
+          TokenTypes = 4096
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 59390
+        end
+        item
+          TokenTypes = 1024
+        end>
+      EndOfTextClose = True
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'import'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'from'
+            'import')
+          TokenTypes = 512
+        end>
+      NameFmt = '%sz0'
+      GroupFmt = '\imports'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '#comment'
+    'test = u"""doc'
+    'string""" + r"""doc'
+    'string""" + "long \'
+    'string"; #end'
+    '11_22_3.44_5 + 0x_FF_aa_b_0 + 0b10_1_0'
+    '+ 3. + .3 + 3.0 + 1.2e-3 + CONST'
+    ''
+    'def func(num):  #cmt  '
+    '    for n in range(len(sys.argv)):'
+    '    return False'
+    '    '
+    'async def get_json(client, url):  '
+    '    async with client.get(url) as response:'
+    '        assert test = {'#39'aa'#39': 2, '#39'bb'#39': None}'
+    '        return await response.read()'
+    ''
+    'class Name:'
+    '  n = 0b10+0xfe+0o30+1.2e3j'
+    '  def d1():'
+    '    pass'
+    '  cdef d2():'
+    '    pass'
+    '  cpdef d3():'
+    '    pass'
+    '  ctypedef d4():'
+    '    pass'
+    '  '
+    
+      '(global|nonlocal|gil|nogil|extern|api|public|readonly|const(vola' +
+      'tile)|inline)'
+    '(cimport|include|extern|import|from)'
+    
+      '(elif|else|except|finally|for|if|try|while|with|break|continue|p' +
+      'ass|raise|return|yield|IF|ELIF|ELSE|DEF)'
+    '(and|in|is|not|or)'
+    '(as|assert|by|del)'
+    
+      '(NULL|None|True|False|Ellipsis|NotImplemented|UNAME_SYSNAME|UNAM' +
+      'E_NODENAME|UNAME_RELEASE|UNAME_VERSION|UNAME_MACHINE|EXIT_FAILUR' +
+      'E|EXIT_SUCCESS|RAND_MAX)'
+    'ArithmeticError BufferError StopIteration'
+    
+      '(basestring|bool|buffer|bytearray|bytes|classmethod|complex|dict' +
+      '|enumerate|file|frozenset|list|memoryview|object|open|property|r' +
+      'eversed|set|slice|staticmethod|str|super|tuple|type)'
+    
+      '(bint|(long)double|enum|float|struct|union|void|const|fused|(sig' +
+      'ned unsigned char|((int short long longlong'
+    
+      '(and|api|as|assert|break|by|class|continue|(|del|elif|else|excep' +
+      't|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or' +
+      '|pass|public|raise|return|try|while|with|yield)'
+    'self cls'
+    
+      '(abs|add|and|await|call|ceil|contains|copy|dealloc|deepcopy|del|' +
+      'delattr|delete|delitem|dir|div|divmod|aenter enter|eq|aexit exit' +
+      '|floor|floordiv|format|ge|get|getattr|getattribute|getinitargs|g' +
+      'etitem|getnewargs|getstate|gt|hash|hex|iadd|iand|idiv|ifloordiv|' +
+      'ilshift|imul|index|cinit init|instancecheck|invert|ior|ipow|irsh' +
+      'ift|isub|aiter iter|itruediv|ixor|le|len|lshift|lt|metaclass|mis' +
+      'sing|mod|mul|ne|neg|new|anext next|oct|or|pos|pow|prepare|radd|r' +
+      'and|rdiv|rdivmod|reduce|reduce_ex|repr|reversed|rfloordiv|rlshif' +
+      't|rmod|rmul|ror|round|rpow|rrshift|rshift|rsub|rtruediv|rxor|set' +
+      'attr|setitem|setstate|signatures|sub|subclasscheck|subclasshook|' +
+      'truediv|trunc|weakref|xor)'
+    
+      '(__import__|abort|calloc|malloc|realloc|labs llabs abs|all|any|a' +
+      'scii|bin|bsearch|callable|chr|compile|delattr|dir|ldiv lldiv div' +
+      '|divmod|eval|exec|_exit atexit exit|filter|format|free|getattr|g' +
+      'etenv|globals|hasattr|hash|help|hex|id|input|isinstance|issubcla' +
+      'ss|iter|len|locals|max|min|next|oct|ord|pow|print|qsort|range|sr' +
+      'and rand|repr|round|setattr|sizeof|sorted|sum|system|vars|zip)')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    '^Id'
+    'Symbol'
+    '^String'
+    'Number'
+    'Number2'
+    '^Comment'
+    '^Symbol'
+    'Usual :'
+    '^Id keyword'
+    '^Id tree'
+    'Ending :'
+    'Id func name'
+    'Id after .'
+    '^Id='
+    '^@Id'
+    '^Id tree class')
+  Extentions = 'pyx pxi pxd'
+  LexerName = 'Cython'
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end
