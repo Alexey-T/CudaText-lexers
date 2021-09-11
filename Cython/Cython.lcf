@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal7: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -106,18 +106,18 @@ object SyntAnal24: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = '^Tree def'
+      DisplayName = '^Tree class'
       StyleName = 'Id keyword def'
-      TokenType = 11
-      Expression = '(?-i)\b((c(p|type)?)?def|async[\x20\x09]+def)\b'
+      TokenType = 17
+      Expression = '(?-i)\b(cdef\x20+)?class\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '^Tree class'
+      DisplayName = '^Tree def'
       StyleName = 'Id keyword def'
-      TokenType = 17
-      Expression = '(?-i)\bclass\b'
+      TokenType = 11
+      Expression = '(?-i)\b((cp?)?def|async[\x20\x09]+def)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -127,7 +127,8 @@ object SyntAnal24: TLibSyntAnalyzer
       TokenType = 10
       Expression = 
         '(?-i)(?<=^[\x20\x09]*) (if|else|elif|for|async\x20+for|while|try' +
-        '|except|finally|switch|case|with|async\x20+with|match)\b'
+        '|except|finally|switch|case|with|async\x20+with|match|ctypedef)\' +
+        'b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -193,7 +194,7 @@ object SyntAnal24: TLibSyntAnalyzer
       TokenType = 13
       Expression = 
         '(?r-i)(?<=\bclass\x20+)\w+ |'#13#10'(?r-i)(?<=\bc?def\x20+)\w+ |'#13#10'(?r-' +
-        'i)(?<=\bcpdef\x20+)\w+ |'#13#10'(?r-i)(?<=\bctypedef\x20+)\w+'
+        'i)(?<=\bcpdef\x20+)\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -328,9 +329,11 @@ object SyntAnal24: TLibSyntAnalyzer
             'await'
             'break'
             'by'
+            'cdef'
             'cimport'
             'const'
             'continue'
+            'ctypedef'
             'DEF'
             'del'
             'elif'
@@ -817,7 +820,7 @@ object SyntAnal24: TLibSyntAnalyzer
     '        assert test = {'#39'aa'#39': 2, '#39'bb'#39': None}'
     '        return await response.read()'
     ''
-    'class Name:'
+    'cdef class Name:'
     '  n = 0b10+0xfe+0o30+1.2e3j'
     '  def d1():'
     '    pass'
