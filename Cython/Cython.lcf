@@ -109,7 +109,7 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = '^Tree class'
       StyleName = 'Id keyword def'
       TokenType = 17
-      Expression = '(?-i)\b(cdef\x20+)?class\b'
+      Expression = '(?-i)(?<=^[\x20\x09]*)(cdef\x20+)?class\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -117,7 +117,9 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = '^Tree def'
       StyleName = 'Id keyword def'
       TokenType = 11
-      Expression = '(?-i)\b((cp?)?def|async[\x20\x09]+def)\b'
+      Expression = 
+        '(?-i)(?<=^[\x20\x09]*)(cpdef|ctypedef|cdef|async[\x20\x09]+def|d' +
+        'ef)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -192,7 +194,7 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = 'Id func name'
       StyleName = 'Id func name'
       TokenType = 13
-      Expression = '(?r-i)(?<=\bclass\x20+)\w+ |'#13#10'(?r-i)(?<=\bdef\x20+)\w+'
+      Expression = '(?r-i)(?<=^\x20*class\x20+)\w+ |'#13#10'(?r-i)(?<=\bdef\x20+)\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -552,6 +554,7 @@ object SyntAnal7: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'array'
             'basestring'
             'bint'
             'bool'
@@ -895,6 +898,7 @@ object SyntAnal7: TLibSyntAnalyzer
     '^Id tree class')
   Extentions = 'pyx pxi pxd'
   LexerName = 'Cython'
+  SkipSpaces = False
   Notes.Strings = (
     'Alexey (CudaText)')
   RestartFromLineStart = True
