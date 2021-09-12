@@ -117,9 +117,7 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = '^Tree def'
       StyleName = 'Id keyword def'
       TokenType = 11
-      Expression = 
-        '(?-i)(?<=^[\x20\x09]*)(cpdef|ctypedef|cdef|async[\x20\x09]+def|d' +
-        'ef)\b'
+      Expression = '(?-i)(?<=^[\x20\x09]*)(cpdef|cdef|async[\x20\x09]+def|def)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -129,8 +127,8 @@ object SyntAnal7: TLibSyntAnalyzer
       TokenType = 10
       Expression = 
         '(?-i)(?<=^[\x20\x09]*) (if|else|elif|for|async\x20+for|while|try' +
-        '|except|finally|switch|case|with(\x20+(no)?gil)?|async\x20+with|' +
-        'match|ctypedef)\b'
+        '|except|finally|switch|case|with|async\x20+with|match|ctypedef)\' +
+        'b'
       ColumnFrom = 0
       ColumnTo = 0
     end
