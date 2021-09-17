@@ -841,7 +841,7 @@ object SyntAnal13: TLibSyntAnalyzer
     'strings_template')
   DefaultStyleName = 'MAIN'
   CollapseStyleName = 'Spoiler'
-  Extentions = 'js'
+  Extentions = ''
   LexerName = 'JavaScript (ES6)L'
   Notes.Strings = (
     'Lexer JavaScript (ES6)L v1.04'
