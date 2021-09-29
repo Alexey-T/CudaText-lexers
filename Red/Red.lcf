@@ -67,7 +67,7 @@ object SyntAnal17: TLibSyntAnalyzer
     item
       DisplayName = 'HTML entity'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clOlive
+      Font.Color = clAqua
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -100,6 +100,22 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'String filename'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Issue'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Lit-words'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -159,7 +175,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Money'
       StyleName = 'Money'
       TokenType = 9
-      Expression = '[a-z]*\$\d+(\.\d+)?'
+      Expression = '[a-z]*\$[\d'#39']+(\.\d+)?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -204,6 +220,22 @@ object SyntAnal17: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Issue'
+      StyleName = 'Issue'
+      TokenType = 11
+      Expression = '\#[\w\-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Lit-words'
+      StyleName = 'Lit-words'
+      TokenType = 12
+      Expression = #39'[\w\-/]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol []'
       StyleName = 'Symbol'
       TokenType = 10
@@ -215,7 +247,15 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\)]| [\-\+\*/=<>\?]+| ['#39'\.,;:~!@\#\$\^&\|\\]'
+      Expression = '[\(\)]| [\-\+\*/=<>\?]+| [\.,;:~!@\#\$\^&\|\\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number pair'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+x\d+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -223,7 +263,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Number dec'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '((\d+\.?\d*)|\.\d+)(e[\+\-]?\d+)?'
+      Expression = '((\d[\d'#39']*\.?\d*)|\.\d+)(e[\+\-]?\d+)? %?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -620,6 +660,7 @@ object SyntAnal17: TLibSyntAnalyzer
     '16#{AB 09}'
     '64#{09 AZ az+/=} ;-docs'
     '2#{01 }  ;aaa %> bbb'
+    '#include %filename.ext , $123, -USD$1'#39'234.56789, 42x42'
     '#"test" '#39'test'#39' &nbsp; &#12; &xAB; ;aaa'
     'test comment [ '
     '[nested]'
@@ -632,8 +673,7 @@ object SyntAnal17: TLibSyntAnalyzer
     'str}, true, false, none, 12.34, 1.2e+3, 123, some$12.34'
     'a_name1: function'
     'a_name2: context'
-    'a_name3: has'
-    '')
+    'a_name3: has')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
@@ -645,7 +685,9 @@ object SyntAnal17: TLibSyntAnalyzer
     'Tag open'
     'Tag close'
     'Money'
-    'Symbol []')
+    'Symbol []'
+    'Issue'
+    'Lit-words')
   Extentions = 'red reds'
   LexerName = 'Red'
   Notes.Strings = (
