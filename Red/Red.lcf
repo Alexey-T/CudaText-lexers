@@ -119,7 +119,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '\#?(["]).*?(\1|$)'
+      Expression = '\#?"(\\"|.)*?("|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -215,7 +215,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\)]|[\-\+\*/=<>]+|['#39'\.,;:~!@\#\$\^&\|\\\?]'
+      Expression = '[\(\)]| [\-\+\*/=<>\?]+| ['#39'\.,;:~!@\#\$\^&\|\\]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -239,7 +239,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'String %filename'
       StyleName = 'String filename'
       TokenType = 4
-      Expression = '%[^\s\n\r\[\]\(\)]+ | %".*?" '
+      Expression = '%[^\s\n\r\[\]\(\)\{\}]+ | %".*?" '
       ColumnFrom = 0
       ColumnTo = 0
     end>
