@@ -1,7 +1,0 @@
-[info]
-title=Red
-type=lexer
-subdir=-
-
-[lexer1]
-file=Red
