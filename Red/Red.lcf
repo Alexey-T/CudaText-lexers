@@ -956,6 +956,34 @@ object SyntAnal17: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = '('
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '('
+            '#(')
+          TokenTypes = 1024
+        end>
+      BlockEnd = ')'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%s0 ... )'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = 'Tree function'
       ConditionList = <
         item
@@ -1052,7 +1080,11 @@ object SyntAnal17: TLibSyntAnalyzer
     'str}, true, false, none, 12.34, 1.2e+3, 123, some$12.34'
     'a_name1: function'
     'a_name2: context'
-    'a_name3: has')
+    'a_name3: has'
+    'paren-example: quote ('
+    ')'
+    'map-exaple: #('
+    ')')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
