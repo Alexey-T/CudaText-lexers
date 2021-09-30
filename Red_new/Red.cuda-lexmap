@@ -1,0 +1,22 @@
+[comments]
+str1=comment[
+str2=]
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Comment=Comment
+Symbol=Symbol
+Number=Number
+String=String
+Id=Id
+Id keyword=IdKeyword
+Id type=Id2
+Id std func=Id1
+HTML entity=String3
+Comment doc=CommentDoc
+Tag=TagId
+Money=IdVar
+String filename=String2
+Issue=Label
+Lit-words=Id4

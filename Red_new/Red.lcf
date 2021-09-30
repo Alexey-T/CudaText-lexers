@@ -1,0 +1,1054 @@
+object SyntAnal17: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id std'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id type'
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'HTML entity'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clAqua
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment doc'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 11898747
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Money'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String filename'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Issue'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Lit-words'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Numbers {}'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '(\b16)?\#\{[\h\s]*?\} |'#13#10'\b64\#\{[\da-z\s\+/=]*?\} |'#13#10'\b2\#\{[01' +
+        '\s]*?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '\#?"(\\"|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<%'
+      StyleName = 'Tag'
+      TokenType = 7
+      Expression = '<%='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '%>'
+      StyleName = 'Tag'
+      TokenType = 8
+      Expression = '%>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %{...}%'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)%\{.*?\}%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %filename'
+      StyleName = 'String filename'
+      TokenType = 4
+      Expression = '%[^\s\n\r\[\]\(\)\{\}]+ | %".*?" '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String mul-line'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)\{(\{.*?\}|.)*?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment doc'
+      StyleName = 'Comment doc'
+      TokenType = 1
+      Expression = ';\-.*?(?=\%>) | ;\-.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment line'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = ';.*?(?=%>) | ;.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment[]'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)\bcomment\s*\[(\[.*?\]|.)*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment{}'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)\bcomment\s*\{(\{.*?\}|.)*?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Money'
+      StyleName = 'Money'
+      TokenType = 9
+      Expression = '[a-z]*\$[\d'#39']+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML entity'
+      StyleName = 'HTML entity'
+      TokenType = 6
+      Expression = '&(\w+|\#\d+|\#x\h+);'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Issue'
+      StyleName = 'Issue'
+      TokenType = 11
+      Expression = '\#[\w\-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Lit-words'
+      StyleName = 'Lit-words'
+      TokenType = 12
+      Expression = #39'[\w\-/]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Path'
+      StyleName = 'String filename'
+      TokenType = 13
+      Expression = '/[\w\-\.][\w\-/\.]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number pair'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+x\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '((\d[\d'#39']*\.?\d*)|\.\d+)(e[\+\-]?\d+)? %?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_][\w\-\?!<>=\-\+\*]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol delim'
+      StyleName = 'Symbol'
+      TokenType = 10
+      Expression = '[\[\]\(\)]|\#\('
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol word-like'
+      StyleName = 'Id'
+      TokenType = 3
+      Expression = '[\.,;:~!@\#\$\^&\|\\<>=\-\+\*/\?!%]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id std words'
+      StyleName = 'Id std'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'a-an'
+            'about'
+            'absolute'
+            'acos'
+            'action!'
+            'action?'
+            'add'
+            'alert'
+            'all'
+            'all-word!'
+            'all-word?'
+            'also'
+            'alter'
+            'and'
+            'and~'
+            'any'
+            'any-block!'
+            'any-block?'
+            'any-function!'
+            'any-function?'
+            'any-list!'
+            'any-list?'
+            'any-object!'
+            'any-object?'
+            'any-path!'
+            'any-path?'
+            'any-string!'
+            'any-string?'
+            'any-type!'
+            'any-word!'
+            'any-word?'
+            'append'
+            'aqua'
+            'arccosine'
+            'arcsine'
+            'arctangent'
+            'arctangent2'
+            'as'
+            'as-color'
+            'asin'
+            'as-ipv4'
+            'ask'
+            'as-pair'
+            'as-rgba'
+            'at'
+            'atan'
+            'atan2'
+            'attempt'
+            'average'
+            'back'
+            'beige'
+            'binary!'
+            'binary?'
+            'bind'
+            'bitset!'
+            'bitset?'
+            'black'
+            'block!'
+            'block?'
+            'blue'
+            'body-of'
+            'break'
+            'brick'
+            'brown'
+            'browse'
+            'call'
+            'cancel-captions'
+            'caret-to-offset'
+            'case'
+            'catch'
+            'cause-error'
+            'cd'
+            'center-face'
+            'change'
+            'change-dir'
+            'char!'
+            'char?'
+            'charset'
+            'checksum'
+            'class-of'
+            'clean-path'
+            'clear'
+            'clear-reactions'
+            'coal'
+            'coffee'
+            'collect'
+            'comma'
+            'comment'
+            'complement'
+            'complement?'
+            'compose'
+            'construct'
+            'context'
+            'context?'
+            'continue'
+            'copy'
+            'cos'
+            'cosine'
+            'CR'
+            'create-dir'
+            'crimson'
+            'crlf'
+            'cyan'
+            'datatype!'
+            'datatype?'
+            'date!'
+            'date?'
+            'dbl-quote'
+            'debase'
+            'debug-info?'
+            'decompress'
+            'deep-reactor!'
+            'default!'
+            'dehex'
+            'delete'
+            'difference'
+            'dir'
+            'dir?'
+            'dirize'
+            'distance?'
+            'divide'
+            'do'
+            'do-actor'
+            'does'
+            'do-events'
+            'do-file'
+            'do-safe'
+            'dot'
+            'do-thru'
+            'draw'
+            'dump-face'
+            'dump-reactions'
+            'either'
+            'ellipsize-at'
+            'email!'
+            'email?'
+            'empty?'
+            'enbase'
+            'equal?'
+            'error!'
+            'error?'
+            'escape'
+            'eval-set-path'
+            'even?'
+            'event!'
+            'event?'
+            'exclude'
+            'exists?'
+            'exists-thru?'
+            'exit'
+            'exp'
+            'expand'
+            'expand-directives'
+            'extend'
+            'external!'
+            'extract'
+            'extract-boot-args'
+            'face!'
+            'face?'
+            'false'
+            'fetch-help'
+            'fifth'
+            'file!'
+            'file?'
+            'find'
+            'find-flag?'
+            'first'
+            'flip-exe-flag'
+            'float!'
+            'float?'
+            'font!'
+            'font-fixed'
+            'font-sans-serif'
+            'font-serif'
+            'forall'
+            'foreach'
+            'foreach-face'
+            'forest'
+            'forever'
+            'form'
+            'fourth'
+            'fstk-logo'
+            'func'
+            'function'
+            'function!'
+            'function?'
+            'get'
+            'get-current-dir'
+            'get-env'
+            'get-path!'
+            'get-path?'
+            'get-scroller'
+            'get-word!'
+            'get-word?'
+            'glass'
+            'gold'
+            'gray'
+            'greater?'
+            'greater-or-equal?'
+            'green'
+            'gui-console-ctx'
+            'halt'
+            'handle!'
+            'handle?'
+            'has'
+            'hash!'
+            'hash?'
+            'head'
+            'head?'
+            'help'
+            'help-ctx'
+            'help-string'
+            'hex-to-rgb'
+            'highlight'
+            'if'
+            'image!'
+            'image?'
+            'immediate!'
+            'immediate?'
+            'in'
+            'index?'
+            'input'
+            'insert'
+            'insert-event-func'
+            'integer!'
+            'integer?'
+            'internal!'
+            'intersect'
+            'is'
+            'issue!'
+            'issue?'
+            'ivory'
+            'keys-of'
+            'khaki'
+            'last'
+            'last-lf?'
+            'layout'
+            'leaf'
+            'length?'
+            'lesser?'
+            'lesser-or-equal?'
+            'lf'
+            'linen'
+            'link-sub-to-parent'
+            'link-tabs-to-parent'
+            'list-dir'
+            'list-env'
+            'lit-path!'
+            'lit-path?'
+            'lit-word!'
+            'lit-word?'
+            'll'
+            'load'
+            'load-thru'
+            'log-10'
+            'log-2'
+            'log-e'
+            'logic!'
+            'logic?'
+            'loop'
+            'lowercase'
+            'ls'
+            'magenta'
+            'make'
+            'make-dir'
+            'make-face'
+            'map!'
+            'map?'
+            'maroon'
+            'math'
+            'max'
+            'metrics?'
+            'min'
+            'mint'
+            'mod'
+            'modify'
+            'modulo'
+            'mold'
+            'move'
+            'multiply'
+            'NaN?'
+            'native!'
+            'native?'
+            'navy'
+            'negate'
+            'negative?'
+            'newline'
+            'new-line'
+            'new-line?'
+            'next'
+            'no'
+            'none'
+            'none!'
+            'none?'
+            'normalize-dir'
+            'not'
+            'not-equal?'
+            'now'
+            'null'
+            'number!'
+            'number?'
+            'object'
+            'object!'
+            'object?'
+            'odd?'
+            'off'
+            'offset?'
+            'offset-to-caret'
+            'offset-to-char'
+            'oldrab'
+            'olive'
+            'on'
+            'on-face-deep-change*'
+            'on-parse-event'
+            'op!'
+            'op?'
+            'or'
+            'or~'
+            'orange'
+            'os-info'
+            'overlap?'
+            'pad'
+            'pair!'
+            'pair?'
+            'papaya'
+            'para!'
+            'paren!'
+            'paren?'
+            'parse'
+            'parse-trace'
+            'path!'
+            'path?'
+            'path-thru'
+            'percent!'
+            'percent?'
+            'pewter'
+            'pi'
+            'pick'
+            'p-indent'
+            'pink'
+            'point!'
+            'poke'
+            'positive?'
+            'power'
+            'preprocessor'
+            'prin'
+            'print'
+            'probe'
+            'purple'
+            'put'
+            'pwd'
+            'q'
+            'query'
+            'quit'
+            'quit-return'
+            'quote'
+            'random'
+            'react'
+            'react?'
+            'reactor!'
+            'read'
+            'read-clipboard'
+            'read-thru'
+            'reblue'
+            'rebol'
+            'rebolor'
+            'recycle'
+            'Red'
+            'red-complete-ctx'
+            'red-complete-input'
+            'reduce'
+            'refinement!'
+            'refinement?'
+            'reflect'
+            'rejoin'
+            'remainder'
+            'remove'
+            'remove-each'
+            'remove-event-func'
+            'repeat'
+            'repend'
+            'replace'
+            'request-dir'
+            'request-file'
+            'request-font'
+            'return'
+            'reverse'
+            'rich-text'
+            'round'
+            'routine'
+            'routine!'
+            'routine?'
+            'rtd-layout'
+            'same?'
+            'save'
+            'scalar!'
+            'scalar?'
+            'scroller!'
+            'second'
+            'select'
+            'series!'
+            'series?'
+            'set'
+            'set-current-dir'
+            'set-env'
+            'set-flag'
+            'set-focus'
+            'set-path!'
+            'set-path?'
+            'set-quiet'
+            'set-word!'
+            'set-word?'
+            'shift'
+            'shift-left'
+            'shift-logical'
+            'shift-right'
+            'show'
+            'sienna'
+            'sign?'
+            'silver'
+            'sin'
+            'sine'
+            'size?'
+            'size-text'
+            'skip'
+            'sky'
+            'slash'
+            'snow'
+            'sort'
+            'source'
+            'sp'
+            'space'
+            'spec-of'
+            'split'
+            'split-path'
+            'sqrt'
+            'square-root'
+            'stats'
+            'stop-reactor'
+            'strict-equal?'
+            'string'
+            'string!'
+            'string?'
+            'subtract'
+            'suffix?'
+            'sum'
+            'swap'
+            'switch'
+            'system'
+            'tab'
+            'tag!'
+            'tag?'
+            'tail'
+            'tail?'
+            'take'
+            'tan'
+            'tangent'
+            'tanned'
+            'teal'
+            'third'
+            'throw'
+            'time!'
+            'time?'
+            'tips!'
+            'to'
+            'to-binary'
+            'to-bitset'
+            'to-block'
+            'to-char'
+            'to-date'
+            'to-email'
+            'to-file'
+            'to-float'
+            'to-get-path'
+            'to-get-word'
+            'to-hash'
+            'to-hex'
+            'to-image'
+            'to-integer'
+            'to-issue'
+            'to-lit-path'
+            'to-lit-word'
+            'to-local-date'
+            'to-local-file'
+            'to-logic'
+            'to-map'
+            'to-none'
+            'to-pair'
+            'to-paren'
+            'to-path'
+            'to-percent'
+            'to-red-file'
+            'to-refinement'
+            'to-set-path'
+            'to-set-word'
+            'to-string'
+            'to-tag'
+            'to-time'
+            'to-tuple'
+            'to-typeset'
+            'to-unset'
+            'to-url'
+            'to-UTC-date'
+            'to-word'
+            'transparent'
+            'trim'
+            'true'
+            'try'
+            'tuple!'
+            'tuple?'
+            'type?'
+            'typeset!'
+            'typeset?'
+            'union'
+            'unique'
+            'unless'
+            'unset'
+            'unset!'
+            'unset?'
+            'until'
+            'unview'
+            'update-font-faces'
+            'uppercase'
+            'url!'
+            'url?'
+            'value?'
+            'values-of'
+            'vector!'
+            'vector?'
+            'view'
+            'violet'
+            'wait'
+            'water'
+            'what'
+            'what-dir'
+            'wheat'
+            'while'
+            'white'
+            'within?'
+            'word!'
+            'word?'
+            'words-of'
+            'write'
+            'write-clipboard'
+            'write-stdout'
+            'xor'
+            'xor~'
+            'yello'
+            'yellow'
+            'yes'
+            'zero?            ')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id std symbols'
+      StyleName = 'Id std'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '-'
+            '?'
+            '??'
+            '*'
+            '**'
+            '/'
+            '//'
+            '%'
+            '+'
+            '<'
+            '<<'
+            '<='
+            '<>'
+            '='
+            '=?'
+            '=='
+            '>'
+            '>='
+            '>>'
+            '>>>')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 1024
+        end>
+      BlockEnd = ']'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '[ ... ]'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tree function'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'func'
+            'funct'
+            'function'
+            'routine')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tree context'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'context')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 7
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tree has'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'has')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 6
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '<%'
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end>
+      BlockEnd = '%>'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '<% ... %>'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '%>'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 256
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '#{AB 09}'
+    '16#{AB 09}'
+    '64#{09 AZ az+/=} ;-docs'
+    '2#{01 }  ;aaa %> bbb'
+    '#include %filename.ext , $123, -USD$1'#39'234.56789, 42x42'
+    '#"test" '#39'test'#39' &nbsp; &#12; &xAB; ;aaa'
+    'test comment [ '
+    '[nested]'
+    'dddd] and comment { '
+    '{nested}'
+    'dddd}'
+    'funct <%=                          '
+    'a_name %> %filename.ext, %"filename.ext"'
+    '{str {nested}'
+    'str}, true, false, none, 12.34, 1.2e+3, 123, some$12.34'
+    'a_name1: function'
+    'a_name2: context'
+    'a_name3: has')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'HTML entity'
+    'Tag open'
+    'Tag close'
+    'Money'
+    'Symbol []'
+    'Issue'
+    'Lit-words'
+    'Path')
+  Extentions = 'red reds'
+  LexerName = 'Red'
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  RestartFromLineStart = True
+  LineComment = ';'
+  Charset = DEFAULT_CHARSET
+end
