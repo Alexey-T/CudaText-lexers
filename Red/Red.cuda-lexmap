@@ -1,8 +1,8 @@
 [comments]
 str1=comment[
 str2=]
-styles_cmt=Comment
-styles_str=String
+styles_cmt=Comment,String foldable
+styles_str=String,String filename
 
 [map]
 Comment=Comment
@@ -11,11 +11,12 @@ Number=Number
 String=String
 Id=Id
 Id std=Id1
-Id keyword=IdKeyword
 Id type=Id2
+Id keyword=IdKeyword
 Set-word=IdVar
 Comment doc=CommentDoc
 String filename=String2
+String foldable=String
 Tag=TagId
 Issue=Label
 Lit-words=Id4

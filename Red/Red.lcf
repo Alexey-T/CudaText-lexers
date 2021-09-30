@@ -89,6 +89,14 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = []
     end
     item
+      DisplayName = 'String foldable'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
       DisplayName = 'Tag'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clRed
@@ -148,10 +156,10 @@ object SyntAnal17: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String'
+      DisplayName = 'String "'
       StyleName = 'String'
       TokenType = 4
-      Expression = '\#?"(\\"|.)*?("|$)'
+      Expression = '\#?"(\^.|.)*?("|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -172,26 +180,26 @@ object SyntAnal17: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String %{...}%'
-      StyleName = 'String'
+      DisplayName = 'String raw'
+      StyleName = 'String foldable'
       TokenType = 4
-      Expression = '(?s)%\{.*?\}%'
+      Expression = '(?s)(%{1,3})\{.*?(\}\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'String %filename'
+      DisplayName = 'String filename'
       StyleName = 'String filename'
       TokenType = 4
-      Expression = '%[^\s\n\r\[\]\(\)\{\}]+ | %".*?" '
+      Expression = '[%@][^\s\n\r\[\]\(\)\{\}]+ | %".*?" '
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'String mul-line'
-      StyleName = 'String'
+      DisplayName = 'String {}'
+      StyleName = 'String foldable'
       TokenType = 4
-      Expression = '(?s)\{(\{.*?\}|.)*?\}'
+      Expression = '(?s)\{(\{(\^.|.)*?\}|\^.|.)*?\}'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -199,7 +207,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Comment doc'
       StyleName = 'Comment doc'
       TokenType = 1
-      Expression = ';\-.*?(?=\%>) | ;\-.*'
+      Expression = ';[\-@].*?(?=\%>) | ;[\-@].*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -290,6 +298,14 @@ object SyntAnal17: TLibSyntAnalyzer
       Expression = 
         '[^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d]'#13#10'[^/\^,\[\]\(\)\{\}"\#\%\$@:;\' +
         's]* :'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML tag'
+      StyleName = 'HTML entity'
+      TokenType = 6
+      Expression = '<[a-z]\w*>'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -996,7 +1012,6 @@ object SyntAnal17: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'func'
-            'funct'
             'function'
             'routine')
           TokenTypes = 4
@@ -1032,6 +1047,7 @@ object SyntAnal17: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'does'
             'has')
           TokenTypes = 4
         end
@@ -1075,8 +1091,8 @@ object SyntAnal17: TLibSyntAnalyzer
     '64#{09 AZ az+/=} ;-docs'
     '2#{01 }  ;aaa %> bbb'
     '#include %filename.ext , $123, -USD$1'#39'234.56789, 42x42'
-    '#"test" '#39'test'#39' &nbsp; &#12; &xAB; ;aaa'
-    'test comment [ '
+    '#"test" '#39'test'#39' &nbsp; , &#12; , &xAB; <tag>,  ;aaa'
+    'test {str^}str{nested}end} and "str^"str" and comment [ '
     '[nested]'
     'dddd] and comment { '
     '{nested}'
