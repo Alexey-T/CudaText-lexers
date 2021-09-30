@@ -1,0 +1,710 @@
+object SyntAnal17: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id std func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'HTML entity'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clAqua
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment doc'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 11898747
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Money'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String filename'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Issue'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Lit-words'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Numbers {}'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '(\b16)?\#\{[\h\s]*?\} |'#13#10'\b64\#\{[\da-z\s\+/=]*?\} |'#13#10'\b2\#\{[01' +
+        '\s]*?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '\#?"(\\"|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment doc'
+      StyleName = 'Comment doc'
+      TokenType = 1
+      Expression = ';\-.*?(?=\%>) | ;\-.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment line'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = ';.*?(?=%>) | ;.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment[]'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)\bcomment\s*\[(\[.*?\]|.)*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment{}'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)\bcomment\s*\{(\{.*?\}|.)*?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Money'
+      StyleName = 'Money'
+      TokenType = 9
+      Expression = '[a-z]*\$[\d'#39']+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_][\w\-]*\??'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML entity'
+      StyleName = 'HTML entity'
+      TokenType = 6
+      Expression = '&(\w+|\#\d+|\#x\h+);'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag open'
+      StyleName = 'Tag'
+      TokenType = 7
+      Expression = '<%='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tag close'
+      StyleName = 'Tag'
+      TokenType = 8
+      Expression = '%>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String mul-line'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)\{(\{.*?\}|.)*?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Issue'
+      StyleName = 'Issue'
+      TokenType = 11
+      Expression = '\#[\w\-]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Lit-words'
+      StyleName = 'Lit-words'
+      TokenType = 12
+      Expression = #39'[\w\-/]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Path'
+      StyleName = 'String filename'
+      TokenType = 13
+      Expression = '/[\w\-/]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol []'
+      StyleName = 'Symbol'
+      TokenType = 10
+      Expression = '[\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\(\)]| [\-\+\*/=<>\?]+| [\.,;:~!@\#\$\^&\|\\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number pair'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+x\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '((\d[\d'#39']*\.?\d*)|\.\d+)(e[\+\-]?\d+)? %?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %{...}%'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)%\{.*?\}%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %filename'
+      StyleName = 'String filename'
+      TokenType = 4
+      Expression = '%[^\s\n\r\[\]\(\)\{\}]+ | %".*?" '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'as'
+            'assert'
+            'at'
+            'break'
+            'case'
+            'context'
+            'continue'
+            'declare'
+            'does'
+            'either'
+            'else'
+            'exit'
+            'for'
+            'forall'
+            'foreach'
+            'func'
+            'funct'
+            'function'
+            'halt'
+            'has'
+            'head'
+            'if'
+            'insert'
+            'loop'
+            'next'
+            'or'
+            'quit'
+            'remove-each'
+            'repeat'
+            'repend'
+            'return'
+            'size?'
+            'switch'
+            'unless'
+            'until'
+            'while'
+            'with'
+            'xor')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id types'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'false'
+            'no'
+            'none'
+            'null'
+            'off'
+            'on'
+            'true'
+            'yes')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id storages'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '_context'
+            'action'
+            'binary'
+            'bitset'
+            'block'
+            'char'
+            'datatype'
+            'file'
+            'float'
+            'function'
+            'get-path'
+            'get-word'
+            'integer'
+            'interpreter'
+            'issue'
+            'lit-path'
+            'lit-word'
+            'logic'
+            'native'
+            'object'
+            'op'
+            'paren'
+            'parser'
+            'path'
+            'point'
+            'refinement'
+            'routine'
+            'set-path'
+            'set-word'
+            'stack'
+            'string'
+            'symbol'
+            'unicode'
+            'url'
+            'word'
+            'words')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id std func'
+      StyleName = 'Id std func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'alias'
+            'all'
+            'any'
+            'append'
+            'arccosine'
+            'arcsine'
+            'arctangent'
+            'arctangent2'
+            'as-binary'
+            'as-string'
+            'atan2'
+            'back'
+            'bind'
+            'bind?'
+            'bound?'
+            'browse'
+            'caret-to-offset'
+            'catch'
+            'charset'
+            'checksum'
+            'close'
+            'comment'
+            'compose'
+            'compress'
+            'connected?'
+            'construct'
+            'cosine'
+            'create-link'
+            'crypt-strength?'
+            'debase'
+            'decloak'
+            'decompress'
+            'dehex'
+            'detab'
+            'dh-compute-key'
+            'dh-generate-key'
+            'dh-make-key'
+            'difference'
+            'disarm'
+            'do-browser'
+            'draw'
+            'dsa-generate-key'
+            'dsa-make-key'
+            'dsa-make-signature'
+            'dsa-verify-signature'
+            'enbase'
+            'encloak'
+            'entab'
+            'exclude'
+            'exp'
+            'find'
+            'form'
+            'free'
+            'get'
+            'get-env'
+            'get-modes'
+            'hide'
+            'hsv-to-rgb'
+            'if'
+            'in'
+            'input?'
+            'intersect'
+            'launch'
+            'local-request-file'
+            'log-10'
+            'log-2'
+            'log-e'
+            'lowercase'
+            'maximum-of'
+            'minimum-of'
+            'mold'
+            'new-line'
+            'new-line?'
+            'not'
+            'now'
+            'offset-to-caret'
+            'open'
+            'prin'
+            'print'
+            'protect'
+            'query'
+            'read'
+            'read-io'
+            'reduce'
+            'reverse'
+            'rgb-to-hsv'
+            'rsa-encrypt'
+            'rsa-generate-key'
+            'rsa-make-key'
+            'save'
+            'script?'
+            'secure'
+            'set'
+            'set-modes'
+            'shift'
+            'show'
+            'sine'
+            'size-text'
+            'square-root'
+            'stats'
+            'tail'
+            'tangent'
+            'textinfo'
+            'throw'
+            'to-hex'
+            'to-local-file'
+            'to-rebol-file'
+            'trace'
+            'try'
+            'type?'
+            'union'
+            'unique'
+            'unprotect'
+            'unset'
+            'update'
+            'uppercase'
+            'use'
+            'value?'
+            'wait'
+            'write'
+            'write-io')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag open'
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end>
+      BlockEnd = 'Tag close'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '<% ... %>'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tag close'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 256
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 1024
+        end>
+      BlockEnd = ']'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '[ ... ]'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 1024
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tree function'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'func'
+            'funct'
+            'function'
+            'routine')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tree context'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'context')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 7
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tree has'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'has')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            ':')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 6
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '#{AB 09}'
+    '16#{AB 09}'
+    '64#{09 AZ az+/=} ;-docs'
+    '2#{01 }  ;aaa %> bbb'
+    '#include %filename.ext , $123, -USD$1'#39'234.56789, 42x42'
+    '#"test" '#39'test'#39' &nbsp; &#12; &xAB; ;aaa'
+    'test comment [ '
+    '[nested]'
+    'dddd] and comment { '
+    '{nested}'
+    'dddd}'
+    'funct <%=                          '
+    'a_name %> %filename.ext, %"filename.ext"'
+    '{str {nested}'
+    'str}, true, false, none, 12.34, 1.2e+3, 123, some$12.34'
+    'a_name1: function'
+    'a_name2: context'
+    'a_name3: has')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'HTML entity'
+    'Tag open'
+    'Tag close'
+    'Money'
+    'Symbol []'
+    'Issue'
+    'Lit-words'
+    'Path')
+  Extentions = 'red reds'
+  LexerName = 'Red'
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  RestartFromLineStart = True
+  LineComment = ';'
+  Charset = DEFAULT_CHARSET
+end

@@ -41,7 +41,16 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = []
     end
     item
+      DisplayName = 'Id std'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
       DisplayName = 'Id keyword'
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -13
@@ -50,6 +59,7 @@ object SyntAnal17: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Id type'
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clPurple
       Font.Height = -13
@@ -57,17 +67,9 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Id std func'
+      DisplayName = 'Set-word'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clNavy
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
-      DisplayName = 'HTML entity'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clAqua
+      Font.Color = clGreen
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -81,25 +83,17 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = [fsItalic]
     end
     item
-      DisplayName = 'Tag'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clRed
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
-      DisplayName = 'Money'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
       DisplayName = 'String filename'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Tag'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -119,8 +113,32 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Money'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'HTML entity'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clAqua
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
+    item
+      DisplayName = 'Symbol delim'
+      StyleName = 'Symbol'
+      TokenType = 10
+      Expression = '[\[\]\(\)]|\#\('
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
     item
       DisplayName = 'Numbers {}'
       StyleName = 'Number'
@@ -136,6 +154,46 @@ object SyntAnal17: TLibSyntAnalyzer
       StyleName = 'String'
       TokenType = 4
       Expression = '\#?"(\\"|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<%'
+      StyleName = 'Tag'
+      TokenType = 7
+      Expression = '<%='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '%>'
+      StyleName = 'Tag'
+      TokenType = 8
+      Expression = '%>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %{...}%'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)%\{.*?\}%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %filename'
+      StyleName = 'String filename'
+      TokenType = 4
+      Expression = '%[^\s\n\r\[\]\(\)\{\}]+ | %".*?" '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String mul-line'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)\{(\{.*?\}|.)*?\}'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -175,15 +233,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Money'
       StyleName = 'Money'
       TokenType = 9
-      Expression = '[a-z]*\$[\d'#39']+(\.\d+)?'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Id'
-      StyleName = 'Id'
-      TokenType = 2
-      Expression = '[a-z_][\w\-]*\??'
+      Expression = '\-?[a-z]*\$[\d'#39']+(\.\d+)?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -192,30 +242,6 @@ object SyntAnal17: TLibSyntAnalyzer
       StyleName = 'HTML entity'
       TokenType = 6
       Expression = '&(\w+|\#\d+|\#x\h+);'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Tag open'
-      StyleName = 'Tag'
-      TokenType = 7
-      Expression = '<%='
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Tag close'
-      StyleName = 'Tag'
-      TokenType = 8
-      Expression = '%>'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'String mul-line'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = '(?s)\{(\{.*?\}|.)*?\}'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -239,23 +265,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Path'
       StyleName = 'String filename'
       TokenType = 13
-      Expression = '/[\w\-/]+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Symbol []'
-      StyleName = 'Symbol'
-      TokenType = 10
-      Expression = '[\[\]]'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Symbol'
-      StyleName = 'Symbol'
-      TokenType = 3
-      Expression = '[\(\)]| [\-\+\*/=<>\?]+| [\.,;:~!@\#\$\^&\|\\]'
+      Expression = '/[\w\-\.][\w\-/\.]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -276,294 +286,644 @@ object SyntAnal17: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String %{...}%'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = '(?s)%\{.*?\}%'
+      DisplayName = 'Set-word'
+      StyleName = 'Set-word'
+      TokenType = 14
+      Expression = 
+        '[^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d]'#13#10'[^/\^,\[\]\(\)\{\}"\#\%\$@:;\' +
+        's]* :'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'String %filename'
-      StyleName = 'String filename'
-      TokenType = 4
-      Expression = '%[^\s\n\r\[\]\(\)\{\}]+ | %".*?" '
+      DisplayName = 'Word'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = 
+        '[^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d]'#13#10'[^/\^,\[\]\(\)\{\}"\#\%\$@:;\' +
+        's]*'#13#10'|%|/+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
   BlockRules = <
     item
-      DisplayName = 'Id keyword'
-      StyleName = 'Id keyword'
+      DisplayName = 'Id std'
+      StyleName = 'Id std'
       BlockType = btTagDetect
       ConditionList = <
         item
           TagList.Strings = (
-            'and'
-            'as'
-            'assert'
-            'at'
-            'break'
-            'case'
-            'context'
-            'continue'
-            'declare'
-            'does'
-            'either'
-            'else'
-            'exit'
-            'for'
-            'forall'
-            'foreach'
-            'func'
-            'funct'
-            'function'
-            'halt'
-            'has'
-            'head'
-            'if'
-            'insert'
-            'loop'
-            'next'
-            'or'
-            'quit'
-            'remove-each'
-            'repeat'
-            'repend'
-            'return'
-            'size?'
-            'switch'
-            'unless'
-            'until'
-            'while'
-            'with'
-            'xor')
-          TokenTypes = 4
-          IgnoreCase = True
-        end>
-      HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Id types'
-      StyleName = 'Id type'
-      BlockType = btTagDetect
-      ConditionList = <
-        item
-          TagList.Strings = (
-            'false'
-            'no'
-            'none'
-            'null'
-            'off'
-            'on'
-            'true'
-            'yes')
-          TokenTypes = 4
-        end>
-      HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Id storages'
-      StyleName = 'Id type'
-      BlockType = btTagDetect
-      ConditionList = <
-        item
-          TagList.Strings = (
-            '_context'
-            'action'
-            'binary'
-            'bitset'
-            'block'
-            'char'
-            'datatype'
-            'file'
-            'float'
-            'function'
-            'get-path'
-            'get-word'
-            'integer'
-            'interpreter'
-            'issue'
-            'lit-path'
-            'lit-word'
-            'logic'
-            'native'
-            'object'
-            'op'
-            'paren'
-            'parser'
-            'path'
-            'point'
-            'refinement'
-            'routine'
-            'set-path'
-            'set-word'
-            'stack'
-            'string'
-            'symbol'
-            'unicode'
-            'url'
-            'word'
-            'words')
-          TokenTypes = 4
-        end>
-      HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Id std func'
-      StyleName = 'Id std func'
-      BlockType = btTagDetect
-      ConditionList = <
-        item
-          TagList.Strings = (
-            'alias'
+            '-'
+            '_read-input'
+            '_save-cfg'
+            '_set-buffer-history'
+            '_terminate-console'
+            '?'
+            '??'
+            '*'
+            '**'
+            '/'
+            '//'
+            '%'
+            '+'
+            '<'
+            '<<'
+            '<='
+            '<>'
+            '='
+            '=?'
+            '=='
+            '>'
+            '>='
+            '>>'
+            '>>>'
+            'a-an'
+            'about'
+            'absolute'
+            'acos'
+            'action!'
+            'action?'
+            'add'
+            'alert'
             'all'
+            'all-word!'
+            'all-word?'
+            'also'
+            'alter'
+            'and'
+            'and~'
             'any'
+            'any-block!'
+            'any-block?'
+            'any-function!'
+            'any-function?'
+            'any-list!'
+            'any-list?'
+            'any-object!'
+            'any-object?'
+            'any-path!'
+            'any-path?'
+            'any-string!'
+            'any-string?'
+            'any-type!'
+            'any-word!'
+            'any-word?'
             'append'
+            'aqua'
             'arccosine'
             'arcsine'
             'arctangent'
             'arctangent2'
-            'as-binary'
-            'as-string'
+            'as'
+            'as-color'
+            'asin'
+            'as-ipv4'
+            'ask'
+            'as-money'
+            'as-pair'
+            'as-rgba'
+            'at'
+            'atan'
             'atan2'
+            'attempt'
+            'average'
             'back'
+            'beige'
+            'binary!'
+            'binary?'
             'bind'
-            'bind?'
-            'bound?'
+            'bitset!'
+            'bitset?'
+            'black'
+            'block!'
+            'block?'
+            'blue'
+            'body-of'
+            'break'
+            'brick'
+            'brown'
             'browse'
+            'call'
             'caret-to-offset'
+            'case'
             'catch'
+            'cause-error'
+            'cd'
+            'center-face'
+            'change'
+            'change-dir'
+            'char!'
+            'char?'
             'charset'
             'checksum'
+            'class-of'
+            'clean-path'
+            'clear'
+            'clear-reactions'
+            'cli-console-ctx'
             'close'
+            'coal'
+            'coffee'
+            'collect'
+            'comma'
             'comment'
+            'complement'
+            'complement?'
             'compose'
             'compress'
-            'connected?'
             'construct'
+            'context'
+            'context?'
+            'continue'
+            'copy'
+            'cos'
             'cosine'
-            'create-link'
-            'crypt-strength?'
+            'count-chars'
+            'cr'
+            'create'
+            'create-dir'
+            'crimson'
+            'crlf'
+            'cur-frame'
+            'cyan'
+            'datatype!'
+            'datatype?'
+            'date!'
+            'date?'
+            'dbl-quote'
             'debase'
-            'decloak'
+            'debug-info?'
+            'decode-url'
             'decompress'
+            'deep-reactor'
+            'deep-reactor!'
+            'default!'
             'dehex'
-            'detab'
-            'dh-compute-key'
-            'dh-generate-key'
-            'dh-make-key'
+            'delete'
             'difference'
-            'disarm'
-            'do-browser'
+            'dir'
+            'dir?'
+            'dirize'
+            'distance?'
+            'divide'
+            'do'
+            'do-actor'
+            'does'
+            'do-events'
+            'do-file'
+            'do-safe'
+            'dot'
+            'do-thru'
             'draw'
-            'dsa-generate-key'
-            'dsa-make-key'
-            'dsa-make-signature'
-            'dsa-verify-signature'
+            'dt'
+            'dump-face'
+            'dump-reactions'
+            'either'
+            'ellipsize-at'
+            'email!'
+            'email?'
+            'empty?'
             'enbase'
-            'encloak'
-            'entab'
+            'encode-url'
+            'enhex'
+            'equal?'
+            'error!'
+            'error?'
+            'escape'
+            'eval-set-path'
+            'even?'
+            'event!'
+            'event?'
             'exclude'
+            'exists?'
+            'exists-thru?'
+            'exit'
             'exp'
+            'expand'
+            'expand-directives'
+            'extend'
+            'external!'
+            'extract'
+            'extract-boot-args'
+            'face!'
+            'face?'
+            'false'
+            'fetch-help'
+            'fifth'
+            'file!'
+            'file?'
             'find'
+            'find-flag?'
+            'first'
+            'flip-exe-flag'
+            'float!'
+            'float?'
+            'font!'
+            'font-fixed'
+            'font-sans-serif'
+            'font-serif'
+            'forall'
+            'foreach'
+            'foreach-face'
+            'forest'
+            'forever'
             'form'
-            'free'
+            'fourth'
+            'func'
+            'function'
+            'function!'
+            'function?'
             'get'
+            'get-current-dir'
             'get-env'
-            'get-modes'
-            'hide'
-            'hsv-to-rgb'
+            'get-path!'
+            'get-path?'
+            'get-scroller'
+            'get-word!'
+            'get-word?'
+            'glass'
+            'gold'
+            'gray'
+            'greater?'
+            'greater-or-equal?'
+            'green'
+            'halt'
+            'handle!'
+            'handle?'
+            'has'
+            'hash!'
+            'hash?'
+            'head'
+            'head?'
+            'help'
+            'help-ctx'
+            'help-string'
+            'hex-to-rgb'
             'if'
+            'image!'
+            'image?'
+            'immediate!'
+            'immediate?'
             'in'
-            'input?'
+            'index?'
+            'input'
+            'input-stdin'
+            'insert'
+            'insert-event-func'
+            'integer!'
+            'integer?'
+            'internal!'
             'intersect'
-            'launch'
-            'local-request-file'
+            'is'
+            'issue!'
+            'issue?'
+            'ivory'
+            'keys-of'
+            'khaki'
+            'last'
+            'last?'
+            'last-lf?'
+            'layout'
+            'leaf'
+            'length?'
+            'lesser?'
+            'lesser-or-equal?'
+            'lf'
+            'linen'
+            'link-sub-to-parent'
+            'link-tabs-to-parent'
+            'list-dir'
+            'list-env'
+            'lit-path!'
+            'lit-path?'
+            'lit-word!'
+            'lit-word?'
+            'll'
+            'load'
+            'load-csv'
+            'load-json'
+            'load-thru'
             'log-10'
             'log-2'
             'log-e'
+            'logic!'
+            'logic?'
+            'loop'
             'lowercase'
-            'maximum-of'
-            'minimum-of'
+            'ls'
+            'magenta'
+            'make'
+            'make-dir'
+            'make-face'
+            'map!'
+            'map?'
+            'maroon'
+            'math'
+            'max'
+            'metrics?'
+            'min'
+            'mint'
+            'mod'
+            'modify'
+            'modulo'
             'mold'
+            'money!'
+            'money?'
+            'move'
+            'multiply'
+            'NaN?'
+            'native!'
+            'native?'
+            'navy'
+            'negate'
+            'negative?'
+            'newline'
             'new-line'
             'new-line?'
+            'next'
+            'no'
+            'none'
+            'none!'
+            'none?'
+            'normalize-dir'
             'not'
+            'not-equal?'
             'now'
+            'null'
+            'null-handle'
+            'number!'
+            'number?'
+            'object'
+            'object!'
+            'object?'
+            'odd?'
+            'off'
+            'offset?'
             'offset-to-caret'
+            'offset-to-char'
+            'oldrab'
+            'olive'
+            'on'
+            'on-face-deep-change*'
+            'op!'
+            'op?'
             'open'
+            'open?'
+            'or'
+            'or~'
+            'orange'
+            'os-info'
+            'overlap?'
+            'pad'
+            'pair!'
+            'pair?'
+            'papaya'
+            'para!'
+            'paren!'
+            'paren?'
+            'parse'
+            'parse-trace'
+            'path!'
+            'path?'
+            'path-thru'
+            'percent!'
+            'percent?'
+            'pewter'
+            'pi'
+            'pick'
+            'pink'
+            'point!'
+            'poke'
+            'port!'
+            'positive?'
+            'power'
+            'preprocessor'
             'prin'
             'print'
-            'protect'
+            'probe'
+            'purple'
+            'put'
+            'pwd'
+            'q'
             'query'
+            'quit'
+            'quit-return'
+            'quote'
+            'random'
+            'react'
+            'react?'
+            'reactor'
+            'reactor!'
             'read'
-            'read-io'
+            'read-clipboard'
+            'read-stdin'
+            'read-thru'
+            'reblue'
+            'rebol'
+            'rebolor'
+            'recycle'
+            'Red'
+            'red-complete-ctx'
+            'red-complete-input'
             'reduce'
+            'ref!'
+            'ref?'
+            'refinement!'
+            'refinement?'
+            'reflect'
+            'register-scheme'
+            'rejoin'
+            'remainder'
+            'remove'
+            'remove-each'
+            'remove-event-func'
+            'rename'
+            'repeat'
+            'repend'
+            'replace'
+            'request-dir'
+            'request-file'
+            'request-font'
+            'return'
             'reverse'
-            'rgb-to-hsv'
-            'rsa-encrypt'
-            'rsa-generate-key'
-            'rsa-make-key'
+            'rich-text'
+            'round'
+            'routine'
+            'routine!'
+            'routine?'
+            'rtd-layout'
+            'same?'
             'save'
-            'script?'
-            'secure'
+            'scalar!'
+            'scalar?'
+            'scan'
+            'scroller!'
+            'second'
+            'select'
+            'series!'
+            'series?'
             'set'
-            'set-modes'
+            'set-current-dir'
+            'set-env'
+            'set-flag'
+            'set-focus'
+            'set-path!'
+            'set-path?'
+            'set-quiet'
+            'set-slot-quiet'
+            'set-word!'
+            'set-word?'
             'shift'
+            'shift-left'
+            'shift-logical'
+            'shift-right'
             'show'
+            'sienna'
+            'sign?'
+            'silver'
+            'sin'
             'sine'
+            'single?'
+            'size?'
             'size-text'
+            'skip'
+            'sky'
+            'slash'
+            'snow'
+            'sort'
+            'source'
+            'sp'
+            'space'
+            'spec-of'
+            'split'
+            'split-path'
+            'sqrt'
             'square-root'
             'stats'
+            'stop-events'
+            'stop-reactor'
+            'strict-equal?'
+            'string!'
+            'string?'
+            'subtract'
+            'suffix?'
+            'sum'
+            'swap'
+            'switch'
+            'system'
+            'tab'
+            'tag!'
+            'tag?'
             'tail'
+            'tail?'
+            'take'
+            'tan'
             'tangent'
-            'textinfo'
+            'tanned'
+            'teal'
+            'third'
             'throw'
+            'time!'
+            'time?'
+            'time-it'
+            'to'
+            'to-binary'
+            'to-bitset'
+            'to-block'
+            'to-char'
+            'to-csv'
+            'to-date'
+            'to-email'
+            'to-file'
+            'to-float'
+            'to-get-path'
+            'to-get-word'
+            'to-hash'
             'to-hex'
+            'to-image'
+            'to-integer'
+            'to-issue'
+            'to-json'
+            'to-lit-path'
+            'to-lit-word'
+            'to-local-date'
             'to-local-file'
-            'to-rebol-file'
-            'trace'
+            'to-logic'
+            'to-map'
+            'to-money'
+            'to-none'
+            'to-pair'
+            'to-paren'
+            'to-path'
+            'to-percent'
+            'to-red-file'
+            'to-ref'
+            'to-refinement'
+            'to-set-path'
+            'to-set-word'
+            'to-string'
+            'to-tag'
+            'to-time'
+            'to-tuple'
+            'to-typeset'
+            'to-unset'
+            'to-url'
+            'to-UTC-date'
+            'to-word'
+            'transcode'
+            'transcode-trace'
+            'transparent'
+            'trim'
+            'true'
             'try'
+            'tuple!'
+            'tuple?'
             'type?'
+            'typeset!'
+            'typeset?'
             'union'
             'unique'
-            'unprotect'
+            'unless'
             'unset'
+            'unset!'
+            'unset?'
+            'until'
+            'unview'
             'update'
+            'update-font-faces'
             'uppercase'
-            'use'
+            'url!'
+            'url?'
+            'url-parser'
+            'v'
             'value?'
+            'values-of'
+            'vector!'
+            'vector?'
+            'view'
+            'violet'
             'wait'
+            'water'
+            'what'
+            'what-dir'
+            'wheat'
+            'while'
+            'white'
+            'within?'
+            'word!'
+            'word?'
+            'words-of'
             'write'
-            'write-io')
+            'write-clipboard'
+            'write-stdout'
+            'xor'
+            'xor~'
+            'yello'
+            'yellow'
+            'yes'
+            'zero?')
           TokenTypes = 4
-        end>
-      HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Tag open'
-      ConditionList = <
-        item
-          TokenTypes = 128
-        end>
-      BlockEnd = 'Tag close'
-      DisplayInTree = False
-      HighlightPos = cpAny
-      DrawStaple = True
-      CollapseFmt = '<% ... %>'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Tag close'
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TokenTypes = 256
+          IgnoreCase = True
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
@@ -607,12 +967,7 @@ object SyntAnal17: TLibSyntAnalyzer
           TokenTypes = 4
         end
         item
-          TagList.Strings = (
-            ':')
-          TokenTypes = 8
-        end
-        item
-          TokenTypes = 4
+          TokenTypes = 16384
         end>
       RefToCondEnd = True
       HighlightPos = cpAny
@@ -629,12 +984,7 @@ object SyntAnal17: TLibSyntAnalyzer
           TokenTypes = 4
         end
         item
-          TagList.Strings = (
-            ':')
-          TokenTypes = 8
-        end
-        item
-          TokenTypes = 4
+          TokenTypes = 16384
         end>
       RefToCondEnd = True
       HighlightPos = cpAny
@@ -651,17 +1001,35 @@ object SyntAnal17: TLibSyntAnalyzer
           TokenTypes = 4
         end
         item
-          TagList.Strings = (
-            ':')
-          TokenTypes = 8
-        end
-        item
-          TokenTypes = 4
+          TokenTypes = 16384
         end>
       RefToCondEnd = True
       HighlightPos = cpAny
       NoEndRule = True
       TreeItemImage = 6
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '<%'
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end>
+      BlockEnd = '%>'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '<% ... %>'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '%>'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 256
+        end>
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end>
   CodeTemplates = <>
@@ -688,7 +1056,7 @@ object SyntAnal17: TLibSyntAnalyzer
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
-    'Id'
+    'Word'
     'Symbol'
     'String'
     'Number'
@@ -696,10 +1064,11 @@ object SyntAnal17: TLibSyntAnalyzer
     'Tag open'
     'Tag close'
     'Money'
-    'Symbol []'
+    'Symbol delim'
     'Issue'
     'Lit-words'
-    'Path')
+    'Path'
+    'Set-word')
   Extentions = 'red reds'
   LexerName = 'Red'
   Notes.Strings = (
