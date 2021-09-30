@@ -236,6 +236,14 @@ object SyntAnal17: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Path'
+      StyleName = 'String filename'
+      TokenType = 13
+      Expression = '/[\w\-/]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol []'
       StyleName = 'Symbol'
       TokenType = 10
@@ -295,7 +303,6 @@ object SyntAnal17: TLibSyntAnalyzer
             'as'
             'assert'
             'at'
-            'back'
             'break'
             'case'
             'context'
@@ -324,10 +331,8 @@ object SyntAnal17: TLibSyntAnalyzer
             'repeat'
             'repend'
             'return'
-            'routine'
             'size?'
             'switch'
-            'tail'
             'unless'
             'until'
             'while'
@@ -375,6 +380,7 @@ object SyntAnal17: TLibSyntAnalyzer
             'datatype'
             'file'
             'float'
+            'function'
             'get-path'
             'get-word'
             'integer'
@@ -383,6 +389,7 @@ object SyntAnal17: TLibSyntAnalyzer
             'lit-path'
             'lit-word'
             'logic'
+            'native'
             'object'
             'op'
             'paren'
@@ -390,6 +397,7 @@ object SyntAnal17: TLibSyntAnalyzer
             'path'
             'point'
             'refinement'
+            'routine'
             'set-path'
             'set-word'
             'stack'
@@ -422,6 +430,7 @@ object SyntAnal17: TLibSyntAnalyzer
             'as-binary'
             'as-string'
             'atan2'
+            'back'
             'bind'
             'bind?'
             'bound?'
@@ -460,6 +469,7 @@ object SyntAnal17: TLibSyntAnalyzer
             'entab'
             'exclude'
             'exp'
+            'find'
             'form'
             'free'
             'get'
@@ -467,6 +477,7 @@ object SyntAnal17: TLibSyntAnalyzer
             'get-modes'
             'hide'
             'hsv-to-rgb'
+            'if'
             'in'
             'input?'
             'intersect'
@@ -479,7 +490,6 @@ object SyntAnal17: TLibSyntAnalyzer
             'maximum-of'
             'minimum-of'
             'mold'
-            'native'
             'new-line'
             'new-line?'
             'not'
@@ -509,6 +519,7 @@ object SyntAnal17: TLibSyntAnalyzer
             'size-text'
             'square-root'
             'stats'
+            'tail'
             'tangent'
             'textinfo'
             'throw'
@@ -687,7 +698,8 @@ object SyntAnal17: TLibSyntAnalyzer
     'Money'
     'Symbol []'
     'Issue'
-    'Lit-words')
+    'Lit-words'
+    'Path')
   Extentions = 'red reds'
   LexerName = 'Red'
   Notes.Strings = (
