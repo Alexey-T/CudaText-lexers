@@ -1,4 +1,4 @@
-object SyntAnal18: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -365,8 +365,10 @@ object SyntAnal18: TLibSyntAnalyzer
             'apply'
             'ascii'
             'bin'
+            'breakpoint'
             'callable'
             'chr'
+            'classmethod'
             'cmp'
             'coerce'
             'compile'
@@ -393,6 +395,7 @@ object SyntAnal18: TLibSyntAnalyzer
             'iter'
             'len'
             'locals'
+            'map'
             'max'
             'min'
             'next'
@@ -401,6 +404,7 @@ object SyntAnal18: TLibSyntAnalyzer
             'ord'
             'pow'
             'print'
+            'property'
             'range'
             'raw_input'
             'reduce'
@@ -411,7 +415,10 @@ object SyntAnal18: TLibSyntAnalyzer
             'self'
             'setattr'
             'sorted'
+            'staticmethod'
             'sum'
+            'super'
+            'type'
             'unichr'
             'vars'
             'xrange'
@@ -433,7 +440,6 @@ object SyntAnal18: TLibSyntAnalyzer
             'buffer'
             'bytearray'
             'bytes'
-            'classmethod'
             'complex'
             'dict'
             'Ellipsis'
@@ -444,20 +450,14 @@ object SyntAnal18: TLibSyntAnalyzer
             'int'
             'list'
             'long'
-            'map'
             'memoryview'
             'None'
-            'NotImplemented'
             'object'
-            'property'
             'set'
             'slice'
-            'staticmethod'
             'str'
-            'super'
             'True'
             'tuple'
-            'type'
             'unicode')
           TokenTypes = 516
         end>
@@ -485,6 +485,7 @@ object SyntAnal18: TLibSyntAnalyzer
             'ConnectionRefusedError'
             'ConnectionResetError'
             'DeprecationWarning'
+            'EnvironmentError'
             'EOFError'
             'Exception'
             'FileExistsError'
@@ -497,6 +498,7 @@ object SyntAnal18: TLibSyntAnalyzer
             'IndentationError'
             'IndexError'
             'InterruptedError'
+            'IOError'
             'IsADirectoryError'
             'KeyboardInterrupt'
             'KeyError'
@@ -505,6 +507,7 @@ object SyntAnal18: TLibSyntAnalyzer
             'ModuleNotFoundError'
             'NameError'
             'NotADirectoryError'
+            'NotImplemented'
             'NotImplementedError'
             'OSError'
             'OverflowError'
@@ -516,6 +519,7 @@ object SyntAnal18: TLibSyntAnalyzer
             'ResourceWarning'
             'RuntimeError'
             'RuntimeWarning'
+            'StandardError'
             'StopAsyncIteration'
             'StopIteration'
             'SyntaxError'
@@ -533,7 +537,8 @@ object SyntAnal18: TLibSyntAnalyzer
             'UnicodeWarning'
             'UserWarning'
             'ValueError'
-            'Warning'
+            'VMSError'
+            'WindowsError'
             'ZeroDivisionError')
           TokenTypes = 516
         end>
@@ -703,7 +708,9 @@ object SyntAnal18: TLibSyntAnalyzer
     '^Id='
     '^@Id'
     '^Id tree class')
-  Extentions = 'py pyw rpy cpy sconstruct pyi'
+  Extentions = 
+    'py py3 pyw pyi pyx pyx.in pxd pxd.in pxi pxi.in rpy cpy SConstru' +
+    'ct SConscript gyp gypi Snakefile smk vpy wscript bazel bzl'
   LexerName = 'Python'
   Notes.Strings = (
     'Python lexer by Alexey (CudaText)')
