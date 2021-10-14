@@ -239,6 +239,7 @@ object SyntAnal19: TLibSyntAnalyzer
             'alpha'
             'append'
             'blue'
+            'calc'
             'ceil'
             'change-color'
             'comparable'
