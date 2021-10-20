@@ -1,0 +1,15 @@
+[comments]
+str1=/*
+str2=*/
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Symbol=Symbol
+Number=Number
+Comment=Comment
+String=String
+Id=Id
+Id keyword=IdKeyword
+Id std func=Id1
+Id std=Id2

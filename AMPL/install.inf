@@ -1,0 +1,7 @@
+[info]
+title=AMPL
+type=lexer
+subdir=-
+
+[lexer1]
+file=AMPL
