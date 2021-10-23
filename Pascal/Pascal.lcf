@@ -153,7 +153,7 @@ object SyntAnal15: TLibSyntAnalyzer
       StyleName = 'Comment'
       AlwaysEnabled = True
       TokenType = 1
-      Expression = '(?s)\{.*?(\}|\Z)'#13#10
+      Expression = '(?s)\{(\{.*?\}|.)*?(\}|\Z)'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
