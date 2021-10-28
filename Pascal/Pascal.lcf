@@ -1,4 +1,4 @@
-object SyntAnal15: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -202,7 +202,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[@,\.\^] | [<>\*/\+\-:]=? | ='
+      Expression = '[@,\.\^]| \*\* | [<>\*/\+\-:]=? | ='
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -875,6 +875,32 @@ object SyntAnal15: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'Operator simple'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 256
+        end
+        item
+          TokenTypes = 12
+        end
+        item
+          TagList.Strings = (
+            'operator')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'end'
+      NameFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0'
+      TreeItemImage = 7
+      TreeGroupImage = 0
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = 'Enum'
       BlockName = 'Interface section'
       ConditionList = <
@@ -995,7 +1021,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'asm section'
       StartExpression = 'asm\b'#13#10
       EndExpression = 'end'#13#10
-      SyntAnalyzer = SyntAnal2
+      SyntAnalyzer = SyntAnal1
     end>
   SampleText.Strings = (
     'unit Test; //Comment'
