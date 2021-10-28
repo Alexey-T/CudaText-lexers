@@ -1,4 +1,4 @@
-object SyntAnal22: TLibSyntAnalyzer
+object SyntAnal14: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -891,7 +891,7 @@ object SyntAnal22: TLibSyntAnalyzer
           TokenTypes = 4
           IgnoreCase = True
         end>
-      BlockEnd = 'end'
+      BlockEnd = 'end of func'
       NameFmt = '%s-1'
       RefToCondEnd = True
       HighlightPos = cpAny
