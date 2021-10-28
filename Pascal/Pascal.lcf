@@ -202,7 +202,7 @@ object SyntAnal14: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[@,\.\^]| \*\* | [<>\*/\+\-:]=? | ='
+      Expression = '[@,\.\^=]| \*\*| [<>]{2}| [<>\*/\+\-:]=?'
       ColumnFrom = 0
       ColumnTo = 0
     end
