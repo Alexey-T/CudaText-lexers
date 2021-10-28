@@ -896,6 +896,7 @@ object SyntAnal14: TLibSyntAnalyzer
       RefToCondEnd = True
       HighlightPos = cpAny
       CollapseFmt = '%sz0'
+      NoEndRule = True
       TreeItemImage = 7
       TreeGroupImage = 0
       IgnoreAsParent = False
