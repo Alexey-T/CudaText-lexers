@@ -20,3 +20,4 @@ Comment doc=CommentDoc
 Preprocessor=Comment2
 Bracket BG=BracketBG
 Id modifier=Id3
+Preproc string=String2
