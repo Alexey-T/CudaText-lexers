@@ -179,7 +179,7 @@ object SyntAnal9: TLibSyntAnalyzer
     'Value'
     'Section'
     'Number')
-  Extentions = 'ini dsk dti dof inf lng srv reg sas cfg desktop'
+  Extentions = 'ini BUILDINFO PKGINFO ninja dsk dti dof inf lng srv reg sas cfg desktop'
   LexerName = 'Ini files'
   Notes.Strings = (
     'Alexey (CudaText)')
