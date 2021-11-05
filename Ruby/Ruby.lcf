@@ -600,7 +600,7 @@ object SyntAnal26: TLibSyntAnalyzer
     'String'
     'Number'
     'If_begin')
-  Extentions = 'rb rake Podfile Brewfile Rakefile Gemfile'
+  Extentions = 'rb rake Podfile Brewfile Rakefile Gemfile r'
   LexerName = 'Ruby'
   SkipSpaces = False
   Notes.Strings = (
