@@ -15,6 +15,7 @@ Id type=Id2
 Id keyword=IdKeyword
 Set-word=IdVar
 Comment doc=CommentDoc
+Comment todo=Comment2
 String filename=String2
 String foldable=String
 Tag=TagId

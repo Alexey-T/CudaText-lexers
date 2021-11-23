@@ -81,6 +81,14 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = [fsItalic]
     end
     item
+      DisplayName = 'Comment todo'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 11898747
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
       DisplayName = 'String filename'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
@@ -207,7 +215,15 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Comment doc'
       StyleName = 'Comment doc'
       TokenType = 1
-      Expression = ';[\-@].*?(?=\%>) | ;[\-@].*'
+      Expression = ';[\-;].*?(?=\%>) | ;[\-;].*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment todo'
+      StyleName = 'Comment todo'
+      TokenType = 1
+      Expression = ';\@.*?(?=\%>) | ;@.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -263,7 +279,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Lit-words'
       StyleName = 'Lit-words'
       TokenType = 12
-      Expression = #39'[\w\-/]+'
+      Expression = #39'([^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d\-\+]'#13#10'[^/\^,\[\]\(\)\{\}"\#\%\$@:;\s]*'#13#10'|[\-\+][^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d]*|%|/+)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -271,7 +287,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Path'
       StyleName = 'String filename'
       TokenType = 13
-      Expression = '/[\w\-\.][\w\-/\.]*'
+      Expression = '/([^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d\-\+]'#13#10'[^/\^,\[\]\(\)\{\}"\#\%\$@:;\s]*'#13#10'|[\-\+][^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d]*|%|/+)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -314,8 +330,7 @@ object SyntAnal17: TLibSyntAnalyzer
       StyleName = 'Id'
       TokenType = 2
       Expression = 
-        '[^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d]'#13#10'[^/\^,\[\]\(\)\{\}"\#\%\$@:;\' +
-        's]*'#13#10'|%|/+'
+        '[^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d\-\+]'#13#10'[^/\^,\[\]\(\)\{\}"\#\%\$@:;\s]*'#13#10'|[\-\+][^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d]*|%|/+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -864,7 +879,6 @@ object SyntAnal17: TLibSyntAnalyzer
             'typeset!'
             'unset!'
             'url!'
-            'v'
             'vector!'
             'word!')
           TokenTypes = 4
@@ -886,7 +900,6 @@ object SyntAnal17: TLibSyntAnalyzer
             'blue'
             'brick'
             'brown'
-            'cli-console-ctx'
             'coal'
             'coffee'
             'comma'
@@ -901,15 +914,11 @@ object SyntAnal17: TLibSyntAnalyzer
             'face!'
             'false'
             'font!'
-            'font-fixed'
-            'font-sans-serif'
-            'font-serif'
             'forest'
             'glass'
             'gold'
             'gray'
             'green'
-            'help-ctx'
             'ivory'
             'khaki'
             'leaf'
@@ -941,7 +950,6 @@ object SyntAnal17: TLibSyntAnalyzer
             'rebol'
             'rebolor'
             'red'
-            'red-complete-ctx'
             'rich-text'
             'scroller!'
             'sienna'
@@ -957,7 +965,6 @@ object SyntAnal17: TLibSyntAnalyzer
             'teal'
             'transparent'
             'true'
-            'url-parser'
             'violet'
             'water'
             'wheat'
@@ -1033,7 +1040,9 @@ object SyntAnal17: TLibSyntAnalyzer
           TagList.Strings = (
             'func'
             'function'
-            'routine')
+            'routine'
+            'does'
+            'has')
           TokenTypes = 4
         end
         item
@@ -1060,24 +1069,6 @@ object SyntAnal17: TLibSyntAnalyzer
       HighlightPos = cpAny
       NoEndRule = True
       TreeItemImage = 7
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Tree has'
-      ConditionList = <
-        item
-          TagList.Strings = (
-            'does'
-            'has')
-          TokenTypes = 4
-        end
-        item
-          TokenTypes = 16384
-        end>
-      RefToCondEnd = True
-      HighlightPos = cpAny
-      NoEndRule = True
-      TreeItemImage = 6
       IgnoreAsParent = False
     end
     item
@@ -1152,6 +1143,6 @@ object SyntAnal17: TLibSyntAnalyzer
       'wordlists gist: https://gist.github.com/loziniak/266713b4797e2c5' +
       '122276aea4f4310bb')
   RestartFromLineStart = True
-  LineComment = ';'
+  LineComment = '; '
   Charset = DEFAULT_CHARSET
 end
