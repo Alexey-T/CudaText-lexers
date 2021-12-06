@@ -1,0 +1,16 @@
+[map]
+Default=Id
+Identifier=Id
+Reserved word=IdKeyword
+String=String
+Comment=Comment
+Symbol=Symbol
+Number=Number
+Marked block=-
+Function=Label
+Table=Id1
+Alias=IdVar
+Operators=Symbol2
+Tree (Bold)=-
+Tree (Section)=-
+Tree (item)=-

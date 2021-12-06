@@ -683,7 +683,6 @@ object SyntAnal113: TLibSyntAnalyzer
   DefaultStyleName = 'Default'
   Extentions = 'sql'
   LexerName = 'SQL Blue'
-  Internal = True
   Charset = DEFAULT_CHARSET
   Left = 144
   Top = 184
