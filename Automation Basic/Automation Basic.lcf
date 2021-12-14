@@ -404,6 +404,7 @@ object SyntAnal2: TLibSyntAnalyzer
           TagList.Strings = (
             'endaction')
           TokenTypes = 4
+          IgnoreCase = True
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
