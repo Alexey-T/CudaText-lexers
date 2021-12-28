@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal1: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -43,7 +43,7 @@ object SyntAnal24: TLibSyntAnalyzer
     item
       DisplayName = 'Label'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clOlive
+      Font.Color = clFuchsia
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -98,7 +98,7 @@ object SyntAnal24: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = 'Comment'
+      DisplayName = 'Comment line'
       StyleName = 'Comment'
       TokenType = 1
       Expression = '(@|;|//) .*'
@@ -106,7 +106,15 @@ object SyntAnal24: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Comment 2'
+      DisplayName = 'Comment line2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^\s*\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment range'
       StyleName = 'Comment'
       TokenType = 1
       Expression = '(?s)/\*.*?(\*/|\Z)'
@@ -140,7 +148,7 @@ object SyntAnal24: TLibSyntAnalyzer
     item
       DisplayName = 'Label'
       StyleName = 'Label'
-      Expression = '\w[\w\\]+:      '
+      Expression = '\w[\w\\\$@]+:'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -168,7 +176,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '[a-z_]\w*'
+      Expression = '[a-z_][\w\$@]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -192,7 +200,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'String2'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(['#39'"]) .*? (\1|$)'
+      Expression = '(['#39'"]) (\\.|.)*? (\1|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -271,7 +279,7 @@ object SyntAnal24: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Commands'
+      DisplayName = 'Opcodes'
       StyleName = 'Id command'
       BlockType = btTagDetect
       ConditionList = <
@@ -281,6 +289,7 @@ object SyntAnal24: TLibSyntAnalyzer
             'ADC'
             'ADCS'
             'ADD'
+            'ADDGT'
             'ADDHN'
             'ADDHN2'
             'ADDP'
@@ -294,6 +303,7 @@ object SyntAnal24: TLibSyntAnalyzer
             'AESMC'
             'AND'
             'ANDS'
+            'ASR'
             'ASRV'
             'B'
             'BAD'
@@ -307,6 +317,7 @@ object SyntAnal24: TLibSyntAnalyzer
             'BR'
             'BRK'
             'BSL'
+            'BX'
             'CBNZ'
             'CBZ'
             'CCMN'
@@ -321,6 +332,7 @@ object SyntAnal24: TLibSyntAnalyzer
             'CMHS'
             'CMLE'
             'CMLT'
+            'CMP'
             'CMTST'
             'CNT'
             'CRC32B'
@@ -463,11 +475,14 @@ object SyntAnal24: TLibSyntAnalyzer
             'LDXR'
             'LDXRB'
             'LDXRH'
+            'LSL'
             'LSLV'
+            'LSR'
             'LSRV'
             'MADD'
             'MLA'
             'MLS'
+            'MOV'
             'MOVI'
             'MOVK'
             'MOVN'
@@ -476,6 +491,7 @@ object SyntAnal24: TLibSyntAnalyzer
             'MSR'
             'MSUB'
             'MUL'
+            'MVN'
             'MVNI'
             'NEG'
             'NOT'
@@ -484,8 +500,10 @@ object SyntAnal24: TLibSyntAnalyzer
             'PMUL'
             'PMULL'
             'PMULL2'
+            'POP'
             'PRFM'
             'PRFUM'
+            'PUSH'
             'RADDHN'
             'RADDHN2'
             'RBIT'
@@ -625,6 +643,7 @@ object SyntAnal24: TLibSyntAnalyzer
             'SUBS'
             'SUQADD'
             'SVC'
+            'SXTW'
             'SYS'
             'SYSL'
             'TBL'
@@ -707,12 +726,12 @@ object SyntAnal24: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    '  =label'
+    '=label'
+    'label$$a@:'
     '//Test'
     '  # endif name'
     '/* Test'
     'test */   0xA0b0 -0.1020 #'#39'test'#39
-    #39'test'#39' + "test"'
     ''
     '.global connect'
     'connect:'
@@ -721,17 +740,10 @@ object SyntAnal24: TLibSyntAnalyzer
     '    sub     fp, ip, #4'
     '    mov     r0, #-2'
     '    mov     r1, #0xAB_FF  '
-    ''
-    '    @ sockfd is now in r0'
     '    push    {r0}        @ push sockfd'
     ''
     '.data'
-    'socket_call:   .long 281'
-    'connect_call:  .long 283'
-    ''
-    'server_port:            .hword 0x0b00'
-    'msg_head:       .string "armbot: source"'
-    '')
+    'msg_head:       .string "armbot:\"source"')
   TokenTypeNames.Strings = (
     'Label'
     'Comment'
@@ -749,8 +761,7 @@ object SyntAnal24: TLibSyntAnalyzer
     'Alexey (CudaText)'
     'Samples:'
     '  https://github.com/wyc/armbot'
-    '  https://github.com/ICTeam28/PiFox'
-    'Opcodes list: https://github.com/CAS-Atlantic/AArch64-Encoding')
+    '  https://github.com/ICTeam28/PiFox')
   LineComment = '@'
   Charset = DEFAULT_CHARSET
 end
