@@ -13,5 +13,5 @@ Label=Label
 String=String
 Symbol=Symbol
 Id registers=IdVar
-Id directives=Symbol2
+Id directives=TagId
 Id const=Id3
