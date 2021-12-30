@@ -1,4 +1,4 @@
-object SyntAnal26: TLibSyntAnalyzer
+object SyntAnal1: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -946,6 +946,33 @@ object SyntAnal26: TLibSyntAnalyzer
         end>
       HighlightPos = cpAny
       NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'macro begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.macro')
+          TokenTypes = 128
+        end>
+      BlockEnd = 'macro end'
+      NameFmt = 'macro %s-1'
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'macro end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.endm')
+          TokenTypes = 128
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end>
   CodeTemplates = <>
