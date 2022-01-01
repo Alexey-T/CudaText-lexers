@@ -63,6 +63,14 @@ object SyntAnal14: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol 2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -132,6 +140,14 @@ object SyntAnal14: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Symbol (operator)'
+      StyleName = 'Symbol 2'
+      TokenType = 3
+      Expression = '\([=!<>\-\+\*/&\|\^~%]+\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol { }'
       StyleName = 'Symbol'
       TokenType = 7
@@ -152,8 +168,8 @@ object SyntAnal14: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        '[\.,:;\[\]~%\#@] | -> | := | \+\+ | \-\- | && | \|\| | \^\^ |'#13#10'[' +
-        '\-\+\*/!=<>&\|\^]=?'
+        '[\.,:;\[\]~%\#@\?] | -> | := | \+\+ | \-\- | && | \|\| | \^\^ |'#13 +
+        #10'[\-\+\*/!=<>&\|\^]=?'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -179,6 +195,7 @@ object SyntAnal14: TLibSyntAnalyzer
             'forall'
             'foreach'
             'fun'
+            'function'
             'handle'
             'handler'
             'hiding'
@@ -225,7 +242,9 @@ object SyntAnal14: TLibSyntAnalyzer
             'behind'
             'c'
             'co'
+            'cs'
             'extend'
+            'external'
             'file'
             'import'
             'include'
@@ -252,17 +271,32 @@ object SyntAnal14: TLibSyntAnalyzer
           TagList.Strings = (
             'bool'
             'char'
+            'Cons'
             'div'
+            'double'
             'exn'
             'False'
             'float'
             'int'
+            'int16'
+            'int32'
+            'int64'
+            'int8'
             'io'
+            'Just'
+            'list'
+            'maybe'
             'ndet'
+            'Nil'
+            'Nothing'
             'pure'
             'string'
             'total'
-            'True')
+            'True'
+            'uint16'
+            'uint32'
+            'uint64'
+            'uint8')
           TokenTypes = 4
         end>
       HighlightPos = cpAny
@@ -273,16 +307,26 @@ object SyntAnal14: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
-            'fun')
+            '{')
+          TokenTypes = 128
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 126
+        end
+        item
+          TagList.Strings = (
+            'extern'
+            'fun'
+            'function')
           TokenTypes = 4
         end>
       BlockEnd = '}'
       EndOfTextClose = True
-      NameFmt = '%s-1'
+      NameFmt = '%s0 %s-1'
       RefToCondEnd = True
       HighlightPos = cpBound
       CancelNextRules = True
-      NoEndRule = True
       TreeItemImage = 5
       IgnoreAsParent = False
     end
@@ -319,8 +363,8 @@ object SyntAnal14: TLibSyntAnalyzer
   SampleText.Strings = (
     'is-nil + x'#39' + Cons + True + fold-right'
     'n-x-1      // illegal, a digit cannot follow a dash'
-    'n-x - 1    // identifier "n-x" minus 1'
-    'n - x - 1  // n minus x minus 1'
+    'n-x - 10    // identifier "n-x" minus 1'
+    'n - x - 10  // n minus x minus 1'
     'fun eq2( x : int, '
     '          y : int ) : io bool {  '
     '  print("calc " ++'
@@ -329,7 +373,11 @@ object SyntAnal14: TLibSyntAnalyzer
     '                then True'
     '                else False;'
     '  result'
-    '}')
+    '}'
+    ''
+    
+      'private inline extern (>=) : (ssize_t,ssize_t) -> bool   { inlin' +
+      'e "(#1 >= #2)" }')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
