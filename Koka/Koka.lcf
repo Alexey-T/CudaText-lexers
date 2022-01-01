@@ -1,4 +1,4 @@
-object SyntAnal25: TLibSyntAnalyzer
+object SyntAnal14: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -252,10 +252,16 @@ object SyntAnal25: TLibSyntAnalyzer
           TagList.Strings = (
             'bool'
             'char'
+            'div'
+            'exn'
             'False'
             'float'
             'int'
+            'io'
+            'ndet'
+            'pure'
             'string'
+            'total'
             'True')
           TokenTypes = 4
         end>
