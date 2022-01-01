@@ -254,8 +254,11 @@ object SyntAnal14: TLibSyntAnalyzer
             'noinline'
             'open'
             'println'
+            'raw'
             'rec'
             'reference'
+            'use'
+            'using'
             'value')
           TokenTypes = 4
         end>
