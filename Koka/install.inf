@@ -1,0 +1,7 @@
+[info]
+title=Koka
+type=lexer
+subdir=-
+
+[lexer1]
+file=Koka
