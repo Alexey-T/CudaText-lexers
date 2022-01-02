@@ -168,8 +168,8 @@ object SyntAnal14: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        '[\.,:;\[\]~%\#@\?] | -> | := | \+\+ | \-\- | && | \|\| | \^\^ |'#13 +
-        #10'[\-\+\*/!=<>&\|\^]=?'
+        '-> | := | :: | \+\+ | \-\- | && | \|\| | \^\^ |'#13#10'[\-\+\*/!=<>&\|' +
+        '\^]=? |'#13#10'[\.,:;\[\]~%\#@\?]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -184,12 +184,14 @@ object SyntAnal14: TLibSyntAnalyzer
             'abstract'
             'alias'
             'as'
+            'brk'
             'con'
             'control'
             'ctl'
             'effect'
             'elif'
             'else'
+            'except'
             'exists'
             'extern'
             'fn'
@@ -217,6 +219,7 @@ object SyntAnal14: TLibSyntAnalyzer
             'pub'
             'public'
             'qualified'
+            'rawctl'
             'rcontrol'
             'return'
             'some'
@@ -247,18 +250,18 @@ object SyntAnal14: TLibSyntAnalyzer
             'extend'
             'external'
             'file'
-            'import'
+            'finally'
             'include'
+            'initially'
             'inline'
             'js'
             'linear'
             'noinline'
             'open'
-            'print'
-            'println'
             'raw'
             'rec'
             'reference'
+            'scoped'
             'use'
             'using'
             'value')
