@@ -1,4 +1,4 @@
-object SyntAnal1: TLibSyntAnalyzer
+object SyntAnal24: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -19,7 +19,7 @@ object SyntAnal1: TLibSyntAnalyzer
     item
       DisplayName = 'Id operators'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clNavy
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -59,7 +59,7 @@ object SyntAnal1: TLibSyntAnalyzer
     item
       DisplayName = 'Id registers'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlue
+      Font.Color = clGreen
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -92,7 +92,7 @@ object SyntAnal1: TLibSyntAnalyzer
     item
       DisplayName = 'Label'
       StyleName = 'Label'
-      Expression = '^[\x20\x09]* [a-z_][\w\.]*:'
+      Expression = '^[\x20\x09]* [a-z_\.][\w\$\.]*:'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -140,7 +140,7 @@ object SyntAnal1: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '[a-z_]\w*'
+      Expression = '[a-z_][\w\$]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -148,7 +148,7 @@ object SyntAnal1: TLibSyntAnalyzer
       DisplayName = 'Directive'
       StyleName = 'Id directives'
       TokenType = 7
-      Expression = '\.\w+'
+      Expression = '\.[\w\$]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -175,8 +175,10 @@ object SyntAnal1: TLibSyntAnalyzer
             'ADC'
             'ADCX'
             'ADD'
+            'ADDL'
             'ADDPD'
             'ADDPS'
+            'ADDQ'
             'ADDSD'
             'ADDSS'
             'ADDSUBPD'
@@ -264,8 +266,10 @@ object SyntAnal1: TLibSyntAnalyzer
             'CMOVS'
             'CMOVZ'
             'CMP'
+            'CMPL'
             'CMPPD'
             'CMPPS'
+            'CMPQ'
             'CMPS'
             'CMPSB'
             'CMPSD'
@@ -531,6 +535,7 @@ object SyntAnal1: TLibSyntAnalyzer
             'LDMXCSR'
             'LDS'
             'LEA'
+            'LEAQ'
             'LEAVE'
             'LES'
             'LFENCE'
@@ -598,7 +603,9 @@ object SyntAnal1: TLibSyntAnalyzer
             'MOVSB'
             'MOVSD'
             'MOVSHDUP'
+            'MOVSL'
             'MOVSLDUP'
+            'MOVSLQ'
             'MOVSQ'
             'MOVSS'
             'MOVSW'
@@ -607,6 +614,8 @@ object SyntAnal1: TLibSyntAnalyzer
             'MOVUPD'
             'MOVUPS'
             'MOVW'
+            'MOVZBL'
+            'MOVZWL'
             'MOVZX'
             'MPSADBW'
             'MUL'
@@ -718,6 +727,7 @@ object SyntAnal1: TLibSyntAnalyzer
             'POPFD'
             'POPFQ'
             'POPL'
+            'POPQ'
             'POR'
             'PREFETCHNTA'
             'PREFETCHT0'
@@ -769,6 +779,7 @@ object SyntAnal1: TLibSyntAnalyzer
             'PUSHFD'
             'PUSHFQ'
             'PUSHL'
+            'PUSHQ'
             'PXOR'
             'RCL'
             'RCPPS'
@@ -803,6 +814,7 @@ object SyntAnal1: TLibSyntAnalyzer
             'SAHF'
             'SAL'
             'SAR'
+            'SARQ'
             'SARX'
             'SBB'
             'SCAS'
@@ -853,6 +865,7 @@ object SyntAnal1: TLibSyntAnalyzer
             'SHLX'
             'SHR'
             'SHRD'
+            'SHRQ'
             'SHRX'
             'SHUFPD'
             'SHUFPS'
@@ -875,8 +888,10 @@ object SyntAnal1: TLibSyntAnalyzer
             'STOSW'
             'STR'
             'SUB'
+            'SUBL'
             'SUBPD'
             'SUBPS'
+            'SUBQ'
             'SUBSD'
             'SUBSS'
             'SWAPGS'
@@ -885,6 +900,9 @@ object SyntAnal1: TLibSyntAnalyzer
             'SYSEXIT'
             'SYSRET'
             'TEST'
+            'TESTB'
+            'TESTL'
+            'TESTQ'
             'TPAUSE'
             'TZCNT'
             'UCOMISD'
@@ -921,6 +939,7 @@ object SyntAnal1: TLibSyntAnalyzer
             'XLAT'
             'XLATB'
             'XOR'
+            'XORL'
             'XORPD'
             'XORPS'
             'XRELEASE'
