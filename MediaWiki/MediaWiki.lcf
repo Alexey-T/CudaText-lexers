@@ -1,4 +1,4 @@
-object SyntAnal26: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -200,7 +200,7 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayName = 'Tag'
       StyleName = 'Tag'
       TokenType = 7
-      Expression = '</?\w+> |'#13#10'<\w+ \x20 .+? /?>'
+      Expression = '</?\w+> |'#13#10'<\w+ (\x20[^/>\n]+)? /?>'
       ColumnFrom = 0
       ColumnTo = 0
     end>
