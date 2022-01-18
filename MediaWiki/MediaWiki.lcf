@@ -197,10 +197,10 @@ object SyntAnal16: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Tag'
+      DisplayName = 'HTML Tag'
       StyleName = 'Tag'
       TokenType = 7
-      Expression = '</?\w+> |'#13#10'<\w+ (\x20[^/>\n]+)? /?>'
+      Expression = '</?\w+> |'#13#10'<\w+\b [^/<>\n]* /?>'
       ColumnFrom = 0
       ColumnTo = 0
     end>
