@@ -65,14 +65,6 @@ object SyntAnal7: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Id complex'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
       DisplayName = '.Id'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
@@ -84,14 +76,6 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = #39'Id'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clNavy
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
-      DisplayName = 'Func'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clFuchsia
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -188,22 +172,6 @@ object SyntAnal7: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Defn'
-      StyleName = 'Func'
-      TokenType = 8
-      Expression = '(?-i)(?r)(def\w*|ns)(\x20+:?[\w\-/\?\!\.\*\+\$\|]+)?'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Id complex'
-      StyleName = 'Id complex'
-      TokenType = 2
-      Expression = '(?r)\w+\.[\w\.\-]+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
@@ -230,7 +198,7 @@ object SyntAnal7: TLibSyntAnalyzer
     item
       DisplayName = '#Id'
       StyleName = '#Id'
-      TokenType = 3
+      TokenType = 9
       Expression = '\#_ | \#[a-z][\w\./:]* | \#[_\#'#39':]'
       ColumnFrom = 0
       ColumnTo = 0
@@ -246,7 +214,7 @@ object SyntAnal7: TLibSyntAnalyzer
     item
       DisplayName = 'Char const'
       StyleName = 'String2'
-      TokenType = 9
+      TokenType = 8
       Expression = '\\\w+'
       ColumnFrom = 0
       ColumnTo = 0
@@ -254,7 +222,7 @@ object SyntAnal7: TLibSyntAnalyzer
     item
       DisplayName = 'Escaped symbol'
       StyleName = 'String2'
-      TokenType = 9
+      TokenType = 8
       Expression = '\\[;,\.`~'#39'"!@\#\^\|&]'
       ColumnFrom = 0
       ColumnTo = 0
@@ -804,16 +772,6 @@ object SyntAnal7: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Defn'
-      ConditionList = <
-        item
-          TokenTypes = 256
-        end>
-      HighlightPos = cpAny
-      NoEndRule = True
-      IgnoreAsParent = False
-    end
-    item
       DisplayName = '('
       ConditionList = <
         item
@@ -855,7 +813,9 @@ object SyntAnal7: TLibSyntAnalyzer
     ''
     '(let [nl (System/getProperty "line.separator")] '
     '  (defn platform-newlines [s] (.replace s "\n" nl)))'
-    ''
+    
+      '                                                                ' +
+      '          '
     '\char, \@, :id, '#39'id, .id, #"regex", true, nil?'
     '0xAB, 12N, 12.3M, 1.2e+3M, 2r01, 16rAB, 32rAZ')
   TokenTypeNames.Strings = (
@@ -867,8 +827,8 @@ object SyntAnal7: TLibSyntAnalyzer
     'Number'
     'Brackets'
     'String regex'
-    'Defn'
-    'Char const')
+    'Char const'
+    '#Id')
   Extentions = 'clj'
   LexerName = 'Clojure'
   Notes.Strings = (
