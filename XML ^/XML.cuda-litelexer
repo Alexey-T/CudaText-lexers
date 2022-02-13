@@ -1,0 +1,42 @@
+{
+  "about": "XML lexer by Alexey Torgashin",
+  "files": "*.xml;*.xsl",
+  "cmt_line": "",
+  "cmt_block_1": "<!--",
+  "cmt_block_2": "-->",
+  "case_sens": true,
+  "rules": {
+    "cmt": {
+      "regex": "<!--.*?-->",
+      "style": "Comment"
+    },
+    "cmt2": {
+      "regex": "<\\?.*?\\?>",
+      "style": "CommentDoc"
+    },
+    "tag_bound": {
+      "regex": "<[/!\\-]*|/?>|=",
+      "style": "TagBound"
+    },
+    "tag_id": {
+      "regex": "(?<=</?)\\w[\\w\\-:]*",
+      "style": "TagId"
+    },
+    "tag_prop": {
+      "regex": "\\w[\\w\\-:]*(?==\")",
+      "style": "TagProp"
+    },
+    "id": {
+      "regex": "[a-zA-Z_]\\w*",
+      "style": "Id"
+    },
+    "str": {
+      "regex": "\\'.*?\\'",
+      "style": "String"
+    },
+    "str2": {
+      "regex": "\\\".*?\\\"",
+      "style": "String"
+    }
+  }
+}
