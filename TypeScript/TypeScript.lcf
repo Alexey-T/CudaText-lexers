@@ -1,4 +1,4 @@
-object SyntAnal22: TLibSyntAnalyzer
+object SyntAnal27: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -126,10 +126,18 @@ object SyntAnal22: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'HTML tag closing'
+      StyleName = 'Tag name'
+      TokenType = 8
+      Expression = '(?-i)</[a-z_]+>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'HTML tag'
       StyleName = 'Tag name'
       TokenType = 8
-      Expression = '(?-i)(?<!\w)</?[a-z]+/?> # lower case!'
+      Expression = '(?-i)(?<!\w)<[a-z]+/?[>\x20\n] # lower case!'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -497,6 +505,58 @@ object SyntAnal22: TLibSyntAnalyzer
       BlockEnd = 'treeitem'
       HighlightPos = cpAny
       CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 8
+        end>
+      BlockEnd = ']'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '[ ... ]'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 128
+        end>
+      BlockEnd = ')'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '( ... )'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 128
+        end>
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end>
   CodeTemplates = <>

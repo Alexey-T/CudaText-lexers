@@ -1,0 +1,534 @@
+object SyntAnal6: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String 2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id spec'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'RegEx'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'HereDoc BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'if not block-begin'
+      StyleName = 'Id keyword'
+      TokenType = 10
+      Expression = '(?-i)(?<=[\w\]\)]\x20*)(if|unless)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'def not block-begin'
+      StyleName = 'Id keyword'
+      TokenType = 10
+      Expression = '(?-i)(?<=abstract\x20*)def\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id up-case'
+      StyleName = 'Id'
+      TokenType = 12
+      Expression = '(?-i)[A-Z_]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*[!\?=]?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 9
+      Expression = '@[a-z_]\w*|'#13#10'\{\{\w+\}\}|'#13#10'\{%\w+%\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 3
+      Expression = '(["'#39'`])(\\.|.)*?\1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %Q(..)'
+      StyleName = 'String 2'
+      TokenType = 6
+      Expression = '(?-i)%[qrQwi]?\((\(.*?\)|.)*?\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %Q[..]'
+      StyleName = 'String 2'
+      TokenType = 6
+      Expression = '(?-i)%[qrQwi]?\[(\[.*?\]|.)*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %Q{..}'
+      StyleName = 'String 2'
+      TokenType = 6
+      Expression = '(?-i)%[qrQwi]?\{(\{.*?\}|.)*?\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %Q<..>'
+      StyleName = 'String 2'
+      TokenType = 6
+      Expression = '(?-i)%[qrQwi]?<(<.*?>|.)*?>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String %Q|..|'
+      StyleName = 'String 2'
+      TokenType = 6
+      Expression = '(?-i)%[qrQwi]?\|.*?\|'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'RegEx'
+      StyleName = 'RegEx'
+      TokenType = 11
+      Expression = '(?<=[\x20=]\x20*)/(\\.|.)*?/i?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'RegEx 2'
+      StyleName = 'RegEx'
+      TokenType = 11
+      Expression = '(?<=\()/(\\.|.)*?/i?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ()'
+      StyleName = 'Symbol'
+      TokenType = 7
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol []'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = 
+        '::|:|\.|,|;|!|\{\{|\}\}|\{%|%\}|\#\{|\{|\}|'#13#10'[=!]~|<<\-?|>>|===|' +
+        '<=>|\*\*|[\-\+~]@|'#13#10'[<>=\+\-\*/]=?|\#\{|'#13#10'&{1,2}|\|{1,2}|\?|%|~|' +
+        '\^'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number binary'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0b([01_]+)'#13#10'(_?[ui](8|16|32|64|128))?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number octal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0o([0-7_]+)'#13#10'(_?[ui](8|16|32|64|128))?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0x([A-Fa-f0-9_]+)'#13#10'(_?[ui](8|16|32|64|128))?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '(\b([1-9][0-9_]*[0-9]|[0-9])(\.[0-9][0-9_]*)?([eE]_?[-+]?[0-9_]*' +
+        ')?)'#13#10'(_?f(32|64))?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b([1-9][0-9_]*|0)'#13#10'(_?f(32|64))?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abstract'
+            'alias'
+            'annotation'
+            'as'
+            'as?'
+            'asm'
+            'begin'
+            'break'
+            'case'
+            'class'
+            'def'
+            'describe'
+            'do'
+            'else'
+            'elsif'
+            'end'
+            'ensure'
+            'enum'
+            'extend'
+            'for'
+            'fun'
+            'if'
+            'in'
+            'include'
+            'instance_sizeof'
+            'is_a?'
+            'it'
+            'lib'
+            'macro'
+            'module'
+            'next'
+            'nil?'
+            'of'
+            'out'
+            'pointerof'
+            'private'
+            'protected'
+            'require'
+            'rescue'
+            'responds_to?'
+            'return'
+            'select'
+            'self'
+            'sizeof'
+            'struct'
+            'super'
+            'then'
+            'type'
+            'typeof'
+            'uninitialized'
+            'union'
+            'unless'
+            'until'
+            'verbatim'
+            'when'
+            'while'
+            'with'
+            'yield')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id spec'
+      StyleName = 'Id spec'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '__DIR__'
+            '__END_LINE__'
+            '__FILE__'
+            '__LINE__')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id type'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'false'
+            'nil'
+            'true')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block tree'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'annotation'
+            'class'
+            'def'
+            'describe'
+            'enum'
+            'fun'
+            'lib'
+            'macro'
+            'module'
+            'struct'
+            'union')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'block end'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block not tree'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'case'
+            'do'
+            'if'
+            'it'
+            'unless'
+            'while')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'block end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'HereDoc begin'
+      StyleName = 'HereDoc BG'
+      ConditionList = <
+        item
+          TokenTypes = 4096
+        end
+        item
+          TagList.Strings = (
+            '<<-')
+          TokenTypes = 8
+        end>
+      IdentIndex = -1
+      BlockEnd = 'HereDoc end'
+      DisplayInTree = False
+      RefToCondEnd = True
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'HereDoc end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4096
+        end>
+      SameIdent = True
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '@varname, 1_2, 1.2e+3, __FILE__'
+    ''
+    'describe Markd do'
+    '  it "should escape unsafe html" do'
+    
+      '    raw = %Q{```"><script>window.location="https://footbar.com"<' +
+      '/script>\n```}'
+    '  end'
+    'end'
+    ''
+    'HTML_BLOCK_OPEN = ['
+    '  /^<(?:script|pre|style)(?:\s|>|$)/i,'
+    '  /^<!--/,'
+    '  /^<[?]/,'
+    '  /^<!\[CDATA\[/,'
+    '  /^<[\/]?(?:address|ul)(?:\s|[\/]?[>]|$)/i,'
+    '  Regex.new("^(?:" + OPEN_TAG + "|" + CLOSE_TAG + ")\\s*$" '
+    ']'
+    ''
+    '  private def has_escape_char?(text)'
+    '    text.each_byte do |byte|'
+    '      case byte'
+    '      when '#39'&'#39', '#39'"'#39', '#39'<'#39', '#39'>'#39
+    '        return true'
+    '      else'
+    '        next'
+    '      end'
+    '    end'
+    '    false'
+    '  end')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'String 2'
+    'Symbol ()'
+    'Symbol []'
+    'Var'
+    'If not block'
+    'String RegEx'
+    'Id up-case')
+  Extentions = 'cr'
+  LexerName = 'Crystal'
+  Notes.Strings = (
+    'Alexey (CudaText)'
+    'Many rules are based on this lexer:'
+    
+      'https://github.com/highlightjs/highlight.js/tree/main/src/langua' +
+      'ges')
+  RestartFromLineStart = True
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

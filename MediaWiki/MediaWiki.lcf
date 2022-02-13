@@ -1,4 +1,4 @@
-object SyntAnal25: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -93,6 +93,14 @@ object SyntAnal25: TLibSyntAnalyzer
       Font.Style = []
       BgColor = clMoneyGreen
       FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Heading2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
     end>
   TokenRules = <
     item
@@ -100,6 +108,14 @@ object SyntAnal25: TLibSyntAnalyzer
       StyleName = 'Heading'
       TokenType = 2
       Expression = '^=+ .+? =+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Heading2'
+      StyleName = 'Heading2'
+      TokenType = 10
+      Expression = '^[\x20:]*;.+?:'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -181,10 +197,10 @@ object SyntAnal25: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Tag'
+      DisplayName = 'HTML Tag'
       StyleName = 'Tag'
       TokenType = 7
-      Expression = '</?\w+> |'#13#10'<\w+ \x20 .+? /?>'
+      Expression = '</?\w+> |'#13#10'<\w+\b [^/<>\n]* /?>'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -261,7 +277,8 @@ object SyntAnal25: TLibSyntAnalyzer
     'Comment'
     'Tag'
     'TempBegin'
-    'TempEnd')
+    'TempEnd'
+    'Heading2')
   Extentions = 'wiki mediawiki wikipedia'
   LexerName = 'MediaWiki'
   SkipSpaces = False

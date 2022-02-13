@@ -1,0 +1,7 @@
+[info]
+title=Cython
+type=lexer
+subdir=-
+
+[lexer1]
+file=Cython

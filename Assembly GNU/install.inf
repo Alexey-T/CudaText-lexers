@@ -1,0 +1,7 @@
+[info]
+title=Assembly GNU
+type=lexer
+subdir=-
+
+[lexer1]
+file=Assembly GNU

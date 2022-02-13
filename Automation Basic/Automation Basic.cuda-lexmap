@@ -5,11 +5,11 @@ styles_cmt=Comment
 styles_str=String
 
 [map]
-Comment=Comment
 Symbol=Symbol
 Number=Number
 String=String
-Identifier=Id
-Reserved word=IdKeyword
-Std id=Id1
-Preprocessor=Id3
+Comment=Comment
+Id=Id
+Id keyword=IdKeyword
+Id types=Id2
+Time=Id4

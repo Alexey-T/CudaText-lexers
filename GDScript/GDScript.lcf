@@ -1,4 +1,4 @@
-object SyntAnal28: TLibSyntAnalyzer
+object SyntAnal7: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -43,10 +43,10 @@ object SyntAnal28: TLibSyntAnalyzer
     item
       DisplayName = 'Id keyword'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clPurple
+      Font.Color = clNavy
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
+      Font.Style = []
     end
     item
       DisplayName = 'Id keyword func'
@@ -63,13 +63,29 @@ object SyntAnal28: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Func name'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
       DisplayName = '^Tree item'
       StyleName = 'Id keyword func'
       TokenType = 11
-      Expression = '(?<=^[\x20\x09]*)((static\x20)?func)\b'
+      Expression = '(?<=^[\x20\x09]*)(class|(static\x20)?func)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -101,7 +117,7 @@ object SyntAnal28: TLibSyntAnalyzer
       DisplayName = '^Id'
       StyleName = 'Id'
       TokenType = 9
-      Expression = '(?<=^[\x20\x09]*)\w+'
+      Expression = '(?<=^[\x20\x09]*)[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -135,6 +151,14 @@ object SyntAnal28: TLibSyntAnalyzer
       StyleName = 'String'
       TokenType = 4
       Expression = '("|'#39') (\\.|.)*? (\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Func name'
+      StyleName = 'Func name'
+      TokenType = 2
+      Expression = '(?<=\bfunc\s+)[a-z_]\w* |'#13#10'(?<=\bclass\s+)[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -183,6 +207,13 @@ object SyntAnal28: TLibSyntAnalyzer
       StyleName = 'Comment'
       TokenType = 1
       Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      Expression = '\$[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -247,6 +278,7 @@ object SyntAnal28: TLibSyntAnalyzer
             'for'
             'func'
             'if'
+            'in'
             'INF'
             'is'
             'master'
@@ -283,9 +315,12 @@ object SyntAnal28: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'bool'
+            'false'
             'float'
             'int'
-            'null')
+            'null'
+            'true'
+            'void')
           TokenTypes = 516
         end>
       HighlightPos = cpAny

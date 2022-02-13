@@ -1,4 +1,4 @@
-object SyntAnal19: TLibSyntAnalyzer
+object SyntAnal21: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Head'
@@ -25,22 +25,22 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Code'
+      DisplayName = 'Code-block begin'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Code-block BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
       BgColor = 15779980
-    end
-    item
-      DisplayName = 'Code dot'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-      BgColor = 14726867
+      FormatType = ftBackGround
     end
     item
       DisplayName = 'List'
@@ -147,16 +147,14 @@ object SyntAnal19: TLibSyntAnalyzer
     item
       DisplayName = 'Head'
       StyleName = 'Head'
-      Expression = 
-        '^[\*\#=\-\+\^\"`~!"'#39']{2,}$ \z '#13#10'^[\x20\w].*$ \z '#13#10'^[\*\#=\-\+\^\' +
-        '"`~!"'#39']{2,}$'
+      Expression = '^(([\*\#=\-\+\^`~!"'#39':\._])\2+)$ \z '#13#10'^[\x20\w].*$ \z '#13#10'^\1$'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Head 2'
+      DisplayName = 'Head simpler'
       StyleName = 'Head'
-      Expression = '^\w.+$ \z'#13#10'^[\*\#=\-\+\^\"`~!"'#39']{2,}$)'
+      Expression = '^\w.+$ \z'#13#10'^([\*\#=\-\+\^`~!"'#39':\._])\1+$'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -236,23 +234,31 @@ object SyntAnal19: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Code ::'
-      StyleName = 'Code'
+      StyleName = 'Code-block BG'
       TokenType = 4
-      Expression = '(?s)^::$\z\z.+?\z(?=\z^\S)'
+      Expression = '(?s)::$\z\z.+?\z(?=\z^\S)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Code ..'
-      StyleName = 'Code dot'
-      TokenType = 4
-      Expression = '(?s)^\.\.\x20code-block::[^\n\r]*$.+?$(?=\z^\S)'
+      DisplayName = 'Code-block begin'
+      StyleName = 'Code-block begin'
+      TokenType = 13
+      Expression = '(?-i)^\.\.\x20code-block::.*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Code-block end'
+      StyleName = 'Quote'
+      TokenType = 14
+      Expression = '\z(?=\z^\S)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
       DisplayName = 'Code spaces'
-      StyleName = 'Code'
+      StyleName = 'Code-block BG'
       TokenType = 4
       Expression = '^[\x20\x09]{4,}\S.*'
       ColumnFrom = 0
@@ -297,6 +303,14 @@ object SyntAnal19: TLibSyntAnalyzer
       Expression = '^\.\.\x20\w[\w\.\-\x20]+:+'
       ColumnFrom = 0
       ColumnTo = 0
+    end
+    item
+      DisplayName = 'Table symbols'
+      StyleName = 'Table'
+      TokenType = 10
+      Expression = '\|'
+      ColumnFrom = 0
+      ColumnTo = 0
     end>
   BlockRules = <
     item
@@ -335,6 +349,32 @@ object SyntAnal19: TLibSyntAnalyzer
       ConditionList = <
         item
           TokenTypes = 2048
+        end>
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Code-block begin'
+      StyleName = 'Code-block BG'
+      ConditionList = <
+        item
+          TokenTypes = 8192
+        end>
+      BlockEnd = 'Code-block end'
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = 'code-block'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Code-block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 16384
         end>
       HighlightPos = cpAny
       CancelNextRules = True
@@ -422,7 +462,15 @@ object SyntAnal19: TLibSyntAnalyzer
     'aaa bb'
     'aa   b'
     '=== =='
-    '')
+    ''
+    'The next paragraph is a code sample::'
+    ''
+    '   It is not processed in any way, except'
+    '   that the indentation is removed.'
+    ''
+    '   It can span multiple lines.'
+    ''
+    'This is a normal text paragraph again.')
   TokenTypeNames.Strings = (
     'Head'
     'Text'
@@ -436,7 +484,9 @@ object SyntAnal19: TLibSyntAnalyzer
     'Link wiki'
     'Table begin'
     'Table end'
-    'List head')
+    'List head'
+    'Code-block begin'
+    'Code-block end')
   Extentions = 'rst'
   LexerName = 'reStructuredText'
   SkipSpaces = False

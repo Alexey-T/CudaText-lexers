@@ -1,0 +1,463 @@
+object SyntAnal20: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id std'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment block'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)\#\|(\#\|.*?\|\#|.)*?\|\#'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39')(\\.|.)*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String mul-line'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)```.*?```'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id '#39'include from'#39
+      StyleName = 'Id keyword'
+      TokenType = 2
+      Expression = '(?-i)\binclude\x20+from\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id '#39'else if'#39
+      StyleName = 'Id keyword'
+      TokenType = 9
+      Expression = '(?-i)\belse\s+if\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id '#39'provide *'#39
+      StyleName = 'Id keyword'
+      TokenType = 9
+      Expression = '(?-i)\b(data|provide(\-types)?)\x20+\*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id '#39'block:'#39
+      StyleName = 'Id keyword'
+      TokenType = 9
+      Expression = '(?-i)(?<=[\w\)\]]\x20)block(?=:)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id after .'
+      StyleName = 'Id'
+      TokenType = 8
+      Expression = '(?<=\.)[a-z_][\w\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[_a-z][_a-z0-9]*(\-+[_a-z0-9]+)*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol single'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '<=>|<=|>=|==|::|\->|=~'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol :'
+      StyleName = 'Symbol'
+      TokenType = 7
+      Expression = ':'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ()'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\. | (\.\d+|\d+\.?\d*) (e[\+\-]?\d+)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ; at end'
+      StyleName = 'Symbol'
+      StatesAbsent = 1
+      TokenType = 10
+      Expression = ';'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\[\]\+\-/\*\<>\.,~!&\|;:=%\^\#\$]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x\h+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'as'
+            'ascending'
+            'ask'
+            'block'
+            'cases'
+            'check'
+            'data'
+            'descending'
+            'doc'
+            'each'
+            'else'
+            'end'
+            'extend'
+            'extract'
+            'for'
+            'from'
+            'fun'
+            'if'
+            'import'
+            'include'
+            'init'
+            'is'
+            'is-not'
+            'is-roughly'
+            'lam'
+            'let'
+            'letrec'
+            'load-table'
+            'method'
+            'not'
+            'or'
+            'order'
+            'provide'
+            'provide-types'
+            'raise'
+            'raises'
+            'reactor'
+            'ref'
+            'row'
+            'sanitize'
+            'satisfies'
+            'select'
+            'self'
+            'shadow'
+            'sharing'
+            'sieve'
+            'source'
+            'spy'
+            'table'
+            'transform'
+            'type'
+            'type-let'
+            'using'
+            'var'
+            'when'
+            'where'
+            'with'
+            'xor')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id type'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Any'
+            'Boolean'
+            'false'
+            'list'
+            'List'
+            'Number'
+            'RawArray'
+            'Set'
+            'String'
+            'true')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id std'
+      StyleName = 'Id std'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'print'
+            'range'
+            'self')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ask'
+            'block'
+            'cases'
+            'for'
+            'if'
+            'include from'
+            'lam'
+            'let'
+            'letrec'
+            'provide'
+            'reactor'
+            'spy'
+            'when')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'block end'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block begin tree'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'check'
+            'data'
+            'fun'
+            'method')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'block end'
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';'
+            'end')
+          TokenTypes = 1028
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      StatesAdd = 1
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      StatesRemove = 1
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 256
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'fun example(n):'
+    '  #| Comment'
+    '    #| nested one |#  end'
+    '  |#'
+    '  1 + n'
+    'end'
+    ''
+    'data ADefinedType:'
+    '  | a-defined-type(name :: String, typ :: A.Ann) with:'
+    '    method label(self): "a-defined-type" end,'
+    '    method tosource(self):'
+    
+      '      PP.infix(INDENT, 1, str-coloncolon, PP.str(self.name), sel' +
+      'f.typ.tosource())'
+    '    end'
+    'sharing:'
+    '  method visit(self, visitor):'
+    
+      '    self._match(visitor, lam(): raise("No visitor field for " + ' +
+      'self.label()) end)'
+    '  end'
+    'end')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Symbol ()'
+    'Symbol :'
+    'Symbol {}'
+    'Id spec'
+    'Symbol ; at end')
+  Extentions = 'arr'
+  LexerName = 'Pyret'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end

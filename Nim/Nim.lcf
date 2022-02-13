@@ -1,4 +1,4 @@
-object SyntAnal35: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -49,7 +49,15 @@ object SyntAnal35: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'Id function'
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id std'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlue
       Font.Height = -13
@@ -57,12 +65,20 @@ object SyntAnal35: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Pragma'
+      DisplayName = 'String 2'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Comment doc'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 10904163
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
     end>
   TokenRules = <
     item
@@ -79,15 +95,7 @@ object SyntAnal35: TLibSyntAnalyzer
       TokenType = 10
       Expression = 
         '(?<=^[\x20\x09]*)(of|if|else|elif|for|while|try|except|finally|s' +
-        'witch|case|with|block|var)\b'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = '^Integer'
-      StyleName = 'Number'
-      TokenType = 9
-      Expression = '(?<=^[\x20\x09]*) \d+(\.\d+)?'
+        'witch|case|with|block|var|when|task)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -95,7 +103,7 @@ object SyntAnal35: TLibSyntAnalyzer
       DisplayName = '^Id'
       StyleName = 'Id'
       TokenType = 9
-      Expression = '(?<=^[\x20\x09]*)\w+'
+      Expression = '(?<=^[\x20\x09]*)[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -104,6 +112,14 @@ object SyntAnal35: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 9
       Expression = '(?<=^[\x20\x09]*)@'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'CommentMLine doc'
+      StyleName = 'Comment doc'
+      TokenType = 13
+      Expression = '(?s)\#\#\[ (\#\#\[.*?\]\#\#|.)*? \]\#\#'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -120,6 +136,80 @@ object SyntAnal35: TLibSyntAnalyzer
       StyleName = 'Comment'
       TokenType = 13
       Expression = '(?<=^[\x20\x09]*) \#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x\h[\h_]* '#39'(f(32|64)?|d)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x\h[\h_]* ('#39'[iu](8|16|32|64)?)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float Octal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(?-i)0o[0-7][0-7_]* '#39'?([fF](32|64)?|[dD])\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int Octal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(?-i)0o[0-7][0-7_]* '#39'?([iuIU](8|16|32|64)?)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float Binary'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0b[01][01_]* '#39'?(f(32|64)?|d)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int Binary'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0b[01][01_]* ('#39'?[iu](8|16|32|64)?)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float Dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '('#13#10'\d[\d_]*\.\d[\d_]*(e[\+\-]?\d[\d_]*)? |'#13#10'\d[\d_]*(e[\+\-]?\d[' +
+        '\d_]*)'#13#10')'#13#10'('#39'?(f(32|64)?|d))?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float Dec 2'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d[\d_]* '#39'?(f(32|64)?|d)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Int Dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d[\d_]* ('#39'?[iu](8|16|32|64)?)?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -148,6 +238,14 @@ object SyntAnal35: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String 2'
+      StyleName = 'String 2'
+      TokenType = 6
+      Expression = '`.*?`'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
@@ -156,33 +254,10 @@ object SyntAnal35: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Integer hex'
-      StyleName = 'Number'
-      TokenType = 5
-      Expression = '0[xbo][0-9a-f]+'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Integer'
-      StyleName = 'Number'
-      TokenType = 5
-      Expression = '\d+(\.\d*)?'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
       Expression = '\#.*'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Pragma'
-      StyleName = 'Pragma'
-      Expression = '\{\.\w+\.\}'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -198,7 +273,9 @@ object SyntAnal35: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\*,\.;\(\)=<>\+\-\[\]\{\}\^@!%\\\|~&`\?\$]'
+      Expression = 
+        '\[\.|\.\]|\{\.|\.\}|\(\.|\.\)|\[:|'#13#10'[/\*,\.;\(\)=<>\+\-\[\]\{\}\' +
+        '^@!%\\\|~&`\?\$]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -268,6 +345,7 @@ object SyntAnal35: TLibSyntAnalyzer
             'shl'
             'shr'
             'static'
+            'task'
             'template'
             'try'
             'tuple'
@@ -286,8 +364,43 @@ object SyntAnal35: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'Id type'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'array'
+            'bool'
+            'char'
+            'cstring'
+            'false'
+            'float'
+            'float32'
+            'float64'
+            'int'
+            'int16'
+            'int32'
+            'int64'
+            'int8'
+            'range'
+            'seq'
+            'set'
+            'string'
+            'true'
+            'uint'
+            'uint16'
+            'uint32'
+            'uint64'
+            'uint8')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = 'Id std'
-      StyleName = 'Id function'
+      StyleName = 'Id std'
       BlockType = btTagDetect
       ConditionList = <
         item
@@ -295,45 +408,23 @@ object SyntAnal35: TLibSyntAnalyzer
             'all'
             'alloc'
             'any'
-            'array'
             'auto'
-            'bool'
-            'char'
             'close'
             'contains'
-            'cstring'
             'dealloc'
             'dec'
             'echo'
-            'false'
-            'float'
-            'float32'
-            'float64'
             'inc'
-            'int'
-            'int16'
-            'int32'
-            'int64'
-            'int8'
             'len'
             'log'
             'open'
             'ord'
             'quit'
-            'range'
             'result'
             'Rune'
-            'seq'
             'sqrt'
             'stdin'
             'stdout'
-            'string'
-            'true'
-            'uint'
-            'uint16'
-            'uint32'
-            'uint64'
-            'uint8'
             'varargs'
             'write'
             'writeln')
@@ -441,6 +532,7 @@ object SyntAnal35: TLibSyntAnalyzer
     'test""" + re"test"'
     '#comment'
     '{.pragma.}'
+    '0XAB_DE + 0o12_3 + 0B01_01 + 1_2.3_4  + 1.2 + 1e+3_4'
     ''
     'template all(container, cond: expr): expr {.immediate.} ='
     '  block:'
@@ -466,23 +558,27 @@ object SyntAnal35: TLibSyntAnalyzer
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
-    'Identifier'
+    'Id'
     'Symbol'
     'String'
-    'Integer const'
-    'Float const'
-    'Hex const'
-    'Char const'
+    'Number'
+    'String 2'
+    '-'
+    '-'
     '^word'
     '^keyword'
     '^word tree'
     'Symbol :'
     '^comment')
-  Extentions = 'nim'
+  Extentions = 'nim /config.nims'
   LexerName = 'Nim'
   SkipSpaces = False
   Notes.Strings = (
-    'Alexey (CudaText)')
+    'Alexey (CudaText)'
+    
+      'Docs: https://nim-lang.org/docs/manual.html#lexical-analysis-num' +
+      'erical-constants')
+  RestartFromLineStart = True
   LineComment = '#'
   Charset = DEFAULT_CHARSET
 end

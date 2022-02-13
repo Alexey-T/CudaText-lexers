@@ -1,0 +1,7 @@
+[info]
+title=Coq
+type=lexer
+subdir=-
+
+[lexer1]
+file=Coq

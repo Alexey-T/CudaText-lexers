@@ -1,0 +1,7 @@
+[info]
+title=1C
+type=lexer
+subdir=-
+
+[lexer1]
+file=1C

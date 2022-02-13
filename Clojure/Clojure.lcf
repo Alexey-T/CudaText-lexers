@@ -1,4 +1,4 @@
-object SyntAnal26: TLibSyntAnalyzer
+object SyntAnal7: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Brackets'
@@ -65,14 +65,6 @@ object SyntAnal26: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Id complex'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
       DisplayName = '.Id'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
@@ -89,29 +81,35 @@ object SyntAnal26: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Current block'
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clMaroon
+      DisplayName = 'String2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      BgColor = 13369046
-      FormatType = ftColor
-      BorderTypeLeft = blSolid
-      BorderColorLeft = clGray
-      BorderTypeTop = blSolid
-      BorderColorTop = clGray
-      BorderTypeRight = blSolid
-      BorderColorRight = clGray
-      BorderTypeBottom = blSolid
-      BorderColorBottom = clGray
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String regex'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 33023
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = '#Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = ';.*'
+      Expression = '(;|\#!).*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -119,7 +117,7 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayName = 'Symbol bracket'
       StyleName = 'Brackets'
       TokenType = 6
-      Expression = '(\#_?)? [\(\)\[\]\{\}]'
+      Expression = '(\#[_\?@]*[\(\[\{]) | [\(\)\[\]\{\}]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -132,18 +130,44 @@ object SyntAnal26: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Number'
-      StyleName = 'Number'
-      TokenType = 5
-      Expression = '\d+\.\d+ |'#13#10'\d+'
+      DisplayName = 'String regex'
+      StyleName = 'String regex'
+      TokenType = 7
+      Expression = '(?s)\#"(\\.|.)*?("|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Id complex'
-      StyleName = 'Id complex'
-      TokenType = 2
-      Expression = '(?r)\w+\.[\w\.\-]+'
+      DisplayName = 'Number radix'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '2r[01]+\b | 16r\h+\b | 32r\w+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x\h+N?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        ':?\d+\.\d+M?\b |'#13#10'\.\d+M? \b |'#13#10'\d+\.M? |'#13#10'\d+(\.\d+)?e[\-\+]?\d' +
+        '+M?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = ':?\d+[NM]?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -151,9 +175,7 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = 
-        '(?r)(def\w*|ns)(\x20+[\w\-/\?\!\.\*\+\$\|]+)?|\w[\w\-/\?\!\.\*\+' +
-        '\$\|]*'
+      Expression = '(?r)\w[\w\-/\!\.\*\+\$\|]*\??'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -166,18 +188,18 @@ object SyntAnal26: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = #39'Id'
-      StyleName = #39'Id'
+      DisplayName = ':Id'
+      StyleName = ':Id'
       TokenType = 2
-      Expression = '(?r)'#39'[\w\-\.\?]+'
+      Expression = '(?r)\:[:\w\-'#39'\#/\*\.]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = ':Id'
-      StyleName = ':Id'
-      TokenType = 2
-      Expression = '(?r)\:[\w\-]+'
+      DisplayName = '#Id'
+      StyleName = '#Id'
+      TokenType = 9
+      Expression = '\#_ | \#[a-z][\w\./:]* | \#[_\#'#39':]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -185,15 +207,23 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\+\-\*=\.\'#39':\#\?@&`%\^<>/=\^\$~]+'
+      Expression = '['#39'\^] | [\+\-\*=\.,\#\?@&`%\^<>/=\$~!:\|]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Char'
-      StyleName = 'String'
-      TokenType = 4
+      DisplayName = 'Char const'
+      StyleName = 'String2'
+      TokenType = 8
       Expression = '\\\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Escaped symbol'
+      StyleName = 'String2'
+      TokenType = 8
+      Expression = '\\[;,\.`~'#39'"!@\#\^\|&]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -425,6 +455,7 @@ object SyntAnal26: TLibSyntAnalyzer
             'import'
             'in'
             'inc'
+            'Inf'
             'init-proxy'
             'in-ns'
             'instance?'
@@ -490,10 +521,12 @@ object SyntAnal26: TLibSyntAnalyzer
             'name'
             'namespace'
             'namespace-munge'
+            'NaN'
             'neg?'
             'newline'
             'next'
             'nfirst'
+            'nil'
             'nil?'
             'nnext'
             'not'
@@ -740,8 +773,10 @@ object SyntAnal26: TLibSyntAnalyzer
     end
     item
       DisplayName = '('
-      StyleName = 'Current block'
       ConditionList = <
+        item
+          TokenTypes = 4
+        end
         item
           TagList.Strings = (
             '(')
@@ -749,6 +784,7 @@ object SyntAnal26: TLibSyntAnalyzer
         end>
       BlockEnd = ')'
       NameFmt = '%s-1'
+      RefToCondEnd = True
       DynHighlight = dhBound
       HighlightPos = cpRange
       DynSelectMin = True
@@ -771,27 +807,35 @@ object SyntAnal26: TLibSyntAnalyzer
   SubAnalyzers = <>
   SampleText.Strings = (
     ';Comment'
+    '#!Comment'
     '(ns clojure.test-helper'
     '  (:use clojure.test))'
     ''
     '(let [nl (System/getProperty "line.separator")] '
     '  (defn platform-newlines [s] (.replace s "\n" nl)))'
-    ''
-    '\char, :id, '#39'id, .id')
+    
+      '                                                                ' +
+      '          '
+    '\char, \@, :id, '#39'id, .id, #"regex", true, nil?'
+    '0xAB, 12N, 12.3M, 1.2e+3M, 2r01, 16rAB, 32rAZ')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
-    'Identifier'
+    'Id'
     'Symbol'
     'String'
     'Number'
-    'Brackets')
+    'Brackets'
+    'String regex'
+    'Char const'
+    '#Id')
   Extentions = 'clj'
   LexerName = 'Clojure'
   Notes.Strings = (
-    'Alexey (CudaText)'
-    'Ref: www.clojure.org'
+    'Alexey T. (CudaText)'
+    'Docs: www.clojure.org'
     '(must-see "test_clojure\predicates.clj")')
+  RestartFromLineStart = True
   LineComment = ';'
   AlwaysSyncBlockAnal = True
   Charset = DEFAULT_CHARSET

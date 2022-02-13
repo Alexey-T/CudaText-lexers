@@ -1,0 +1,25 @@
+[comments]
+str1=comment[
+str2=]
+styles_cmt=Comment,String foldable
+styles_str=String,String filename
+
+[map]
+Comment=Comment
+Symbol=Symbol
+Number=Number
+String=String
+Id=Id
+Id std=Id1
+Id type=Id2
+Id keyword=IdKeyword
+Set-word=IdVar
+Comment doc=CommentDoc
+Comment todo=Comment2
+String filename=String2
+String foldable=String
+Tag=TagId
+Issue=Label
+Lit-words=Id4
+Money=Id3
+HTML entity=String3

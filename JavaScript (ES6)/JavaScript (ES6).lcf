@@ -1,4 +1,4 @@
-object SyntAnal12: TLibSyntAnalyzer
+object SyntAnal25: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'MAIN'
@@ -2796,6 +2796,58 @@ object SyntAnal12: TLibSyntAnalyzer
       BlockEnd = 'tree fx - { arrow'
       HighlightPos = cpAny
       IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 4
+        end>
+      BlockEnd = ')'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '( ... )'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 4
+        end>
+      BlockEnd = ']'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '[ ... ]'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
@@ -2922,7 +2974,6 @@ object SyntAnal12: TLibSyntAnalyzer
     'strings_template')
   DefaultStyleName = 'MAIN'
   CollapseStyleName = 'Spoiler'
-  Extentions = 'js'
   LexerName = 'JavaScript (ES6)'
   Notes.Strings = (
     'Lexer JavaScript (ES6) v1.04'

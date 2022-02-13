@@ -119,7 +119,7 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Id class'
       StyleName = 'Id class'
       TokenType = 2
-      Expression = '(?-i) [A-Z]\w*'
+      Expression = '(?-i)[A-Z]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -134,7 +134,7 @@ object SyntAnal22: TLibSyntAnalyzer
     item
       DisplayName = 'Float'
       StyleName = 'Number'
-      TokenType = 6
+      TokenType = 5
       Expression = 
         '(?-i) ( '#13#10'\. [\d_]+ [eE] [\+\-]? [\d_]+ |'#13#10'[\d_]+ (\. [\d_]+)? [' +
         'eE] [\+\-]? [\d_]+ |'#13#10'0x [\da-fA-F_]+ (\. [\da-fA-F_]+)? [pP] [\' +
@@ -145,7 +145,7 @@ object SyntAnal22: TLibSyntAnalyzer
     item
       DisplayName = 'Hex float'
       StyleName = 'Number'
-      TokenType = 6
+      TokenType = 5
       Expression = '0x[\h_]*\.[\h_]+p[\-\+]?[\d_]+\b'
       ColumnFrom = 0
       ColumnTo = 0
@@ -153,7 +153,7 @@ object SyntAnal22: TLibSyntAnalyzer
     item
       DisplayName = 'Hex'
       StyleName = 'Number'
-      TokenType = 7
+      TokenType = 5
       Expression = '0x[\da-f_]+\b |'#13#10'0b[01_]+f?\b'
       ColumnFrom = 0
       ColumnTo = 0
@@ -218,7 +218,31 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\{\}\(\),;@\?!:\$]'
+      Expression = '[,;@\?!\$]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol :'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = ':'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 7
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ()'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\(\)]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -233,7 +257,7 @@ object SyntAnal22: TLibSyntAnalyzer
     item
       DisplayName = 'Char'
       StyleName = 'String'
-      TokenType = 8
+      TokenType = 4
       Expression = #39'.*?('#39'|$)'
       ColumnFrom = 0
       ColumnTo = 0
@@ -322,7 +346,6 @@ object SyntAnal22: TLibSyntAnalyzer
             'union'
             'unittest'
             'version'
-            'void'
             'volatile'
             'while'
             'with')
@@ -365,6 +388,7 @@ object SyntAnal22: TLibSyntAnalyzer
             'uint'
             'ulong'
             'ushort'
+            'void'
             'wchar'
             'wstring')
           TokenTypes = 4
@@ -407,10 +431,11 @@ object SyntAnal22: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 128
         end
         item
-          TokenTypes = 4
+          CondType = tcSkip
+          TokenTypes = 70
         end
         item
           TagList.Strings = (
@@ -433,7 +458,7 @@ object SyntAnal22: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 128
         end
         item
           CondType = tcSkip
@@ -442,29 +467,29 @@ object SyntAnal22: TLibSyntAnalyzer
         item
           TagList.Strings = (
             ')')
-          TokenTypes = 8
+          TokenTypes = 256
         end
         item
           CondType = tcSkip
+          TokenTypes = 2110
         end
         item
           TagList.Strings = (
             '(')
-          TokenTypes = 8
+          TokenTypes = 256
         end
         item
           TokenTypes = 4
         end
         item
           CondType = tcSkip
-          TokenTypes = 2048
+          TokenTypes = 2050
         end
         item
           TokenTypes = 4
         end>
       BlockEnd = '}'
       NameFmt = '%s-1~s[(]1'
-      GroupFmt = '%ppsl1'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
@@ -480,7 +505,7 @@ object SyntAnal22: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 128
         end
         item
           CondType = tcSkip
@@ -489,22 +514,23 @@ object SyntAnal22: TLibSyntAnalyzer
         item
           TagList.Strings = (
             ')')
-          TokenTypes = 8
+          TokenTypes = 256
         end
         item
           CondType = tcSkip
+          TokenTypes = 2110
         end
         item
           TagList.Strings = (
             '(')
-          TokenTypes = 8
+          TokenTypes = 256
         end
         item
           TokenTypes = 4
         end
         item
           CondType = tcSkip
-          TokenTypes = 2048
+          TokenTypes = 2050
         end
         item
           TokenTypes = 4
@@ -524,7 +550,7 @@ object SyntAnal22: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 128
         end>
       BlockEnd = '}'
       DisplayInTree = False
@@ -542,7 +568,7 @@ object SyntAnal22: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '}')
-          TokenTypes = 8
+          TokenTypes = 128
         end>
       HighlightPos = cpBound
       IgnoreAsParent = False
@@ -628,24 +654,27 @@ object SyntAnal22: TLibSyntAnalyzer
     '}'
     ''
     'enum Name {'
+    '}'
+    ''
+    'class Test2 : Test1 {'
     '}')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
-    'Identifier'
+    'Id'
     'Symbol'
     'String'
-    'Integer const'
-    'Float const'
-    'Hex const'
-    'Char const'
+    'Number'
+    'Symbol :'
+    'Symbol {}'
+    'Symbol ()'
     'Attrib'
     'Id not-func'
     'Symbol []')
   Extentions = 'd di'
   LexerName = 'D'
   Notes.Strings = (
-    'Alexey (Synwrite)'
+    'Alexey (CudaText)'
     'Doc about tokens: http://dlang.org/lex.html#IntegerLiteral')
   LineComment = '//'
   Charset = DEFAULT_CHARSET

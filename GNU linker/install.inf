@@ -1,0 +1,7 @@
+[info]
+title=GNU linker
+type=lexer
+subdir=-
+
+[lexer1]
+file=GNU linker

@@ -151,7 +151,9 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayName = 'String regex'
       StyleName = 'String regex'
       TokenType = 4
-      Expression = '(?<![\w\]\)\.!]\x20*) / (\\/|\#\{.+?\}|.)+? /[igmx]*'
+      Expression = 
+        '(?s)(?<![\]\)\.!]\x20*) / (\\.|\S|\n|\r) (\\.|\#\{.+?\}|.)*? /[i' +
+        'gmx]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -207,7 +209,7 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayName = 'IfBegin'
       StyleName = 'Id keyword'
       TokenType = 6
-      Expression = '^[\x20\x09]* (if|unless|while)\b'
+      Expression = '^[\x20\x09]* (if|unless)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -466,6 +468,8 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayInTree = False
       NameFmt = '%s0 ...'
       HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%s0 ...'
       IgnoreAsParent = False
     end
@@ -492,6 +496,8 @@ object SyntAnal26: TLibSyntAnalyzer
       BlockEnd = 'end'
       NameFmt = '%sz0'
       HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       TreeItemImage = 5
       IgnoreAsParent = False
@@ -508,6 +514,7 @@ object SyntAnal26: TLibSyntAnalyzer
       BlockEnd = 'end'
       NameFmt = '%sz0'
       HighlightPos = cpAny
+      CancelNextRules = True
       CollapseFmt = '%sz0'
       TreeItemImage = 1
       IgnoreAsParent = False
@@ -522,6 +529,8 @@ object SyntAnal26: TLibSyntAnalyzer
       DisplayInTree = False
       NameFmt = '%sz0'
       HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       IgnoreAsParent = False
     end>

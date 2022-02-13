@@ -1,0 +1,19 @@
+[comments]
+str1={
+str2=}
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Id=Id
+Id operator=IdKeyword
+Id with &=Id1
+Id with #=Id3
+Symbol=Symbol
+Number=Number
+String=String
+Comment=Comment
+Preproc=Comment2
+Symbol bad=SymbolBad
+Func name=Label
+Id spec=Id2

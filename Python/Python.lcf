@@ -1,4 +1,4 @@
-object SyntAnal22: TLibSyntAnalyzer
+object SyntAnal18: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -59,7 +59,7 @@ object SyntAnal22: TLibSyntAnalyzer
     item
       DisplayName = 'Id function'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -67,7 +67,7 @@ object SyntAnal22: TLibSyntAnalyzer
     item
       DisplayName = 'Id func name'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMaroon
+      Font.Color = clFuchsia
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -89,6 +89,14 @@ object SyntAnal22: TLibSyntAnalyzer
       Font.Style = []
     end
     item
+      DisplayName = 'Id const'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
       DisplayName = 'Decorator'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 51200
@@ -98,10 +106,18 @@ object SyntAnal22: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = '^Tree item'
+      DisplayName = '^Tree def'
       StyleName = 'Id keyword def'
       TokenType = 11
-      Expression = '(def|class|async[\x20\x09]+def)\b'
+      Expression = '(?-i)\b(def|async[\x20\x09]+def)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Tree class'
+      StyleName = 'Id keyword def'
+      TokenType = 17
+      Expression = '(?-i)\bclass\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -110,8 +126,8 @@ object SyntAnal22: TLibSyntAnalyzer
       StyleName = 'Id keyword'
       TokenType = 10
       Expression = 
-        '(?<=^[\x20\x09]*) (if|else|elif|for|async\x20+for|while|try|exce' +
-        'pt|finally|switch|case|with|async\x20+with)\b'
+        '(?-i)(?<=^[\x20\x09]*) (if|else|elif|for|async\x20+for|while|try' +
+        '|except|finally|switch|case|with|async\x20+with|match)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -156,6 +172,14 @@ object SyntAnal22: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = '^Id const'
+      StyleName = 'Id const'
+      TokenType = 2
+      Expression = '(?-i)[A-Z_][A-Z0-9_]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = '^Id='
       StyleName = 'Id'
       TokenType = 15
@@ -167,7 +191,7 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Id func name'
       StyleName = 'Id func name'
       TokenType = 13
-      Expression = '(?r)(?<=\bclass\x20+)\w+ |'#13#10'(?r)(?<=\bdef\x20+)\w+'
+      Expression = '(?r-i)(?<=\bclass\x20+)\w+ |'#13#10'(?r-i)(?<=\bdef\x20+)\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -249,7 +273,7 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\*,\.;=<>\+\-\^!%\\\|~&]+'
+      Expression = '[/\*,\.;=<>\+\-\^!%\\\|~&]+ | :='
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -336,14 +360,17 @@ object SyntAnal22: TLibSyntAnalyzer
             '__future__'
             '__import__'
             'abs'
+            'aiter'
             'all'
+            'anext'
             'any'
             'apply'
             'ascii'
             'bin'
-            'buffer'
+            'breakpoint'
             'callable'
             'chr'
+            'classmethod'
             'cmp'
             'coerce'
             'compile'
@@ -354,7 +381,6 @@ object SyntAnal22: TLibSyntAnalyzer
             'eval'
             'exec'
             'execfile'
-            'file'
             'filter'
             'format'
             'getattr'
@@ -371,7 +397,7 @@ object SyntAnal22: TLibSyntAnalyzer
             'iter'
             'len'
             'locals'
-            'long'
+            'map'
             'max'
             'min'
             'next'
@@ -380,6 +406,7 @@ object SyntAnal22: TLibSyntAnalyzer
             'ord'
             'pow'
             'print'
+            'property'
             'range'
             'raw_input'
             'reduce'
@@ -389,11 +416,12 @@ object SyntAnal22: TLibSyntAnalyzer
             'round'
             'self'
             'setattr'
-            'slice'
             'sorted'
+            'staticmethod'
             'sum'
+            'super'
+            'type'
             'unichr'
-            'unicode'
             'vars'
             'xrange'
             'zip')
@@ -409,31 +437,30 @@ object SyntAnal22: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'basestring'
             'bool'
+            'buffer'
             'bytearray'
             'bytes'
-            'classmethod'
             'complex'
             'dict'
             'Ellipsis'
             'False'
+            'file'
             'float'
             'frozenset'
             'int'
             'list'
-            'map'
+            'long'
             'memoryview'
             'None'
-            'NotImplemented'
             'object'
-            'property'
             'set'
-            'staticmethod'
+            'slice'
             'str'
-            'super'
             'True'
             'tuple'
-            'type')
+            'unicode')
           TokenTypes = 516
         end>
       HighlightPos = cpAny
@@ -460,6 +487,7 @@ object SyntAnal22: TLibSyntAnalyzer
             'ConnectionRefusedError'
             'ConnectionResetError'
             'DeprecationWarning'
+            'EnvironmentError'
             'EOFError'
             'Exception'
             'FileExistsError'
@@ -472,6 +500,7 @@ object SyntAnal22: TLibSyntAnalyzer
             'IndentationError'
             'IndexError'
             'InterruptedError'
+            'IOError'
             'IsADirectoryError'
             'KeyboardInterrupt'
             'KeyError'
@@ -480,6 +509,7 @@ object SyntAnal22: TLibSyntAnalyzer
             'ModuleNotFoundError'
             'NameError'
             'NotADirectoryError'
+            'NotImplemented'
             'NotImplementedError'
             'OSError'
             'OverflowError'
@@ -491,6 +521,7 @@ object SyntAnal22: TLibSyntAnalyzer
             'ResourceWarning'
             'RuntimeError'
             'RuntimeWarning'
+            'StandardError'
             'StopAsyncIteration'
             'StopIteration'
             'SyntaxError'
@@ -508,11 +539,37 @@ object SyntAnal22: TLibSyntAnalyzer
             'UnicodeWarning'
             'UserWarning'
             'ValueError'
+            'VMSError'
             'Warning'
+            'WindowsError'
             'ZeroDivisionError')
           TokenTypes = 516
         end>
       HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block for tree, class'
+      ConditionList = <
+        item
+          TokenTypes = 4096
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 59390
+        end
+        item
+          TokenTypes = 131072
+        end>
+      EndOfTextClose = True
+      NameFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      GroupIndex = 20
+      CollapseFmt = '%s0 %s-1...'
+      TreeItemImage = 1
       IgnoreAsParent = False
     end
     item
@@ -529,13 +586,14 @@ object SyntAnal22: TLibSyntAnalyzer
           TokenTypes = 2048
         end>
       EndOfTextClose = True
-      NameFmt = '%s0 %s-1'
+      NameFmt = '%s-1'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
       DrawStaple = True
       GroupIndex = 20
       CollapseFmt = '%s0 %s-1...'
+      TreeItemImage = 5
       IgnoreAsParent = False
     end
     item
@@ -609,7 +667,7 @@ object SyntAnal22: TLibSyntAnalyzer
     'string""" + "long \'
     'string"; #end'
     '11_22_3.44_5 + 0x_FF_aa_b_0 + 0b10_1_0'
-    '+ 3. + .3 + 3.0 + 1.2e-3'
+    '+ 3. + .3 + 3.0 + 1.2e-3 + CONST'
     ''
     'import sys, sys2, sys3'
     'from csv import aa, bb'
@@ -651,8 +709,11 @@ object SyntAnal22: TLibSyntAnalyzer
     'Id func name'
     'Id after .'
     '^Id='
-    '^@Id')
-  Extentions = 'py pyw rpy cpy sconstruct pyi'
+    '^@Id'
+    '^Id tree class')
+  Extentions = 
+    'py py3 pyw pyi pyx pyx.in pxd pxd.in pxi pxi.in rpy cpy SConstru' +
+    'ct SConscript gyp gypi Snakefile smk vpy wscript bazel bzl'
   LexerName = 'Python'
   Notes.Strings = (
     'Python lexer by Alexey (CudaText)')

@@ -1,4 +1,4 @@
-object SyntAnal21: TLibSyntAnalyzer
+object SyntAnal17: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Id'
@@ -164,6 +164,14 @@ object SyntAnal21: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Keyword sub'
+      StyleName = 'Id keyword'
+      TokenType = 9
+      Expression = '(?-i)\bsub(?=\x20+[a-zA-Z_])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id::Id'
       StyleName = 'Id::Id'
       TokenType = 2
@@ -284,13 +292,17 @@ object SyntAnal21: TLibSyntAnalyzer
             'made'
             'make'
             'method'
+            'model'
             'module'
+            'monitor'
             'my'
             'need'
             'next'
             'orwith'
             'our'
+            'package'
             'proceed'
+            'regex'
             'repeat'
             'require'
             'return'
@@ -299,7 +311,6 @@ object SyntAnal21: TLibSyntAnalyzer
             'role'
             'rule'
             'state'
-            'sub'
             'submethod'
             'subset'
             'succeed'
@@ -317,6 +328,7 @@ object SyntAnal21: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       HighlightPos = cpBound
+      TokenType = 9
       IgnoreAsParent = False
     end
     item
@@ -753,20 +765,28 @@ object SyntAnal21: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 383
+          TokenTypes = 895
         end
         item
           TagList.Strings = (
             'class'
+            'grammar'
             'method'
+            'model'
+            'module'
+            'monitor'
+            'package'
+            'proto'
+            'regex'
             'role'
+            'rule'
             'sub'
             'submethod'
             'token')
-          TokenTypes = 1028
+          TokenTypes = 512
         end>
       BlockEnd = '}'
-      NameFmt = '%sz0'
+      NameFmt = '%s0 %s-1'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
@@ -869,11 +889,13 @@ object SyntAnal21: TLibSyntAnalyzer
     'String 2'
     'Number'
     'Symbol {}'
-    'Var')
+    'Var'
+    'Id keyword')
   Extentions = 'raku rakumod rakudoc rakutest'
   LexerName = 'Raku'
   Notes.Strings = (
     'Alexey (CudaText)')
+  RestartFromLineStart = True
   LineComment = '#'
   Charset = DEFAULT_CHARSET
 end

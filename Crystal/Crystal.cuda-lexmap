@@ -1,0 +1,19 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Number=Number
+Symbol=Symbol
+String=String
+String 2=String2
+Comment=Comment
+Id=Id
+Id keyword=IdKeyword
+Id types=Id2
+Id spec=Id4
+Var=IdVar
+RegEx=String3
+HereDoc BG=IncludeBG1

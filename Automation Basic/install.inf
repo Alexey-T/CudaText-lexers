@@ -1,0 +1,7 @@
+[info]
+title=Automation Basic
+type=lexer
+subdir=-
+
+[lexer1]
+file=Automation Basic

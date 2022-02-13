@@ -1,4 +1,4 @@
-object SyntAnal11: TLibSyntAnalyzer
+object SyntAnal9: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Text'
@@ -218,7 +218,7 @@ object SyntAnal11: TLibSyntAnalyzer
       StyleName = 'Tag string'
       BlockName = 'Tag begin'
       TokenType = 4
-      Expression = '(?s) ("|'#39') (<\?.+?\?>|.)*? (\1|\Z)'
+      Expression = '(?s) (?<=[\=\{:,]\x20*) ("|'#39') (<\?.+?\?>|.)*? (\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -236,7 +236,11 @@ object SyntAnal11: TLibSyntAnalyzer
       StyleName = 'Tag prop'
       BlockName = 'Tag begin'
       TokenType = 2
-      Expression = '\b(defer|async|readonly)\b'
+      Expression = 
+        '\b(allowfullscreen|allowpaymentrequest|async|autofocus|autoplay|' +
+        'checked|controls|default|defer|disabled|formnovalidate|hidden|is' +
+        'map|itemscope|loop|multiple|muted|nomodule|novalidate|open|plays' +
+        'inline|readonly|required|reversed|selected|truespeed)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -245,7 +249,7 @@ object SyntAnal11: TLibSyntAnalyzer
       StyleName = 'Tag unknown text'
       BlockName = 'Tag begin'
       TokenType = 2
-      Expression = '[\w\-:\.]+'
+      Expression = '[\w\-\.][\w\-:\./]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -258,10 +262,17 @@ object SyntAnal11: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Other symbols'
+      StyleName = 'Tag bound'
+      Expression = '[:\{\}"]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Text'
       StyleName = 'Text'
       TokenType = 9
-      Expression = '\w+'
+      Expression = '(?r)\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -383,6 +394,7 @@ object SyntAnal11: TLibSyntAnalyzer
             'output'
             'p'
             'param'
+            'path'
             'picture'
             'plaintext'
             'pre'
@@ -406,9 +418,11 @@ object SyntAnal11: TLibSyntAnalyzer
             'sub'
             'summary'
             'sup'
+            'svg'
             'table'
             'tbody'
             'td'
+            'template'
             'textarea'
             'tfoot'
             'th'
@@ -554,10 +568,11 @@ object SyntAnal11: TLibSyntAnalyzer
           TokenTypes = 1024
         end>
       BlockEnd = 'Tag block end'
-      NameFmt = '<%sz0'
+      NameFmt = '<%s0...>'
       DynHighlight = dhBound
       HighlightPos = cpRange
       DynSelectMin = True
+      DrawStaple = True
       IgnoreAsParent = False
     end
     item
@@ -574,29 +589,6 @@ object SyntAnal11: TLibSyntAnalyzer
           TokenTypes = 1024
         end>
       SameIdent = True
-      HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Comment begin'
-      ConditionList = <
-        item
-          TokenTypes = 2
-        end>
-      BlockEnd = 'Comment end'
-      DisplayInTree = False
-      HighlightPos = cpBound
-      DynSelectMin = True
-      CollapseFmt = '<!--  ...  -->'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Comment end'
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TokenTypes = 2
-        end>
       HighlightPos = cpBound
       IgnoreAsParent = False
     end
@@ -785,43 +777,55 @@ object SyntAnal11: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <
     item
-      DisplayName = 'CSS'
+      DisplayName = 'CSS tag'
       StyleName = 'Sublexer BG'
-      AlwaysEnabled = True
-      StartExpression = '(?si)<style[^>]*>'
+      StartExpression = '<style[^>]*>\z?'
       EndExpression = '</style>'
-      SyntAnalyzer = SyntAnal6
+      SyntAnalyzer = SyntAnal7
     end
     item
       DisplayName = 'VBScript'
       StyleName = 'Sublexer BG'
-      AlwaysEnabled = True
-      StartExpression = '(?si)<script[^>]*vbscript[^>]*>\s*(<!--)?'
-      EndExpression = '(?i)(-->)?\s*</script>'
-      SyntAnalyzer = SyntAnal28
+      StartExpression = '<script[^>]*vbscript[^>]*>\z?(<!--)?'
+      EndExpression = '(-->)?\s*</script>'
     end
     item
-      DisplayName = 'JavaScript'
+      DisplayName = 'JSON'
       StyleName = 'Sublexer BG'
-      AlwaysEnabled = True
-      StartExpression = '(?si)<script\s[^>]*(j|java|ecma|paper)script [^>\?]*> \s*(<!\-\-)?'
-      EndExpression = '(?i)(//)?(\-\->)?\s*</script\s*>'
-      SyntAnalyzer = SyntAnal13
-    end
-    item
-      DisplayName = 'JavaScript simple'
-      StyleName = 'Sublexer BG'
-      StartExpression = '<script\s*>'
+      StartExpression = 
+        '(?s)<script\s[^>]* (application|text)/json (<\?.+?\?>|[^>\?])*?>' +
+        ' \z?'
       EndExpression = '</script\s*>'
       SyntAnalyzer = SyntAnal13
     end
     item
+      DisplayName = 'JavaScript'
+      StyleName = 'Sublexer BG'
+      StartExpression = 
+        '(?s)<script\s[^>]* (j|java|ecma|paper)script (<\?.+?\?>|[^>\?])*' +
+        '?> \z? (<!\-\-)?'
+      EndExpression = '(//)?(\-\->)?\s*</script\s*>'
+      SyntAnalyzer = SyntAnal11
+    end
+    item
+      DisplayName = 'JavaScript simple'
+      StyleName = 'Sublexer BG'
+      StartExpression = '<script\b[^>]*>\z?'
+      EndExpression = '</script\s*>'
+      SyntAnalyzer = SyntAnal11
+    end
+    item
       DisplayName = 'ASP'
       StyleName = 'Sublexer BG'
-      AlwaysEnabled = True
-      StartExpression = '<%'
+      StartExpression = '<%\z?'
       EndExpression = '%>'
-      SyntAnalyzer = SyntAnal28
+    end
+    item
+      DisplayName = 'HTML style'
+      StyleName = 'Sublexer BG'
+      StartExpression = '(?<=\bstyle\x20*=\x20*)"'
+      EndExpression = '"'
+      SyntAnalyzer = SyntAnal8
     end>
   SampleText.Strings = (
     '<!doctype test="123">'

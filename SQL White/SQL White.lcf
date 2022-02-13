@@ -550,7 +550,6 @@ object SyntAnal114: TLibSyntAnalyzer
   MarkedBlockStyle = 'Marked block'
   Extentions = 'sql'
   LexerName = 'SQL White'
-  Internal = True
   Charset = DEFAULT_CHARSET
   Left = 144
   Top = 184

@@ -1,4 +1,4 @@
-object SyntAnal9: TLibSyntAnalyzer
+object SyntAnal10: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -129,6 +129,14 @@ object SyntAnal9: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'String ticks'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 7513169
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -143,7 +151,7 @@ object SyntAnal9: TLibSyntAnalyzer
       DisplayName = 'Comment doc'
       StyleName = 'Comment doc'
       TokenType = 1
-      Expression = '(?s)/\*\*.+?\*/'
+      Expression = '(?s)/\*\*.*?(\*/|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -189,9 +197,9 @@ object SyntAnal9: TLibSyntAnalyzer
     end
     item
       DisplayName = 'String ticks'
-      StyleName = 'String regex'
+      StyleName = 'String ticks'
       TokenType = 4
-      Expression = '(?s)`(\\`|.)*?(`|\Z)'
+      Expression = '(?s)`(\\`|\$\{ (\$\{.*?\}|.)*?\}|.)*?(`|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -200,11 +208,17 @@ object SyntAnal9: TLibSyntAnalyzer
       StyleName = 'String regex'
       TokenType = 4
       Expression = 
-        '(?<=[=\(\[&!:/>\?\+]\x20*) / (\\/|\\\\|\[.+?\]|.)*? /[gimysu]* |' +
-        #13#10'(?<=^\x20*)                / (\\/|\\\\|\[.+?\]|.)*? /[gimysu]*' +
-        ' |'#13#10'(?<=\bcase\x20+)           / (\\/|\\\\|\[.+?\]|.)*? /[gimysu' +
-        ']* |'#13#10'(?<=\breturn\x20+)         / (\\/|\\\\|\[.+?\]|.)*? /[gimy' +
-        'su]*'#13#10
+        '(?-i)(?<=[=\(\[&!:/>\?\+,\}`]\x20*) / (\\/|\\\\|\[.+?\]|.)*? /[g' +
+        'imysu]* |'#13#10'(?-i)(?<=^\x20*)                / (\\/|\\\\|\[.+?\]|.' +
+        ')*? /[gimysu]* |'#13#10'(?-i)(?<=\bcase\x20*)           / (\\/|\\\\|\[' +
+        '.+?\]|.)*? /[gimysu]* |'#13#10'(?-i)(?<=\breturn\x20*)         / (\\/|' +
+        '\\\\|\[.+?\]|.)*? /[gimysu]* |'#13#10'(?-i)(?<=\bawait\x20*)          ' +
+        '/ (\\/|\\\\|\[.+?\]|.)*? /[gimysu]* |'#13#10'(?-i)(?<=\binstanceof\x20' +
+        '*)     / (\\/|\\\\|\[.+?\]|.)*? /[gimysu]* |'#13#10'(?-i)(?<=\bgoto\x2' +
+        '0*)           / (\\/|\\\\|\[.+?\]|.)*? /[gimysu]* |'#13#10'(?-i)(?<=\b' +
+        'in\x20*)             / (\\/|\\\\|\[.+?\]|.)*? /[gimysu]* |'#13#10'(?-i' +
+        ')(?<=\bof\x20*)             / (\\/|\\\\|\[.+?\]|.)*? /[gimysu]*'#13 +
+        #10
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -259,7 +273,7 @@ object SyntAnal9: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Hex'
+      DisplayName = 'Number hex'
       StyleName = 'Number'
       TokenType = 5
       Expression = '0x[0-9a-f_]+n?\b | 0b[01_]+n?\b | 0o[0-7_]+n?\b'
@@ -267,7 +281,7 @@ object SyntAnal9: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Float'
+      DisplayName = 'Number float'
       StyleName = 'Number'
       TokenType = 5
       Expression = 
@@ -277,7 +291,7 @@ object SyntAnal9: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Integer'
+      DisplayName = 'Number dec'
       StyleName = 'Number'
       TokenType = 5
       Expression = '\d[\d_]*n?\b'
@@ -415,17 +429,36 @@ object SyntAnal9: TLibSyntAnalyzer
             '__dirname'
             '__filename'
             '$export'
+            'AggregateError'
             'Array'
+            'ArrayBuffer'
+            'Atomics'
+            'Boolean'
             'constructor'
+            'DataView'
             'Date'
+            'Error'
+            'EvalError'
             'exports'
+            'Float32Array'
+            'Float64Array'
+            'Function'
+            'Generator'
+            'GeneratorFunction'
             'get'
             'global'
             'hasOwnProperty'
+            'Int16Array'
+            'Int32Array'
+            'Int8Array'
+            'InternalError'
+            'Intl'
             'isFinite'
             'isNaN'
             'isPrototypeOf'
+            'JSON'
             'length'
+            'Map'
             'Math'
             'module'
             'name'
@@ -433,11 +466,29 @@ object SyntAnal9: TLibSyntAnalyzer
             'Object'
             'process'
             'prototype'
+            'Proxy'
+            'RangeError'
+            'ReferenceError'
+            'Reflect'
+            'RegExp'
             'require'
             'set'
+            'Set'
+            'SharedArrayBuffer'
+            'SIMD'
             'String'
+            'Symbol'
+            'SyntaxError'
             'toString'
-            'valueOf')
+            'TypeError'
+            'Uint16Array'
+            'Uint32Array'
+            'Uint8Array'
+            'Uint8ClampedArray'
+            'URIError'
+            'valueOf'
+            'WeakMap'
+            'WeakSet')
           TokenTypes = 4
         end>
       HighlightPos = cpAny
@@ -821,6 +872,58 @@ object SyntAnal9: TLibSyntAnalyzer
       NoEndRule = True
       TreeItemImage = 0
       IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 8
+        end>
+      BlockEnd = ']'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '[ ... ]'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 128
+        end>
+      BlockEnd = ')'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '( ... )'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 128
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <
@@ -828,13 +931,13 @@ object SyntAnal9: TLibSyntAnalyzer
       DisplayName = 'PHP'
       StartExpression = '<\?(php)?'
       EndExpression = '\?>'
-      SyntAnalyzer = SyntAnal14
+      SyntAnalyzer = SyntAnal15
     end
     item
       DisplayName = 'JSDoc'
       StartExpression = '/\*\*[^/\*]'
-      EndExpression = '\*/'
-      SyntAnalyzer = SyntAnal10
+      EndExpression = '[^/\*\n\r]*?\*/'
+      SyntAnalyzer = SyntAnal11
     end>
   SampleText.Strings = (
     '#!/bin/bash                         '
@@ -905,6 +1008,7 @@ object SyntAnal9: TLibSyntAnalyzer
   Notes.Strings = (
     'Based on lexer from EControl'
     'Reworked by Alexey (CudaText)')
+  RestartFromLineStart = True
   LineComment = '//'
   Charset = DEFAULT_CHARSET
 end

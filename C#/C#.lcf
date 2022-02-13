@@ -1,4 +1,4 @@
-object SyntAnal6: TLibSyntAnalyzer
+object SyntAnal5: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -105,6 +105,14 @@ object SyntAnal6: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Preproc string'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -135,7 +143,7 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'String verbatim'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s) \$?@" .*? ("|\Z)'
+      Expression = '(?s) \$?@\$? ".*?("|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -174,6 +182,14 @@ object SyntAnal6: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Preproc string'
+      StyleName = 'Preproc string'
+      TokenType = 11
+      Expression = '(?-i)(?<=\#\x20*error\x20+).* |'#13#10'(?-i)(?<=\#\x20*warning\x20+).*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
@@ -185,7 +201,9 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'Preprocessor'
       StyleName = 'Preprocessor'
       TokenType = 6
-      Expression = '\# \x20* \w+'
+      Expression = 
+        '(?-i)\#\x20*(if|elif|else|endif|define|undef|pragma|region|endre' +
+        'gion|error|warning|line|nullable)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -217,7 +235,7 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'Single symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\[\],;\.@`\?\#\$%\\]'
+      Expression = '\?\?=? |[\[\],;\.@`\?\#\$%\\]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -253,7 +271,6 @@ object SyntAnal6: TLibSyntAnalyzer
             'do'
             'else'
             'enum'
-            'explicit'
             'finally'
             'fixed'
             'for'
@@ -261,7 +278,6 @@ object SyntAnal6: TLibSyntAnalyzer
             'get'
             'goto'
             'if'
-            'implicit'
             'in'
             'interface'
             'is'
@@ -274,7 +290,7 @@ object SyntAnal6: TLibSyntAnalyzer
             'or'
             'out'
             'params'
-            'ref'
+            'record'
             'remove'
             'return'
             'set'
@@ -293,6 +309,7 @@ object SyntAnal6: TLibSyntAnalyzer
             'when'
             'where'
             'while'
+            'with'
             'yield')
           TokenTypes = 4
         end>
@@ -342,7 +359,9 @@ object SyntAnal6: TLibSyntAnalyzer
             'async'
             'const'
             'event'
+            'explicit'
             'extern'
+            'implicit'
             'internal'
             'override'
             'partial'
@@ -350,6 +369,7 @@ object SyntAnal6: TLibSyntAnalyzer
             'protected'
             'public'
             'readonly'
+            'ref'
             'sealed'
             'static'
             'unsafe'
@@ -383,31 +403,6 @@ object SyntAnal6: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = '#if'
-      ConditionList = <
-        item
-          TagList.Strings = (
-            '#if*'
-            '#ifdef*'
-            '#ifndef*')
-          CondType = tcMask
-        end>
-      BlockEnd = '#endif'
-      HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = '#endif'
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TagList.Strings = (
-            '#endif')
-        end>
-      HighlightPos = cpBound
       IgnoreAsParent = False
     end
     item
@@ -453,6 +448,7 @@ object SyntAnal6: TLibSyntAnalyzer
       NameFmt = '%s-1~s[(]1'
       RefToCondEnd = True
       HighlightPos = cpBound
+      CollapseFmt = '%sz0'
       TreeItemImage = 5
       IgnoreAsParent = False
     end
@@ -480,15 +476,21 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'class'
       ConditionList = <
         item
+          TokenTypes = 4
+        end
+        item
           TagList.Strings = (
-            'class')
+            'class'
+            'interface'
+            'record')
           TokenTypes = 1024
         end>
       IdentIndex = -1
       BlockEnd = 'end of class'
-      NameFmt = 'class %s-1'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
       HighlightPos = cpBound
-      CollapseFmt = 'class %s-1'
+      CollapseFmt = '%s0 %s-1'
       TreeItemImage = 1
       IgnoreAsParent = False
     end
@@ -856,7 +858,8 @@ object SyntAnal6: TLibSyntAnalyzer
     'Region name'
     'Symbol ()'
     'Symbol {}'
-    'Id keyword')
+    'Id keyword'
+    'Preproc string')
   Extentions = 'cs csx'
   LexerName = 'C#'
   Notes.Strings = (

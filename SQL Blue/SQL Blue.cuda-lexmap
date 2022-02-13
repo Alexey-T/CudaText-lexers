@@ -1,0 +1,14 @@
+[map]
+Default=Id
+Identifier=Id
+Reserved word=IdKeyword
+String=String
+Comment=Comment
+Symbol=Symbol
+Number=Number
+Marked block=-
+Section=IncludeBG1
+Current line=-
+Parameter=IdVar
+function=Label
+Datatype=Id2

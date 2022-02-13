@@ -1,0 +1,521 @@
+object SyntAnal2: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Time'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment line'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?ms);.*?$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment block1'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?ms)\(\*.*?(\*\)|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment block2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?ms)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 5
+      Expression = '"(\\"|\\\\|\\\n|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Time'
+      StyleName = 'Time'
+      TokenType = 7
+      Expression = '(?-i)\bT\#(\d+(d|h|ms|m|s))+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id else-if'
+      StyleName = 'Id keyword'
+      TokenType = 3
+      Expression = '\belse\x20+if\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 4
+      Expression = '\.+ | := | [\-\+,/\*<>=\[\]\\:]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ()'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '\(|\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\d[\d'#39']* \.? [\d'#39']* e[\+\-]? \d+ |'#13#10'\d[\d'#39']* \. \d[\d'#39']*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      Enabled = False
+      StyleName = 'String'
+      TokenType = 5
+      Expression = #39'.*?('#39'|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '_cyclic'
+            '_init'
+            'access'
+            'action'
+            'adr'
+            'and'
+            'bit'
+            'bit_clr'
+            'bit_set'
+            'bit_tst'
+            'case'
+            'do'
+            'downto'
+            'edge'
+            'edgeneg'
+            'edgepos'
+            'else'
+            'elseaction'
+            'elseif'
+            'end_function_block'
+            'end_program'
+            'end_var'
+            'endaction'
+            'endcase'
+            'endif'
+            'endloop'
+            'endselect'
+            'exitif'
+            'false'
+            'fub'
+            'function_block'
+            'goto'
+            'if'
+            'inc'
+            'loop'
+            'next'
+            'not'
+            'of'
+            'or'
+            'program'
+            'select'
+            'state'
+            'then'
+            'to'
+            'true'
+            'var'
+            'var_input'
+            'var_output'
+            'when')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'types'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'array'
+            'bool'
+            'byte'
+            'date'
+            'DATE_AND_TIME'
+            'dint'
+            'dword'
+            'int'
+            'lreal'
+            'real'
+            'reference'
+            'sint'
+            'string'
+            'time'
+            'time_of_day'
+            'tod'
+            'udint'
+            'uint'
+            'usint'
+            'word'
+            'wstring')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'var begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'var'
+            'var_input'
+            'var_output')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'var end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'var end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end_var')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'program begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'program')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'program end'
+      NameFmt = '%sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      TreeItemImage = 4
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'program end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end_program')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'if end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endif')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'loop begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'loop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'loop end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'loop end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endloop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'action begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'action'
+            'elseaction')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'action end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'action end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endaction')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'case begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'case')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'case end'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'case end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'endcase')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function_block')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'func end'
+      NameFmt = '%sz-1'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end_function_block')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '/* Cmt */'
+    '; Cmt'
+    '(*'
+    '  Autor: Reto L'#252'thard ATA'
+    '*)'
+    'VAR'
+    #9'startUpTimerAct : ARRAY[0..6] OF time;'
+    #9'machType : UDINT;'
+    'END_VAR'
+    ''
+    'PROGRAM _INIT'
+    #9'tskCycleTimeMs = (aRTInfo.cycle_time / 1000)'
+    #9'dCmdZone'#9'    access PA11CmdZone'
+    'END_PROGRAM'
+    ''
+    'PROGRAM _CYCLIC'
+    #9'loop i := 1 to A11MaxIdx do'
+    #9#9'if InitFlag or (dCmdZone[i].cmd.sirenQuitt = true) then'
+    #9#9#9'dCmdZone[i].cmd.init'#9#9':= TRUE'
+    #9#9'else'
+    
+      #9#9#9'dStateZone[i].disturbanceCnt :=  T#2d11h15m22s50ms + T#2s500m' +
+      's'
+    #9#9'endif'
+    #9'endloop'
+    #9'brsstrcat(adr(dOpLogEntry[i]), "Plant;")'
+    'END_PROGRAM')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Id keyword'
+    'Symbol'
+    'String'
+    'Number'
+    'Time'
+    'Symbol ()')
+  Extentions = 'ab var'
+  LexerName = 'Automation Basic'
+  Notes.Strings = (
+    
+      'https://www.br-automation.com/en/products/software/additional-in' +
+      'formation/programming/'
+    'Original by Reto L'#252'thard ATA'
+    'Fully reworked by Alexey (CudaText)')
+  LineComment = ';'
+  Charset = DEFAULT_CHARSET
+end

@@ -1,7 +1,7 @@
 [info]
-title=OneC (1C)
+title=Koka
 type=lexer
 subdir=-
 
 [lexer1]
-file=OneC (1C)
+file=Koka

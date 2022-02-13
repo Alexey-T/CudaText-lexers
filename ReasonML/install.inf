@@ -1,0 +1,7 @@
+[info]
+title=ReasonML
+type=lexer
+subdir=-
+
+[lexer1]
+file=ReasonML

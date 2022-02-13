@@ -1,3 +1,9 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+str1=
+str2=
+
 [map]
 Brackets=Symbol2
 Symbol=Symbol
@@ -7,12 +13,8 @@ Comment=Comment
 Id=Id
 Id standard=IdKeyword
 :Id=Id1
-Id complex=Id2
 .Id=Id3
 'Id=Id4
-Current block=BracketBG
-[comments]
-styles_cmt=Comment
-styles_str=String
-str1=
-str2=
+String2=String2
+String regex=String3
+#Id=Id2

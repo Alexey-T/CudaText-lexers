@@ -1,4 +1,4 @@
-object SyntAnal26: TLibSyntAnalyzer
+object SyntAnal19: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -67,7 +67,7 @@ object SyntAnal26: TLibSyntAnalyzer
     item
       DisplayName = 'Id Function'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clPurple
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -75,18 +75,18 @@ object SyntAnal26: TLibSyntAnalyzer
     item
       DisplayName = 'Class'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlue
+      Font.Color = clPurple
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
     end
     item
-      DisplayName = 'Command'
+      DisplayName = '@Command'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clPurple
+      Font.Color = clLime
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
+      Font.Style = []
     end
     item
       DisplayName = 'Color'
@@ -103,6 +103,14 @@ object SyntAnal26: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Std word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
     end>
   TokenRules = <
     item
@@ -124,7 +132,7 @@ object SyntAnal26: TLibSyntAnalyzer
     item
       DisplayName = 'Color'
       StyleName = 'Color'
-      TokenType = 8
+      TokenType = 9
       Expression = '\#([0-9a-f]{3}|[0-9a-f]{6})\b'
       ColumnFrom = 0
       ColumnTo = 0
@@ -134,6 +142,14 @@ object SyntAnal26: TLibSyntAnalyzer
       StyleName = 'Number'
       TokenType = 8
       Expression = '\d+(\.\d+)? | \.\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'CSS var'
+      StyleName = 'Var'
+      TokenType = 2
+      Expression = '\-\-\w[\w\-]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -178,18 +194,10 @@ object SyntAnal26: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'URL'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = 'url\(.+?\)'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 6
-      Expression = '(\-+[a-z]|\w)[\w\-\#\{\}\$]+'
+      Expression = '(\-+[a-z]|[\w!])[\w\-\#\{\}\$]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -211,7 +219,7 @@ object SyntAnal26: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Command'
-      StyleName = 'Command'
+      StyleName = '@Command'
       TokenType = 6
       Expression = '@[\w\-]+'
       ColumnFrom = 0
@@ -219,7 +227,7 @@ object SyntAnal26: TLibSyntAnalyzer
     end>
   BlockRules = <
     item
-      DisplayName = 'Id funcs'
+      DisplayName = 'Std Sass funcs'
       StyleName = 'Id Function'
       BlockType = btTagDetect
       ConditionList = <
@@ -231,6 +239,7 @@ object SyntAnal26: TLibSyntAnalyzer
             'alpha'
             'append'
             'blue'
+            'calc'
             'ceil'
             'change-color'
             'comparable'
@@ -275,6 +284,253 @@ object SyntAnal26: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'Std CSS funcs'
+      StyleName = 'Id Function'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'annotation'
+            'attr'
+            'blur'
+            'brightness'
+            'character'
+            'clamp'
+            'content'
+            'contrast'
+            'counter'
+            'counters'
+            'cross'
+            'drop'
+            'element'
+            'fade'
+            'fit'
+            'format'
+            'grayscale'
+            'hue'
+            'image'
+            'invert'
+            'local'
+            'max'
+            'min'
+            'minmax'
+            'opacity'
+            'ornaments'
+            'repeat'
+            'rotate'
+            'saturate'
+            'sepia'
+            'set'
+            'shadow'
+            'styleset'
+            'stylistic'
+            'swash'
+            'symbols'
+            'url'
+            'variant')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Std values'
+      StyleName = 'Std word'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '!global'
+            '!important'
+            'and'
+            'inherit'
+            'none'
+            'not'
+            'or')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Std colors'
+      StyleName = 'Color'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'activetext'
+            'AliceBlue'
+            'AntiqueWhite'
+            'Aqua'
+            'Aquamarine'
+            'Azure'
+            'Beige'
+            'Bisque'
+            'Black'
+            'BlanchedAlmond'
+            'Blue'
+            'BlueViolet'
+            'Brown'
+            'BurlyWood'
+            'buttonborder'
+            'buttonface'
+            'buttontext'
+            'CadetBlue'
+            'canvas'
+            'canvastext'
+            'Chartreuse'
+            'Chocolate'
+            'Coral'
+            'CornflowerBlue'
+            'Cornsilk'
+            'Crimson'
+            'currentcolor'
+            'Cyan'
+            'DarkBlue'
+            'DarkCyan'
+            'DarkGoldenRod'
+            'DarkGray'
+            'DarkGreen'
+            'DarkGrey'
+            'DarkKhaki'
+            'DarkMagenta'
+            'DarkOliveGreen'
+            'Darkorange'
+            'DarkOrchid'
+            'DarkRed'
+            'DarkSalmon'
+            'DarkSeaGreen'
+            'DarkSlateBlue'
+            'DarkSlateGray'
+            'DarkSlateGrey'
+            'DarkTurquoise'
+            'DarkViolet'
+            'DeepPink'
+            'DeepSkyBlue'
+            'DimGray'
+            'DimGrey'
+            'DodgerBlue'
+            'field'
+            'fieldtext'
+            'FireBrick'
+            'FloralWhite'
+            'ForestGreen'
+            'Fuchsia'
+            'Gainsboro'
+            'GhostWhite'
+            'Gold'
+            'GoldenRod'
+            'Gray'
+            'graytext'
+            'Green'
+            'GreenYellow'
+            'Grey'
+            'highlight'
+            'highlighttext'
+            'HoneyDew'
+            'HotPink'
+            'IndianRed'
+            'Indigo'
+            'Ivory'
+            'Khaki'
+            'Lavender'
+            'LavenderBlush'
+            'LawnGreen'
+            'LemonChiffon'
+            'LightBlue'
+            'LightCoral'
+            'LightCyan'
+            'LightGoldenRodYellow'
+            'LightGray'
+            'LightGreen'
+            'LightGrey'
+            'LightPink'
+            'LightSalmon'
+            'LightSeaGreen'
+            'LightSkyBlue'
+            'LightSlateGray'
+            'LightSlateGrey'
+            'LightSteelBlue'
+            'LightYellow'
+            'Lime'
+            'LimeGreen'
+            'Linen'
+            'linktext'
+            'Magenta'
+            'mark'
+            'marktext'
+            'Maroon'
+            'MediumAquaMarine'
+            'MediumBlue'
+            'MediumOrchid'
+            'MediumPurple'
+            'MediumSeaGreen'
+            'MediumSlateBlue'
+            'MediumSpringGreen'
+            'MediumTurquoise'
+            'MediumVioletRed'
+            'MidnightBlue'
+            'MintCream'
+            'MistyRose'
+            'Moccasin'
+            'NavajoWhite'
+            'Navy'
+            'OldLace'
+            'Olive'
+            'OliveDrab'
+            'Orange'
+            'OrangeRed'
+            'Orchid'
+            'PaleGoldenRod'
+            'PaleGreen'
+            'PaleTurquoise'
+            'PaleVioletRed'
+            'PapayaWhip'
+            'PeachPuff'
+            'Peru'
+            'Pink'
+            'Plum'
+            'PowderBlue'
+            'Purple'
+            'RebeccaPurple'
+            'Red'
+            'RosyBrown'
+            'RoyalBlue'
+            'SaddleBrown'
+            'Salmon'
+            'SandyBrown'
+            'SeaGreen'
+            'SeaShell'
+            'Sienna'
+            'Silver'
+            'SkyBlue'
+            'SlateBlue'
+            'SlateGray'
+            'SlateGrey'
+            'Snow'
+            'SpringGreen'
+            'SteelBlue'
+            'Tan'
+            'Teal'
+            'Thistle'
+            'Tomato'
+            'Transparent'
+            'Turquoise'
+            'Violet'
+            'visitedtext'
+            'Wheat'
+            'White'
+            'WhiteSmoke'
+            'Yellow'
+            'YellowGreen')
+          TokenTypes = 64
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = '{'
       ConditionList = <
         item
@@ -291,8 +547,9 @@ object SyntAnal26: TLibSyntAnalyzer
       HighlightPos = cpRange
       DynSelectMin = True
       CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
       IgnoreAsParent = False
-      AutoCloseMode = acmCloseNearest
       AutoCloseText = '}'#13#10
     end
     item
@@ -307,50 +564,17 @@ object SyntAnal26: TLibSyntAnalyzer
       BlockEnd = '{'
       HighlightPos = cpBound
       IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Param begin'
-      Enabled = False
-      ConditionList = <
-        item
-          TagList.Strings = (
-            ':')
-          TokenTypes = 520
-        end
-        item
-          TokenTypes = 128
-        end>
-      IdentIndex = 1
-      BlockOffset = 1
-      BlockEnd = 'Param end'
-      HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Param end'
-      Enabled = False
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TagList.Strings = (
-            ';'
-            '}')
-          TokenTypes = 8
-        end>
-      BlockOffset = 1
-      DisplayInTree = False
-      HighlightPos = cpBound
-      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    '/* Example */'
+    '/* comment'
+    '*/'
     '[data-name="text-color"][data-value="null"] '
     '.legit-class\@sm {'
-    '  color: rgb(50%, 100%, 0);'
-    '  &:hover { color: #FF0; }'
-    '  margin: ($bar * .8) 0 ($bar * .8) ($bar * 2); '
+    '  color: rgb(50%, 100%, 0) !global not-allowed;'
+    '  &:hover { color: #FF0 red }'
+    '  margin: url("http://a.com") fade(0); '
     '  animation-delay:-0.5s;'
     '}'
     ''
@@ -372,7 +596,8 @@ object SyntAnal26: TLibSyntAnalyzer
     'Unit'
     'Id'
     'Param'
-    'Number')
+    'Number'
+    'Color')
   Extentions = 'scss scss.erb'
   LexerName = 'SCSS'
   Notes.Strings = (
