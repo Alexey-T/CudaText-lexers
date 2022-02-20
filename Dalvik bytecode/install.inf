@@ -1,0 +1,7 @@
+[info]
+title=Dalvik bytecode
+type=lexer
+subdir=-
+
+[lexer1]
+file=Dalvik bytecode
