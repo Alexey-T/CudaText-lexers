@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal7: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -65,9 +65,9 @@ object SyntAnal23: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'L'
+      DisplayName = 'L-path'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clFuchsia
+      Font.Color = clGreen
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -82,6 +82,14 @@ object SyntAnal23: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Id after arrow'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id modifier'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
       Font.Height = -13
@@ -98,6 +106,14 @@ object SyntAnal23: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'L-path'
+      StyleName = 'L-path'
+      TokenType = 9
+      Expression = '(?-i)\bI?L[\w\-/\$]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id command'
       StyleName = 'Command'
       TokenType = 10
@@ -109,15 +125,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Directive'
       StyleName = 'Directive'
       TokenType = 6
-      Expression = '\.[a-z_][\w\-]*'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'L'
-      StyleName = 'L'
-      TokenType = 9
-      Expression = '(?-i)\bL'
+      Expression = '(?-i)\.end\x20[a-z][\w\-]* |'#13#10'\.[a-z_][\w\-]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -125,7 +133,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Prefix'
       StyleName = 'Prefix'
       TokenType = 7
-      Expression = '[a-z_]:'
+      Expression = '[a-z_\$][\w\$]*:'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -133,7 +141,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Label'
       StyleName = 'Label'
       TokenType = 8
-      Expression = '(?<!\w):[a-z_]\w*'
+      Expression = '(?<![\w"]):[a-z_][\w\$]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -141,7 +149,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Id after arrow'
       StyleName = 'Id after arrow'
       TokenType = 11
-      Expression = '(?<=\->)[a-z_]\w*'
+      Expression = '(?<=\->)[a-z_][\w\$]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -149,7 +157,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '[a-z_][\w\$\-]*'
+      Expression = '[a-z_\$][\w\$\-]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -157,7 +165,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '\-> | [\.,/\\;:\-\+\*\(\)\[\]\{\}<>]'
+      Expression = '\-> | [\.,/\\=;:\-\+\*\(\)\[\]\{\}<>!~\|\^&]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -165,7 +173,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Number'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x\h+ |'#13#10'\d+(\.\d+)? '
+      Expression = '(?-i)\d+\.\d+[f]? | '#13#10'(?-i)0[xX]\h+[tSLl]? |'#13#10'(?-i)\d+[tSLl]?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -176,17 +184,52 @@ object SyntAnal23: TLibSyntAnalyzer
       Expression = '"(\\.|.)*?("|$)'
       ColumnFrom = 0
       ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39'.*?'#39
+      ColumnFrom = 0
+      ColumnTo = 0
     end>
   BlockRules = <
     item
-      DisplayName = 'directive'
+      DisplayName = 'keywords'
       StyleName = 'Directive'
       BlockType = btTagDetect
       ConditionList = <
         item
           TagList.Strings = (
-            'method'
-            'packed-switch')
+            'false'
+            'null'
+            'true')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'modifiers'
+      StyleName = 'Id modifier'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abstract'
+            'enum'
+            'final'
+            'interface'
+            'native'
+            'private'
+            'protected'
+            'public'
+            'static'
+            'strictfp'
+            'synchronized'
+            'synthetic'
+            'transient'
+            'volatile')
           TokenTypes = 4
         end>
       HighlightPos = cpAny
@@ -196,12 +239,16 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'method begin'
       ConditionList = <
         item
+          TokenTypes = 4
+        end
+        item
           TagList.Strings = (
             '.method')
           TokenTypes = 64
         end>
       BlockEnd = 'method end'
       NameFmt = '%sz0'
+      RefToCondEnd = True
       HighlightPos = cpAny
       CollapseFmt = '%sz0'
       IgnoreAsParent = False
@@ -212,12 +259,38 @@ object SyntAnal23: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
-            'method')
+            '.end method')
+          TokenTypes = 64
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'annot begin'
+      ConditionList = <
+        item
           TokenTypes = 4
         end
         item
           TagList.Strings = (
-            '.end')
+            '.annotation')
+          TokenTypes = 64
+        end>
+      BlockEnd = 'annot end'
+      NameFmt = '%sz0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'annot end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.end annotation')
           TokenTypes = 64
         end>
       RefToCondEnd = True
@@ -226,6 +299,26 @@ object SyntAnal23: TLibSyntAnalyzer
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
+  SampleText.Strings = (
+    
+      '.method public static final main([ILjava/lang/String;)[Ljava/lan' +
+      'g;'
+    '  fill-array-data v0, :array_0'
+    '  .param p0, 0xFFt + 2.2f + 12 + '#39'A'#39' ->SomeName() + false'
+    '  .param p512, "I can \"escape\" string\n properly!"'
+    ''
+    '  .prologue # comment test'
+    '  .local v0, "allSettings":Ljava/util/Map;'
+    
+      '  .local v2, "entry":Ljava/util/Map$Entry;, "Ljava/util/Map$Entr' +
+      'y<Ljava/lang/String;Ljava/lang/String;>;"'
+    ''
+    
+      '  .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :cat' +
+      'ch_0'
+    '  .catchall {:try_start_1e .. :try_end_2d} :catchall_38'
+    '  :someLabel'
+    '.end method')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
@@ -241,6 +334,7 @@ object SyntAnal23: TLibSyntAnalyzer
     'Id after arrow')
   Extentions = 'smali'
   LexerName = 'Dalvik bytecode'
+  RestartFromLineStart = True
   LineComment = '#'
   Charset = DEFAULT_CHARSET
 end
