@@ -1,0 +1,213 @@
+object SyntAnal24: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Keywords'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Command'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 6
+      Expression = '\$\w+ | \$[\*\#@\?!\$\-]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var='
+      StyleName = 'Var'
+      TokenType = 6
+      Expression = '\b\w+(?=\x20*\=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol single'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '\\. | [=,;`\[\]@] | \$[\[\(\{]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\+\*&:%\#\?\-!~]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)("|'#39') (\\.|.)*? (\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0x\h+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number octal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0[0-7]*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+(\.\d+)?(e[\-\+]?\d+)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b\d+\.\d+\b | \b[1-9]\d*\b '
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Command'
+      StyleName = 'Command'
+      TokenType = 2
+      Expression = '\b[a-z_\.][\w\-\.]*\w\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keyword'
+      StyleName = 'Keywords'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'export'
+            'false'
+            'FALSE'
+            'null'
+            'NULL'
+            'true'
+            'TRUE')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '# language constants'
+    'TEST_TRUE=true'
+    'TEST_FALSE=false'
+    'TEST_NULL=null'
+    'TEST_TRUE_CAPITAL=TRUE'
+    'TEST_FALSE_CAPITAL=FALSE'
+    'TEST_NULL_CAPITAL=NULL'
+    ''
+    '# Numerical values'
+    'TEST_NUM_DECIMAL=54'
+    'TEST_NUM_FLOAT=5.3'
+    'TEST_NUM=1e10'
+    'TEST_NUM_NEGATIVE=-42'
+    'TEST_NUM_OCTAL=057'
+    'TEST_NUM_HEX=0x1A'
+    ''
+    '# Comments'
+    'TEST_FOUR="test test test" # this is a comment'
+    'TEST_FIVE="comment symbol # inside string" # this is a comment'
+    
+      'TEST_SIX="comment symbol # and quotes \" \'#39' inside quotes" # " t' +
+      'his is a comment')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Var')
+  Extentions = 
+    '/.env /.env.dist /.env.local /.env.sample /.env.example /.env.te' +
+    'st /.env.test.local /.env.testing /.env.dev /.env.development /.' +
+    'env.development.local /.env.prod /.env.production /.env.producti' +
+    'on.local /.env.dusk.local /.env.staging /.env.default /.env.defa' +
+    'ults /.envrc /.flaskenv'
+  LexerName = 'DotENV'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end
