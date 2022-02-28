@@ -1,0 +1,7 @@
+[info]
+title=Protocol Buffers
+type=lexer
+subdir=-
+
+[lexer1]
+file=Protocol Buffers

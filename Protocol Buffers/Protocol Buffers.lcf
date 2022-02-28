@@ -1,0 +1,357 @@
+object SyntAnal22: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id special'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment rng'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment line'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\.|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      TokenType = 7
+      Expression = '\b(catch|else|for|if|switch|while)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x\h+\b | 0b[01]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number Float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '\d+\.?\d* e[\+\-]?\d+\b |'#13#10'\.\d+ e[\+\-]? \d+\b |'#13#10'\d+\.\d*\b |'#13 +
+        #10'\.\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number Dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ;'
+      StyleName = 'Symbol'
+      TokenType = 10
+      Expression = ';'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ()'
+      StyleName = 'Symbol'
+      TokenType = 9
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = 
+        '\[\[| \]\]| \.\.\.| ::{1,2} | [\[\],~\.\\\?]|'#13#10'[\-\+<>\|\&\^]{2}' +
+        '=? | \#{1,2}| <=>|'#13#10'[\+\-\*/&\|\^!<>=~%]=?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'enum'
+            'extend'
+            'extensions'
+            'import'
+            'map'
+            'message'
+            'oneof'
+            'option'
+            'optional'
+            'package'
+            'repeated'
+            'required'
+            'returns'
+            'rpc'
+            'service'
+            'stream'
+            'to')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'id spec'
+      StyleName = 'Id special'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'cc_enable_arenas'
+            'CODE_SIZE'
+            'csharp_namespace'
+            'default'
+            'deprecated'
+            'go_package'
+            'java_multiple_files'
+            'java_outer_classname'
+            'java_package'
+            'lazy'
+            'objc_class_prefix'
+            'optimize_for'
+            'packed'
+            'public'
+            'SPEED'
+            'syntax')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'id types'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'bool'
+            'bytes'
+            'double'
+            'false'
+            'fixed32'
+            'fixed64'
+            'float'
+            'int32'
+            'int64'
+            'max'
+            'sfixed32'
+            'sfixed64'
+            'sint32'
+            'sint64'
+            'string'
+            'true'
+            'uint32'
+            'uint64')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      CancelNextRules = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'tree block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'enum'
+            'message')
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpBound
+      CancelNextRules = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+      AutoCloseText = '}'#13#10
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 256
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'syntax = "proto2";'
+    'package benchmarks.proto2;'
+    'option java_package = "com.google.protobuf.benchmarks";'
+    'option optimize_for = SPEED;'
+    'option cc_enable_arenas = true;'
+    ''
+    '// Comment'
+    'message Imports {'
+    '  nn = "Text\"Text";'
+    '  mm = 0xBEEF + 1 + 1.2 + 1.2e-3'
+    '  enum Some {'
+    '    nn = 0'
+    '  }'
+    '}'
+    ''
+    'message Data {'
+    '  int32 attr = 1;'
+    '  string str = 2;'
+    '  repeated string msgs = 3;'
+    '  map<string, string> map_data = 7;'
+    '  google.protobuf.Struct struct_data = 8;'
+    '  repeated google.protobuf.Any repeated_any = 10;'
+    '}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    '-'
+    'Id keyword'
+    'Symbol {}'
+    'Symbol ()'
+    'Symbol ;')
+  Extentions = 'proto'
+  LexerName = 'Protocol Buffers'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end
