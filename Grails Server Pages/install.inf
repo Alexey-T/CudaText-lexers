@@ -1,0 +1,7 @@
+[info]
+title=Grails Server Pages
+type=lexer
+subdir=-
+
+[lexer1]
+file=Grails Server Pages

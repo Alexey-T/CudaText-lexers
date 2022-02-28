@@ -1,0 +1,19 @@
+[comments]
+str1=<!--
+str2=-->
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Comment=Comment
+Tag bracket=TagBound
+Tag name=TagId
+String=String
+Symbol=Symbol
+Tag prop=TagProp
+Keyword=IdKeyword
+Id=Id
+Var=IdVar
+String regex=String2
+Block ${...} BG=IncludeBG1
+Block <%...%> BG=IncludeBG2
