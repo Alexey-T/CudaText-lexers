@@ -1,4 +1,4 @@
-object SyntAnal13: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -93,7 +93,7 @@ object SyntAnal13: TLibSyntAnalyzer
       DisplayName = 'Param'
       StyleName = 'Param'
       TokenType = 5
-      Expression = '^\x20*? \w+ \x20*? (?=(=|:=|\+=))  '
+      Expression = '^\x20* \w+ \x20* (?=(=|:=|\+=))  '
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -101,7 +101,7 @@ object SyntAnal13: TLibSyntAnalyzer
       DisplayName = 'Label'
       StyleName = 'Label'
       TokenType = 8
-      Expression = '^\x20*? \w+ \x20*? (?=:)  '
+      Expression = '^\x20* [\w\-]+ \x20* (?=:)  '
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -234,9 +234,11 @@ object SyntAnal13: TLibSyntAnalyzer
     'mak /makefile /makefile.gnu /makefile.gcc /makefile.bor /makefil' +
     'e.msc /makefile.vc /makefile.dm /makefile.bcc /makefile.fpc'
   LexerName = 'Makefile'
+  SkipSpaces = False
   Notes.Strings = (
     'Alexey (CudaText)'
     'Sample: makefile in Lazarus')
+  RestartFromLineStart = True
   LineComment = '#'
   Charset = DEFAULT_CHARSET
 end
