@@ -1,4 +1,4 @@
-object SyntAnal7: TLibSyntAnalyzer
+object SyntAnal6: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Style'
@@ -202,7 +202,7 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = 'RGB color'
       StyleName = 'Color'
       TokenType = 6
-      Expression = '\b(rgba?|hsla?)\(.+?\)'
+      Expression = '(?-i)\b(rgba?|hsla?)\([\d\x20,%]+?\)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -237,7 +237,7 @@ object SyntAnal7: TLibSyntAnalyzer
       BlockName = '{'
       NotParent = True
       TokenType = 2
-      Expression = ':{1,2}[\w\-]+'
+      Expression = ':{1,2}[a-z\-][\w\-]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -2393,7 +2393,7 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = 'PHP'
       StartExpression = '<\?(php)?'
       EndExpression = '\?>'
-      SyntAnalyzer = SyntAnal17
+      SyntAnalyzer = SyntAnal14
     end>
   SampleText.Strings = (
     '/* Comment */'
