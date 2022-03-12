@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal20: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -99,7 +99,7 @@ object SyntAnal23: TLibSyntAnalyzer
     item
       DisplayName = 'Tag name'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
+      Font.Color = 12352899
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -122,7 +122,7 @@ object SyntAnal23: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Comment 1'
+      DisplayName = 'Comment range'
       StyleName = 'Comment'
       TokenType = 1
       Expression = '(?s)/\* (/\* .*? \*/|.)*? (\*/|\Z)'
@@ -130,7 +130,7 @@ object SyntAnal23: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Comment 2'
+      DisplayName = 'Comment line'
       StyleName = 'Comment'
       TokenType = 1
       Expression = '//.*'
@@ -268,10 +268,10 @@ object SyntAnal23: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Symbol 1'
+      DisplayName = 'Symbol long'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '<\-|=>|\->|=='
+      Expression = '<\-|=>|\->|==|<:|>:'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -522,10 +522,10 @@ object SyntAnal23: TLibSyntAnalyzer
     'Tag attrib'
     '{'
     '}')
-  Extentions = 'scala'
+  Extentions = 'scala sbt'
   LexerName = 'Scala'
   Notes.Strings = (
-    'Alexey (CudaText)'
+    'Alexey T. (CudaText)'
     'Doc: http://www.scala-lang.org/old/node/198'
     'Tests: http://www.scala-lang.org/old/node/219'
     ''
