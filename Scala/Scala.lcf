@@ -1,4 +1,4 @@
-object SyntAnal19: TLibSyntAnalyzer
+object SyntAnal23: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -397,13 +397,11 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Tree items'
       ConditionList = <
         item
-          TagList.Strings = (
-            '{')
           TokenTypes = 1024
         end
         item
           CondType = tcSkip
-          TokenTypes = 22
+          TokenTypes = 62
         end
         item
           TagList.Strings = (
