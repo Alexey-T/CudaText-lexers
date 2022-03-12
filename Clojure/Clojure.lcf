@@ -1,4 +1,4 @@
-object SyntAnal7: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Brackets'
@@ -829,7 +829,7 @@ object SyntAnal7: TLibSyntAnalyzer
     'String regex'
     'Char const'
     '#Id')
-  Extentions = 'clj'
+  Extentions = 'clj cljc cljs cljx bb boot'
   LexerName = 'Clojure'
   Notes.Strings = (
     'Alexey T. (CudaText)'
