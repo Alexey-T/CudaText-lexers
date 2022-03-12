@@ -1,4 +1,4 @@
-object SyntAnal22: TLibSyntAnalyzer
+object SyntAnal6: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Brackets'
@@ -149,7 +149,7 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Number hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x\h+N?\b'
+      Expression = '(?-i)0[xX]\h+N?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -158,8 +158,8 @@ object SyntAnal22: TLibSyntAnalyzer
       StyleName = 'Number'
       TokenType = 5
       Expression = 
-        ':?\d+\.\d+M?\b |'#13#10'\.\d+M? \b |'#13#10'\d+\.M? |'#13#10'\d+(\.\d+)?e[\-\+]?\d' +
-        '+M?\b'
+        '(?-i):?\d+\.\d+M?\b |'#13#10'(?-i)\.\d+M? \b |'#13#10'(?-i)\d+(\.\d*)?[eE][\' +
+        '-\+]?\d+M?\b |'#13#10'(?-i)\d+\.M?'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -167,7 +167,15 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Number dec'
       StyleName = 'Number'
       TokenType = 5
-      Expression = ':?\d+[NM]?\b'
+      Expression = '(?-i):?\d+[NM]?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Inf/NaN'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(?-i)\#\#Inf\b |'#13#10'(?-i)\#\#\-Inf\b |'#13#10'(?-i)\#\#NaN\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -191,7 +199,7 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = ':Id'
       StyleName = ':Id'
       TokenType = 2
-      Expression = '(?r)\:[:\w\-'#39'\#/\*\.]+'
+      Expression = '(?r)\:[:\w'#39'/\#\*\.\-\+!\?\$%&=<>]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -223,7 +231,7 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Escaped symbol'
       StyleName = 'String2'
       TokenType = 8
-      Expression = '\\[;,\.`~'#39'"!@\#\^\|&]'
+      Expression = '\\[;,\.\(\)\[\]\{\}\\`~'#39'"!@\#\^\|&\n]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
