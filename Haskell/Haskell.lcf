@@ -83,6 +83,14 @@ object SyntAnal7: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
+      DisplayName = 'shabang'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^\#!.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
@@ -297,6 +305,7 @@ object SyntAnal7: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
+    '#!ddd'
     'main = print "test", "t", '#39'_'#39' --comment'
     '--this is comment'
     '-->not comment, lexema'
