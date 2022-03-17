@@ -220,36 +220,45 @@ object SyntAnal16: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Int hex'
+      DisplayName = 'Num hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\b0x(_?[0-9a-f])+\b'
+      Expression = '\b0x[\h_]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Int octal'
+      DisplayName = 'Num octal'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\b0o(_?[0-7])+\b'
+      Expression = '\b0o[0-7_]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Int bin'
+      DisplayName = 'Num binary'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\b0b(_?[01])+\b'
+      Expression = '\b0b[01_]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Int/float'
+      DisplayName = 'Num float'
       StyleName = 'Number'
       TokenType = 5
       Expression = 
-        '\b \d[_\d]* \.?\d*[_\d]* (e[\-\+]?\d[_\d]*)?j? \b |'#13#10'\B\.\d[_\d]' +
-        '* (e[\-\+]?\d[_\d]*)?j? \b |'#13#10'\b\d[_\d]*\.? ([Lj]\b)?'
+        '\b \d[_\d]* \.\d[_\d]* (e[\-\+]?\d[_\d]*)?j? \b |'#13#10'\b \d[_\d]* e' +
+        '[\-\+]?\d[_\d]*?j? \b |'#13#10'\B\.\d[_\d]* (e[\-\+]?\d[_\d]*)?j? \b |' +
+        #13#10'\b\d[_\d]*\. ([Lj]\b)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num decimal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b\d[\d_]*j?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -656,6 +665,58 @@ object SyntAnal16: TLibSyntAnalyzer
       RefToCondEnd = True
       HighlightPos = cpAny
       NoEndRule = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 264
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 264
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '['
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '[')
+          TokenTypes = 264
+        end>
+      BlockEnd = ']'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '[ ... ]'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ']'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ']')
+          TokenTypes = 264
+        end>
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end>
   CodeTemplates = <>

@@ -254,7 +254,9 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'Number'
       StyleName = 'Number'
       TokenType = 7
-      Expression = '[\-\+]? \d*\.?\d+ (e[\-\+]?\d+)?'
+      Expression = 
+        '[\-\+]? \d+(\.\d+)? (e[\-\+]?\d+)? |'#13#10'[\-\+]? \.\d+ (e[\-\+]?\d+' +
+        ')?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -526,8 +528,8 @@ object SyntAnal6: TLibSyntAnalyzer
             'counter-increment'
             'counter-reset'
             'cover'
-            'crispEdges'
             'crisp-edges'
+            'crispEdges'
             'crosshair'
             'cursor'
             'cyclic'
@@ -1976,6 +1978,7 @@ object SyntAnal6: TLibSyntAnalyzer
     item
       DisplayName = 'Id colors'
       StyleName = 'Color'
+      BlockName = '{'
       BlockType = btTagDetect
       ConditionList = <
         item
@@ -2149,7 +2152,6 @@ object SyntAnal6: TLibSyntAnalyzer
           IgnoreCase = True
         end>
       HighlightPos = cpAny
-      TokenType = 6
       IgnoreAsParent = False
     end
     item
@@ -2245,7 +2247,7 @@ object SyntAnal6: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = '{ @media'
+      DisplayName = '@media {'
       ConditionList = <
         item
           TagList.Strings = (
@@ -2254,18 +2256,18 @@ object SyntAnal6: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 1164
+          TokenTypes = 5788
         end
         item
           TokenTypes = 32
         end>
       BlockEnd = '}'
       NameFmt = '%s0~[{]1'
-      GroupFmt = '\Media'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
       CollapseFmt = '%s0~[{]1 { ... }'
+      TreeItemImage = 6
       IgnoreAsParent = False
     end
     item
@@ -2280,12 +2282,12 @@ object SyntAnal6: TLibSyntAnalyzer
       BlockEnd = '}'
       Highlight = True
       InvertColors = True
-      NameFmt = '%sl1'
-      GroupFmt = '\Styles'
+      NameFmt = 'CSS'
       DynHighlight = dhRange
       HighlightPos = cpRange
       DynSelectMin = True
       CollapseFmt = '{ ... }'
+      TreeItemImage = 4
       IgnoreAsParent = False
       AutoCloseMode = acmCloseNearest
       AutoCloseText = '}'#13#10
@@ -2304,6 +2306,7 @@ object SyntAnal6: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Media'
+      Enabled = False
       StyleName = 'Current block BG'
       ConditionList = <
         item
@@ -2317,10 +2320,12 @@ object SyntAnal6: TLibSyntAnalyzer
       HighlightPos = cpRange
       DynSelectMin = True
       NoEndRule = True
+      TreeItemImage = 2
       IgnoreAsParent = False
     end
     item
       DisplayName = 'Prop'
+      Enabled = False
       BlockName = '{'
       ConditionList = <
         item
@@ -2332,6 +2337,7 @@ object SyntAnal6: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Prop end'
+      Enabled = False
       BlockType = btRangeEnd
       ConditionList = <
         item
@@ -2354,6 +2360,7 @@ object SyntAnal6: TLibSyntAnalyzer
       GroupFmt = '\Colors'
       HighlightPos = cpAny
       NoEndRule = True
+      TreeItemImage = 7
       IgnoreAsParent = False
     end
     item
@@ -2393,14 +2400,14 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'PHP'
       StartExpression = '<\?(php)?'
       EndExpression = '\?>'
-      SyntAnalyzer = SyntAnal14
+      SyntAnalyzer = SyntAnal15
     end>
   SampleText.Strings = (
     '/* Comment */'
     '<?php echo '#39'test'#39' ?>'
     '.name, .name2:suffix { '
     '  font-size: 10em;'
-    '  --my-var: 10.2e+2; /* custom prop; float */'
+    '  --my-var: -10.2e+2; /* custom prop; float */'
     '  background: url("../img.gif") no-repeat;'
     '  back2: url(http://www.com/url);'
     '  back3: url(../img.gif);'
