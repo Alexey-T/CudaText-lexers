@@ -1,0 +1,13 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
+[map]
+Header=Label
+Text=Id
+List item BG=IncludeBG2
+Raw text BG=IncludeBG1
+Quote item BG=IncludeBG3
+Link=Id2

@@ -1,0 +1,7 @@
+[info]
+title=Gemini
+type=lexer
+subdir=-
+
+[lexer1]
+file=Gemini
