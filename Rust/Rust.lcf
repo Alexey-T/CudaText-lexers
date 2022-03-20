@@ -81,9 +81,17 @@ object SyntAnal24: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Id quoted'
+      DisplayName = 'Label'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlue
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id raw'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -101,7 +109,23 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'String raw'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)b?r\#" .*? ("\#|\Z)'
+      Expression = '(?s)b?r(\#+)" .*? ("\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String br'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)(b|br)"(\\.|.)*?("|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = 'b?'#39'\x20'#39' | b?'#39'(\\\S|\S)*?('#39'|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -114,6 +138,14 @@ object SyntAnal24: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Id raw'
+      StyleName = 'Id raw'
+      TokenType = 2
+      Expression = 'r\#[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
@@ -122,30 +154,31 @@ object SyntAnal24: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Float'
+      DisplayName = 'Num float'
       StyleName = 'Number'
       TokenType = 5
       Expression = 
-        '(\d[\d_]* \. \d[\d_]* (e[\+\-]? \d+)? |'#13#10'\d[\d_]* \.(?!\.) [\d_]' +
-        '*) (f\d*)?'
+        '(\d[\d_]* \. \d[\d_]* (e[\+\-]? [\d_]+)? (f\d*)? \b|'#13#10'\d[\d_]* \' +
+        '.(?!\.) [\d_]*) (f\d*)? \b|'#13#10'\d[\d_]* e[\+\-]? [\d_]+ \b|'#13#10'\d[\d' +
+        '_]*\.'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Hex'
+      DisplayName = 'Num hex'
       StyleName = 'Number'
       TokenType = 5
       Expression = 
-        '0x[0-9a-f_]+ ([iu]\d*)? |'#13#10'0b[01_]+ ([iu]\d*)? |'#13#10'0o[0-7_]+ ([iu' +
-        ']\d*)? |'#13#10
+        '0x[0-9a-f_]+ ([iu]\d*)?\b |'#13#10'0b[01_]+ ([iu]\d*)?\b |'#13#10'0o[0-7_]+ ' +
+        '([iu]\d*)?\b |'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Integer'
+      DisplayName = 'Num decimal'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d[\d_]* ([uif]\d*)?'
+      Expression = '\d[\d_]* ([uif]\d*)?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -182,17 +215,9 @@ object SyntAnal24: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Char'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = #39'\\?.'#39' | '#39'\\x\w\w'#39' | '#39'\\u\w{4,6}'#39
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = #39'Id'
-      StyleName = 'Id quoted'
-      TokenType = 2
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      TokenType = 8
       Expression = #39'\w+'
       ColumnFrom = 0
       ColumnTo = 0
@@ -201,7 +226,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Var'
       StyleName = 'Var'
       TokenType = 2
-      Expression = '\$\w+'
+      Expression = '\$\x20*\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -225,7 +250,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '\$\( | [!%/\+\-\*:=<>&/\|\^~\.\#]+'
+      Expression = '\$\x20*\( | <+ | >+ | : | [!%/\+\-\*=<>&/\|\^~\.\#]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -272,6 +297,7 @@ object SyntAnal24: TLibSyntAnalyzer
             'let'
             'loop'
             'macro'
+            'macro_rules'
             'match'
             'mod'
             'move'
@@ -290,6 +316,7 @@ object SyntAnal24: TLibSyntAnalyzer
             'try'
             'type'
             'typeof'
+            'union'
             'unsafe'
             'unsized'
             'use'
@@ -339,37 +366,6 @@ object SyntAnal24: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Block comment'
-      BlockName = 'Block comment'
-      NotParent = True
-      AlwaysEnabled = True
-      ConditionList = <
-        item
-          TokenTypes = 2
-        end>
-      BlockEnd = 'Block comment end'
-      DisplayInTree = False
-      HighlightPos = cpBound
-      CollapseFmt = '/* ... */'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment end'
-      BlockName = 'Block comment'
-      StrictParent = True
-      AlwaysEnabled = True
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          CondType = tcNotEqual
-          TokenTypes = 2
-        end>
-      BlockOffset = 1
-      BlockEnd = 'Block comment'
-      HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
       DisplayName = 'Class/struct'
       ConditionList = <
         item
@@ -379,18 +375,20 @@ object SyntAnal24: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 62
+          TokenTypes = 318
         end
         item
           TagList.Strings = (
+            'enum'
             'impl'
             'mod'
             'struct'
-            'trait')
+            'trait'
+            'union')
           TokenTypes = 4
         end>
       BlockEnd = '}'
-      NameFmt = '%sz0'
+      NameFmt = '%s0~s[{]1'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
@@ -448,7 +446,7 @@ object SyntAnal24: TLibSyntAnalyzer
     '/*Cmt'
     'Cmt*/'
     '///Cmt doc'
-    '$var, '#39'name, i32, float, 0x10_AB'
+    '$var, $ var, '#39'lbl, '#39'\xFF'#39', i32, 0x10_AB, 1.2e+3, r#Foo'
     ''
     'trait Repr {'
     '    fn write_repr(&self, writer: @Writer);'
@@ -458,8 +456,6 @@ object SyntAnal24: TLibSyntAnalyzer
     '    fn write_escaped_char(&self, ch: char) {'
     '        match ch {'
     '            '#39'\t'#39' => self.write_str("\\t"),'
-    '            '#39'\r'#39' => self.write_str("\\r"),'
-    '            '#39'\n'#39' => self.write_str("\\n"),'
     '            '#39'\\'#39' => self.write_str("\\\\"),'
     '            '#39'\'#39#39' => self.write_str("\\'#39'"),'
     '            '#39'"'#39' => self.write_str("\\\""),'
@@ -485,12 +481,13 @@ object SyntAnal24: TLibSyntAnalyzer
     'String'
     'Number'
     'Symbol ;'
-    'Symbol {}')
+    'Symbol {}'
+    'Label')
   Extentions = 'rs rc'
   LexerName = 'Rust'
   SkipSpaces = False
   Notes.Strings = (
-    'Alexey (CudaText)'
+    'Alexey Torgashin (CudaText)'
     'Ref: http://www.rust-lang.org/')
   LineComment = '//'
   Charset = DEFAULT_CHARSET
