@@ -1,4 +1,4 @@
-object SyntAnal32: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -110,6 +110,39 @@ object SyntAnal32: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Escaped'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Spec marker'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Hidden'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'No fmt block BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clYellow
     end>
   TokenRules = <
     item
@@ -152,34 +185,58 @@ object SyntAnal32: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Table begin'
-      StyleName = 'Table block BG'
-      TokenType = 2
-      Expression = '^\x20* <<\|[\w;]*\z'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Table end'
-      StyleName = 'Table block BG'
+      DisplayName = '>>'
+      StyleName = 'Spec marker'
       TokenType = 3
-      Expression = '>>'
+      Expression = '^>>'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Codeblock one line'
-      StyleName = 'Code block'
-      TokenType = 4
-      Expression = '<<.+?>>'
+      DisplayName = '<<|'
+      StyleName = 'Spec marker'
+      TokenType = 2
+      Expression = '^\x20*<<\|[\w;]*$'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Codeblock mulline'
+      DisplayName = '<<pre>>'
       StyleName = 'Code block'
       TokenType = 4
-      Expression = '(?s)<<\w*\z.*?\z>>'
+      Expression = '(?-i)(?s)^<<pre$.+?^>>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<<hide>>'
+      StyleName = 'Hidden'
+      TokenType = 14
+      Expression = '(?-i)(?s)^<<hide$.*?^>>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<<*>> mul-line'
+      StyleName = 'No fmt block BG'
+      TokenType = 1
+      Expression = '(?s)^<<\x20*$.*?^>>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<<*>> one line'
+      StyleName = 'No fmt block BG'
+      TokenType = 1
+      Expression = '<<.*?>>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '<<'
+      StyleName = 'Spec marker'
+      TokenType = 13
+      Expression = '<<'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -224,6 +281,30 @@ object SyntAnal32: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 11
+      Expression = '".*?"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Escaped'
+      StyleName = 'Escaped'
+      TokenType = 12
+      Expression = '\\.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Other spec chars'
+      StyleName = 'Spec marker'
+      TokenType = 13
+      Expression = '[<>\|\[\]]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Python begin'
       StyleName = 'Python block BG'
       TokenType = 9
@@ -238,24 +319,16 @@ object SyntAnal32: TLibSyntAnalyzer
       Expression = '%>'
       ColumnFrom = 0
       ColumnTo = 0
-    end
-    item
-      DisplayName = 'String'
-      StyleName = 'String'
-      TokenType = 1
-      Expression = '".*?"'
-      ColumnFrom = 0
-      ColumnTo = 0
     end>
   BlockRules = <
     item
       DisplayName = 'Header'
-      Enabled = False
       ConditionList = <
         item
           TokenTypes = 1
         end>
       EndOfTextClose = True
+      DisplayInTree = False
       NameFmt = '%s0'
       HighlightPos = cpBound
       CollapseFmt = '%s0'
@@ -264,7 +337,6 @@ object SyntAnal32: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Table begin'
-      Enabled = False
       StyleName = 'Table block BG'
       ConditionList = <
         item
@@ -279,7 +351,6 @@ object SyntAnal32: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Table end'
-      Enabled = False
       BlockType = btRangeEnd
       ConditionList = <
         item
@@ -308,6 +379,33 @@ object SyntAnal32: TLibSyntAnalyzer
       ConditionList = <
         item
           TokenTypes = 1024
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '<<'
+      Enabled = False
+      StyleName = 'No fmt block BG'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '<<')
+          TokenTypes = 8192
+        end>
+      BlockEnd = '>>'
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '>>'
+      Enabled = False
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 8
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
@@ -488,19 +586,23 @@ object SyntAnal32: TLibSyntAnalyzer
     'Heading'
     'Text'
     'Table begin'
-    'Table end'
+    'Block end'
     'Code block'
     'Link'
     'List'
     'HTML tag'
     'HTML entity'
     'Python begin'
-    'Python end')
+    'Python end'
+    'String'
+    'Escaped'
+    'Spec marker'
+    'Hidden')
   Extentions = 'wiki'
   LexerName = 'WikidPad'
   SkipSpaces = False
   Notes.Strings = (
-    'Alexey (CudaText)'
+    'Alexey Torgashin (CudaText)'
     'Disabled tree rules, because TreeHelper exists for WikidPad')
   Charset = DEFAULT_CHARSET
 end

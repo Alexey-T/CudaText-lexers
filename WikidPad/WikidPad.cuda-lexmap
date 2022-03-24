@@ -1,11 +1,13 @@
 [comments]
 str1=
 str2=
-styles_cmt=
-styles_str=
+styles_cmt=Hidden
+styles_str=String
+full1=<<hide
+full2=>>
 
 [map]
-Heading=IdKeyword
+Heading=Label
 Text=Id
 Code block=IncludeBG1
 Table block BG=IncludeBG2
@@ -18,3 +20,7 @@ HTML entity=Symbol
 Python block BG=IncludeBG3
 Word suffix=String2
 String=String
+Escaped=Symbol2
+Spec marker=Symbol
+Hidden=Comment
+No fmt block BG=IncludeBG4
