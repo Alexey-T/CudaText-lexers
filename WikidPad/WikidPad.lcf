@@ -1,4 +1,4 @@
-object SyntAnal22: TLibSyntAnalyzer
+object SyntAnal20: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -319,6 +319,14 @@ object SyntAnal22: TLibSyntAnalyzer
       Expression = '%>'
       ColumnFrom = 0
       ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      TokenType = 1
+      Expression = '[\w\x7f-\x{FFFF}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
     end>
   BlockRules = <
     item
@@ -482,16 +490,8 @@ object SyntAnal22: TLibSyntAnalyzer
     ''
     'Example:'
     '<<pre'
-    '                      ^'
     '                     / \'
     '                    /   \'
-    '                   /_____\'
-    '                  (       )'
-    '                  |       |'
-    '                  |       |'
-    '                  |       |'
-    '                  |       |'
-    '                  L_______j'
     '>>'
     ''
     ''
@@ -510,7 +510,6 @@ object SyntAnal22: TLibSyntAnalyzer
     '<<hide'
     'You only see this in editor'
     '>>'
-    ''
     ''
     '++++ Escaping characters'
     
@@ -580,8 +579,7 @@ object SyntAnal22: TLibSyntAnalyzer
     
       'You can also use <b>HTML tags</b> and &nbsp;&nbsp;&nbsp;&nbsp;&n' +
       'bsp;entities in WikidPad. Use preview to show the effect of them' +
-      '.'
-    '')
+      '.')
   TokenTypeNames.Strings = (
     'Heading'
     'Text'
