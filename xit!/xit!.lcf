@@ -1,0 +1,160 @@
+object SyntAnal21: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Mark open'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Mark checked'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Mark ongoing'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Mark obsolete'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Invalid'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 12040162
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Text dimmed'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Header'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Mark open'
+      StyleName = 'Mark open'
+      TokenType = 2
+      Expression = '^\[\x20\](\x20|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Mark checked'
+      StyleName = 'Mark checked'
+      TokenType = 2
+      Expression = '(?-i)^\[x\]\x20'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Mark ongoing'
+      StyleName = 'Mark ongoing'
+      TokenType = 2
+      Expression = '^\[@\]\x20'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Mark obsolete'
+      StyleName = 'Mark obsolete'
+      TokenType = 2
+      Expression = '^\[~\]\x20'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text dimmed'
+      StyleName = 'Text dimmed'
+      TokenType = 1
+      Expression = '(?-i)(?<=\[[x~]\]\x20).*$(\z\x20{4,}\S.*$)*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text normal'
+      StyleName = 'Text'
+      TokenType = 1
+      Expression = '(?-i)(?<=\[[\x20@x~]\]\x20).*$(\z\x20{4,}\S.*$)*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Invalid'
+      StyleName = 'Invalid'
+      TokenType = 3
+      Expression = '.+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '[ ] Open'
+    '[x] Checked'
+    '[@] Ongoing'
+    '[~] Obsolete'
+    ''
+    '[*] Invalid'
+    '[o] Invalid'
+    '[X] Invalid (uppercase)'
+    ''
+    '[] Invalid'
+    '[  ] Invalid'
+    '[ x ] Invalid'
+    '[@@] Invalid'
+    ''
+    ' [x] Invalid'
+    '    [x] Invalid'
+    ''
+    '[ ]Invalid'
+    '[ ]! Invalid')
+  TokenTypeNames.Strings = (
+    'Header'
+    'Text'
+    'Mark'
+    'Invalid')
+  Extentions = 'xit'
+  LexerName = 'xit!'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  Charset = DEFAULT_CHARSET
+end

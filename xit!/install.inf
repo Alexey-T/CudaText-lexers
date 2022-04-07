@@ -1,0 +1,7 @@
+[info]
+title=xit!
+type=lexer
+subdir=-
+
+[lexer1]
+file=xit!
