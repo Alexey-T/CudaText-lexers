@@ -150,6 +150,7 @@ object SyntAnal7: TLibSyntAnalyzer
     'unknown')
   Extentions = 'diff dif patch'
   LexerName = 'Diff'
+  SkipSpaces = False
   Notes.Strings = (
     'Author: WhiteWind'
     'Improved by Alexey (CudaText)')
