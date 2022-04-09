@@ -97,7 +97,7 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = 'Context line'
       StyleName = 'Context'
       TokenType = 3
-      Expression = '^\s.*$'
+      Expression = '^\x20.*'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -152,8 +152,8 @@ object SyntAnal7: TLibSyntAnalyzer
   LexerName = 'Diff'
   SkipSpaces = False
   Notes.Strings = (
-    'Author: WhiteWind'
-    'Improved by Alexey (CudaText)')
+    'Original author: WhiteWind'
+    'Improved by Alexey Torgashin (CudaText)')
   RestartFromLineStart = True
   Charset = DEFAULT_CHARSET
 end
