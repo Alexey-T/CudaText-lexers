@@ -62,7 +62,7 @@ object SyntAnal15: TLibSyntAnalyzer
       StyleName = 'Comment'
       AlwaysEnabled = True
       TokenType = 1
-      Expression = '(?s)\(\*.*?(\*\)|\Z)'
+      Expression = '(?s)\(\*(\(\*.*?\*\)|.)*?(\*\)|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -78,20 +78,28 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '".*?("|$)'
+      Expression = '("|'#39').*?(\1|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Float'
+      DisplayName = 'Number float'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+\.?\d+ e[\+\-]?\d+\b |'#13#10'\d+\.\d+\b'
+      Expression = '\d+\.?\d+ e[\+\-]?\d+\b |'#13#10'\d+\.\d+E?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Integer'
+      DisplayName = 'Number hex/octal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(?-i)[0-7]+[BC]\b | (?-i)[0-9][0-9A-F]*H\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
       StyleName = 'Number'
       TokenType = 5
       Expression = '\d+\b'
@@ -102,7 +110,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]]'
+      Expression = '[/\*,\.;:\(\)=<>\+\-\[\]\{\}\^\|~&\#]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -114,11 +122,14 @@ object SyntAnal15: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'ABSTRACT'
             'AND'
             'ARRAY'
+            'AS'
             'BEGIN'
             'BY'
             'CASE'
+            'CLASS'
             'CONST'
             'DEFINITION'
             'DIV'
@@ -126,30 +137,44 @@ object SyntAnal15: TLibSyntAnalyzer
             'ELSE'
             'ELSIF'
             'END'
+            'EXCEPT'
             'EXIT'
             'EXPORT'
+            'FINALLY'
             'FOR'
+            'FORWARD'
             'FROM'
+            'GENERIC'
+            'GUARD'
             'IF'
             'IMPLEMENTATION'
             'IMPORT'
             'IN'
+            'INHERIT'
             'LOOP'
             'MOD'
             'MODULE'
             'NOT'
             'OF'
             'OR'
+            'OVERRIDE'
+            'PACKEDSET'
             'POINTER'
             'PROCEDURE'
             'QUALIFIED'
+            'READONLY'
             'RECORD'
+            'REM'
             'REPEAT'
+            'RETRY'
             'RETURN'
+            'REVEAL'
             'SET'
             'THEN'
             'TO'
+            'TRACED'
             'TYPE'
+            'UNSAFEGUARDED'
             'UNTIL'
             'VAR'
             'WHILE'
@@ -216,8 +241,7 @@ object SyntAnal15: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    '"test" + 12.30 + 1.2e-3 (* comment *)'
-    'begin end;'
+    '"test" + 12.30 + 1.2e-3 (* comment (*nested*) *)'
     ''
     'PROCEDURE Test(N: INTEGER)'
     'BEGIN'
@@ -232,6 +256,7 @@ object SyntAnal15: TLibSyntAnalyzer
   Extentions = 'm2 mod'
   LexerName = 'Modula-2'
   Notes.Strings = (
-    'Alexey Torgashin (CudaText)')
+    'Alexey Torgashin (CudaText)'
+    'Docs: https://www.modula2.org/reference/vocabulary.php')
   Charset = DEFAULT_CHARSET
 end
