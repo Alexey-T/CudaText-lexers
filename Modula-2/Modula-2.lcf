@@ -1,4 +1,4 @@
-object SyntAnal27: TLibSyntAnalyzer
+object SyntAnal15: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -33,7 +33,15 @@ object SyntAnal27: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'Reserved word'
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -13
@@ -41,9 +49,9 @@ object SyntAnal27: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'Identifier'
+      DisplayName = 'Id std'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
+      Font.Color = clPurple
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -60,7 +68,7 @@ object SyntAnal27: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Id'
-      StyleName = 'Identifier'
+      StyleName = 'Id'
       TokenType = 2
       Expression = '[a-z_]\w*'
       ColumnFrom = 0
@@ -101,22 +109,18 @@ object SyntAnal27: TLibSyntAnalyzer
   BlockRules = <
     item
       DisplayName = 'Id keywords'
-      StyleName = 'Reserved word'
+      StyleName = 'Id keyword'
       BlockType = btTagDetect
       ConditionList = <
         item
           TagList.Strings = (
+            'AND'
             'ARRAY'
             'BEGIN'
-            'BOOLEAN'
             'BY'
-            'CARDINAL'
             'CASE'
-            'CHAR'
-            'CLASS'
             'CONST'
             'DEFINITION'
-            'DESTROY'
             'DIV'
             'DO'
             'ELSE'
@@ -125,26 +129,20 @@ object SyntAnal27: TLibSyntAnalyzer
             'EXIT'
             'EXPORT'
             'FOR'
-            'FOREIGN'
             'FROM'
             'IF'
             'IMPLEMENTATION'
             'IMPORT'
-            'INHERIT'
-            'INIT'
-            'INLINE'
-            'INTEGER'
-            'LONGCARD'
-            'LONGINT'
-            'LONGREAL'
+            'IN'
             'LOOP'
             'MOD'
             'MODULE'
-            'NIL'
+            'NOT'
             'OF'
+            'OR'
             'POINTER'
             'PROCEDURE'
-            'REAL'
+            'QUALIFIED'
             'RECORD'
             'REPEAT'
             'RETURN'
@@ -159,6 +157,26 @@ object SyntAnal27: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id std'
+      StyleName = 'Id std'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'BOOLEAN'
+            'CARDINAL'
+            'CHAR'
+            'INTEGER'
+            'LONGCARD'
+            'LONGINT'
+            'LONGREAL'
+            'REAL')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end
     item
@@ -213,5 +231,7 @@ object SyntAnal27: TLibSyntAnalyzer
     'Number')
   Extentions = 'm2 mod'
   LexerName = 'Modula-2'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
   Charset = DEFAULT_CHARSET
 end
