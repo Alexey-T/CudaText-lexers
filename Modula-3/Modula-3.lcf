@@ -295,7 +295,7 @@ object SyntAnal16: TLibSyntAnalyzer
     'Symbol'
     'String'
     'Number')
-  Extentions = 'm3 i3 ig'
+  Extentions = 'm3 i3'
   LexerName = 'Modula-3'
   Notes.Strings = (
     'Alexey Torgashin (CudaText)'
