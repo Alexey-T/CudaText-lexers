@@ -86,7 +86,7 @@ object SyntAnal16: TLibSyntAnalyzer
       DisplayName = 'Number float'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+\.?\d+ e[\+\-]?\d+\b |'#13#10'\d+\.\d+\b'
+      Expression = '\d+\.?\d+ [EDX][\+\-]?\d+\b |'#13#10'\d+\.\d+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -94,7 +94,7 @@ object SyntAnal16: TLibSyntAnalyzer
       DisplayName = 'Number hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '16_\h+\b'
+      Expression = '16_\h+\b | 8_[0-7]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -112,7 +112,7 @@ object SyntAnal16: TLibSyntAnalyzer
       TokenType = 3
       Expression = 
         '<\*|\*>|<=|>=|=>|:=|<:|\.\.|'#13#10'[/\*,\.;:\(\)=<>\+\-\[\]\{\}&\|\^\' +
-        '#]'
+        '#!\$%\?@`]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
