@@ -1,4 +1,4 @@
-object SyntAnal15: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -295,7 +295,7 @@ object SyntAnal15: TLibSyntAnalyzer
     'Symbol'
     'String'
     'Number')
-  Extentions = 'm3 i3 ig m3.dummy m3.export'
+  Extentions = 'm3 i3 ig'
   LexerName = 'Modula-3'
   Notes.Strings = (
     'Alexey Torgashin (CudaText)'
