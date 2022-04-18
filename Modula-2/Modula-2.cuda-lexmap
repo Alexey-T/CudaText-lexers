@@ -1,9 +1,4 @@
-[ref]
-0=Assembly
-
 [map]
-Default=-
-Marked block=-
 Comment=Comment
 Number=Number
 String=String

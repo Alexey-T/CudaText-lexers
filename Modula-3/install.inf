@@ -1,0 +1,7 @@
+[info]
+title=Modula-3
+type=lexer
+subdir=-
+
+[lexer1]
+file=Modula-3

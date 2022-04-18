@@ -1,0 +1,306 @@
+object SyntAnal15: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      AlwaysEnabled = True
+      TokenType = 1
+      Expression = '(?s)\(\*(\(\*.*?\*\)|.)*?(\*\)|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '("|'#39').*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\.?\d+ e[\+\-]?\d+\b |'#13#10'\d+\.\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '16_\h+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = 
+        '<\*|\*>|<=|>=|=>|:=|<:|\.\.|'#13#10'[/\*,\.;:\(\)=<>\+\-\[\]\{\}&\|\^\' +
+        '#]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'AND'
+            'ANY'
+            'ARRAY'
+            'AS'
+            'BEGIN'
+            'BITS'
+            'BRANDED'
+            'BY'
+            'CASE'
+            'CONST'
+            'DIV'
+            'DO'
+            'ELSE'
+            'ELSIF'
+            'END'
+            'EVAL'
+            'EXCEPT'
+            'EXCEPTION'
+            'EXIT'
+            'EXPORTS'
+            'FINALLY'
+            'FOR'
+            'FROM'
+            'GENERIC'
+            'IF'
+            'IMPORT'
+            'IN'
+            'INTERFACE'
+            'LOCK'
+            'LOOP'
+            'METHODS'
+            'MOD'
+            'MODULE'
+            'NOT'
+            'OBJECT'
+            'OF'
+            'OR'
+            'OVERRIDES'
+            'PROCEDURE'
+            'RAISE'
+            'RAISES'
+            'READONLY'
+            'RECORD'
+            'REF'
+            'REPEAT'
+            'RETURN'
+            'REVEAL'
+            'ROOT'
+            'SET'
+            'THEN'
+            'TO'
+            'TRY'
+            'TYPE'
+            'TYPECASE'
+            'UNSAFE'
+            'UNTIL'
+            'UNTRACED'
+            'VALUE'
+            'VAR'
+            'WHILE'
+            'WITH')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id types'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ABS'
+            'ADDRESS'
+            'ADR'
+            'ADRSIZE'
+            'BITSIZE'
+            'BOOLEAN'
+            'BYTESIZE'
+            'CARDINAL'
+            'CEILING'
+            'CHAR'
+            'DEC'
+            'DISPOSE'
+            'EXTENDED'
+            'FALSE'
+            'FIRST'
+            'FLOAT'
+            'FLOOR'
+            'INC'
+            'INTEGER'
+            'ISTYPE'
+            'LAST'
+            'LONGINT'
+            'LONGREAL'
+            'LOOPHOLE'
+            'MAX'
+            'MIN'
+            'MUTEX'
+            'NARROW'
+            'NEW'
+            'NIL'
+            'NULL'
+            'NUMBER'
+            'ORD'
+            'REAL'
+            'REFANY'
+            'ROUND'
+            'SUBARRAY'
+            'TEXT'
+            'TRUE'
+            'TRUNC'
+            'TYPECODE'
+            'VAL')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block start'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'CLASS'
+            'INTERFACE'
+            'MODULE'
+            'PROCEDURE')
+          TokenTypes = 4
+        end>
+      BlockEnd = 'block end'
+      NameFmt = '%s1 %s0'
+      HighlightPos = cpBound
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'block end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'END')
+          TokenTypes = 4
+        end>
+      SameIdent = True
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '"test" + 12.30 + 1.2e-3 (* comment *)'
+    ''
+    'PROCEDURE Write (I: INTEGER)'
+    'BEGIN'
+    'END Write;')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number')
+  Extentions = 'm3 i3 ig m3.dummy m3.export'
+  LexerName = 'Modula-3'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)'
+    
+      'Docs: https://www.cs.purdue.edu/homes/hosking/m3/reference/m3.ht' +
+      'ml')
+  Charset = DEFAULT_CHARSET
+end
