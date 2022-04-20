@@ -1,4 +1,4 @@
-object SyntAnal30: TLibSyntAnalyzer
+object SyntAnal19: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -127,7 +127,7 @@ object SyntAnal30: TLibSyntAnalyzer
       DisplayName = 'CommentMLine'
       StyleName = 'Comment'
       TokenType = 13
-      Expression = '(?s)\#\[ (\#\[.*?\]\#|.)*? \]\#'
+      Expression = '(?s)\#\[ (\#\[.*?\]\#|.)*? (\]\#|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
