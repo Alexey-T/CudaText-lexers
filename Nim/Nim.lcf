@@ -1,4 +1,4 @@
-object SyntAnal16: TLibSyntAnalyzer
+object SyntAnal30: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -434,37 +434,6 @@ object SyntAnal16: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Block comment'
-      BlockName = 'Block comment'
-      NotParent = True
-      AlwaysEnabled = True
-      ConditionList = <
-        item
-          TokenTypes = 8192
-        end>
-      BlockEnd = 'Block comment end'
-      EndOfTextClose = True
-      DisplayInTree = False
-      HighlightPos = cpBound
-      CollapseFmt = '{ ... }'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Block comment end'
-      BlockName = 'Block comment'
-      StrictParent = True
-      AlwaysEnabled = True
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          CondType = tcNotEqual
-          TokenTypes = 8192
-        end>
-      BlockOffset = 1
-      HighlightPos = cpBound
-      IgnoreAsParent = False
-    end
-    item
       DisplayName = 'block for tree'
       ConditionList = <
         item
@@ -574,7 +543,7 @@ object SyntAnal16: TLibSyntAnalyzer
   LexerName = 'Nim'
   SkipSpaces = False
   Notes.Strings = (
-    'Alexey (CudaText)'
+    'Alexey Torgashin (CudaText)'
     
       'Docs: https://nim-lang.org/docs/manual.html#lexical-analysis-num' +
       'erical-constants')
