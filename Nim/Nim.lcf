@@ -119,7 +119,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'CommentMLine doc'
       StyleName = 'Comment doc'
       TokenType = 13
-      Expression = '(?s)\#\#\[ (\#\#\[.*?\]\#\#|.)*? \]\#\#'
+      Expression = '(?s)\#\#\[ (\#\#\[.*?\]\#\#|.)*? (\]\#\#|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
