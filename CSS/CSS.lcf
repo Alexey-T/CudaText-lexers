@@ -202,7 +202,7 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'RGB color'
       StyleName = 'Color'
       TokenType = 6
-      Expression = '(?-i)\b(rgba?|hsla?)\([\d\x20,%]+?\)'
+      Expression = '(?-i)\b(rgba?|hsla?|hwb|lab|lch)\([\d\x20,\.%/]+?\)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -2178,6 +2178,7 @@ object SyntAnal6: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '%'
+            'cap'
             'ch'
             'cm'
             'deg'
@@ -2189,8 +2190,10 @@ object SyntAnal6: TLibSyntAnalyzer
             'fr'
             'grad'
             'Hz'
+            'ic'
             'in'
             'kHz'
+            'lh'
             'mm'
             'mozmm'
             'ms'
@@ -2200,9 +2203,12 @@ object SyntAnal6: TLibSyntAnalyzer
             'q'
             'rad'
             'rem'
+            'rlh'
             's'
             'turn'
+            'vb'
             'vh'
+            'vi'
             'vmax'
             'vmin'
             'vw')
@@ -2249,6 +2255,7 @@ object SyntAnal6: TLibSyntAnalyzer
             'repeat'
             'rotate'
             'saturate'
+            'selector'
             'sepia'
             'set'
             'shadow'
