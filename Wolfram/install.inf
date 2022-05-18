@@ -1,0 +1,7 @@
+[info]
+title=Wolfram
+type=lexer
+subdir=-
+
+[lexer1]
+file=Wolfram
