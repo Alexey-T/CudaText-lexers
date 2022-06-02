@@ -117,7 +117,7 @@ object SyntAnal1: TLibSyntAnalyzer
       DisplayName = 'Id label'
       StyleName = 'Id label'
       TokenType = 11
-      Expression = '^[a-z_]\w*(?=\s*:)'
+      Expression = '[a-z_]\w*(?=\s*:)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -165,7 +165,7 @@ object SyntAnal1: TLibSyntAnalyzer
       DisplayName = 'String regex'
       StyleName = 'String regex'
       TokenType = 12
-      Expression = '(?<=[:\]\?~][\x20\t]*)~?\[.*?(\][\*\+]?|$)'
+      Expression = '(?<=[:\]\?~\|\*\+]\s*)~?\[.*?(\]|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -346,7 +346,8 @@ object SyntAnal1: TLibSyntAnalyzer
     ''
     'fragment'
     'Hexdigit    :  [a-fA-F0-9]+ ;'
-    'SpacingMark: [\p{Grapheme_Cluster_Break=SpacingMark}];'
+    'fragment SpacingMark:'
+    '    [\p{Grapheme_Cluster_Break=SpacingMark}];'
     ''
     '@parser::members {'
     'bool myAction() { return true; }'
