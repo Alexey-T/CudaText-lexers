@@ -367,7 +367,7 @@ object SyntAnal1: TLibSyntAnalyzer
     'Label'
     'String regex')
   Extentions = 'g g4'
-  LexerName = 'ANTLR4'
+  LexerName = 'ANTLR'
   Notes.Strings = (
     'Alexey Torgashin (CudaText)')
   LineComment = '//'

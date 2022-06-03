@@ -1,7 +1,7 @@
 [info]
-title=ANTLR4
+title=ANTLR
 type=lexer
 subdir=-
 
 [lexer1]
-file=ANTLR4
+file=ANTLR
