@@ -1,4 +1,4 @@
-object SyntAnal25: TLibSyntAnalyzer
+object SyntAnal14: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -91,6 +91,15 @@ object SyntAnal25: TLibSyntAnalyzer
       FormatType = ftBackGround
     end>
   TokenRules = <
+    item
+      DisplayName = 'Prop modifier'
+      StyleName = 'Id keyword'
+      BlockName = 'Property begin'
+      TokenType = 2
+      Expression = '\b(read|write|default|nodefault)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
     item
       DisplayName = 'Id'
       StyleName = 'Id'
@@ -1015,6 +1024,21 @@ object SyntAnal25: TLibSyntAnalyzer
         end>
       HighlightPos = cpBound
       IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Property begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'property')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = ';'
+      NotCollapsed = True
+      DisplayInTree = False
+      HighlightPos = cpAny
+      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <
@@ -1022,10 +1046,10 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'asm section'
       StartExpression = 'asm\b'#13#10
       EndExpression = 'end'#13#10
-      SyntAnalyzer = SyntAnal2
+      SyntAnalyzer = SyntAnal1
     end>
   SampleText.Strings = (
-    'unit Test; //Comment'
+    'unit Unit1; //Comment'
     ''
     'interface'
     'uses aa.aa, bb, nn.nn.nn;'
@@ -1041,7 +1065,7 @@ object SyntAnal25: TLibSyntAnalyzer
     'type'
     '  TEnum1 = (aa, bb, dd);'
     '  TRecord1 = packed record'
-    '     val: word;'
+    '     property Val: word read GetVal write SetVal default 1;'
     '     procedure Init;'
     '  end;  '
     ''
@@ -1067,6 +1091,7 @@ object SyntAnal25: TLibSyntAnalyzer
     'begin '
     '  begin'
     '    begin'
+    '      Read; Write;'
     '    end;'
     '  end;'
     'end;'
