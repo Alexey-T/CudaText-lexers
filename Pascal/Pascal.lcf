@@ -96,7 +96,7 @@ object SyntAnal14: TLibSyntAnalyzer
       StyleName = 'Id keyword'
       BlockName = 'Property begin'
       TokenType = 2
-      Expression = '\b(read|write|default|nodefault)\b'
+      Expression = '\b(read(only)?|write(only)?|default|nodefault|stored)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -252,7 +252,6 @@ object SyntAnal14: TLibSyntAnalyzer
             'constructor'
             'contains'
             'continue'
-            'default'
             'destructor'
             'dispinterface'
             'div'
