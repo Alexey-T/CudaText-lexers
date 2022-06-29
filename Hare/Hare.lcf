@@ -1,0 +1,322 @@
+object SyntAnal8: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Decorator'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(["`])(\\.|.)*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ()'
+      StyleName = 'Symbol'
+      TokenType = 7
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = 
+        '\.|,|;|:+|\[|\]|\<<|>>|=>|=|\+=|\-=|\*=|/=|%=|<<=|>>=|&=|\|=|\^=' +
+        '|&&=|\|\|=|\^\^=|'#13#10'\+|\-|~|!|\*|&|/|%|\^|\||\?|<|>|<=|>=|==|!='
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(?-i)\b\d+(\.\d+)?(e[\-\+]?\d+)?(f64|f32)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num decimal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(?-i)\b\d+(i64|i32|i16|i8|u64|u32|u16|u8|i|u|z)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(?-i)\b0x\h+(i64|i32|i16|i8|u64|u32|u16|u8|i|u|z)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num binary'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0b[01]+(i64|i32|i16|i8|u64|u32|u16|u8|i|u|z)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num octal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0o[0-7]+(i64|i32|i16|i8|u64|u32|u16|u8|i|u|z)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Decorator'
+      StyleName = 'Decorator'
+      TokenType = 8
+      Expression = '@[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '_'
+            'abort'
+            'alloc'
+            'append'
+            'as'
+            'assert'
+            'break'
+            'case'
+            'const'
+            'continue'
+            'def'
+            'defer'
+            'delete'
+            'else'
+            'enum'
+            'export'
+            'fn'
+            'for'
+            'free'
+            'if'
+            'is'
+            'len'
+            'let'
+            'match'
+            'nullable'
+            'offset'
+            'return'
+            'rune'
+            'size'
+            'static'
+            'struct'
+            'switch'
+            'type'
+            'union'
+            'use'
+            'yield')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id types'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'bool'
+            'char'
+            'f32'
+            'f64'
+            'false'
+            'i16'
+            'i32'
+            'i64'
+            'i8'
+            'int'
+            'null'
+            'str'
+            'true'
+            'u16'
+            'u32'
+            'u64'
+            'u8'
+            'uint'
+            'uintptr'
+            'void')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Func'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'fn')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      NoEndRule = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'use fmt;'
+    ''
+    'export fn main() void = {'
+    '    n = 12.34 + 0xFFAA + 0b1100 + 0o7700 + 1.2e3f32'
+    #9'const source = strings::split(source, "\n");'
+    #9'first(source);'
+    #9'fmt::printfln("{} + {} = {}", i, j, i + j)!;'
+    '};'
+    ''
+    '@init'
+    'fn first(lines: []str) void = {'
+    #9'fmt::println("Text")!;'
+    '};')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Symbol {}'
+    'Symbol ()'
+    'Decorator')
+  Extentions = 'ha'
+  LexerName = 'Hare'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

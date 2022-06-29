@@ -1,0 +1,7 @@
+[info]
+title=Hare
+type=lexer
+subdir=-
+
+[lexer1]
+file=Hare
