@@ -1,0 +1,7 @@
+[info]
+title=Ini files
+type=lexer
+subdir=-
+
+[lexer1]
+file=Ini files

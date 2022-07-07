@@ -1,4 +1,4 @@
-object SyntAnal9: TLibSyntAnalyzer
+object SyntAnal11: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Section'
@@ -147,6 +147,9 @@ object SyntAnal9: TLibSyntAnalyzer
     item
       DisplayName = 'Item'
       ConditionList = <
+        item
+          TokenTypes = 80
+        end
         item
           TokenTypes = 8
         end
