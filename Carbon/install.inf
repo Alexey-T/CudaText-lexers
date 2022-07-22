@@ -1,0 +1,7 @@
+[info]
+title=Carbon
+type=lexer
+subdir=-
+
+[lexer1]
+file=Carbon
