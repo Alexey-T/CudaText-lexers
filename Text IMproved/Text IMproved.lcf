@@ -1,0 +1,350 @@
+object SyntAnal1: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'CommentSingleLine'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clAqua
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clLime
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clYellow
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Annotation'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clYellow
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'AllCapitals'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = [fsUnderline]
+    end
+    item
+      DisplayName = 'Separator'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMedGray
+      BorderTypeTop = blSolid3
+    end
+    item
+      DisplayName = 'BackString'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      BgColor = clSilver
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Separator'
+      StyleName = 'Separator'
+      TokenType = 1
+      Expression = '(?<=^(\x20{4}|\t)*)(---|===)+.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Comment'
+      StyleName = 'CommentSingleLine'
+      Expression = '(?<=^(\x20{4}|\t)*)//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^AllCapitals'
+      StyleName = 'AllCapitals'
+      Expression = '(?-i)(?<=^(\x20{4}|\t)*)\b[A-Z'#1040'-'#1071'_][A-Z'#1040'-'#1071'0-9_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Number'
+      StyleName = 'Number'
+      Expression = '(?<=^(\x20{4}|\t)*)([\+-]?\d+([\.,]\d+)*%?|0x[0-9a-fA-F]*)(?=\s)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Annotation'
+      StyleName = 'Annotation'
+      Expression = '(?<=^(\x20{4}|\t)*)\@[a-zA-Z'#1072'-'#1103#1040'-'#1071'0-9_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^String'
+      StyleName = 'String'
+      Expression = '(?<=^(\x20{4}|\t)*)("|'#39').*?\1|$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^BackString'
+      StyleName = 'BackString'
+      Expression = '(?<=^(\x20{4}|\t)*)(`).*?\1|$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Symbol'
+      StyleName = 'Symbol'
+      Expression = 
+        '(?<=^(\x20{4}|\t)*)[\_\*\#\/\,\:\;\=\<\>\+\?\$\^\!\%\\\|\~\&\[\]' +
+        '\{\}\(\)\"\'#39'\`]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Text'
+      StyleName = 'Text'
+      Expression = '(?<=^(\x20{4}|\t)*)[a-zA-Z'#1072'-'#1103#1040'-'#1071'0-9_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'CommentSingleLine'
+      TokenType = 2
+      Expression = '(?<=\x20)//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'AllCapitals'
+      StyleName = 'AllCapitals'
+      TokenType = 2
+      Expression = '(?-i)\b[A-Z'#1040'-'#1071'_][A-Z'#1040'-'#1071'0-9_]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 2
+      Expression = '(?<=\W)([\+-]?\d+([\.,]\d+)*%?|0x[0-9a-fA-F]*)(?=\W)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Annotation'
+      StyleName = 'Annotation'
+      TokenType = 2
+      Expression = '(?<=\s)\@[a-zA-Z'#1072'-'#1103#1040'-'#1071'0-9_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 2
+      Expression = '("|'#39').*?\1|$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'BackString'
+      StyleName = 'BackString'
+      TokenType = 2
+      Expression = '(`).*?\1|$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 2
+      Expression = 
+        '[\_\@\#\/\*\,\.\:\;\=\<\>\+\?\-\$\^\!\%\\\|\~\&\[\]\{\}\(\)\"\'#39'\' +
+        '`]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      TokenType = 2
+      Expression = '[a-zA-Z'#1072'-'#1103#1040'-'#1071'0-9_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'BlockRule'
+      ConditionList = <
+        item
+          TokenTypes = 1
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      DrawStaple = True
+      GroupIndex = 21
+      CollapseFmt = '%sz0...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Separator'
+      StyleName = 'Separator'
+      BlockType = btLineBreak
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      HighlightPos = cpAny
+      Pen.Color = clSkyBlue
+      UseCustomPen = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'Text IMproved Styles Introduction'
+    ''
+    
+      'Text IMproved lexer for CudaText text editor (indentation-based ' +
+      'folding and simple syntax highlight).'
+    ''
+    'SECTION 1: COMMON STYLES'
+    ''
+    
+      '    This is a regular text style with @Annotation and // single-' +
+      'line comments support'
+    '    '
+    
+      '    Text main contain "double quoted strings", '#39'single quoted st' +
+      'rings'#39', `reverse quoted string similar to Markdown code`'
+    '    '
+    '    Symbols of non-alphabet nature are higlighted:'
+    '        punctuation ,.?!'
+    '        also brackets [](){}<>'
+    '        and virtually !@#$%^&*-_+/|\`~"'#39' every other symbol.'
+    '    '
+    '    Any line starting with "---" or "===" is '
+    '    --- considered a separator (similar to YAML)'
+    '    to make logical separation'
+    '        and increase visibility without'
+    '        === affecting the code tree and folding'
+    '    '
+    
+      '    Abbreviations (or captions or all-capitals words) ARE also _' +
+      'RECOGNIZED_AND_HIGLIGHTED'
+    '    '
+    '    Number support is provided for a range of formats:'
+    '        integer 42'
+    '        floating point 3.14 or 2,71 using dot or comma'
+    '        posistive +36.6 and negative -273,15 values'
+    '        hexadecimal values are recognized as well 0xFFFF'
+    
+      '        there is no special highlight for binary or octal number' +
+      's'
+    '    '
+    
+      '    Browser web-links http://github.com are highlighted by CudaT' +
+      'ext engine automatically.'
+    '    (If `links_hilite` option is enabled in configuration).'
+    '    '
+    ''
+    'SECTION 2: USING INDENTATION'
+    ''
+    
+      '    Code tree is built automatically based on the indentation (t' +
+      'abs or 4 spaces).'
+    '    '
+    
+      '    There are 3 ways to exclude a line from being rendered in th' +
+      'e code tree (can be used to avoid clutter):'
+    '        . start a line with the "dot"'
+    '        - start a line with the "dash"'
+    
+      '         using uneven indentation (5, 6, 7 spaces) should also d' +
+      'o the trick'
+    ''
+    
+      '    For improved readability list items can be separated with bl' +
+      'ank lines or separators:'
+    '        Logical group 1 item 1'
+    '        Logical group 1 item 2'
+    '        '
+    '        Logical group 2 item A '
+    '        Logical group 2 item B '
+    '        --- here separator is used instead of blank line'
+    '        Logical group 3 item I '
+    '        Logical group 3 item II'
+    '    '
+    '    This'
+    '        is'
+    '            example'
+    '            of'
+    '                multi'
+    '        level'
+    '        indentation of `simple` text.'
+    '        '
+    '    @Any style'
+    '        "can also" be used'
+    '            / as block start '
+    '                2.16 even numbers'
+    '                    --- but not the separators'
+    '                // however comments'
+    '                and'
+    '                    `backquotes` '
+    '                        and'
+    '                    ALL_CAPITALS'
+    '                        and'
+    '                    '#39' unpaired quotes are regognized   '
+    '                    displayed'
+    '            in code'
+    '        tree.')
+  TokenTypeNames.Strings = (
+    '^Text'
+    '^Separator'
+    '-')
+  Extentions = 'txt'
+  LexerName = 'Text IMproved'
+  FullRefreshSize = 40000
+  Notes.Strings = (
+    'Text IMproved lexer for CudaText text editor '
+    '(indentation-based folding and simple syntax highlight).')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

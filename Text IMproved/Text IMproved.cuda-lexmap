@@ -1,0 +1,16 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
+[map]
+CommentSingleLine=Comment
+Number=Number
+String=String
+Symbol=Symbol
+Annotation=String3
+AllCapitals=Id2
+Text=-
+Separator=Id1
+BackString=String2

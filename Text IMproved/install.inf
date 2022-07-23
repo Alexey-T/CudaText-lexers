@@ -1,0 +1,8 @@
+[info]
+title=Text IMproved
+type=lexer
+subdir=-
+homepage=https://github.com/dimon40001/cudatext-lexer-textimproved
+
+[lexer1]
+file=Text IMproved
