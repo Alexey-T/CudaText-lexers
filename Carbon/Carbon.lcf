@@ -77,7 +77,7 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'String raw 3 quotes'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)(\#+)"""(\\\1.|.)*?(^\x20*"""\1|\Z)'
+      Expression = '(?s)(\#+)"""[^"\#]*\z(\\\1.|.)*?(^[\x20\x09]*"""\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -85,7 +85,7 @@ object SyntAnal6: TLibSyntAnalyzer
       DisplayName = 'String 3 quotes'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)"""(\\.|.)*?(^\x20*"""|\Z)'
+      Expression = '(?s)"""[^"\#]*\z(\\.|.)*?(^[\x20\x09]*"""|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
