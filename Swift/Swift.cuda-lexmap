@@ -11,4 +11,5 @@ String=String
 Id=Id
 Id keyword=IdKeyword
 Comment=Comment
-Bracket BG=BracketBG
+Id modifier=Id3
+If type=Id2

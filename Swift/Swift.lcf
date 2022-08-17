@@ -1,4 +1,4 @@
-object SyntAnal3: TLibSyntAnalyzer
+object SyntAnal23: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -49,22 +49,20 @@ object SyntAnal3: TLibSyntAnalyzer
       Font.Style = [fsItalic]
     end
     item
-      DisplayName = 'Bracket BG'
+      DisplayName = 'Id modifier'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMaroon
+      Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      BgColor = clMoneyGreen
-      FormatType = ftBackGround
-      BorderTypeLeft = blSolid
-      BorderColorLeft = clGray
-      BorderTypeTop = blSolid
-      BorderColorTop = clGray
-      BorderTypeRight = blSolid
-      BorderColorRight = clGray
-      BorderTypeBottom = blSolid
-      BorderColorBottom = clGray
+      Font.Style = []
+    end
+    item
+      DisplayName = 'If type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -87,17 +85,39 @@ object SyntAnal3: TLibSyntAnalyzer
       DisplayName = 'Hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x[\da-f]*'
+      Expression = '0x\h[\h_]*\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Float'
+      DisplayName = 'Octal'
       StyleName = 'Number'
       TokenType = 5
-      Expression = 
-        '#with exp. dot is optional '#13#10'(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'#wit' +
-        'hout exp. dot is required'#13#10'\d+ \. \d+'
+      Expression = '0o[0-7][0-7_]*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Binary'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0b[01][01_]*\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '(?-i)\b(0x\h[\h_]*)(\.(0x\h[\h_]*))?([pP][+\-]?(0x\h[\h_]*))\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b([0-9][0-9_]*)(\.([0-9][0-9_]*))?(e[+\-]?([0-9][0-9_]*))?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -105,7 +125,7 @@ object SyntAnal3: TLibSyntAnalyzer
       DisplayName = 'Integer'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+'
+      Expression = '\d[\d_]*\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -126,18 +146,26 @@ object SyntAnal3: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Symbol'
+      DisplayName = 'Symbol {}'
       StyleName = 'Symbol'
-      TokenType = 3
-      Expression = '[/\+\-\*=<>&/\|\^\.!\?%\\@]+'
+      TokenType = 6
+      Expression = '[\{\}]'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Single symbol'
+      DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\{\}\(\)\[\],;:]'
+      Expression = '[/\+\-\*=<>&/\|\^\.!\?%\\@~]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol single'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\(\)\[\],;:]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -157,9 +185,11 @@ object SyntAnal3: TLibSyntAnalyzer
             'associativity'
             'break'
             'case'
+            'catch'
             'class'
             'continue'
             'default'
+            'defer'
             'deinit'
             'didSet'
             'do'
@@ -171,6 +201,7 @@ object SyntAnal3: TLibSyntAnalyzer
             'for'
             'func'
             'get'
+            'guard'
             'if'
             'import'
             'in'
@@ -185,26 +216,27 @@ object SyntAnal3: TLibSyntAnalyzer
             'none'
             'nonmutating'
             'operator'
-            'override'
             'postfix'
             'precedence'
             'prefix'
             'protocol'
+            'repeat'
+            'rethrows'
             'return'
             'right'
             'self'
             'Self'
             'set'
-            'static'
             'struct'
             'subscript'
             'super'
             'switch'
+            'throw'
+            'throws'
+            'try'
             'Type'
             'typealias'
-            'unowned'
             'var'
-            'weak'
             'where'
             'while'
             'willSet')
@@ -214,47 +246,79 @@ object SyntAnal3: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Block comment'
-      BlockName = 'Block comment'
-      NotParent = True
-      AlwaysEnabled = True
+      DisplayName = 'modifiers'
+      StyleName = 'Id modifier'
+      BlockType = btTagDetect
       ConditionList = <
         item
-          TokenTypes = 2
+          TagList.Strings = (
+            'convenience'
+            'dynamic'
+            'fileprivate'
+            'final'
+            'internal'
+            'lazy'
+            'mutating'
+            'nonmutating'
+            'open'
+            'optional'
+            'override'
+            'private'
+            'public'
+            'required'
+            'static'
+            'unowned'
+            'unownedsafe'
+            'unownedunsafe'
+            'weak')
+          TokenTypes = 4
         end>
-      BlockEnd = 'Block comment end'
-      DisplayInTree = False
-      HighlightPos = cpBound
-      CollapseFmt = '/* ... */'
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Block comment end'
-      BlockName = 'Block comment'
-      StrictParent = True
-      AlwaysEnabled = True
-      BlockType = btRangeEnd
+      DisplayName = 'types'
+      StyleName = 'If type'
+      BlockType = btTagDetect
       ConditionList = <
         item
-          CondType = tcNotEqual
-          TokenTypes = 2
+          TagList.Strings = (
+            'Array'
+            'Bool'
+            'Character'
+            'Dictionary'
+            'Double'
+            'false'
+            'Float'
+            'Int'
+            'Int16'
+            'Int32'
+            'Int64'
+            'Int8'
+            'nil'
+            'Optional'
+            'String'
+            'true'
+            'UInt16'
+            'UInt32'
+            'UInt64'
+            'UInt8'
+            'Void')
+          TokenTypes = 4
         end>
-      BlockOffset = 1
-      HighlightPos = cpBound
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end
     item
       DisplayName = '{'
-      StyleName = 'Bracket BG'
       ConditionList = <
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 8
+          TokenTypes = 64
         end>
       BlockEnd = '}'
       DisplayInTree = False
-      DynHighlight = dhBound
       HighlightPos = cpRange
       DynSelectMin = True
       DrawStaple = True
@@ -269,7 +333,7 @@ object SyntAnal3: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '}')
-          TokenTypes = 8
+          TokenTypes = 64
         end>
       HighlightPos = cpBound
       IgnoreAsParent = False
@@ -300,27 +364,19 @@ object SyntAnal3: TLibSyntAnalyzer
   SubAnalyzers = <>
   SampleText.Strings = (
     '//Test test'
-    ''
     'import UIKit'
-    ''
     '@UIApplicationMain'
     ''
     'protocol AppearanceProviderProtocol: class {'
     '  func tileColor(value: Int) -> UIColor'
-    '  func numberColor(value: Int) -> UIColor'
-    '  func fontForNumbers() -> UIFont'
     '}'
     ''
     'class AppDelegate: UIResponder, UIApplicationDelegate {'
-    '                            '
     '  var window: UIWindow?'
     ''
     
       '  func application(application: UIApplication, didFinishLaunchin' +
       'gWithOptions launchOptions: NSDictionary?) -> Bool {'
-    
-      '    // Override point for customization after application launch' +
-      '.'
     '    return true'
     '  }'
     '  '
@@ -337,11 +393,12 @@ object SyntAnal3: TLibSyntAnalyzer
     'Id'
     'Symbol'
     'String'
-    'Number')
+    'Number'
+    'Symbol {}')
   Extentions = 'swift'
   LexerName = 'Swift'
   Notes.Strings = (
-    'Alexey (SynWrite)')
+    'Alexey Torgashin (CudaText)')
   LineComment = '//'
   Charset = DEFAULT_CHARSET
 end
