@@ -1,15 +1,15 @@
-[map]
-Default=-
-Symbol=Symbol
-Number=Number
-String=String
-Identifier=Id
-Reserved word=IdKeyword
-Comment=Comment
-Pragma=Comment2
-
 [comments]
 str1=(*
 str2=*)
 styles_cmt=Comment
 styles_str=String
+
+[map]
+Symbol=Symbol
+String=String
+Comment=Comment
+Id=Id
+Id keyword=IdKeyword
+Id types=Id2
+Number=Number
+Pragma=Comment2
