@@ -231,12 +231,13 @@ object SyntAnal22: TLibSyntAnalyzer
     'Section'
     'Label')
   Extentions = 
-    'mak /makefile /makefile.gnu /makefile.gcc /makefile.bor /makefil' +
-    'e.msc /makefile.vc /makefile.dm /makefile.bcc /makefile.fpc'
+    'mak /makefile /Makefile /makefile.gnu /makefile.gcc /makefile.bo' +
+    'r /makefile.msc /makefile.vc /makefile.dm /makefile.bcc /makefil' +
+    'e.fpc'
   LexerName = 'Makefile'
   SkipSpaces = False
   Notes.Strings = (
-    'Alexey (CudaText)'
+    'Alexey Torgashin (CudaText)'
     'Sample: makefile in Lazarus')
   RestartFromLineStart = True
   LineComment = '#'

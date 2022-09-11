@@ -1,4 +1,4 @@
-object SyntAnal39: TLibSyntAnalyzer
+object SyntAnal23: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -527,10 +527,10 @@ object SyntAnal39: TLibSyntAnalyzer
     'Symbol'
     'String'
     'Integer')
-  Extentions = 'cmake'
+  Extentions = 'cmake /CMakeLists.txt'
   LexerName = 'CMake'
   Notes.Strings = (
-    'Author: Alexey (SynWrite)'
+    'Alexey Torgashin (CudaText)'
     'Test: CMake distributive')
   LineComment = '#'
   Charset = DEFAULT_CHARSET
