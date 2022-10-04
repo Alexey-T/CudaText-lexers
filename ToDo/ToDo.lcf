@@ -1,4 +1,4 @@
-object SyntAnal19: TLibSyntAnalyzer
+object SyntAnal24: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'header'
@@ -190,17 +190,16 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = '@timestamp'
       StyleName = '@timestamp'
       TokenType = 3
-      Expression = '@(due|started|created|toggle)\(.*?\)'
+      Expression = '@(due|started|created|toggle|done|cancelled)\(.*?\)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
       DisplayName = '@tag'
+      Enabled = False
       StyleName = '@tag'
       TokenType = 3
-      Expression = 
-        '(?<=\s)@(?!(high|today|critical|low|completed|done)[\s\(])[\w\d\' +
-        '.\(\)\-!? :\+]+[ \t]*'
+      Expression = '(?<=\s)@(completed)[\s\(][\w\.\-!\?\x20:\+\(\)]+[\x20\t]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
