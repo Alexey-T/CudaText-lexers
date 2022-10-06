@@ -7,6 +7,7 @@ keyword begin
 keyword case
 keyword class
 keyword const
+keyword constref
 keyword constructor
 keyword contains
 keyword destructor
@@ -326,7 +327,7 @@ procedure ChDir(const S: string) |Changes the current directory.
 procedure CheckRange(AMin, AMax: Integer) |Verifies that integer pair is valid range.
 procedure CheckSqlTimeStamp(const ASQLTimeStamp : TSQLTimeStamp) |Checks whether a TSQLTimeStamp value represents a valid date and time.
 function CheckSynchronize(Timeout: Integer = 0): Boolean |Allows background threads to synchronize their execution with the main thread.
-procedure CheckToolMenuDropdown(ToolButton: TToolButton) |Displays a tool button’s dropdown menu.
+procedure CheckToolMenuDropdown(ToolButton: TToolButton) |Displays a tool button's dropdown menu.
 
 function Chr(X: Byte): Char |Returns the character for a specified ASCII value.
 function Clipboard: TClipboard |Returns an instance of TClipboard.
@@ -813,7 +814,7 @@ function MonthOfTheYear(const AValue: TDateTime): Word |Returns the month of the
 function MonthsBetween(const ANow, AThen: TDateTime): Integer |Returns the approximate number of months between two specified TDateTime values.
 function MonthSpan(const ANow, AThen: TDateTime): Double |Returns the approximate number of months, including fractions, between two specified TDateTime values.
 
-var Mouse: TMouse |Contains information about the system’s mouse.
+var Mouse: TMouse |Contains information about the system's mouse.
 procedure Move(const Source; var Dest; Count: Integer) |Copies bytes from a source to a destination.
 procedure MoveWindowOrg(DC: HDC; DX, DY: Integer) |Changes the location of the point (0,0) within a device context.
 function MSecsToTimeStamp(MSecs: Comp): TTimeStamp |Converts a specified number of milliseconds into a TTimeStamp value.
@@ -828,7 +829,7 @@ function NewLine: TMenuItem |Creates a menu item for a separator.
 function NewMenu(Owner: TComponent; const AName: string; const Items: array of TMenuItem): TMainMenu |Creates and initializes a main menu.
 function NewPopupMenu(Owner: TComponent; const AName: string; Alignment: TPopupAlignment; AutoPopup: Boolean; const Items: array of TMenuItem): TPopupMenu |Creates and initializes a popup menu.
 function NewStr(const S: string): PString; deprecated |Allocates a string on the heap.
-var NewStyleControls: Boolean |Determines whether controls are drawn using the Windows 3.x “look”.
+var NewStyleControls: Boolean |Determines whether controls are drawn using the Windows 3.x 'look'.
 function NewSubMenu(const ACaption: string; hCtx: THelpContext; const AName: string; const Items: array of TMenuItem; AEnabled: Boolean = True): TMenuItem |Creates and initializes a menu item that represents a submenu.
 function NextCharIndex(const S: String; Index: Integer): Integer |Returns the byte index of the next character.
 
@@ -911,7 +912,7 @@ function Rect(ALeft, ATop, ARight, ABottom: Integer): TRect |Returns the TRect t
 
 procedure RegisterActions(const CategoryName: string; const AClasses: array of TBasicActionClass; Resource: TComponentClass) |Registers action classes so that they appear in the list of predefined actions in the action list editor or customize dialog.
 procedure RegisterActnBarStyle(AStyle: TActionBarStyleEx) |egisters an action band style so that it is available for use from TActionManager's Style property within the IDE.
-procedure RegisterClass(AClass: TPersistentClass) |Registers a class of persistent object so that it’s class type can be retrieved.
+procedure RegisterClass(AClass: TPersistentClass) |Registers a class of persistent object so that its class type can be retrieved.
 procedure RegisterClassAlias(AClass: TPersistentClass; const Alias: string) |Registers a class that is identical to another class except for the name.
 procedure RegisterClasses(AClasses: array of TPersistentClass) |Registers a set of classes.
 
@@ -938,7 +939,7 @@ function RightBStr(const AText: AnsiString; const AByteCount: Integer): AnsiStri
 function RightStr(const AText: string; const ACount: Integer): string |Returns a string containing a specified number of characters from the right side of a string.
 procedure RmDir(const S: string) |Deletes an empty subdirectory.
 function Round(X: Extended): Int64 |Returns the value of X rounded to the nearest whole number.
-function RoundTo(const AValue: Double; const ADigit: TRoundToRange): Double |Rounds a floating-point value to a specified digit or power of ten using “Banker’s rounding”.
+function RoundTo(const AValue: Double; const ADigit: TRoundToRange): Double |Rounds a floating-point value to a specified digit or power of ten using Banker's rounding.
 procedure RunError(ErrorCode: Byte) |Stops execution and generates a runtime error.
 
 function SameDate(const A, B: TDateTime): Boolean |Indicates whether two TDateTime values represent the same year, month, and day.
@@ -1051,7 +1052,7 @@ function StringReplace(const S, OldPattern, NewPattern: string; Flags: TReplaceF
 function StringToColor(const S: string): TColor |Translates a string representation of a color to the corresponding TColor value.
 function StringToCursor(const S: string): TCursor |Returns a TCursor value given its string representation.
 function StringToGUID(const S: string): TGUID |Converts a string to a GUID.
-function StripAllFromResult(const AModalResult: TModalResult): TModalResult |Converts a TModalResult value from a constant that refers to “all” to the corresponding simple constant.
+function StripAllFromResult(const AModalResult: TModalResult): TModalResult |Converts a TModalResult value from a constant that refers to all to the corresponding simple constant.
 function StripHotKey(const Text: string): string |Removes the accelerator character marker from a string.
 
 function StrLCat(Dest: PChar; const Source: PChar; MaxLen: Cardinal): PChar |Appends up to a specified maximum number of characters to string.
@@ -1194,7 +1195,7 @@ function VarAsConvert(const AValue: Variant[; const AType: TConvType]): Variant 
 function VarAsError(AResult: HRESULT): Variant |Converts a HRESULT into an Error variant.
 function VarAsType(const V: Variant; VarType: TVarType): Variant |Converts a variant to specified type.
 procedure VarCastError(const ASourceType, ADestType: TVarType) |Raises an EVariantTypeCastError exception.
-procedure VarCheckEmpty(const V: Variant) |Raises an exception if a specified variant’s value is Unassigned.
+procedure VarCheckEmpty(const V: Variant) |Raises an exception if a specified variant's value is Unassigned.
 procedure VarClear(V: Variant) |Empties a Variant, so that it is unassigned.
 function VarCompareValue(const A, B: Variant): TVariantRelationship |Returns the relationship between Variants.
 function VarComplex: TVarType |Returns the Variant type code for custom Variants that represent complex numbers.
@@ -1213,11 +1214,11 @@ function VarFMTBcdCreate(const AValue: string, Precision, Scale: Word): Variant 
 function VarFMTBcdCreate(const AValue: Double; Precision: Word = 18; Scale: Word = 4): Variant |Creates a new Variant that stores its value internally as a TBcd value.
 
 function VarFromDateTime(DateTime: TDateTime): Variant |Returns a variant containing a specified data and time.
-function VarInRange(const AValue, AMin, AMax: Variant): Boolean |Indicates whether a Variant’s value is in a specified range.
+function VarInRange(const AValue, AMin, AMax: Variant): Boolean |Indicates whether a Variant's value is in a specified range.
 procedure VarInvalidNullOp |Indicate variant operation on null.
 procedure VarInvalidOp |Indicate invalid variant operation.
 function VarIsArray(const A: Variant[; AResolveByRef: Boolean]): Boolean |Indicates whether the specified variant is an array.
-function VarIsByRef(const V: Variant): Boolean |Indicates whether the specified variant’s value is by reference.
+function VarIsByRef(const V: Variant): Boolean |Indicates whether the specified variant's value is by reference.
 function VarIsClear(const V: Variant): Boolean |Indicates whether the specified variant has an undefined value.
 function VarIsComplex(const AValue: Variant): Boolean |Indicates whether a Variant stores its data internally as a complex number.
 function VarIsConvert(const AValue: Variant): Boolean |Indicates whether a Variant is a custom Variant that represents a measurement.
@@ -1244,7 +1245,7 @@ procedure VarSQLTimeStampCreate(var aDest: Variant; const ASQLTimeStamp: TSQLTim
 function VarSQLTimeStampCreate(const ASQLTimeStamp: TSQLTimeStamp): Variant |Creates a new Variant that stores its value internally as a TSQLTimeStamp value.
 function VarSQLTimeStampCreate(const AValue: TDateTime): Variant |Creates a new Variant that stores its value internally as a TSQLTimeStamp value.
 function VarSQLTimeStampCreate(const AValue: string): Variant |Creates a new Variant that stores its value internally as a TSQLTimeStamp value.
-function VarSupports(const V: Variant; const IID: TGUID[; out Intf]): Boolean |Indicates whether the Variant’s value is an interface that supports a specified interface.
+function VarSupports(const V: Variant; const IID: TGUID[; out Intf]): Boolean |Indicates whether the Variant's value is an interface that supports a specified interface.
 function VarToBcd(const aValue: Variant): TBcd |Converts a Variant into a TBcd type.
 function VarToDateTime(const V: Variant): TDateTime |Converts a specified variant to a TDateTime value.
 function VarToSQLTimeStamp(const aValue: Variant): TSQLTimeStamp |Converts a Variant that represents a TSQLTimeStamp value to the corresponding TSQLTimeStamp.
@@ -1257,7 +1258,7 @@ function VarTypeAsText(const AType: TVarType): string |Returns variant type desc
 function VarTypeIsValidArrayType(const AVarType: TVarType): Boolean |Indicates whether a Variant type code represents a type that can be used for the elements in a Variant array.
 function VarTypeIsValidElementType(const AVarType: TVarType): Boolean |Indicates whether a Variant type code represents a type that can be used for the elements in a Variant array.
 
-var WakeMainThread: TNotifyEvent |Represents a method (event handler) that is forced into the main thread’s queue.
+var WakeMainThread: TNotifyEvent |Represents a method (event handler) that is forced into the main thread's queue.
 
 function WeekOf(const AValue: TDateTime): Word |Returns the week of the year represented by a TDateTime value.
 function WeekOfTheMonth(const AValue: TDateTime[; var AYear, AMonth: Word]): Word |Returns the week of the month represented by a TDateTime value.
@@ -1321,7 +1322,7 @@ var Screen: TScreen |Represents the screen device.
 var Win32Platform: Integer |Specifies the Win32 platform identifier.
 
 var CurrencyString: string |Defines the currency symbol (or characters) used in floating-point to decimal conversions.
-var CurrencyFormat: Byte |Defines the currency symbol placement and separation used in floating-point–to–decimal conversions.
+var CurrencyFormat: Byte |Defines the currency symbol placement and separation used in floating-point-to-decimal conversions.
 var NegCurrFormat: Byte |Defines the currency format used in floating-point to decimal conversions of negative numbers.
 var ThousandSeparator: Char |The character used to separate thousands in numbers with more than three digits to the left of the decimal separator.
 var DecimalSeparator: Char |The character used to separate the integer part from the fractional part of a number.
@@ -1381,4 +1382,3 @@ const MSecsPerSec |1000
 const MinsPerDay |HoursPerDay * MinsPerHour
 const SecsPerDay |MinsPerDay * SecsPerMin
 const MSecsPerDay |SecsPerDay * MSecsPerSec
-
