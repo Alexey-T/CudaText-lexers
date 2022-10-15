@@ -1,0 +1,7 @@
+[info]
+title=Wren
+type=lexer
+subdir=-
+
+[lexer1]
+file=Wren
