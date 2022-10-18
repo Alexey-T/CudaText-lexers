@@ -1,0 +1,7 @@
+[info]
+title=Nelua
+type=lexer
+subdir=-
+
+[lexer1]
+file=Nelua

@@ -1,0 +1,21 @@
+[comments]
+str1=--[[
+str2=--]]
+styles_cmt=Comment,Comment doc
+styles_str=String
+
+[map]
+Comment=Comment
+String=String
+Number=Number
+Symbol=Symbol
+Id=Id
+Id reserved=IdKeyword
+Id standard=Id1
+Id types=Id2
+Id operator=Id4
+String2=String2
+Label=Label
+Hilite BG=IncludeBG1
+Comment doc=CommentDoc
+Annot=Id3
