@@ -1,4 +1,4 @@
-object SyntAnal25: TLibSyntAnalyzer
+object SyntAnal21: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -67,6 +67,22 @@ object SyntAnal25: TLibSyntAnalyzer
     item
       DisplayName = 'Pragma'
       Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Attr'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String2'
+      Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
@@ -101,14 +117,14 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)('#39'|") (\\\1|\\\\|.)*? (\1|\Z)'
+      Expression = '(?s)('#39'|")(\\.|.)*?(\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Str2'
-      StyleName = 'String'
-      TokenType = 3
+      DisplayName = 'String2'
+      StyleName = 'String2'
+      TokenType = 9
       Expression = '`.+?`'
       ColumnFrom = 0
       ColumnTo = 0
@@ -148,6 +164,17 @@ object SyntAnal25: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Attr'
+      StyleName = 'Attr'
+      TokenType = 8
+      Expression = 
+        '(?-i)\[(flag|deprecated(_after)?|inline|noinline|noreturn|heap|i' +
+        'f|keep_args_alive|unsafe|manualfree|typedef|callconv|console)\b.' +
+        '*?\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol {}'
       StyleName = 'Symbol'
       TokenType = 6
@@ -159,7 +186,7 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\)\[\],;\?]'
+      Expression = '[\(\)\[\],\.;\?]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -167,7 +194,7 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\+\-\*=<>&/\|\^\$\.!%:~]+'
+      Expression = '[\+\-\*/%&\|\^!~<>]+=?'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -180,8 +207,11 @@ object SyntAnal25: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '__global'
+            '__offsetof'
             'as'
+            'asm'
             'assert'
+            'atomic'
             'break'
             'case'
             'chan'
@@ -191,23 +221,38 @@ object SyntAnal25: TLibSyntAnalyzer
             'defer'
             'else'
             'enum'
+            'false'
             'fn'
             'for'
+            'go'
+            'goto'
             'if'
             'import'
             'in'
             'interface'
             'is'
+            'isreftype'
+            'lock'
             'match'
             'module'
             'mut'
+            'none'
             'or'
             'pub'
             'return'
+            'rlock'
+            'select'
+            'shared'
+            'sizeof'
+            'static'
             'struct'
             'switch'
+            'true'
             'type'
-            'unsafe')
+            'typeof'
+            'union'
+            'unsafe'
+            'volatile')
           TokenTypes = 4
         end>
       HighlightPos = cpBound
@@ -233,14 +278,15 @@ object SyntAnal25: TLibSyntAnalyzer
             'i64'
             'i8'
             'int'
+            'isize'
             'rune'
-            'size_t'
             'string'
             'u128'
             'u16'
             'u32'
             'u64'
             'u8'
+            'usize'
             'voidptr')
           TokenTypes = 4
         end>
@@ -255,13 +301,10 @@ object SyntAnal25: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'exit'
-            'false'
-            'None'
             'panic'
             'print'
             'print_backtrace'
-            'println'
-            'true')
+            'println')
           TokenTypes = 4
         end>
       HighlightPos = cpAny
@@ -356,18 +399,16 @@ object SyntAnal25: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    '/* This is a multiline comment.'
-    '   /* It can be nested. */'
+    '/* multiline comment.'
+    '   /* can be nested. */'
     '*/'
-    ''
+    '[unsafe] [deprecated: text here]'
     'fn add(x int, y int) int {'
-    #9'return 0xff + 1.20 + false + None '
+    #9'return 0xff + 1.20 + false + none + `str2` '
     '}'
     ''
     'interface Speaker {'
-    
-      '  println('#39'Hello, $name!'#39')  // `$` is used for string interpolat' +
-      'ion '
+    '  println('#39'Hello, $name!'#39')  // comment '
     '}'
     ''
     'enum Color {'
@@ -386,11 +427,14 @@ object SyntAnal25: TLibSyntAnalyzer
     'String'
     'Number'
     'Symbol {}'
-    'Pragma')
+    'Pragma'
+    'Attr'
+    'String2')
   Extentions = 'v'
   LexerName = 'V'
   Notes.Strings = (
-    'Alexey (CudaText)')
+    'Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
   LineComment = '//'
   Charset = DEFAULT_CHARSET
 end

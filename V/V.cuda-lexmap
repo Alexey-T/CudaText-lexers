@@ -13,4 +13,6 @@ Id type=Id2
 Comment=Comment
 String=String
 Id const=Id1
-Pragma=String2
+Pragma=Id4
+Attr=IdVar
+String2=String2
