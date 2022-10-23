@@ -106,6 +106,17 @@ object SyntAnal21: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Attr'
+      StyleName = 'Attr'
+      TokenType = 8
+      Expression = 
+        '(?-i)(?<=\[)(flag|deprecated(_after)?|inline|noinline|noreturn|h' +
+        'eap|if|keep_args_alive|unsafe|manualfree|typedef|callconv|consol' +
+        'e)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
@@ -164,17 +175,6 @@ object SyntAnal21: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Attr'
-      StyleName = 'Attr'
-      TokenType = 8
-      Expression = 
-        '(?-i)\[(flag|deprecated(_after)?|inline|noinline|noreturn|heap|i' +
-        'f|keep_args_alive|unsafe|manualfree|typedef|callconv|console)\b.' +
-        '*?\]'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Symbol {}'
       StyleName = 'Symbol'
       TokenType = 6
@@ -186,7 +186,7 @@ object SyntAnal21: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\)\[\],\.;\?]'
+      Expression = '[\(\)\[\],\.;:\?]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -221,7 +221,6 @@ object SyntAnal21: TLibSyntAnalyzer
             'defer'
             'else'
             'enum'
-            'false'
             'fn'
             'for'
             'go'
@@ -236,7 +235,6 @@ object SyntAnal21: TLibSyntAnalyzer
             'match'
             'module'
             'mut'
-            'none'
             'or'
             'pub'
             'return'
@@ -247,7 +245,6 @@ object SyntAnal21: TLibSyntAnalyzer
             'static'
             'struct'
             'switch'
-            'true'
             'type'
             'typeof'
             'union'
@@ -301,10 +298,13 @@ object SyntAnal21: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'exit'
+            'false'
+            'none'
             'panic'
             'print'
             'print_backtrace'
-            'println')
+            'println'
+            'true')
           TokenTypes = 4
         end>
       HighlightPos = cpAny
