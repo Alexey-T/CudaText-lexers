@@ -1,0 +1,7 @@
+[info]
+title=HCL
+type=lexer
+subdir=-
+
+[lexer1]
+file=HCL
