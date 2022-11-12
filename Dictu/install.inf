@@ -1,0 +1,7 @@
+[info]
+title=Dictu
+type=lexer
+subdir=-
+
+[lexer1]
+file=Dictu
