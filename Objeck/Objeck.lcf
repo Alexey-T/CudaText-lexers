@@ -1,4 +1,4 @@
-object SyntAnal15: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -221,14 +221,30 @@ object SyntAnal15: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'As'
+            'BaseArrayHolder'
             'Bool'
+            'BoolArrayHolder'
+            'BoolHolder'
             'Byte'
+            'ByteArrayHolder'
+            'ByteHolder'
             'Char'
+            'CharArrayHolder'
+            'CharHolder'
             'false'
             'Float'
+            'FloatArrayHolder'
+            'FloatHolder'
+            'Func2Holder'
+            'Func3Holder'
+            'Func4Holder'
+            'FuncHolder'
             'Int'
+            'IntArrayHolder'
+            'IntHolder'
             'Nil'
             'String'
+            'StringArrayHolder'
             'true')
           TokenTypes = 4
         end>
