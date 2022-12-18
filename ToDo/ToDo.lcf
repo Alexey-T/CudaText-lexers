@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal20: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'header'
@@ -24,6 +24,14 @@ object SyntAnal24: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'item.normal'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end
     item
       DisplayName = 'url'
@@ -128,18 +136,29 @@ object SyntAnal24: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'item.symbol.open'
-      StyleName = 'text.normal'
+      DisplayName = 'item.symbol.normal'
+      StyleName = 'item.normal'
       TokenType = 1
       Expression = 
         '(?<=^[\x20\x09]*)(-|\x{274d}|\x{2751}|\x{25a0}|\x{25a1}|\x{2610}' +
         '|\x{25aa}|\x{25ab}|\x{2013}|\x{2014}|\x{2261}|\x{2192}|\x{203a}|' +
-        '\[\s\]|\[\])(?=\s*)'
+        '\[\x20\]|\[\])(?=[\x20\x09])'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'text'
+      DisplayName = 'text done/cancelled'
+      Enabled = False
+      StyleName = 'text.grey'
+      TokenType = 2
+      Expression = 
+        '(?<=^[\x20\x09]*([x\+]|\[[x\+\-]\]|\x{2713}|\x{2714}|\x{2611}|\x' +
+        '{2718})\x20).*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'text normal'
       StyleName = 'text.normal'
       TokenType = 1
       Expression = '(?<=^[\x20\x09]*).+$'
@@ -202,16 +221,6 @@ object SyntAnal24: TLibSyntAnalyzer
       Expression = '(?<=\s)@(completed)[\s\(][\w\.\-!\?\x20:\+\(\)]+[\x20\t]*'
       ColumnFrom = 0
       ColumnTo = 0
-    end
-    item
-      DisplayName = 'text done/cancelled'
-      StyleName = 'text.grey'
-      TokenType = 2
-      Expression = 
-        '(?<=^[\x20\x09]*(\+|\x{2713}|\x{2714}|\x{2611}|-|\[\+\]|x|\x{271' +
-        '8}|\[-\])).*$'
-      ColumnFrom = 0
-      ColumnTo = 0
     end>
   BlockRules = <
     item
@@ -251,15 +260,15 @@ object SyntAnal24: TLibSyntAnalyzer
     '  Projects:'
     '   - item1'
     '   + item2'
-    '   [] item3'
+    '   [-] item3'
     ''
     ' New one:'
     '   - item4'
     '   + item5'
-    '   [] item6'
-    '     [] item7'
+    '   [x] item6'
+    '     [+] item7'
     '        + item   '
-    '          gdfgsd'
+    '          text'
     '   [] item'
     '     [] item'
     '     [] item  '

@@ -6,8 +6,9 @@ styles_str=
 
 [map]
 header=IdKeyword
-item.done=-
-item.cancel=-
+item.done=Id3
+item.cancel=Id1
+item.normal=Id4
 url=Symbol2
 @tag=LightBG5
 @critical=LightBG1
