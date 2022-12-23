@@ -409,6 +409,7 @@ object SyntAnal25: TLibSyntAnalyzer
             'message'
             'mwpascal'
             'near'
+            'noinline'
             'noreturn'
             'nostackframe'
             'oldfpccall'
