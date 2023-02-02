@@ -1,0 +1,7 @@
+[info]
+title=Just
+type=lexer
+subdir=-
+
+[lexer1]
+file=Just
