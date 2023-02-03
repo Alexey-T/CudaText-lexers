@@ -1,130 +1,90 @@
-object SyntAnal113: TLibSyntAnalyzer
+object SyntAnal21: TLibSyntAnalyzer
   Formats = <
-    item
-      DisplayName = 'Default'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clYellow
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-      BgColor = 8650752
-      FormatType = ftCustomFont
-    end
     item
       DisplayName = 'Identifier'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clYellow
+      Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = 8650752
     end
     item
-      DisplayName = 'Reserved word'
+      DisplayName = 'Id keyword'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
+      Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = []
-      BgColor = 8650752
+      Font.Style = [fsBold]
       FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
     end
     item
       DisplayName = 'String'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clLime
+      Font.Color = clTeal
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = 8650752
     end
     item
       DisplayName = 'Comment'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clOlive
+      Font.Color = clGray
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = 8650752
       FormatType = ftColor
     end
     item
       DisplayName = 'Symbol'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
+      Font.Color = clMaroon
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = 8650752
       FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
     end
     item
       DisplayName = 'Number'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 33023
+      Font.Color = clNavy
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
-      BgColor = 8650752
-    end
-    item
-      DisplayName = 'Marked block'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clHighlightText
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-      BgColor = 10841427
-      FormatType = ftColor
     end
     item
       DisplayName = 'Section'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
+      Font.Color = clPurple
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = []
-      BgColor = 8650752
+      Font.Style = [fsBold]
       FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
-    end
-    item
-      DisplayName = 'Current line'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-      BgColor = 12648448
-      FormatType = ftBackGround
     end
     item
       DisplayName = 'Parameter'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clFuchsia
+      Font.Color = clGreen
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      BgColor = 8650752
+      Font.Style = []
       FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
     end
     item
       DisplayName = 'function'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clAqua
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = 8650752
       FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
     end
     item
       DisplayName = 'Datatype'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clAqua
+      Font.Color = clPurple
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = 8650752
       FormatFlags = [ffBold, ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden]
     end>
   TokenRules = <
@@ -132,15 +92,23 @@ object SyntAnal113: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = #39'.*?('#39'|$)'
+      Expression = '(?s)'#39'.*?('#39'|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Any name'
+      DisplayName = 'String 2'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '".*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
       StyleName = 'Identifier'
       TokenType = 2
-      Expression = '([a-z_]\w*)|(".*?("|$))'
+      Expression = '[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -221,7 +189,7 @@ object SyntAnal113: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Key words'
-      StyleName = 'Reserved word'
+      StyleName = 'Id keyword'
       BlockType = btTagDetect
       ConditionList = <
         item
@@ -609,7 +577,7 @@ object SyntAnal113: TLibSyntAnalyzer
     end
     item
       DisplayName = 'GRANT'
-      StyleName = 'Reserved word'
+      StyleName = 'Id keyword'
       StatesAdd = 1
       BlockType = btTagDetect
       ConditionList = <
@@ -657,16 +625,14 @@ object SyntAnal113: TLibSyntAnalyzer
       '       AND (Staff > 5) AND substring(State,1,10) = @STATE_PIPPO@' +
       ';'
     '       // ORDER BY CustomerFirstName,CustomerLastName'
-    '       '
-    '       '
-    '       '
+    ''
     'GRANT SELECT ON "@COMPETENCE:script@%" TO "@UTENTE:script@";'
-    ' '
+    ''
     'GRANT SELECT ON "TAB_%" TO "@UTENTE:script@";'
     ''
     'select left(tab1.field, 2) from tab1'
     'left join tab2 on tab1.field = tab2.field;'
-    '        '
+    ''
     '')
   TokenTypeNames.Strings = (
     'Unknown'
@@ -678,11 +644,9 @@ object SyntAnal113: TLibSyntAnalyzer
     'Float const'
     'Section'
     'Keyword')
-  MarkedBlockStyle = 'Marked block'
-  CurrentLineStyle = 'Current line'
-  DefaultStyleName = 'Default'
   Extentions = 'sql'
   LexerName = 'SQL Blue'
+  LineComment = '//'
   Charset = DEFAULT_CHARSET
   Left = 144
   Top = 184

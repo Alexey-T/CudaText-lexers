@@ -1,14 +1,19 @@
+[comments]
+str1=
+str2=
+full1=/*
+full2=*/
+styles_cmt=Comment
+styles_str=String
+
 [map]
-Default=Id
 Identifier=Id
-Reserved word=IdKeyword
+Id keyword=IdKeyword
 String=String
 Comment=Comment
 Symbol=Symbol
 Number=Number
-Marked block=-
-Section=IncludeBG1
-Current line=-
+Section=IdKeyword
 Parameter=IdVar
-function=Label
+function=Id4
 Datatype=Id2
