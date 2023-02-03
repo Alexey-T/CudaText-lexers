@@ -149,13 +149,21 @@ object SyntAnal2: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'String $'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
       DisplayName = 'Shebang'
       StyleName = 'Comment shebang'
       TokenType = 1
-      Expression = '^\#!.+'
+      Expression = '\A\#!.+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -209,8 +217,8 @@ object SyntAnal2: TLibSyntAnalyzer
       NotParent = True
       TokenType = 1
       Expression = 
-        '^\#.* | (?<=[\x20\x09`])\# (?![\}\]]) (.*?(?=`)|.*$)'#13#10'#support c' +
-        'omments inside `..`'
+        '^\s*\#.* | (?<=[\x20\x09`])\# (?![\}\]]) (.*?(?=`)|.*$)'#13#10'#suppor' +
+        't comments inside `..`'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -227,7 +235,7 @@ object SyntAnal2: TLibSyntAnalyzer
       DisplayName = '(('
       StyleName = 'Symbol'
       TokenType = 8
-      Expression = '\$\(\(|\(\('
+      Expression = '\$\(\(|\(\((?!\()'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -393,7 +401,15 @@ object SyntAnal2: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String'
+      DisplayName = 'String "$(...)"'
+      StyleName = 'String $'
+      TokenType = 5
+      Expression = '(?s)"\$\( ( "\$\(.+?\)" |.)+?\)"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String $"..."'
       StyleName = 'String'
       TokenType = 5
       Expression = '(?s)\$?("|'#39') (\\\\|\\\1|.)*? (\1|\Z)'
@@ -907,6 +923,7 @@ object SyntAnal2: TLibSyntAnalyzer
     end
     item
       DisplayName = '('
+      Enabled = False
       ConditionList = <
         item
           TokenTypes = 32768
@@ -920,6 +937,7 @@ object SyntAnal2: TLibSyntAnalyzer
     end
     item
       DisplayName = ')'
+      Enabled = False
       BlockType = btRangeEnd
       ConditionList = <
         item
@@ -1038,7 +1056,7 @@ object SyntAnal2: TLibSyntAnalyzer
     '#!/bin/bash'
     'var=value'
     '/ddd/ddd.sh, "test'
-    'string"'
+    'string", "$(....)"'
     '+= -= /= *= &= |= ^= ~= == != >= <= ( ) [ ] { } $( ) + - / | < >'
     'test `dirname $var 20+30`, `more $var(20) \'#39'escape\` `'
     '$@, $$, $@, $?, $-, $!, $*'
