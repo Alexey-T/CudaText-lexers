@@ -1,7 +1,15 @@
-object SyntAnal49: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
-      DisplayName = 'Rus'
+      DisplayName = 'En'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Ru'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMaroon
       Font.Height = -13
@@ -17,12 +25,19 @@ object SyntAnal49: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      FormatType = ftColor
     end>
   TokenRules = <
     item
-      DisplayName = 'Rus'
-      StyleName = 'Rus'
+      DisplayName = 'En'
+      StyleName = 'En'
+      Expression = '[a-z_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Ru'
+      StyleName = 'Ru'
+      TokenType = 1
       Expression = '(?r)['#1072'-'#1103#1040'-'#1071#1105#1025']+'
       ColumnFrom = 0
       ColumnTo = 0
@@ -37,11 +52,14 @@ object SyntAnal49: TLibSyntAnalyzer
   BlockRules = <>
   CodeTemplates = <>
   SubAnalyzers = <>
+  SampleText.Strings = (
+    'Test Test 10')
   TokenTypeNames.Strings = (
-    'Unknown')
+    'Text'
+    'Text Ru')
   LexerName = 'Text Russian detector'
   Notes.Strings = (
-    'Author: Alex, uvviewsoft.com')
+    'Alexey Torgashin (CudaText)')
   Charset = DEFAULT_CHARSET
   Left = 144
   Top = 184

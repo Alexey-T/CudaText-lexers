@@ -1,3 +1,10 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
 [map]
-Rus=String
-Digits=Symbol
+En=Id
+Ru=IncludeBG4
+Digits=Number
