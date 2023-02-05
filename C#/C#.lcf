@@ -1,4 +1,4 @@
-object SyntAnal5: TLibSyntAnalyzer
+object SyntAnal4: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -81,24 +81,6 @@ object SyntAnal5: TLibSyntAnalyzer
       Font.Style = [fsItalic]
     end
     item
-      DisplayName = 'Bracket BG'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      BgColor = clMoneyGreen
-      FormatType = ftBackGround
-      BorderTypeLeft = blSolid
-      BorderColorLeft = clSilver
-      BorderTypeTop = blSolid
-      BorderColorTop = clSilver
-      BorderTypeRight = blSolid
-      BorderColorRight = clSilver
-      BorderTypeBottom = blSolid
-      BorderColorBottom = clSilver
-    end
-    item
       DisplayName = 'Id modifier'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
@@ -110,6 +92,14 @@ object SyntAnal5: TLibSyntAnalyzer
       DisplayName = 'Preproc string'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Generic types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -140,10 +130,18 @@ object SyntAnal5: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String triple-quoted'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)@?\$*("{3,})(?!")(\\.|.)*?(\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'String verbatim'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s) \$?@\$? ".*?("|\Z)'
+      Expression = '(?s)\$?@\$? ".*?("|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -151,7 +149,7 @@ object SyntAnal5: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s) \$?"(\\"|\\\\|.)*?("|\Z)'
+      Expression = '(?s)\$?"(\\.|.)*?("|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -212,6 +210,14 @@ object SyntAnal5: TLibSyntAnalyzer
       StyleName = 'String'
       TokenType = 4
       Expression = #39'.*?('#39'|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Generic types'
+      StyleName = 'Generic types'
+      TokenType = 12
+      Expression = '<(<[\s\w,\[\]]*?>|[\s\w,\[\]])*?>'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -426,12 +432,16 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 1086
+          TokenTypes = 5182
         end
         item
           TagList.Strings = (
             '(')
           TokenTypes = 256
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 4098
         end
         item
           TokenTypes = 4
@@ -454,7 +464,6 @@ object SyntAnal5: TLibSyntAnalyzer
     end
     item
       DisplayName = '{'
-      StyleName = 'Bracket BG'
       ConditionList = <
         item
           TagList.Strings = (
@@ -801,7 +810,7 @@ object SyntAnal5: TLibSyntAnalyzer
     'from nn select dd; //Linq'
     'enum Days {P1, P2, P3};'
     ' '
-    'private static List<T1, T2> PreFormatNames('
+    'private static List<T1<aa, bb, cc>, T2> PreFormatNames('
     '  int new_acct_key, '
     '  string new_acct_name, '
     '  List<string> _trivialWordList, '
@@ -859,12 +868,14 @@ object SyntAnal5: TLibSyntAnalyzer
     'Symbol ()'
     'Symbol {}'
     'Id keyword'
-    'Preproc string')
+    'Preproc string'
+    'Generic types')
   Extentions = 'cs csx'
   LexerName = 'C#'
   Notes.Strings = (
     'Original lexer was from EControl package'
-    'Reworked by Alexey (CudaText)')
+    'Reworked by Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
   LineComment = '//'
   Charset = DEFAULT_CHARSET
 end
