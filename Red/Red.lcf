@@ -1,4 +1,4 @@
-object SyntAnal18: TLibSyntAnalyzer
+object SyntAnal19: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -199,7 +199,7 @@ object SyntAnal18: TLibSyntAnalyzer
       DisplayName = 'String filename'
       StyleName = 'String filename'
       TokenType = 4
-      Expression = '[%@][^\s\n\r\[\]\(\)\{\}]+ | %".*?" '
+      Expression = '[%@][^\s\n\r\[\]\(\)\{\}"]+ | %".*?" '
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -348,15 +348,15 @@ object SyntAnal18: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '-'
-            '?'
-            '??'
+            '%'
             '*'
             '**'
             '-**'
             '/'
             '//'
             '///'
-            '%'
+            '?'
+            '??'
             '+'
             '<'
             '<<'
@@ -1015,8 +1015,8 @@ object SyntAnal18: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
-            '('
-            '#(')
+            '#('
+            '(')
           TokenTypes = 1024
         end>
       BlockEnd = ')'
@@ -1133,7 +1133,7 @@ object SyntAnal18: TLibSyntAnalyzer
     '16#{AB 09}'
     '64#{09 AZ az+/=} ;-docs'
     '2#{01 }  ;aaa %> bbb'
-    '#include %filename.ext , $123, -USD$1'#39'234.56789, 42x42'
+    '#include %filename.ext , %"aa bb", $123, -USD$1'#39'234.56789, 42x42'
     '#"test" '#39'test'#39' &nbsp; , &#12; , &xAB; <tag>,  ;aaa'
     'test {str^}str{nested}end} and "str^"str" and comment [ '
     '[nested]'
