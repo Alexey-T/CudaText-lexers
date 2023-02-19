@@ -1,0 +1,219 @@
+object SyntAnal1: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Header-Key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clSkyBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Body-Key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clAqua
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Trailer-Key'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Header-Value'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clSkyBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Body-Value'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clAqua
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Trailer-Value'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Punctuation'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clYellow
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Separator'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = []
+      FormatType = ftCustomFont
+      FormatFlags = [ffItalic, ffUnderline, ffStrikeOut, ffReadOnly, ffHidden, ffFontName, ffFontSize, ffFontCharset, ffVertAlign]
+    end
+    item
+      DisplayName = 'Log-message'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNone
+      Font.Height = -17
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Log-message'
+      StyleName = 'Log-message'
+      TokenType = 9
+      Expression = '^.+(?=[\s\x01]8\=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Header-Key'
+      StyleName = 'Header-Key'
+      TokenType = 1
+      Expression = '(?<=[\s\x01])(8|9|34|35|49|52|56)(?=\=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Trailer-Key'
+      StyleName = 'Trailer-Key'
+      TokenType = 2
+      Expression = '(?<=[\s\x01])10(?=\=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Body-Key'
+      StyleName = 'Body-Key'
+      TokenType = 3
+      Expression = '(?<=[\s\x01])\d+\b(?=\=)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Header-Value'
+      StyleName = 'Header-Value'
+      TokenType = 4
+      Expression = 
+        '((?<=[\s\x01]8=)'#13#10'|(?<=[\s\x01]9=)'#13#10'|(?<=[\s\x01]34=)|'#13#10'|(?<=[\s' +
+        '\x01]35=)|'#13#10'|(?<=[\s\x01]49=)|'#13#10'|(?<=[\s\x01]52=)|'#13#10'|(?<=[\s\x01' +
+        ']56=)'#13#10')[^\s\x01]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Trailer-Value'
+      StyleName = 'Trailer-Value'
+      TokenType = 5
+      Expression = '(?<=[\s\x01]10=)[^\s\x01]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Body-Value'
+      StyleName = 'Body-Value'
+      TokenType = 6
+      Expression = '(?<=[\s\x01]\d+\=).+?(?=([\s\x01]\d+=|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Separator'
+      StyleName = 'Separator'
+      Expression = '\x01'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Punctuation'
+      StyleName = 'Punctuation'
+      Expression = '\=+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Section'
+      ConditionList = <
+        item
+          TokenTypes = 512
+        end>
+      EndOfTextClose = True
+      NameFmt = '%s0'
+      HighlightPos = cpBound
+      CollapseFmt = '%s0'
+      SelfClose = True
+      TreeItemImage = 7
+      TreeGroupImage = 7
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Keys'
+      BlockName = 'Section'
+      ConditionList = <
+        item
+          TokenTypes = 14
+        end>
+      EndOfTextClose = True
+      NameFmt = '%s0=%s-2'
+      HighlightPos = cpAny
+      SelfClose = True
+      NoEndRule = True
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    
+      '2022-01-01 13:00:45 >> 8=FIX3 35=A key=12345 7777=abcd nonfixkey' +
+      '2=value 8888={addf} 10=0342 some comment'
+    
+      '2022-01-01 13:00:45 << 8=FIX'#1'35=D'#1'non-fix-key=12345'#1'7777=abcd'#1'no' +
+      'nfixkey2=value'#1'8888={addf}'#1#1'10=0342'#1' some comment'
+    
+      'incoming 8=FIX'#1'35=D'#1'non-fix-key=12345'#1'7777=abcd'#1'nonfixkey2=value' +
+      #1'8888={addf}'#1#1'10=0342'#1' some comment')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Header-Key'
+    'Trailer-Key'
+    'Body-Key'
+    'Header-Value'
+    'Trailer-Value'
+    'Body-Value'
+    'Separator'
+    'Punctuation'
+    'Log-message')
+  Extentions = 'log fix'
+  LexerName = 'FIX Message'
+  Notes.Strings = (
+    'Lexer for logged FIX protocol messages'
+    ''
+    'Separator can be hidden by setting FG color = BG color'
+    ''
+    'Recognized Header tags:'
+    '8, 9, 34, 35, 49, 52, 56'
+    ''
+    'Recognized Trailer tags:'
+    '10'
+    ''
+    'All other numeric keys are considered to be Body tags.')
+  Charset = DEFAULT_CHARSET
+end

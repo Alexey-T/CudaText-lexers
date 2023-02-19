@@ -1,0 +1,8 @@
+[info]
+title=FIX Message
+type=lexer
+subdir=-
+homepage=https://github.com/dimon40001/cudatext-lexer-fix-protocol
+
+[lexer1]
+file=FIX Message

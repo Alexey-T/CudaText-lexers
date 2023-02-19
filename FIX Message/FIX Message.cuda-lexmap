@@ -1,0 +1,16 @@
+[comments]
+str1=
+str2=
+styles_cmt=
+styles_str=
+
+[map]
+Header-Key=IncludeBG1
+Body-Key=Number
+Trailer-Key=String
+Header-Value=IdKeyword
+Body-Value=IdVar
+Trailer-Value=String
+Punctuation=Symbol
+Separator=
+Log-message=
