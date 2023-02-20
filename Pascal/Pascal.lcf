@@ -429,6 +429,7 @@ object SyntAnal25: TLibSyntAnalyzer
             'rtlproc'
             'safecall'
             'saveregisters'
+            'sealed'
             'softfloat'
             'static'
             'stdcall'
