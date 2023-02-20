@@ -2,11 +2,11 @@
 Default=-
 Comment=Comment
 Section=TagId
-Preprocessor=IdBad
+Preprocessor=Id3
 KeyReserved=IdKeyword
 Key=Id1
 Equal=Symbol2
-Bang=SymbolBad
+Bang=Id4
 Variable=IdVar
 String=String
 Number=Number
