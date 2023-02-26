@@ -1,0 +1,315 @@
+object SyntAnal28: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\-\-.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Keyword'
+      StyleName = 'Id keyword'
+      TokenType = 7
+      Expression = '(?-i)(?<=^[\x20\x09]*) (def|entry)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '^Id'
+      StyleName = 'Id'
+      TokenType = 6
+      Expression = '(?-i)(?<=^[\x20\x09]*)[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39'(\\.|.)'#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = 
+        '\->|==|//|%%|!=|<=|\*\*|>+|<+|\#\[|'#13#10'[\[\]\(\)\{\}\-\+\*/\\=\.,:' +
+        ';%!\|&\^'#39']'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0x[\h_]+(\.[\h_]+)?(p\d+)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num binary'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b0b[01_]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '\b \d[_\d]* \.\d[_\d]* (e[\-\+]?\d[_\d]*)? \b |'#13#10'\b \d[_\d]* e[\' +
+        '-\+]?\d[_\d]*? \b |'#13#10'\B\.\d[_\d]* (e[\-\+]?\d[_\d]*)? \b |'#13#10'\b\d' +
+        '[_\d]*\.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num decimal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\b\d[\d_]*([ifu](8|16|32|64))?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\.|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'StrBacktick'
+      StyleName = 'String2'
+      TokenType = 8
+      Expression = '`.+?`'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'default'
+            'do'
+            'else'
+            'empty'
+            'for'
+            'if'
+            'import'
+            'in'
+            'include'
+            'let'
+            'loop'
+            'module'
+            'not'
+            'op'
+            'struct'
+            'then'
+            'unsafe'
+            'while'
+            'with')
+          TokenTypes = 68
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id types'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'bool'
+            'f16'
+            'f32'
+            'f64'
+            'false'
+            'i16'
+            'i32'
+            'i64'
+            'i8'
+            'int'
+            'real'
+            'true'
+            'u16'
+            'u32'
+            'u64'
+            'u8')
+          TokenTypes = 68
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id funcs'
+      StyleName = 'Id func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'concat'
+            'copy'
+            'empty'
+            'filter'
+            'iota'
+            'map'
+            'map2'
+            'map3'
+            'partition'
+            'pow'
+            'redomap'
+            'reduce'
+            'reduceComm'
+            'replicate'
+            'reshape'
+            'rotate'
+            'scan'
+            'shape'
+            'size'
+            'split'
+            'transpose'
+            'unzip'
+            'write'
+            'zip'
+            'zipWith')
+          TokenTypes = 68
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Tree node'
+      ConditionList = <
+        item
+          TokenTypes = 128
+        end>
+      EndOfTextClose = True
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      DrawStaple = True
+      GroupIndex = 20
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '-- comment'
+    '0xa_b, 0b1_0_1, 1.2e+3, 12i32, 0x1.fp3, "12\"34", '#39'a'#39
+    'i32,i64,bool,true,false,int,real'
+    ''
+    'entry f x y: ([]i32, []i32)='
+    '  let m = length x'
+    '  in smth')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    '^Id'
+    '^Id keyword'
+    'StrBacktick')
+  Extentions = 'fut'
+  LexerName = 'Futhark'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+end

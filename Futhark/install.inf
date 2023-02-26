@@ -1,0 +1,7 @@
+[info]
+title=Futhark
+type=lexer
+subdir=-
+
+[lexer1]
+file=Futhark
