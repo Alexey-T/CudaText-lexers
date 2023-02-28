@@ -1,4 +1,4 @@
-object SyntAnal28: TLibSyntAnalyzer
+object SyntAnal8: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -110,8 +110,8 @@ object SyntAnal28: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        '\->|==|//|%%|!=|<=|\*\*|>+|<+|\#\[|'#13#10'[\[\]\(\)\{\}\-\+\*/\\=\.,:' +
-        ';%!\|&\^'#39']'
+        '\->|==|//|%%|!=|<=|\*\*|>+|<+|\#\[|\?+|'#13#10'[\[\]\(\)\{\}\-\+\*/\\=' +
+        '\.,:;%!\|&\^'#39']'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -289,7 +289,7 @@ object SyntAnal28: TLibSyntAnalyzer
   SampleText.Strings = (
     '-- comment'
     '0xa_b, 0b1_0_1, 1.2e+3, 12i32, 0x1.fp3, "12\"34", '#39'a'#39
-    'i32,i64,bool,true,false,int,real'
+    'i32,i64,bool,true,false,int,real; map,reduce'
     ''
     'entry f x y: ([]i32, []i32)='
     '  let m = length x'
