@@ -1,0 +1,7 @@
+[info]
+title=VRML
+type=lexer
+subdir=-
+
+[lexer1]
+file=VRML
