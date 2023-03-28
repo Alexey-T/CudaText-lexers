@@ -25,6 +25,16 @@ object SyntAnal22: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'NBSP'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftColor
     end>
   TokenRules = <
     item
@@ -48,6 +58,14 @@ object SyntAnal22: TLibSyntAnalyzer
       Expression = '\d+'
       ColumnFrom = 0
       ColumnTo = 0
+    end
+    item
+      DisplayName = 'NBSP'
+      StyleName = 'NBSP'
+      TokenType = 2
+      Expression = '\xA0'
+      ColumnFrom = 0
+      ColumnTo = 0
     end>
   BlockRules = <>
   CodeTemplates = <>
@@ -56,8 +74,10 @@ object SyntAnal22: TLibSyntAnalyzer
     'Test Test 10')
   TokenTypeNames.Strings = (
     'Text'
-    'Text Ru')
+    'Text Ru'
+    'NBSP')
   LexerName = 'Text Russian detector'
+  SkipSpaces = False
   Notes.Strings = (
     'Alexey Torgashin (CudaText)')
   Charset = DEFAULT_CHARSET
