@@ -551,7 +551,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 2622
+          TokenTypes = 133694
         end
         item
           TagList.Strings = (
@@ -565,6 +565,68 @@ object SyntAnal5: TLibSyntAnalyzer
       CancelNextRules = True
       CollapseFmt = '%sz0'
       TreeItemImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func :: :: :: with :'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 7934
+        end
+        item
+          TokenTypes = 131072
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 1024
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2814
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 1024
+        end
+        item
+          TokenTypes = 65540
+        end
+        item
+          TokenTypes = 512
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 512
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 512
+        end
+        item
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      NameFmt = '%s-6~[)]'
+      GroupFmt = '%s0\%s-2\%s-4'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 6
+      TreeGroupImage = 1
       IgnoreAsParent = False
     end
     item
@@ -586,7 +648,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 2670
+          TokenTypes = 2814
         end
         item
           TagList.Strings = (
@@ -600,13 +662,13 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 512
         end
         item
-          TokenTypes = 65540
+          TokenTypes = 4
         end
         item
           TokenTypes = 512
         end
         item
-          TokenTypes = 65540
+          TokenTypes = 4
         end
         item
           TokenTypes = 512
@@ -615,18 +677,19 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       BlockEnd = '}'
-      NameFmt = '%s-6'
+      NameFmt = '%s-6~[)]'
       GroupFmt = '%s0\%s-2\%s-4'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       TreeItemImage = 6
       TreeGroupImage = 1
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'func :: :: with : initing'
+      DisplayName = 'func :: :: with :'
       ConditionList = <
         item
           TagList.Strings = (
@@ -635,10 +698,14 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 1662
+          TokenTypes = 1790
         end
         item
-          TokenTypes = 131072
+          TagList.Strings = (
+            '&'
+            '&&'
+            ':')
+          TokenTypes = 131080
         end
         item
           TagList.Strings = (
@@ -647,7 +714,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 2670
+          TokenTypes = 2814
         end
         item
           TagList.Strings = (
@@ -670,11 +737,12 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       BlockEnd = '}'
-      NameFmt = '%s-4'
+      NameFmt = '%s-4~[)]'
       GroupFmt = '%s0\%s-2'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       TreeItemImage = 6
       TreeGroupImage = 1
@@ -700,7 +768,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 2670
+          TokenTypes = 2814
         end
         item
           TagList.Strings = (
@@ -723,18 +791,19 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       BlockEnd = '}'
-      NameFmt = '%s-4'
+      NameFmt = '%s-4~[)]'
       GroupFmt = '%s0\%s-2'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       TreeItemImage = 6
       TreeGroupImage = 1
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'func :: with : initing'
+      DisplayName = 'func :: with :'
       ConditionList = <
         item
           TagList.Strings = (
@@ -743,7 +812,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 1662
+          TokenTypes = 3838
         end
         item
           TokenTypes = 131072
@@ -755,7 +824,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 2670
+          TokenTypes = 2814
         end
         item
           TagList.Strings = (
@@ -772,11 +841,62 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       BlockEnd = '}'
-      NameFmt = '%s-2'
+      NameFmt = '%s-2~[)]'
       GroupFmt = '%s0'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 6
+      TreeGroupImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func :: with &'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end
+        item
+          TagList.Strings = (
+            '&'
+            '&&'
+            'try')
+          TokenTypes = 136
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 1024
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2814
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 1024
+        end
+        item
+          TokenTypes = 65540
+        end
+        item
+          TokenTypes = 512
+        end
+        item
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      NameFmt = '%s-2~[)]'
+      GroupFmt = '%s0'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       TreeItemImage = 6
       TreeGroupImage = 1
@@ -801,7 +921,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 2670
+          TokenTypes = 2814
         end
         item
           TagList.Strings = (
@@ -818,18 +938,19 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       BlockEnd = '}'
-      NameFmt = '%s-2'
+      NameFmt = '%s-2~[)]'
       GroupFmt = '%s0'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       TreeItemImage = 6
       TreeGroupImage = 1
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'func with : initing'
+      DisplayName = 'func with :'
       ConditionList = <
         item
           TagList.Strings = (
@@ -838,7 +959,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 1662
+          TokenTypes = 1790
         end
         item
           TokenTypes = 131072
@@ -850,7 +971,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 2750
+          TokenTypes = 2814
         end
         item
           TagList.Strings = (
@@ -865,10 +986,57 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       BlockEnd = '}'
-      NameFmt = '%s0'
+      NameFmt = '%s0~[)]'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func with &'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end
+        item
+          TagList.Strings = (
+            '&'
+            '&&'
+            'try')
+          TokenTypes = 136
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 1024
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2814
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 1024
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      NameFmt = '%s0~[)]'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       TreeItemImage = 5
       IgnoreAsParent = False
@@ -879,11 +1047,11 @@ object SyntAnal5: TLibSyntAnalyzer
         item
           TagList.Strings = (
             '{')
-          TokenTypes = 264
+          TokenTypes = 256
         end
         item
           CondType = tcSkip
-          TokenTypes = 6862
+          TokenTypes = 2
         end
         item
           TagList.Strings = (
@@ -892,7 +1060,7 @@ object SyntAnal5: TLibSyntAnalyzer
         end
         item
           CondType = tcSkip
-          TokenTypes = 2750
+          TokenTypes = 2814
         end
         item
           TagList.Strings = (
@@ -904,54 +1072,98 @@ object SyntAnal5: TLibSyntAnalyzer
           TokenTypes = 2
         end
         item
+          TokenTypes = 32772
+        end>
+      BlockEnd = '}'
+      NameFmt = '%s0~[)]'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'struct :: ::'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 512
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 512
+        end
+        item
           TokenTypes = 4
         end
         item
           TagList.Strings = (
-            '-'
-            '!'
-            '!='
-            '&'
-            '&&'
-            '('
-            ')'
-            ','
-            '.'
-            ':'
-            ';'
-            '?'
-            '['
-            ']'
-            '^'
-            '^^'
-            '{'
-            '|'
-            '||'
-            '}'
-            '+'
-            '<'
-            '<<'
-            '<='
-            '='
-            '=='
-            '>'
-            '->'
-            '>='
-            '>>'
-            'else'
-            'new'
-            'return')
-          CondType = tcNotEqual
-          TokenTypes = 14216
+            'struct')
+          TokenTypes = 128
         end>
-      BlockOffset = -1
       BlockEnd = '}'
-      NameFmt = '%s-1'
+      NameFmt = '%s-5~[{]1'
+      GroupFmt = '%s-1\%s-3'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
-      CollapseFmt = '%sz-1'
-      TreeItemImage = 5
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 4
+      TreeGroupImage = 1
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'struct ::'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 2
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TokenTypes = 512
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'struct')
+          TokenTypes = 128
+        end>
+      BlockEnd = '}'
+      NameFmt = '%s-3~[{]1'
+      GroupFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 4
+      TreeGroupImage = 1
       IgnoreAsParent = False
     end
     item
@@ -976,6 +1188,7 @@ object SyntAnal5: TLibSyntAnalyzer
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
+      DrawStaple = True
       CollapseFmt = '%sz0'
       TreeItemImage = 4
       IgnoreAsParent = False
@@ -1040,7 +1253,7 @@ object SyntAnal5: TLibSyntAnalyzer
   SampleText.Strings = (
     '/* Test */'
     '#define max(a, b) ((a > b) ? a : b)'
-    '#  asm(" pop ax ");'
+    '#asm(" pop ax ");'
     '#include <some/path.h>'
     's = "text\"text" + L"test" + name<CName>;'
     
