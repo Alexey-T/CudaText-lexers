@@ -2,7 +2,7 @@
 str1=<!--
 str2=-->
 styles_cmt=Comment
-styles_str=
+styles_str=Heading,Heading2,Bold,Italic,Bold-Italic
 
 [map]
 Heading=Label
