@@ -93,7 +93,7 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '("|'#39')(\\.|.)*?(\1|$)'
+      Expression = '("|'#39')([\$%]\{(\{.*?\}|.)*?\}|\\.|.)*?(\1|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -117,7 +117,7 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = 'HereDoc'
       StyleName = 'HereDoc'
       TokenType = 8
-      Expression = '(?s)<<\-?([a-z]\w*)\n.*?\n\s*\1\n'
+      Expression = '(?s)<<\-?\x20*([a-z]\w*)\x20*\n.*?\n[\x20\x09]*\1\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -149,6 +149,7 @@ object SyntAnal7: TLibSyntAnalyzer
             'endif'
             'for'
             'if'
+            'import'
             'in')
           TokenTypes = 4
         end>
@@ -162,8 +163,12 @@ object SyntAnal7: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            'any'
+            'bool'
             'false'
             'null'
+            'number'
+            'string'
             'true')
           TokenTypes = 4
         end>
@@ -204,7 +209,13 @@ object SyntAnal7: TLibSyntAnalyzer
     '/* comment '
     '*/'
     '"str\"str", 10.20, false, null,'
-    'somename for if else endif')
+    'somename for if else endif'
+    ''
+    's1 = "${formatdate("DD MMM", "2018-01-02")}"'
+    's2 = ["${replace("domain.com", "/(.*):[0-9]{0,26}/", "$1")}"]'
+    
+      's3 = "%{ if name == "Mary" }${name}%{ else }${ "Mary" }%{ endif ' +
+      '~}"')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
