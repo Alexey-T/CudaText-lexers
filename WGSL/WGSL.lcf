@@ -106,18 +106,10 @@ object SyntAnal20: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Symbol'
-      StyleName = 'Symbol'
-      TokenType = 3
-      Expression = '(\.+|,|;|:|\[|\]|[\+\-\*/%\^&\|<>!]=?|<<=?|>>=?|=+|&&|\|\||\->)'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Num decimal'
+      DisplayName = 'Num float'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '(\d+\.\d+)(e[+-]?\d+)?\b'
+      Expression = '(\d+\.\d+)(e[\+\-]?\d+)?\b | \.\d+\b | \d+\.\B'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -125,7 +117,15 @@ object SyntAnal20: TLibSyntAnalyzer
       DisplayName = 'Num int'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x[0-9a-f]+u?\b|0u?\b|[1-9]\d*u?\b'
+      Expression = '(?-i)0x\h+u?\b|0u?\b|\d+u?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '(\.+|,|;|:|\[|\]|[\+\-\*/%\^&\|<>!]=?|<<=?|>>=?|=+|&&|\|\||\->)'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -308,15 +308,13 @@ object SyntAnal20: TLibSyntAnalyzer
   SubAnalyzers = <>
   SampleText.Strings = (
     '// Comment'
+    'n = 1.2 + 2. + .5 + 0 + 0xABu + 0u'
     'struct Uniforms {'
     '  modelMatrix : mat4x4<f32>,'
-    '  normalModelMatrix : mat4x4<f32>,'
     '}'
     ''
     '@vertex'
     'fn main('
-    '  @location(0) position : vec3<f32>,'
-    '  @location(1) normal : vec3<f32>,'
     '  @location(2) uv : vec2<f32>'
     ') -> VertexOutput {'
     '  var output : VertexOutput;'
@@ -336,6 +334,7 @@ object SyntAnal20: TLibSyntAnalyzer
   LexerName = 'WGSL'
   Notes.Strings = (
     'Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
   LineComment = '//'
   Charset = DEFAULT_CHARSET
 end
