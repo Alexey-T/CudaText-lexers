@@ -2,7 +2,7 @@
 str1=<!--
 str2=-->
 styles_cmt=Comment
-styles_str=Heading,Heading2,Bold,Italic,Bold-Italic
+styles_str=Heading,Heading2,Usual,Bold,Italic,Bold-Italic
 
 [map]
 Heading=Label
@@ -17,3 +17,4 @@ Tag=TagId
 TemplateBracket=TagBound
 TemplateBG=IncludeBG2
 Heading2=Symbol
+Usual=Id

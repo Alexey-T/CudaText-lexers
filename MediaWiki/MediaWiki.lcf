@@ -1,4 +1,4 @@
-object SyntAnal16: TLibSyntAnalyzer
+object SyntAnal25: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -101,6 +101,14 @@ object SyntAnal16: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Usual'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -154,14 +162,16 @@ object SyntAnal16: TLibSyntAnalyzer
     item
       DisplayName = 'Bold'
       StyleName = 'Bold'
-      Expression = #39#39#39' .+? '#39#39#39
+      TokenType = 1
+      Expression = #39#39#39'.+?'#39#39#39
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
       DisplayName = 'Italic'
       StyleName = 'Italic'
-      Expression = #39#39' .+? '#39#39
+      TokenType = 1
+      Expression = #39#39'.+?'#39#39
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -201,6 +211,14 @@ object SyntAnal16: TLibSyntAnalyzer
       StyleName = 'Tag'
       TokenType = 7
       Expression = '</?\w+> |'#13#10'<\w+\b [^/<>\n]* /?>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Usual'
+      StyleName = 'Usual'
+      TokenType = 1
+      Expression = '[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -254,19 +272,15 @@ object SyntAnal16: TLibSyntAnalyzer
     '<sometag>Text</sometag> and <ref name=Txt />'
     ''
     '* item'
-    '* item2'
-    '*** sub-item'
-    '* item3'
+    '** sub-item'
+    '* item'
     ''
-    #39#39#39'Bold'#39#39#39' and '#39#39'Italic'#39#39'  are here.'
+    #39#39#39'Bold'#39#39#39' and '#39#39'Italic'#39#39' and [[Link]] are here.'
     ''
-    '==Test2==='
-    ''
-    'Text and [[Link]] here.'
+    '==Test==='
     ''
     '  code line'
-    '  code too'
-    '  ')
+    '  code too')
   TokenTypeNames.Strings = (
     'Unknown'
     'Text'
@@ -283,7 +297,9 @@ object SyntAnal16: TLibSyntAnalyzer
   LexerName = 'MediaWiki'
   SkipSpaces = False
   Notes.Strings = (
-    'Alexey (CudaText)'
-    'Disabled tree rules, because TreeHelper exists for MediaWiki')
+    'Alexey Torgashin (CudaText)'
+    
+      'Disabled tree rules, because CudaText has built-in tree-helper f' +
+      'or MediaWiki.')
   Charset = DEFAULT_CHARSET
 end
