@@ -1,4 +1,4 @@
-object SyntAnal18: TLibSyntAnalyzer
+object SyntAnal9: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Tag id'
@@ -257,7 +257,7 @@ object SyntAnal18: TLibSyntAnalyzer
       StatesAdd = 1
       StatesAbsent = 1
       TokenType = 4
-      Expression = '("|'#39') .*? (?=\{[\{%])'
+      Expression = '("|'#39') [^'#39'"]*? (?=\{[\{%])'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -268,7 +268,7 @@ object SyntAnal18: TLibSyntAnalyzer
       StatesRemove = 1
       StatesPresent = 1
       TokenType = 4
-      Expression = '(?<=[\}%]\}\x20*) .*? ('#39'|")'
+      Expression = '(?<=[\}%]\}\x20*) [^'#39'"]*? ('#39'|")'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -1112,7 +1112,7 @@ object SyntAnal18: TLibSyntAnalyzer
       AlwaysEnabled = True
       StartExpression = '(?si)<style[^>]*>\s* '#13#10
       EndExpression = '</style>'#13#10
-      SyntAnalyzer = SyntAnal11
+      SyntAnalyzer = SyntAnal6
     end
     item
       DisplayName = 'JS'
@@ -1120,21 +1120,21 @@ object SyntAnal18: TLibSyntAnalyzer
       AlwaysEnabled = True
       StartExpression = '(?si)<script[^>]*javascript[^>]*>\s*(<!--)?'#13#10
       EndExpression = '(?i)(//)?(-->)?</script>'#13#10
-      SyntAnalyzer = SyntAnal22
+      SyntAnalyzer = SyntAnal12
     end
     item
       DisplayName = 'JS default'
       StyleName = 'Sublexer BG'
       StartExpression = '<\s*script\s*>'
       EndExpression = '</\s*script\s*>'
-      SyntAnalyzer = SyntAnal22
+      SyntAnalyzer = SyntAnal12
     end
     item
       DisplayName = 'Custom'
       StyleName = 'Sublexer BG custom'
       StartExpression = '\{[%\{]'
       EndExpression = '[%\}]\}'
-      SyntAnalyzer = SyntAnal17
+      SyntAnalyzer = SyntAnal8
     end>
   SampleText.Strings = (
     '<!-- Cmt --> text {# '

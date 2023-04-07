@@ -1,4 +1,4 @@
-object SyntAnal17: TLibSyntAnalyzer
+object SyntAnal8: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
