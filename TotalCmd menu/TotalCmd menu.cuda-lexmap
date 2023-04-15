@@ -1,0 +1,17 @@
+[comments]
+styles_cmt=Comment
+styles_str=String
+str1=
+str2=
+
+[map]
+Comment=Comment
+InternalCmds=Id2
+Em_Cmds=Id3
+Em_jb_Cmds=Id4
+Menuitem=Id1
+Separator=Id1
+PopUp=Id1
+Number=Number
+String=String
+Symbol=Symbol

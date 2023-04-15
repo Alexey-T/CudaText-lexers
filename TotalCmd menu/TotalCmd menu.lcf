@@ -1,0 +1,249 @@
+object SyntAnal24: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'InternalCmds'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Em_Cmds'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Em_jb_Cmds'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Menuitem'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Separator'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'PopUp'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '^\x20*;.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'InternalCmds'
+      StyleName = 'InternalCmds'
+      TokenType = 2
+      Expression = 'cm_.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Em_Cmds'
+      StyleName = 'Em_Cmds'
+      TokenType = 3
+      Expression = 'em_ext_.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Em_jb_Cmds'
+      StyleName = 'Em_jb_Cmds'
+      TokenType = 4
+      Expression = 'em_jb_.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Menuitem'
+      StyleName = 'Menuitem'
+      TokenType = 5
+      Expression = '\b(menuitem|separator)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Separator'
+      StyleName = 'Separator'
+      TokenType = 6
+      Expression = '\b(separator)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'PopUp'
+      StyleName = 'PopUp'
+      TokenType = 7
+      Expression = '\b(popup|end_popup)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 8
+      Expression = '\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 9
+      Expression = '".*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 10
+      Expression = '[\.;:\(\)=<>\+\-\{\}\[\]]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'popup begin'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'popup')
+          TokenTypes = 128
+          IgnoreCase = True
+        end>
+      BlockEnd = 'popup end'
+      NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'popup end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end_popup')
+          TokenTypes = 128
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'POPUP "&Lister+Plugins"'
+    
+      '  MENUITEM "View - &Lister Only\tAlt + Shift + F3", cm_ListInter' +
+      'nalOnly'
+    '  MENUITEM "View - AKFo&nt plugin", em_ext_list_akfont'
+    
+      '  MENUITEM "View - C&udalister plugin\tpc", em_ext_list_cudalist' +
+      'er'
+    '  MENUITEM "View - Ini Ed Plugin\tpi", em_ext_list_IniEd'
+    '  MENUITEM SEPARATOR'
+    '  MENUITEM "&Show (as Configured)\tF3", cm_List'
+    
+      '  MENUITEM "Show (Without P&lugins), File Under Cursor\tAlt + Sh' +
+      'ift + F3", cm_ListInternalOnly'
+    
+      '  MENUITEM "Show (Without Plu&gins), Marked Files", cm_ListInter' +
+      'nalMulti'
+    '  MENUITEM SEPARATOR'
+    '    POPUP "Unload Plugins From Memory"'
+    '      MENUITEM "Unload All Plugins", cm_UnloadPlugins'
+    '      MENUITEM "Unload Lister Plugins", em_ext_UnloadPlugins4'
+    '      MENUITEM "Unload Content Plugins", em_ext_UnloadPlugins8'
+    
+      '      MENUITEM "Unload File System Plugins", em_ext_UnloadPlugin' +
+      's2'
+    '      MENUITEM "Unload Packer Plugins", em_ext_UnloadPlugins1'
+    
+      '      MENUITEM "&Unload External Quick Search", em_ext_UnloadPlu' +
+      'gins16'
+    '    END_POPUP'
+    'END_POPUP')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'InternalCmds'
+    'Em_Cmds'
+    'Em_jb_Cmds'
+    'Menuitem'
+    'Separator'
+    'PopUp'
+    'Number'
+    'String'
+    'Symbol')
+  Extentions = 'mnu'
+  LexerName = 'TotalCmd menu'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText) & BBServ')
+  LineComment = ';'
+  Charset = DEFAULT_CHARSET
+end
