@@ -1,0 +1,644 @@
+object SyntAnal26: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Symbol ()'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment doc'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      Expression = '\#.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ()'
+      StyleName = 'Symbol ()'
+      TokenType = 6
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol []'
+      StyleName = 'Symbol ()'
+      TokenType = 7
+      Expression = '[\[\]\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '(?-i)\-?0x([0-9a-fA-F_]+(\.[0-9a-fA-F_]+)?((e|&)(\-|\+)?[0-9a-fA' +
+        '-F_]*)?)?(\.[0-9a-fA-F_]+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number custom base'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '(?-i)\-?[0-9]+r([0-9a-fA-F_]+(\.[0-9a-fA-F_]+)?((e|&)(\-|\+)?[0-' +
+        '9a-fA-F_]*)?)?(\.[0-9a-fA-F_]+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '(?-i)\-?([0-9_]+(\.[0-9_]+)?((e|&)(\-|\+)?[0-9_]*)?)?(\.[0-9_]+)' +
+        '?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z0-9!\$%&\*\+\-\./<\?=>@\^_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id:'
+      StyleName = 'Id:'
+      TokenType = 8
+      Expression = ':[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment doc'
+      StyleName = 'Comment doc'
+      TokenType = 1
+      Expression = '(?s)```.*?```|'#13#10'(?s)``.*?``|'#13#10'(?s)`.*?`'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)".*?"'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '.break'
+            '.clear'
+            '.fiber'
+            '.fn'
+            '.frame'
+            '.locals'
+            '.next'
+            '.nextc'
+            '.signal'
+            '.slot'
+            '.slots'
+            '.source'
+            '.stack'
+            '.step'
+            'abstract?'
+            'accumulate'
+            'accumulate2'
+            'add'
+            'all'
+            'all-bindings'
+            'all-dynamics'
+            'and'
+            'any?'
+            'apply'
+            'array'
+            'array?'
+            'as?->'
+            'as->'
+            'asm'
+            'as-macro'
+            'assert'
+            'bad-compile'
+            'bad-parse'
+            'band'
+            'bnot'
+            'boolean?'
+            'bor'
+            'break'
+            'buffer'
+            'buffer?'
+            'bufferctor'
+            'bxor'
+            'bytes?'
+            'call'
+            'cancel'
+            'case'
+            'cfunction?'
+            'chr'
+            'cli-main'
+            'cmp'
+            'comment'
+            'comp'
+            'compare'
+            'compare<'
+            'compare<='
+            'compare='
+            'compare>'
+            'compare>='
+            'compif'
+            'compile'
+            'complement'
+            'comptime'
+            'compwhen'
+            'cond'
+            'coro'
+            'count'
+            'curenv'
+            'debug'
+            'debugger'
+            'debugger-on-status'
+            'dec'
+            'deep='
+            'deep-not='
+            'def'
+            'def-'
+            'default'
+            'defdyn'
+            'defer'
+            'defglobal'
+            'defmacro'
+            'defmacro-'
+            'defn'
+            'defn-'
+            'delay'
+            'describe'
+            'dictionary?'
+            'disasm'
+            'distinct'
+            'div'
+            'do'
+            'doc'
+            'doc*'
+            'doc-format'
+            'doc-of'
+            'dofile'
+            'drop'
+            'drop-until'
+            'drop-while'
+            'dyn'
+            'each'
+            'eachk'
+            'eachp'
+            'edefer'
+            'eflush'
+            'empty?'
+            'env-lookup'
+            'eprin'
+            'eprinf'
+            'eprint'
+            'eprintf'
+            'eq'
+            'error'
+            'errorf'
+            'eval'
+            'eval-string'
+            'even?'
+            'every?'
+            'extreme'
+            'false?'
+            'fiber?'
+            'fiber-fn'
+            'filter'
+            'find'
+            'find-index'
+            'first'
+            'flatten'
+            'flatten-into'
+            'flush'
+            'flycheck'
+            'fn'
+            'for'
+            'forever'
+            'forv'
+            'freeze'
+            'frequencies'
+            'from-pairs'
+            'function?'
+            'gccollect'
+            'gcinterval'
+            'gcsetinterval'
+            'generate'
+            'gensym'
+            'get'
+            'get-in'
+            'getline'
+            'getproto'
+            'group-by'
+            'gt'
+            'gte'
+            'hash'
+            'identity'
+            'if'
+            'if-let'
+            'if-not'
+            'if-with'
+            'import'
+            'import*'
+            'in'
+            'inc'
+            'indexed?'
+            'index-of'
+            'int?'
+            'interleave'
+            'interpose'
+            'invert'
+            'juxt'
+            'juxt*'
+            'keep'
+            'keys'
+            'keyword'
+            'keyword?'
+            'kvs'
+            'label'
+            'last'
+            'length'
+            'let'
+            'load-image'
+            'loop'
+            'lshift'
+            'lt'
+            'lte'
+            'macex'
+            'macex1'
+            'maclintf'
+            'make-env'
+            'make-image'
+            'maker'
+            'map'
+            'mapcat'
+            'marshal'
+            'match'
+            'max'
+            'max-of'
+            'mean'
+            'memcmp'
+            'merge'
+            'merge-into'
+            'merge-module'
+            'min'
+            'min-of'
+            'mod'
+            'modulo'
+            'mul'
+            'nan?'
+            'nat?'
+            'native'
+            'neg?'
+            'neq'
+            'next'
+            'nil?'
+            'not'
+            'not='
+            'number?'
+            'odd?'
+            'one?'
+            'or'
+            'pairs'
+            'parse'
+            'parse-all'
+            'partial'
+            'partition'
+            'partition-by'
+            'pos?'
+            'postwalk'
+            'pp'
+            'prewalk'
+            'prin'
+            'prinf'
+            'print'
+            'printf'
+            'product'
+            'prompt'
+            'propagate'
+            'protect'
+            'put'
+            'put-in'
+            'quasiquote'
+            'quit'
+            'quote'
+            'range'
+            'reduce'
+            'reduce2'
+            'remainder'
+            'repeat'
+            'repl'
+            'require'
+            'resume'
+            'return'
+            'reverse'
+            'rshift'
+            'rshiftu'
+            'run-context'
+            'sandbox'
+            'scan-number'
+            'seq'
+            'set'
+            'setdyn'
+            'short-fn'
+            'signal'
+            'slice'
+            'slurp'
+            'some'
+            'sort'
+            'sort-by'
+            'sorted'
+            'sorted-by'
+            'spit'
+            'splice'
+            'string'
+            'string?'
+            'struct'
+            'struct?'
+            'sub'
+            'sum'
+            'symbol'
+            'symbol?'
+            'table'
+            'table?'
+            'tablector'
+            'tabseq'
+            'take'
+            'take-until'
+            'take-while'
+            'toggle'
+            'trace'
+            'tracev'
+            'true?'
+            'truthy?'
+            'try'
+            'tuple'
+            'tuple?'
+            'type'
+            'unless'
+            'unmarshal'
+            'unquote'
+            'untrace'
+            'update'
+            'update-in'
+            'upscope'
+            'use'
+            'values'
+            'var'
+            'var-'
+            'varfn'
+            'varglobal'
+            'walk'
+            'warn-compile'
+            'when'
+            'when-let'
+            'when-with'
+            'while'
+            'with'
+            'with-dyns'
+            'with-syms'
+            'with-vars'
+            'xprin'
+            'xprinf'
+            'xprint'
+            'xprintf'
+            'yield'
+            'zero?'
+            'zipcoll')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id types'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'false'
+            'nil'
+            'true')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id operators'
+      StyleName = 'Symbol'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '-'
+            '--'
+            '%'
+            '%='
+            '&'
+            '*'
+            '*='
+            ','
+            '/'
+            '/='
+            ';'
+            '-?>'
+            '-?>>'
+            '@'
+            '~'
+            '+'
+            '++'
+            '+='
+            '<'
+            '<='
+            '='
+            '-='
+            '>'
+            '->'
+            '>='
+            '->>')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '(Func'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'defdyn'
+            'defglobal'
+            'defmacro'
+            'defn'
+            'fn')
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 64
+        end>
+      NameFmt = '%sz-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = '%sz-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 64
+        end>
+      BlockEnd = ')'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 64
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '# Example'
+    '(def fibasm'
+    '  (asm'
+    '    '#39'{:arity 1'
+    '      :bytecode @[(ltim 1 0 0x2)   # $1 = $0 < 2'
+    '                  (jmpif 1 :done)  # if ($1) goto :done'
+    '                  (lds 1)          # $1 = self'
+    '                  :done'
+    '                  (ret 0)          # return $0'
+    ']}))'
+    ''
+    '(defn testn'
+    '  [n]'
+    '  (print "fibasm(" n ") = " (fibasm n)))'
+    '(for i 0 10 (testn i))'
+    '(defn empty-seq'
+    '  ``The empty sequence.``'
+    '  [] nil)')
+  TokenTypeNames.Strings = (
+    'Comment'
+    'Comment doc'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Symbol ()'
+    'Symbol []'
+    'Id:')
+  Extentions = 'janet'
+  LexerName = 'Janet'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  LineComment = '#'
+  Charset = DEFAULT_CHARSET
+end
