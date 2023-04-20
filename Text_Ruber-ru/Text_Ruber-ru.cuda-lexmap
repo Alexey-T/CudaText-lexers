@@ -1,0 +1,19 @@
+[comments]
+str1={
+str2=}
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Caption=Color
+Section=Id4
+Section Indent=TextBoldItalic
+Comment=Comment
+Word Big letters=Id2
+String '=String2
+String "=String
+String `=CurBlockBG
+Ru=Id
+En=Id1
+Number=Number
+Symbol=Symbol

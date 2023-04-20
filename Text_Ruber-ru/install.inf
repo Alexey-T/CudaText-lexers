@@ -1,0 +1,7 @@
+[info]
+title=Text_Ruber-ru
+type=lexer
+subdir=-
+
+[lexer1]
+file=Text_Ruber-ru
