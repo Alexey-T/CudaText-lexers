@@ -1,0 +1,18 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=String
+
+[map]
+Symbol=Symbol
+Number=Number
+String=String
+Id=Id
+Id keyword=IdKeyword
+Id type=Id2
+Id special=Id3
+Comment=Comment
+Var=IdVar
+Var param=Id4
+Heading=Label

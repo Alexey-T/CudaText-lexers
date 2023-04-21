@@ -1,0 +1,506 @@
+object SyntAnal1: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id special'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var param'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Heading'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '!.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 6
+      Expression = '(\$|\-\-)[\w_-]+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(['#39'"]).*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+(e[\+\-]?\d+)?|'#13#10'\d+(\.\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Heading'
+      StyleName = 'Heading'
+      TokenType = 7
+      Expression = '<--.*-->|<<<.*>>>|\buse.*macro\b|\bregion\b|\bendregion\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id storage'
+      StyleName = 'Id type'
+      TokenType = 2
+      Expression = '(joblk\d|jst\d|jobset|arg\d|ar\d+)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id leading'
+      StyleName = 'Id'
+      Expression = '^[\x20\x09]*[a-z_/~\*]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[,\+\-\*/:%\$&=]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id operators'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'and'
+            'eq'
+            'ge'
+            'gt'
+            'le'
+            'lt'
+            'or'
+            'then')
+          TokenTypes = 5
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id std funcs'
+      StyleName = 'Id special'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'cos'
+            'node'
+            'nx'
+            'ny'
+            'nz'
+            'sin'
+            'tan')
+          TokenTypes = 5
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id support funcs'
+      StyleName = 'Id special'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'cmd'
+            'cme'
+            'display'
+            'dsc0'
+            'dsc100'
+            'dsc20'
+            'dsc50'
+            'ep'
+            'epeq'
+            'epx'
+            'epxy'
+            'epy'
+            'exit'
+            'first'
+            'fu'
+            'iso'
+            'last'
+            'list'
+            'next'
+            'nsf'
+            'p1'
+            'p26'
+            'p7'
+            'pcd'
+            'pce'
+            'pcf'
+            'pcg'
+            'pcp'
+            'pcs'
+            'pnr1'
+            'pnr2'
+            'pnr3'
+            'pnr4'
+            'prev'
+            'pw'
+            's1'
+            's2'
+            's3'
+            'sg'
+            'so'
+            'srat'
+            'sx'
+            'sxy'
+            'sxz'
+            'sy'
+            'syz'
+            'sz'
+            'us'
+            'ux'
+            'uy'
+            'uz'
+            'vii'
+            'vii1'
+            'vii2'
+            'vii3'
+            'vii4'
+            'vii5'
+            'vii6'
+            'vii7'
+            'vii8'
+            'vii9'
+            'vx'
+            'vy'
+            'vz'
+            'w32')
+          TokenTypes = 1
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id macro funcs'
+      StyleName = 'Id special'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'absm'
+            'ac0'
+            'ac1'
+            'anno4modified'
+            'arsort'
+            'auan'
+            'avg'
+            'baPlot'
+            'bdPlot'
+            'blast1'
+            'bnode'
+            'bqsum'
+            'cdir'
+            'cg'
+            'chPath'
+            'chr2sec'
+            'ci3'
+            'co2real'
+            'conts'
+            'cp7'
+            'cpEtyp'
+            'ctlot'
+            'cValues'
+            'di74sm'
+            'di78all'
+            'di78mm'
+            'di78sm'
+            'dls'
+            'dp'
+            'ec0'
+            'ec1'
+            'elemInfo'
+            'epll'
+            'esn'
+            'esna'
+            'estt'
+            'exists'
+            'federn'
+            'fknplot'
+            'getVol'
+            'ifExists'
+            'inq'
+            'isBatch'
+            'koget'
+            'laPlot'
+            'lini'
+            'matPlot'
+            'msel'
+            'nAvg'
+            'nMid'
+            'nmisc1'
+            'no0'
+            'nodeInfo'
+            'nslm'
+            'perSel'
+            'pl7sm'
+            'pl99'
+            'plDefa'
+            'plotFKN'
+            'plotFy'
+            'plotMat'
+            'plotsm'
+            'prEtyp'
+            'prt'
+            'r2sec'
+            'rfcum'
+            'rlot'
+            'rProc'
+            'rsfcum'
+            'schData'
+            'schraub931'
+            'selGeneral'
+            'sena'
+            'senr'
+            'sens'
+            'senu'
+            'seplot'
+            'smisc1'
+            'solFy'
+            'solids'
+            'sosh'
+            'sread'
+            'sset'
+            'sshell'
+            'sub2t'
+            'surfs'
+            'targe'
+            'tlot'
+            'vvf'
+            'wpn'
+            'wpy'
+            'Xep'
+            'Xplo')
+          TokenTypes = 1
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id var param'
+      StyleName = 'Var param'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'a'
+            'all'
+            'defa'
+            'elem'
+            'ename'
+            'forc'
+            'incore'
+            'inve'
+            'mat'
+            'mnloc'
+            'mxloc'
+            'node'
+            'none'
+            'outofcore'
+            'pres'
+            'r'
+            'real'
+            's'
+            'stat'
+            'type'
+            'u')
+          TokenTypes = 5
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '*create'
+            '*cycle'
+            '*do'
+            '*dowhile'
+            '*else'
+            '*elseif'
+            '*end'
+            '*enddo'
+            '*endif'
+            '*exit'
+            '*go'
+            '*if'
+            '*msg'
+            '*mwrite'
+            '*repeat'
+            '*vread'
+            '*vwrite'
+            '/aux12'
+            '/aux15'
+            '/aux2'
+            '/exit'
+            '/gcolumn'
+            '/inquire'
+            '/opt'
+            '/post1'
+            '/post26'
+            '/prep7'
+            '/quit'
+            '/runst'
+            '/show'
+            '/solu'
+            'asel'
+            'bcsoption'
+            'cmsel'
+            'debug'
+            'dspoption'
+            'esel'
+            'fini'
+            'finish'
+            'ksel'
+            'lsel'
+            'nsel'
+            'sload'
+            'vsel')
+          TokenTypes = 1
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '!comment'
+    'ar100 jst2 $var --var 10 1.2e+3 eq gt +-*/ sin cos'
+    '<--Head-->, <<<Head>>>, region 123 endregion, use abc macro'
+    'UY,tan'
+    '/show,a'
+    '/quit,ALL'
+    '*if,a')
+  TokenTypeNames.Strings = (
+    'Id leading'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Var'
+    'Heading')
+  Extentions = 'mac ans ansys apdl.txt apdl'
+  LexerName = 'ANSYS APDL'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '!'
+  Charset = DEFAULT_CHARSET
+end

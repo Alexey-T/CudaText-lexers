@@ -1,0 +1,7 @@
+[info]
+title=ANSYS APDL
+type=lexer
+subdir=-
+
+[lexer1]
+file=ANSYS APDL
