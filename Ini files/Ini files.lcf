@@ -1,4 +1,4 @@
-object SyntAnal11: TLibSyntAnalyzer
+object SyntAnal9: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Section'
@@ -61,7 +61,7 @@ object SyntAnal11: TLibSyntAnalyzer
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '\#.*'
+      Expression = '^\#.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -147,9 +147,6 @@ object SyntAnal11: TLibSyntAnalyzer
     item
       DisplayName = 'Item'
       ConditionList = <
-        item
-          TokenTypes = 80
-        end
         item
           TokenTypes = 8
         end
