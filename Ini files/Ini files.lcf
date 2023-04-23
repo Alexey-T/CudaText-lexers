@@ -61,7 +61,7 @@ object SyntAnal9: TLibSyntAnalyzer
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '^\#.*'
+      Expression = '^\x20*[;\#].*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -69,7 +69,7 @@ object SyntAnal9: TLibSyntAnalyzer
       DisplayName = 'Comment2'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '^;.*'
+      Expression = '\#\x20.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -109,7 +109,7 @@ object SyntAnal9: TLibSyntAnalyzer
       DisplayName = 'Value'
       StyleName = 'Value'
       TokenType = 4
-      Expression = '\S+'
+      Expression = '[^\#\n\r]+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -148,6 +148,9 @@ object SyntAnal9: TLibSyntAnalyzer
       DisplayName = 'Item'
       ConditionList = <
         item
+          TokenTypes = 86
+        end
+        item
           TokenTypes = 8
         end
         item
@@ -165,11 +168,11 @@ object SyntAnal9: TLibSyntAnalyzer
   SubAnalyzers = <>
   SampleText.Strings = (
     ';comment'
-    '#comment'
+    '  #comment'
     '[section]'
     'aa=2'
     'bb=true ; not comment'
-    'dd=value  #comment'
+    'dd=value  # comment'
     'Incorrect')
   TokenTypeNames.Strings = (
     'Unknown'
@@ -181,6 +184,7 @@ object SyntAnal9: TLibSyntAnalyzer
     'Number')
   Extentions = 'ini dsk dti dof inf lng srv reg sas cfg desktop'
   LexerName = 'Ini files'
+  SkipSpaces = False
   Notes.Strings = (
     'Alexey (CudaText)')
   LineComment = ';'
