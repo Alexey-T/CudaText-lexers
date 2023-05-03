@@ -1,4 +1,4 @@
-object SyntAnal4: TLibSyntAnalyzer
+object SyntAnal28: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -146,10 +146,18 @@ object SyntAnal4: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String $'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)\$"(\\.|\{(\{.*?\}|.)*?\}|.)*?("|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)\$?"(\\.|.)*?("|\Z)'
+      Expression = '(?s)"(\\.|.)*?("|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
