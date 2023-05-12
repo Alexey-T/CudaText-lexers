@@ -1,4 +1,4 @@
-object SyntAnal20: TLibSyntAnalyzer
+object SyntAnal23: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -114,6 +114,14 @@ object SyntAnal20: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
+      DisplayName = 'Comment empty'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '/\*\*/'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Comment doc'
       StyleName = 'Comment doc'
       TokenType = 1
@@ -197,7 +205,7 @@ object SyntAnal20: TLibSyntAnalyzer
       DisplayName = 'String """'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s) """ .*? ("""|\Z)'
+      Expression = '(?s-i)[sq]?""".*?("""|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -205,7 +213,7 @@ object SyntAnal20: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '("|'#39') (\\\\|\\\1|.)*? (\1|$)'
+      Expression = '(?-i)(f|s|q|raw)?("|'#39')(\\.|.)*?(\2|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -228,26 +236,26 @@ object SyntAnal20: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Hex'
+      DisplayName = 'Num hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x[\da-f]+'
+      Expression = '0x\h+L?'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Float'
+      DisplayName = 'Num float'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '('#13#10'(\d+ \.)? \d+ e [\+\-]? \d+ |'#13#10'\d*\.\d+'#13#10') [df]?'
+      Expression = '('#13#10'(\d+\.)?\d+e[\+\-]?\d+ |'#13#10'\d*\.\d+(e[\+\-]?\d+)?'#13#10')[df]?'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Integer'
+      DisplayName = 'Num decimal'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+ [DFL]?'
+      Expression = '\d+[DFL]?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -276,10 +284,18 @@ object SyntAnal20: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String CDATA'
+      StyleName = 'String2'
+      TokenType = 12
+      Expression = '(?s-i)<!\[CDATA\[.*?\]\]>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = '<'
       StyleName = 'Tag brackets'
       TokenType = 7
-      Expression = '</?(?=\w)'
+      Expression = '</?(?=[a-z])'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -327,6 +343,7 @@ object SyntAnal20: TLibSyntAnalyzer
             'lazy'
             'macro'
             'match'
+            'ne'
             'new'
             'null'
             'object'
@@ -521,7 +538,8 @@ object SyntAnal20: TLibSyntAnalyzer
     '>'
     'Tag attrib'
     '{'
-    '}')
+    '}'
+    'CDATA')
   Extentions = 'scala sbt'
   LexerName = 'Scala'
   Notes.Strings = (
