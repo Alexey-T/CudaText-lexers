@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -125,7 +125,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Char'
       StyleName = 'String'
       TokenType = 4
-      Expression = 'b?'#39'\x20'#39' | b?'#39'(\\\S|\S)*?('#39'|$)'
+      Expression = 'b?'#39'\x20'#39' | b?'#39'(\\\S|\S)*?'#39
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -149,7 +149,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '[a-z_]\w*'
+      Expression = '[a-z_]\w*!?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -218,7 +218,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Label'
       StyleName = 'Label'
       TokenType = 8
-      Expression = #39'\w+'
+      Expression = #39'[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -250,7 +250,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '\$\x20*\( | <+ | >+ | : | [!%/\+\-\*=<>&/\|\^~\.\#]+'
+      Expression = '\$\x20*\( | <+ | >+ | : | [!%\+\-\*/=<>&\|\^~\.\#]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -297,7 +297,7 @@ object SyntAnal24: TLibSyntAnalyzer
             'let'
             'loop'
             'macro'
-            'macro_rules'
+            'macro_rules!'
             'match'
             'mod'
             'move'
@@ -446,7 +446,7 @@ object SyntAnal24: TLibSyntAnalyzer
     '/*Cmt'
     'Cmt*/'
     '///Cmt doc'
-    '$var, $ var, '#39'lbl, '#39'\xFF'#39', i32, 0x10_AB, 1.2e+3, r#Foo'
+    '$var, $ var, '#39'label0, '#39'\xFF'#39', i32, 0x10_AB, 1.2e+3, r#Foo'
     ''
     'trait Repr {'
     '    fn write_repr(&self, writer: @Writer);'
