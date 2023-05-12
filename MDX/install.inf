@@ -1,0 +1,14 @@
+[info]
+title=MDX
+type=lexer
+subdir=-
+
+[lexer1]
+file=MDX
+link1=JavaScript Babel
+link2=JavaScript Babel
+link3=JavaScript Babel
+link4=CSS
+link5=YAML
+link6=JSON
+link7=HTML

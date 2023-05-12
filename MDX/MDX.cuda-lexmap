@@ -1,0 +1,45 @@
+[comments]
+str1=<!--
+str2=-->
+styles_cmt=Comment
+styles_str=Quote,Text,Bold,Italic,Bold-Italic,Heading,Link,Definition,Crossed out
+
+[ref]
+0=JavaScript Babel
+1=JavaScript Babel
+2=JavaScript Babel
+3=CSS
+4=YAML
+5=JSON
+6=HTML
+
+[map]
+Heading=Label
+Comment=Comment
+Quote BG=IncludeBG3
+Text=Id
+Codeblock=SectionBG1
+Block=SectionBG2
+Link=Id4
+Image=Id3
+Reference=Id2
+Footnote=Id1
+HTML Code=IncludeBG1
+Style bold=TextBold
+Style italic=TextItalic
+Style bold-italic=TextBoldItalic
+Style cross=TextCross
+Style bold-cross=TextCrossBold
+Style italic-cross=TextCrossItalic
+Style bold-italic-cross=TextCrossBoldItalic
+Symbol font styles=Symbol2
+Definition=IncludeBG2
+List=LightBG5
+Mark-added=LightBG3
+Mark-deleted=LightBG1
+Mark-edited=LightBG2
+Mark-comment=LightBG4
+Symbols=Symbol
+Math BG=LightBG5
+Table BG=SectionBG3
+``` edge=TagInclude

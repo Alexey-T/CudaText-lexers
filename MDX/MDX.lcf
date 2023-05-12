@@ -1,0 +1,966 @@
+object SyntAnal15: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Heading'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -19
+      Font.Name = 'Consolas'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Quote BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 12645824
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Consolas'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Codeblock'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15659207
+    end
+    item
+      DisplayName = 'Block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 15779980
+    end
+    item
+      DisplayName = 'Link'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Image'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Reference'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Footnote'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'HTML Code'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Style bold'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Style italic'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Style bold-italic'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsItalic]
+    end
+    item
+      DisplayName = 'Style cross'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsStrikeOut]
+    end
+    item
+      DisplayName = 'Style bold-cross'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsStrikeOut]
+    end
+    item
+      DisplayName = 'Style italic-cross'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic, fsStrikeOut]
+    end
+    item
+      DisplayName = 'Style bold-italic-cross'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold, fsItalic, fsStrikeOut]
+    end
+    item
+      DisplayName = 'Symbol font styles'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Definition'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 14737357
+      BorderColorLeft = 16384
+    end
+    item
+      DisplayName = 'List'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 16763594
+    end
+    item
+      DisplayName = 'Mark-added'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 8454016
+    end
+    item
+      DisplayName = 'Mark-deleted'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = 8421631
+    end
+    item
+      DisplayName = 'Mark-edited'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clYellow
+    end
+    item
+      DisplayName = 'Mark-comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clFuchsia
+    end
+    item
+      DisplayName = 'Symbols'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Math BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clYellow
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Table BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = '``` edge'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end>
+  TokenRules = <
+    item
+      DisplayName = '`begin'
+      StyleName = '``` edge'
+      StatesAdd = 1024
+      StatesRemove = 7
+      StatesAbsent = 1024
+      TokenType = 16
+      Expression = '(?<=^\x20{0,3})`{3,}\x20*\w.*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '`end'
+      StyleName = '``` edge'
+      StatesRemove = 1024
+      StatesPresent = 1024
+      TokenType = 17
+      Expression = '(?<=^\x20{0,3})`{3,}\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '~begin'
+      StyleName = '``` edge'
+      StatesAdd = 2048
+      StatesRemove = 7
+      TokenType = 18
+      Expression = '(?<=^\x20{0,3})~{3,}\x20*\w.*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '~end'
+      StyleName = '``` edge'
+      StatesRemove = 2048
+      TokenType = 19
+      Expression = '(?<=^\x20{0,3})~{3,}\x20*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Separator line'
+      StyleName = 'Comment'
+      StatesRemove = 7
+      StatesAbsent = 3072
+      TokenType = 2
+      Expression = '^(([\-\*_])\x20+)+\2?$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'List'
+      StyleName = 'List'
+      StatesRemove = 7
+      StatesAbsent = 3072
+      TokenType = 13
+      Expression = 
+        '^[\x20\x09]*( \d{1,9}[\.\)] '#13#10'| [\-\+\*]'#13#10'| \(?\w?[\.\)]'#13#10') \x20' +
+        '(\[[\x20xX]\]\x20)? #GitHub: [ ] [x] [X]'#13#10'| ^\(@[^\)]*\)#pandoc ' +
+        'list'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Style bold-italic on'
+      StyleName = 'Symbol font styles'
+      StatesAdd = 3
+      StatesAbsent = 3075
+      TokenType = 15
+      Expression = 
+        '\*\*\*(?=[\l\x{2026}\?!~\(]) |'#13#10'(?<![\l_\x{2026}\?!\)])___(?=[\l' +
+        '\x{2026}\?!~\(])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Style bold on'
+      StyleName = 'Symbol font styles'
+      StatesAdd = 1
+      StatesAbsent = 3073
+      TokenType = 15
+      Expression = 
+        '\*\*(?=[\l_\x{2026}\?!~\(]) |'#13#10'(?<![\l_\x{2026}\?!\)])__(?=[\l\x' +
+        '{2026}\?!~\*\(])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Style bold off'
+      StyleName = 'Symbol font styles'
+      StatesRemove = 1
+      StatesPresent = 1
+      StatesAbsent = 3072
+      TokenType = 15
+      Expression = 
+        '(?<=[\l_\x{2026}\?!\.,;:~\*\)>])__(?![\l\x{2026}\?!]) |'#13#10'(?<=[\l' +
+        '_\x{2026}\?!\.,;:~\)>])\*\*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Style italic on'
+      StyleName = 'Symbol font styles'
+      StatesAdd = 2
+      StatesAbsent = 3074
+      TokenType = 15
+      Expression = 
+        '(?<![\l_\x{2026}\?!\)])_(?=[\l\x{2026}\?!~\*\(]) |'#13#10'\*(?=[\l_\x{' +
+        '2026}\?!~\(])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Style italic off'
+      StyleName = 'Symbol font styles'
+      StatesRemove = 2
+      StatesPresent = 2
+      StatesAbsent = 3072
+      TokenType = 15
+      Expression = 
+        '(?<=[\l_\x{2026}\?!\.,;:~\*\)>])_(?![\l\x{2026}\?!]) |'#13#10'(?<=[\l_' +
+        '\x{2026}\?!\.,;:~\)>\*])\*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Bad style marker'
+      StyleName = 'Symbols'
+      StatesAbsent = 3072
+      TokenType = 15
+      Expression = '\*{1,3}|_{1,3}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Style crossed on'
+      StyleName = 'Symbol font styles'
+      StatesAdd = 4
+      StatesAbsent = 3076
+      TokenType = 15
+      Expression = '~+(?![>\}~])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Style crossed off'
+      StyleName = 'Symbol font styles'
+      StatesRemove = 4
+      StatesPresent = 4
+      StatesAbsent = 3072
+      TokenType = 15
+      Expression = '~+(?![>\}~])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Heading'
+      StyleName = 'Heading'
+      StatesRemove = 7
+      StatesAbsent = 3072
+      Expression = 
+        '^\x20{0,3}\#{1,6}.* |'#13#10'^\x20{0,3}\w.*\z\x20{0,3}((\-[\-\x20]*)|(' +
+        '=[=\x20]*))$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      StatesAbsent = 3072
+      TokenType = 2
+      Expression = '(?s)\<!--.*?--\>  |'#13#10'(?s)/\*.*?\*/'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Quote'
+      StyleName = 'Quote BG'
+      StatesRemove = 7
+      StatesAbsent = 3072
+      TokenType = 3
+      Expression = '^[\x20\x09]*(>[\x20=])+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML pre'
+      Enabled = False
+      StyleName = 'Codeblock'
+      StatesAbsent = 3072
+      TokenType = 4
+      Expression = '(?s) <pre\b .+? </pre>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML entity'
+      StyleName = 'Symbols'
+      StatesAbsent = 3072
+      TokenType = 9
+      Expression = '\&\#?\w+;'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'HTML tag'
+      Enabled = False
+      StyleName = 'HTML Code'
+      StatesAbsent = 3072
+      TokenType = 9
+      Expression = '(?s)<[/!]?[\[\w~].*?>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Mark-added'
+      Enabled = False
+      StyleName = 'Mark-added'
+      StatesAbsent = 3072
+      TokenType = 14
+      Expression = '\{\+\+|\+\+\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Mark-deleted'
+      Enabled = False
+      StatesAbsent = 3072
+      TokenType = 14
+      Expression = '\{\-\-|\-\-\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Mark-edited'
+      Enabled = False
+      StyleName = 'Mark-edited'
+      StatesAbsent = 3072
+      TokenType = 14
+      Expression = '\{~~|~~\}|~>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Mark-comment'
+      Enabled = False
+      StyleName = 'Mark-comment'
+      StatesAbsent = 3072
+      TokenType = 14
+      Expression = '\{>>|<<\}|\{==|==\}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Link github'
+      StyleName = 'Link'
+      StatesAbsent = 3072
+      TokenType = 11
+      Expression = '\[! \[ [^\]]+ \]\( [^\)]+ \) \] \( [^\)]+ \)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Link usual'
+      StyleName = 'Image'
+      StatesAbsent = 3072
+      TokenType = 11
+      Expression = '(?s)(?<=\])\( (\([^\)]*\)|.)*?\) (\{.*?\})?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Codeblock indented'
+      StyleName = 'Codeblock'
+      StatesRemove = 7
+      StatesAbsent = 3072
+      TokenType = 4
+      Expression = '^(\x20{4,}|\x09{1,}) [^`<>\n\r].*$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Footnote'
+      StyleName = 'Footnote'
+      StatesAbsent = 3072
+      TokenType = 7
+      Expression = '^\[\^[^\]\^]+\]:.*?($|\z) |'#13#10'\[\^[^\]]+\]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Reference'
+      StyleName = 'Reference'
+      StatesAbsent = 3072
+      TokenType = 6
+      Expression = 
+        '^\x20{0,3}\[[^\]\^]+\]:.*?($|\z) |'#13#10'(?<=\]\x20?)\[.*?\] (\{.*?\}' +
+        ')? |'#13#10'\(@.+?\) #pandoc list reference'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Definition'
+      StyleName = 'Definition'
+      StatesAbsent = 3072
+      TokenType = 10
+      Expression = '^[\x20\x09]*:\ .* '#13#10'# Pandoc Style (:\ \ \ )'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Link desc text'
+      StyleName = 'Link'
+      StatesAbsent = 3072
+      TokenType = 11
+      Expression = '!?\[ (\[[^\]]*\]|`.+?`|.)*? \]'#13#10'#allow nested [text] and `text`'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Codeblock raw at start'
+      StyleName = 'Block'
+      TokenType = 5
+      Expression = '(?s)^\x20{0,3}(`+)\z.+?(^\x20{0,3}\1(?!`)|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Codeblock raw at not start'
+      StyleName = 'Block'
+      StatesAbsent = 3072
+      TokenType = 5
+      Expression = '(?s)(`+)[^`].*?(((?<!`)\1(?!`))|\z\z|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Footnote Inline'
+      StyleName = 'Footnote'
+      StatesAbsent = 3072
+      TokenType = 7
+      Expression = '\^\[.+?\] #Pandoc Inline-Style'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Escaped char'
+      StyleName = 'Symbols'
+      StatesAbsent = 3072
+      TokenType = 15
+      Expression = '\\.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Table begin'
+      StyleName = 'Symbols'
+      StatesAbsent = 3072
+      TokenType = 20
+      Expression = '^\|'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Table end'
+      StyleName = 'Symbols'
+      StatesAbsent = 3072
+      TokenType = 21
+      Expression = '\|$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbols'
+      StyleName = 'Symbols'
+      StatesAbsent = 3072
+      TokenType = 15
+      Expression = '[<>\{\}]|[\|\+\-=%!&]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Math block'
+      StyleName = 'Math BG'
+      StatesAbsent = 3072
+      TokenType = 3
+      Expression = '(?s)(\${1,2}).+?\1'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text bold-italic-cross'
+      StyleName = 'Style bold-italic-cross'
+      StatesPresent = 7
+      StatesAbsent = 3072
+      TokenType = 1
+      Expression = '[\l\x20\.,:;\(\)\?!\x{2026}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text bold-cross'
+      StyleName = 'Style bold-cross'
+      StatesPresent = 5
+      StatesAbsent = 3072
+      TokenType = 1
+      Expression = '[\l\x20\.,:;\(\)\?!\x{2026}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text italic-cross'
+      StyleName = 'Style italic-cross'
+      StatesPresent = 6
+      StatesAbsent = 3072
+      TokenType = 1
+      Expression = '[\l\x20\.,:;\(\)\?!\x{2026}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text bold-italic'
+      StyleName = 'Style bold-italic'
+      StatesPresent = 3
+      StatesAbsent = 3072
+      TokenType = 1
+      Expression = '[\l\x20\.,:;\(\)\?!\x{2026}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text bold'
+      StyleName = 'Style bold'
+      StatesPresent = 1
+      StatesAbsent = 3072
+      TokenType = 1
+      Expression = '[\l\x20\.,:;\(\)\?!\x{2026}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text italic'
+      StyleName = 'Style italic'
+      StatesPresent = 2
+      StatesAbsent = 3072
+      TokenType = 1
+      Expression = '[\l\x20\.,:;\(\)\?!\x{2026}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text cross'
+      StyleName = 'Style cross'
+      StatesPresent = 4
+      StatesAbsent = 3072
+      TokenType = 1
+      Expression = '[\l\x20\.,:;\(\)\?!\x{2026}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text normal'
+      StyleName = 'Text'
+      StatesAbsent = 3072
+      TokenType = 1
+      Expression = '[\l\x20\.,:;\(\)\?!\x{2026}]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Header'
+      ConditionList = <
+        item
+          TokenTypes = 1
+        end>
+      EndOfTextClose = True
+      DisplayInTree = False
+      NameFmt = '%sz0'
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0'
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '`begin'
+      StyleName = 'Codeblock'
+      ConditionList = <
+        item
+          TokenTypes = 65536
+        end>
+      BlockEnd = '`end'
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '`end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 131072
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '~begin'
+      StyleName = 'Codeblock'
+      ConditionList = <
+        item
+          TokenTypes = 262144
+        end>
+      BlockEnd = '~end'
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '~end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 524288
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Table begin'
+      StyleName = 'Table BG'
+      ConditionList = <
+        item
+          TokenTypes = 1048576
+        end>
+      BlockEnd = 'Table end'
+      NotCollapsed = True
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Table end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 2097152
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'JSX'
+      StatesAbsent = 3
+      StartExpression = '</?'
+      EndExpression = '>'
+      SyntAnalyzer = SyntAnal9
+    end
+    item
+      DisplayName = 'JSX 2'
+      StartExpression = '\{'
+      EndExpression = '\}'
+      SyntAnalyzer = SyntAnal9
+    end
+    item
+      DisplayName = 'JSX 3'
+      StartExpression = '\A'
+      EndExpression = '^\#.*'
+      SyntAnalyzer = SyntAnal9
+      FromTextBegin = True
+    end
+    item
+      DisplayName = 'CSS'
+      StatesAbsent = 3
+      StartExpression = '(?s)<style\b.*?>'
+      EndExpression = '</style>'
+      SyntAnalyzer = SyntAnal6
+    end
+    item
+      DisplayName = 'YAML front matter'
+      StartExpression = '\A---(\s*yaml)?$'
+      EndExpression = '^(---|\.\.\.)$'
+      SyntAnalyzer = SyntAnal25
+    end
+    item
+      DisplayName = 'JSON front matter'
+      StartExpression = '\A---\s*json$'
+      EndExpression = '^---$'
+      SyntAnalyzer = SyntAnal12
+    end
+    item
+      DisplayName = 'Fenced block'
+      StartExpression = '(?<=^\x20{0,3})(`{3,}|~{3,})\x20*\w.*$'
+      EndExpression = '(?<=^\x20{0,3})(`{3,}|~{3,})\x20*$'
+      SyntAnalyzer = SyntAnal8
+    end>
+  SampleText.Strings = (
+    '---'
+    'layout: post'
+    'title: Some text'
+    '---'
+    '[![Test](link here)](link here)'
+    ''
+    '# Header'
+    '<!-- This is a comment -->'
+    '/* This, too */'
+    '$$ math here $$'
+    ''
+    '`get_prop` id "token_type"; optional `get_prop` param'
+    ''
+    '`Inline Code` inside a paragraph with *italic*, '
+    '**bold** and ***bold italic***, [^footnote] and '
+    
+      '[reference][ref] and [reference] [ref]. <HTML> syntax and specia' +
+      'l &harr; '
+    'chars are highlighted, [Hyperlink text](url "title") '
+    'and ![alternative text](image address "title"). '
+    'test: ~~~~crossed~ and ~crossed~~~ is supported'
+    'Separators:'
+    ' '
+    '- - -'
+    '*  *  *'
+    '_  _  _  _'
+    ''
+    '```c'
+    'void F(int s) { return 20; }'
+    '```'
+    'and'
+    ''
+    '   ~~~php'
+    'void N(n) { return 20; }'
+    '   ~~~'
+    ''
+    '    Codeblock by indent'
+    ''
+    #9'1. But not for numbered'
+    #9'-  or unordered lists'
+    '    '#9'+ with several indentions'
+    '        '#9'* leading digit '
+    '123. note: unordered needs a sign & blank'
+    #9'(a) extended Pandoc interpretation is supported'
+    '    '#9'i) with roman numbering (i)    '
+    '- [ ] check box'
+    '- [x] check box'
+    '- [X] check box'
+    '12. [x] list item'
+    'a) [x] list item'
+    ''
+    '(@) Pandoc Numbered example lists'
+    '(@ref) with or without reference, where (@ref) is'
+    'handled as reference'
+    ''
+    '> quoted **text**'
+    '> > *markup* in quote'
+    '>        > code in quote, not 2nd quote'
+    '  >= quote'
+    ''
+    'Definition lists'
+    ':   In a single line'
+    ''
+    '    indented definition lists'
+    ''
+    #9':   paragraph (blank line between)'
+    ''
+    '[ref]: url "title"'
+    '[^footnote]: this is a footnote *italic* '
+    ''
+    '/* Optional */'
+    'header'
+    '=')
+  TokenTypeNames.Strings = (
+    'Heading'
+    'Text'
+    'Comment'
+    'Quote'
+    'Codeblock'
+    'Block'
+    'Reference'
+    'Footnote'
+    'Footnote-Inline'
+    'HTML Code'
+    'Definition'
+    'Link'
+    'Image'
+    'List'
+    'Mark-inline'
+    'Symbols'
+    '`begin'
+    '`end'
+    '~begin'
+    '~end'
+    'Table begin'
+    'Table end')
+  Extentions = 'mdx'
+  LexerName = 'MDX'
+  SkipSpaces = False
+  Notes.Strings = (
+    'By Alexey Torgashin (CudaText)'
+    'Parser states used:'
+    '- 1: italic'
+    '- 2: bold'
+    '- 4: crossed'
+    '(some rules reset 7=1+2+4)'
+    '- 1024: ```-fenced blocks'
+    '- 2048: ~~~-fenced blocks'
+    '(many rules need missed 3072=1024+2048)')
+  RestartFromLineStart = True
+  Charset = DEFAULT_CHARSET
+end
