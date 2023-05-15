@@ -1,4 +1,4 @@
-object SyntAnal40: TLibSyntAnalyzer
+object SyntAnal9: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -67,10 +67,10 @@ object SyntAnal40: TLibSyntAnalyzer
     item
       DisplayName = 'Tag bracket'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 8404992
+      Font.Color = clGray
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
+      Font.Style = []
     end
     item
       DisplayName = 'Tag name'
@@ -83,7 +83,7 @@ object SyntAnal40: TLibSyntAnalyzer
     item
       DisplayName = 'Tag param'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clOlive
+      Font.Color = clGreen
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -226,7 +226,7 @@ object SyntAnal40: TLibSyntAnalyzer
       StatesAdd = 1
       StatesRemove = 8
       TokenType = 6
-      Expression = '(</) | (?<!\w\x20*) <'
+      Expression = '<(?=[a-z/])'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -235,25 +235,24 @@ object SyntAnal40: TLibSyntAnalyzer
       StyleName = 'Tag bracket'
       StatesRemove = 3
       TokenType = 6
-      Expression = '/?>'
+      Expression = '(?<=[\w/\}'#39'"\n\r])>'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = '{'
+      DisplayName = '/ of tag'
+      StyleName = 'Tag bracket'
+      TokenType = 6
+      Expression = '(?<=<)/ | /(?=>)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '{}'
       StyleName = 'Symbol'
       StatesAdd = 8
       TokenType = 3
-      Expression = '\{'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = '}'
-      StyleName = 'Symbol'
-      StatesRemove = 8
-      TokenType = 3
-      Expression = '\}'
+      Expression = '[\{\}]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -614,7 +613,7 @@ object SyntAnal40: TLibSyntAnalyzer
   Extentions = 'jsx babel es6'
   LexerName = 'JavaScript Babel'
   Notes.Strings = (
-    'Alexey (CudaText)'
+    'Alexey Torgashin (CudaText)'
     ''
     'Uses parser-states (to hilite tag attribs):'
     ' 1: set by "<", reset by ">"'

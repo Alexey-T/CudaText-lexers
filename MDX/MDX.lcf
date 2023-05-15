@@ -807,22 +807,23 @@ object SyntAnal15: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <
     item
-      DisplayName = 'JSX'
-      StatesAbsent = 3
-      StartExpression = '</?'
+      DisplayName = 'JSX <...>'
+      StartExpression = '<'
       EndExpression = '>'
       SyntAnalyzer = SyntAnal9
+      IncludeBounds = True
     end
     item
-      DisplayName = 'JSX 2'
+      DisplayName = 'JSX {...}'
       StartExpression = '\{'
       EndExpression = '\}'
       SyntAnalyzer = SyntAnal9
+      IncludeBounds = True
     end
     item
-      DisplayName = 'JSX 3'
+      DisplayName = 'JSX begin'
       StartExpression = '\A'
-      EndExpression = '^\#.*'
+      EndExpression = '^\#'
       SyntAnalyzer = SyntAnal9
       FromTextBegin = True
     end
@@ -852,13 +853,14 @@ object SyntAnal15: TLibSyntAnalyzer
       SyntAnalyzer = SyntAnal8
     end>
   SampleText.Strings = (
-    '---'
-    'layout: post'
-    'title: Some text'
-    '---'
-    '[![Test](link here)](link here)'
+    'function f(a){'
+    '  return 11+22;'
+    '}'
     ''
     '# Header'
+    '22{{{22}22}22}22'
+    ''
+    '[![Test](link here)](link here)'
     '<!-- This is a comment -->'
     '/* This, too */'
     '$$ math here $$'
