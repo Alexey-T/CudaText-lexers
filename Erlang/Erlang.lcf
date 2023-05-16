@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal26: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -155,7 +155,8 @@ object SyntAnal23: TLibSyntAnalyzer
       TokenType = 9
       Expression = 
         '^[\x20\x09]*\-\x20*(define|elif|else|endif|export|if|ifdef|ifnde' +
-        'f|import|include|module|on_load|other|record|spec|type|undef)\b'
+        'f|import|include|module|on_load|other|record|spec|type|undef|exp' +
+        'ort_type|include_lib)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -179,7 +180,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Float'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '(\d[\d_]*\.)? [\d_]+e[\+\-]?[\d_]+ |'#13#10'\d[\d_]*\.[_\d]+'
+      Expression = '(\d[\d_]*\.)? [\d_]+e[\+\-]?[\d_]+ |'#13#10'\d[\d_]*\.[_\d]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
