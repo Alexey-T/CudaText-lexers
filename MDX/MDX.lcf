@@ -1,4 +1,4 @@
-object SyntAnal15: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -630,11 +630,20 @@ object SyntAnal15: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Math block'
+      DisplayName = 'Math $$'
       StyleName = 'Math BG'
       StatesAbsent = 3072
       TokenType = 3
-      Expression = '(?s)(\${1,2}).+?\1'
+      Expression = '(?s)(?<!\$)\$\$[^\$\x20\x09].*?\$\$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Math $'
+      StyleName = 'Math BG'
+      StatesAbsent = 3072
+      TokenType = 3
+      Expression = '(?<!\$)\$[^\$\x20\x09].*?\$'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -810,21 +819,21 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'JSX <...>'
       StartExpression = '<'
       EndExpression = '>'
-      SyntAnalyzer = SyntAnal9
+      SyntAnalyzer = SyntAnal10
       IncludeBounds = True
     end
     item
       DisplayName = 'JSX {...}'
       StartExpression = '\{'
       EndExpression = '\}'
-      SyntAnalyzer = SyntAnal9
+      SyntAnalyzer = SyntAnal10
       IncludeBounds = True
     end
     item
       DisplayName = 'JSX begin'
       StartExpression = '\A'
       EndExpression = '^\#'
-      SyntAnalyzer = SyntAnal9
+      SyntAnalyzer = SyntAnal10
       FromTextBegin = True
     end
     item
@@ -838,19 +847,19 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'YAML front matter'
       StartExpression = '\A---(\s*yaml)?$'
       EndExpression = '^(---|\.\.\.)$'
-      SyntAnalyzer = SyntAnal25
+      SyntAnalyzer = SyntAnal26
     end
     item
       DisplayName = 'JSON front matter'
       StartExpression = '\A---\s*json$'
       EndExpression = '^---$'
-      SyntAnalyzer = SyntAnal12
+      SyntAnalyzer = SyntAnal13
     end
     item
       DisplayName = 'Fenced block'
       StartExpression = '(?<=^\x20{0,3})(`{3,}|~{3,})\x20*\w.*$'
       EndExpression = '(?<=^\x20{0,3})(`{3,}|~{3,})\x20*$'
-      SyntAnalyzer = SyntAnal8
+      SyntAnalyzer = SyntAnal9
     end>
   SampleText.Strings = (
     'function f(a){'
