@@ -1,4 +1,4 @@
-object SyntAnal19: TLibSyntAnalyzer
+object SyntAnal15: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Number'
@@ -85,7 +85,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = '^TreeItem'
       StyleName = 'Id keyword'
       TokenType = 11
-      Expression = '(?<=^[\x20\x09]*)(block|template|proc|func)\b'
+      Expression = '(?-i)(?<=^[\x20\x09]*)(block|template|proc|func|macro)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -94,8 +94,8 @@ object SyntAnal19: TLibSyntAnalyzer
       StyleName = 'Id keyword'
       TokenType = 10
       Expression = 
-        '(?<=^[\x20\x09]*)(of|if|else|elif|for|while|try|except|finally|s' +
-        'witch|case|with|block|var|when|task)\b'
+        '(?-i)(?<=^[\x20\x09]*)(of|if|else|elif|for|while|try|except|fina' +
+        'lly|switch|case|with|block|var|when|task)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
