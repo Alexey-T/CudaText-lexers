@@ -157,6 +157,16 @@ object SyntAnal2: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Pair tokens BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
     end>
   TokenRules = <
     item
@@ -217,8 +227,8 @@ object SyntAnal2: TLibSyntAnalyzer
       NotParent = True
       TokenType = 1
       Expression = 
-        '^\s*\#.* | (?<=[\x20\x09`])\# (?![\}\]]) (.*?(?=`)|.*$)'#13#10'#suppor' +
-        't comments inside `..`'
+        '^\s*\#(\\\n|.)* | (?<=[\x20\x09`])\# (?![\}\]]) (.*?(?=`)|(\\\n|' +
+        '.)*$)'#13#10'#support comments inside `..`'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -328,7 +338,7 @@ object SyntAnal2: TLibSyntAnalyzer
       BlockName = '(('
       NotParent = True
       TokenType = 13
-      Expression = '(?s)<<\-?\x20*('#39'|")([a-z]\w*)\1.+?^\x20*\2\b'
+      Expression = '(?s)<<\-?\x20*('#39'|")([a-z]\w*)\1.+?^\t*\2\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -338,7 +348,7 @@ object SyntAnal2: TLibSyntAnalyzer
       BlockName = '(('
       NotParent = True
       TokenType = 13
-      Expression = '(?s)<<\-?\x20*([a-z]\w*)\b.+?^\x20*\1\b'
+      Expression = '(?s)<<\-?\x20*([a-z]\w*)\b.+?^\t*\1\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -411,7 +421,15 @@ object SyntAnal2: TLibSyntAnalyzer
       DisplayName = 'String $"..."'
       StyleName = 'String'
       TokenType = 5
-      Expression = '(?s)\$?("|'#39') (\\\\|\\\1|.)*? (\1|\Z)'
+      Expression = '(?s)\$("|'#39')(\\.|.)*?(\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String "..."'
+      StyleName = 'String'
+      TokenType = 5
+      Expression = '(?s)("|'#39').*?(\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -804,6 +822,7 @@ object SyntAnal2: TLibSyntAnalyzer
     end
     item
       DisplayName = 'case begin'
+      StyleName = 'Pair tokens BG'
       ConditionList = <
         item
           TagList.Strings = (
@@ -813,7 +832,9 @@ object SyntAnal2: TLibSyntAnalyzer
       BlockEnd = 'case end'
       DisplayInTree = False
       NameFmt = '%sz0'
-      HighlightPos = cpAny
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
       DrawStaple = True
       CollapseFmt = '%sz0'
       IgnoreAsParent = False
@@ -832,6 +853,7 @@ object SyntAnal2: TLibSyntAnalyzer
     end
     item
       DisplayName = 'if begin'
+      StyleName = 'Pair tokens BG'
       ConditionList = <
         item
           TagList.Strings = (
@@ -841,7 +863,9 @@ object SyntAnal2: TLibSyntAnalyzer
       BlockEnd = 'if end'
       DisplayInTree = False
       NameFmt = '%sz0'
-      HighlightPos = cpAny
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
       IgnoreAsParent = False
@@ -860,6 +884,7 @@ object SyntAnal2: TLibSyntAnalyzer
     end
     item
       DisplayName = 'do begin'
+      StyleName = 'Pair tokens BG'
       ConditionList = <
         item
           TagList.Strings = (
@@ -869,7 +894,9 @@ object SyntAnal2: TLibSyntAnalyzer
       BlockEnd = 'do end'
       DisplayInTree = False
       NameFmt = '%sz0'
-      HighlightPos = cpAny
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
       IgnoreAsParent = False
