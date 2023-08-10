@@ -149,7 +149,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Symbol delim'
       StyleName = 'Symbol'
       TokenType = 10
-      Expression = '[\[\]\(\)]|\#\('
+      Expression = '\#\( | [\[\]\(\),]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -271,7 +271,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Issue'
       StyleName = 'Issue'
       TokenType = 11
-      Expression = '\#[\w\-]+'
+      Expression = '\#[^<>/,\[\]\(\)\{\}"@:;\s]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -299,7 +299,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Number pair'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+x\d+\b'
+      Expression = '[\+\-]?\d('#39'?\d)*x[\+\-]?\d('#39'?\d)*\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -307,7 +307,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Number dec'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '((\d[\d'#39']*\.?\d*)|\.\d+)(e[\+\-]?\d+)? %?'
+      Expression = '1\.\#(inf|nan)\b | ( (\d'#39'?)+\.?'#39'?(\d'#39'?)* | \.\d+ ) (e[\+\-]?\d+)? %?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -333,7 +333,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Word'
       StyleName = 'Id'
       TokenType = 2
-      Expression = 
+      Expression =
         '[^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d\-\+]'#13#10'[^/\^,\[\]\(\)\{\}"\#\%\$' +
         '@:;\s]*'#13#10'|[\-\+][^/\^,\[\]\(\)\{\}"\#\%\$@:;\s\d]*|%|/+'
       ColumnFrom = 0
@@ -406,6 +406,9 @@ object SyntAnal19: TLibSyntAnalyzer
             'as-logic'
             'as-money'
             'as-pair'
+            'as-point2D'
+            'as-point3D'
+            'as-point4D'
             'as-rgba'
             'assert'
             'at'
@@ -618,6 +621,9 @@ object SyntAnal19: TLibSyntAnalyzer
             'path-thru'
             'percent?'
             'pick'
+            'point2D?'
+            'point3D?'
+            'point4D?'
             'poke'
             'pop'
             'positive?'
@@ -751,6 +757,9 @@ object SyntAnal19: TLibSyntAnalyzer
             'to-paren'
             'to-path'
             'to-percent'
+            'to-point2D'
+            'to-point3D'
+            'to-point4D'
             'to-red-file'
             'to-ref'
             'to-refinement'
@@ -866,8 +875,9 @@ object SyntAnal19: TLibSyntAnalyzer
             'paren!'
             'path!'
             'percent!'
-            'point!'
-            'pointer!'
+            'point2D!'
+            'point3D!'
+            'point4D!'
             'port!'
             'ref!'
             'refinement!'
