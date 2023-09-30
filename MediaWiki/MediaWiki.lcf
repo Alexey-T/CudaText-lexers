@@ -1,4 +1,4 @@
-object SyntAnal25: TLibSyntAnalyzer
+object SyntAnal20: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -155,7 +155,7 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'Link'
       StyleName = 'Link'
       TokenType = 3
-      Expression = '\[\[ .+? \]\] | '#13#10'\[ .+? \]'
+      Expression = '(\[\[|\]\]|\[|\])'
       ColumnFrom = 0
       ColumnTo = 0
     end
