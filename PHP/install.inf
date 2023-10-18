@@ -1,0 +1,14 @@
+[info]
+title=PHP
+type=lexer
+subdir=-
+
+[lexer1]
+file=PHP_
+[lexer2]
+file=PHP
+link1=PHP_
+link2=CSS
+link3=JavaScript
+link4=JavaScript
+link5=JSON
