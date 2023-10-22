@@ -1,0 +1,7 @@
+[info]
+title=Mojo
+type=lexer
+subdir=-
+
+[lexer1]
+file=Mojo
