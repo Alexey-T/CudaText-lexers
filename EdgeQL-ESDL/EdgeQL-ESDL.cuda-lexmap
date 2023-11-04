@@ -1,0 +1,18 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=String,String $
+
+[map]
+Symbol=Symbol
+Id=Id
+Id keyword=IdKeyword
+String=String
+Number=Number
+Comment=Comment
+Id soft keyword=Id1
+Id std=Id2
+Var=IdVar
+String $=String2
+String `=String3
