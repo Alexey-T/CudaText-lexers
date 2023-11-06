@@ -63,6 +63,16 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'C block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
     end>
   TokenRules = <
     item
@@ -161,7 +171,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Symbol {}'
       StyleName = 'Symbol'
       TokenType = 8
-      Expression = '[\{\}]'
+      Expression = '[\{\}]|%[\{\}]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -187,7 +197,7 @@ object SyntAnal19: TLibSyntAnalyzer
       TokenType = 3
       Expression = 
         '\[\[| \]\]| \.\.\.| ::| [\[\],~\.\\\?]|'#13#10'[\-\+<>\|\&\^]{2,3}=? |' +
-        ' \.=| \#{1,2}| <=>| %[\{\}]|'#13#10'[\+\-\*/&\|\^!<>=~%]=?'
+        ' \.=| \#{1,2}| <=>|'#13#10'[\+\-\*/&\|\^!<>=~%]=?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -249,6 +259,7 @@ object SyntAnal19: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            '%{'
             '{')
           TokenTypes = 256
         end
@@ -298,6 +309,7 @@ object SyntAnal19: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            '%{'
             '{')
           TokenTypes = 256
         end
@@ -345,6 +357,7 @@ object SyntAnal19: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            '%{'
             '{')
           TokenTypes = 256
         end>
@@ -363,6 +376,7 @@ object SyntAnal19: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            '%}'
             '}')
           TokenTypes = 256
         end>
@@ -370,13 +384,20 @@ object SyntAnal19: TLibSyntAnalyzer
       IgnoreAsParent = False
     end>
   CodeTemplates = <>
-  SubAnalyzers = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'C block'
+      StyleName = 'C block'
+      StartExpression = '%\{'
+      EndExpression = '%\}'
+      SyntAnalyzer = SyntAnal4
+    end>
   SampleText.Strings = (
     'function f:long (name:string) # comment'
     '{ return '#39'test'#39' + 12.34 - 0xFF + @var + $$params$$ }'
     ''
     'function f2 (name:string) # comment'
-    '{ return $# }'
+    '%{ return "test\"test" %}'
     ''
     'probe %($# >= 5 %? $5 %: never %)'
     '{'
@@ -396,7 +417,8 @@ object SyntAnal19: TLibSyntAnalyzer
     'Symbol {}'
     'Symbol ()'
     'Symbol ;'
-    'Symbol :')
+    'Symbol :'
+    '')
   Extentions = 'stp'
   LexerName = 'SystemTap'
   Notes.Strings = (
