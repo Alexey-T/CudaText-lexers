@@ -1,0 +1,7 @@
+[info]
+title=SystemTap
+type=lexer
+subdir=-
+
+[lexer1]
+file=SystemTap
