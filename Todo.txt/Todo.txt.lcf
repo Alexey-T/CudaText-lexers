@@ -1,0 +1,122 @@
+object SyntAnal21: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Prior'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'x line'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Date'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Prior'
+      StyleName = 'Prior'
+      TokenType = 2
+      Expression = '^\s*\([A-Z]\)\s'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      TokenType = 3
+      Expression = '[@\+]\S+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'x line'
+      StyleName = 'x line'
+      TokenType = 5
+      Expression = '(?-i)^\s*x\s.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Date'
+      StyleName = 'Date'
+      TokenType = 4
+      Expression = '([1-2]\d{3}[-/\\.](0?[1-9]|1[012])[-/\\.](0[1-9]|[12]\d|3[01]))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      Expression = '\S+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '(A) Call Mom @Phone +Family'
+    '(B) Outline chapter 5 +Novel @Computer'
+    '(C) Add cover sheets @Office +TPSReports'
+    '2010-01-01 Plan backyard herb garden @Home'
+    'x Download Todo.txt mobile app @Phone'
+    '// Comment')
+  TokenTypeNames.Strings = (
+    'Text'
+    'Comment'
+    'Prior'
+    'Label'
+    'Date'
+    'x line')
+  Extentions = '/todo.txt'
+  LexerName = 'Todo.txt'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

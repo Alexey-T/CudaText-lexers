@@ -1,0 +1,7 @@
+[info]
+title=Todo.txt
+type=lexer
+subdir=-
+
+[lexer1]
+file=Todo.txt

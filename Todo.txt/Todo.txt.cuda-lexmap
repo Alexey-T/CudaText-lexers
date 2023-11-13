@@ -1,0 +1,13 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=Text
+
+[map]
+Text=Id
+Prior=Id4
+x line=Comment2
+Label=Label
+Date=IdVar
+Comment=Comment
