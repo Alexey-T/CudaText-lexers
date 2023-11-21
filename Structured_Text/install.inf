@@ -1,0 +1,7 @@
+[info]
+title=Structured Text
+type=lexer
+subdir=-
+
+[lexer1]
+file=Structured Text
