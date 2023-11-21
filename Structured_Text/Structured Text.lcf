@@ -173,7 +173,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(['#39'"])(\$\1|.)*?(\1|$)'
+      Expression = '(['#39'"])(\$\$|\$\1|.)*?(\1|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -181,7 +181,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Var'
       StyleName = 'Var'
       TokenType = 6
-      Expression = '%(I|Q|M|PQ|PI)(X|B|W|D|L)[0-9\.]+\b |'#13#10'%(I|Q)[0-9\.]+\b'
+      Expression = '%(I|Q|M|PQ|PI)(X|B|W|D|L)[0-9\.]+\b|'#13#10'%(I|Q)[0-9\.]+\b'
       ColumnFrom = 0
       ColumnTo = 0
     end>
