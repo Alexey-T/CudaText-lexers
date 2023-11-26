@@ -1,4 +1,4 @@
-object SyntAnal47: TLibSyntAnalyzer
+object SyntAnal21: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -315,6 +315,7 @@ object SyntAnal47: TLibSyntAnalyzer
   BlockRules = <
     item
       DisplayName = 'head'
+      Enabled = False
       ConditionList = <
         item
           TokenTypes = 8

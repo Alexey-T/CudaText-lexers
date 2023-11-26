@@ -1,4 +1,4 @@
-object SyntAnal20: TLibSyntAnalyzer
+object SyntAnal22: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Heading'
@@ -331,6 +331,7 @@ object SyntAnal20: TLibSyntAnalyzer
   BlockRules = <
     item
       DisplayName = 'Header'
+      Enabled = False
       ConditionList = <
         item
           TokenTypes = 1
@@ -345,6 +346,7 @@ object SyntAnal20: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Table begin'
+      Enabled = False
       StyleName = 'Table block BG'
       ConditionList = <
         item
@@ -359,56 +361,6 @@ object SyntAnal20: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Table end'
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TokenTypes = 8
-        end>
-      HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Py begin'
-      Enabled = False
-      StyleName = 'Python block BG'
-      ConditionList = <
-        item
-          TokenTypes = 512
-        end>
-      BlockEnd = 'Py end'
-      DynHighlight = dhRange
-      HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Py end'
-      Enabled = False
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TokenTypes = 1024
-        end>
-      HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = '<<'
-      Enabled = False
-      StyleName = 'No fmt block BG'
-      ConditionList = <
-        item
-          TagList.Strings = (
-            '<<')
-          TokenTypes = 8192
-        end>
-      BlockEnd = '>>'
-      DisplayInTree = False
-      DynHighlight = dhRange
-      HighlightPos = cpAny
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = '>>'
       Enabled = False
       BlockType = btRangeEnd
       ConditionList = <
