@@ -1,4 +1,4 @@
-object SyntAnal22: TLibSyntAnalyzer
+object SyntAnal23: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -98,7 +98,15 @@ object SyntAnal22: TLibSyntAnalyzer
     end>
   TokenRules = <
     item
-      DisplayName = 'String'
+      DisplayName = 'String """'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)"""(\\.|.)*?("""|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String simple'
       StyleName = 'String'
       TokenType = 4
       Expression = '(?s)"(\\.|.)*?("|\Z)'
@@ -106,18 +114,18 @@ object SyntAnal22: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String raw'
+      DisplayName = 'String raw #'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)b?r(\#+)" .*? ("\1|\Z)'
+      Expression = '(?s-i)[bc]?r(\#+)".*?("\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'String br'
+      DisplayName = 'String raw 2'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)(b|br)"(\\.|.)*?("|\Z)'
+      Expression = '(?s-i)[bc]?r?"(\\.|.)*?("|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -487,8 +495,7 @@ object SyntAnal22: TLibSyntAnalyzer
   LexerName = 'Rust'
   SkipSpaces = False
   Notes.Strings = (
-    'Alexey Torgashin (CudaText)'
-    'Ref: http://www.rust-lang.org/')
+    'Alexey Torgashin (CudaText)')
   LineComment = '//'
   Charset = DEFAULT_CHARSET
   Left = 144
