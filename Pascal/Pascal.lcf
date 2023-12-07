@@ -112,7 +112,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'String new'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)'#39#39#39'.*?('#39#39#39'|\Z)'
+      Expression = '(?s)'#39#39#39'.*?(^\x20*'#39#39#39'|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
