@@ -214,18 +214,18 @@ object SyntAnal15: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String raw'
+      DisplayName = 'String triple-quote'
       StyleName = 'String'
       TokenType = 4
-      Expression = 're?(") .*? (\1|$)'
+      Expression = '(?s-i)(re|r)?""".*?("""(?!")|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'String """'
+      DisplayName = 'String raw'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s) (""") .*? (\1|\Z)'
+      Expression = '(?-i)re?"(""|.)*?("|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -233,12 +233,12 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)("|'#39') (\\.|.)*? (\1|$)'
+      Expression = '(?s)("|'#39')(\\.|.)*?(\1|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'String 2'
+      DisplayName = 'String tick'
       StyleName = 'String 2'
       TokenType = 6
       Expression = '`.*?`'
