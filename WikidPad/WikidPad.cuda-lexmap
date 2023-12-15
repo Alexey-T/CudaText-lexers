@@ -6,6 +6,9 @@ styles_str=String
 full1=<<hide
 full2=>>
 
+[op]
+auto_fold=0
+
 [map]
 Heading=Label
 Text=Id
