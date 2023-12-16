@@ -1,7 +1,0 @@
-[info]
-title=CSV (empty pseudo lexer)
-type=lexer-lite
-subdir=-
-
-[lexer1]
-file=CSV

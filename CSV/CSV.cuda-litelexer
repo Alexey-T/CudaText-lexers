@@ -1,7 +1,0 @@
-{
-  "about": "CSV pseudo lexer by Alexey T.",
-  "files": "*.csv",
-  "case_sens": true,
-  "rules": {
-  }
-}

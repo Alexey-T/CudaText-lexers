@@ -1,7 +1,0 @@
-[info]
-title=TSV (empty pseudo lexer)
-type=lexer-lite
-subdir=-
-
-[lexer1]
-file=TSV
