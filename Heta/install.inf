@@ -1,0 +1,7 @@
+[info]
+title=Heta
+type=lexer
+subdir=-
+
+[lexer1]
+file=Heta
