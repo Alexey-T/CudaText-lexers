@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal21: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -81,9 +81,9 @@ object SyntAnal23: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Label'
+      DisplayName = 'Id'#39
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clRed
+      Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -223,8 +223,8 @@ object SyntAnal23: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Label'
-      StyleName = 'Label'
+      DisplayName = 'Id'#39
+      StyleName = 'Id'#39
       TokenType = 8
       Expression = #39'[a-z_]\w*'
       ColumnFrom = 0
@@ -402,23 +402,34 @@ object SyntAnal23: TLibSyntAnalyzer
       CancelNextRules = True
       DrawStaple = True
       CollapseFmt = '%sz0'
+      TreeItemImage = 0
       IgnoreAsParent = False
     end
     item
       DisplayName = 'Func'
       ConditionList = <
         item
-          TokenTypes = 4
+          TagList.Strings = (
+            '{')
+          TokenTypes = 128
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 318
         end
         item
           TagList.Strings = (
             'fn')
           TokenTypes = 4
         end>
-      NameFmt = '%sz0'
+      BlockEnd = '}'
+      NameFmt = '%sz-1'
       RefToCondEnd = True
       HighlightPos = cpAny
-      NoEndRule = True
+      CancelNextRules = True
+      DrawStaple = True
+      CollapseFmt = '%sz0'
+      TreeItemImage = 5
       IgnoreAsParent = False
     end
     item
@@ -454,7 +465,7 @@ object SyntAnal23: TLibSyntAnalyzer
     '/*Cmt'
     'Cmt*/'
     '///Cmt doc'
-    '$var, $ var, '#39'label0, '#39'\xFF'#39', i32, 0x10_AB, 1.2e+3, r#Foo'
+    '$var, $ var, '#39'id, '#39'\xFF'#39', i32, 0x10_AB, 1.2e+3, r#Foo'
     ''
     'trait Repr {'
     '    fn write_repr(&self, writer: @Writer);'
@@ -490,7 +501,7 @@ object SyntAnal23: TLibSyntAnalyzer
     'Number'
     'Symbol ;'
     'Symbol {}'
-    'Label')
+    'Id'#39)
   Extentions = 'rs rc'
   LexerName = 'Rust'
   SkipSpaces = False
