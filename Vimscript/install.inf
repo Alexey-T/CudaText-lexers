@@ -1,7 +1,7 @@
 [info]
-title=VimL
+title=Vimscript
 type=lexer
 subdir=-
 
 [lexer1]
-file=VimL
+file=Vimscript

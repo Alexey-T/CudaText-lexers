@@ -58,14 +58,6 @@ object SyntAnal27: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Comment 2'
-      StyleName = 'Comment'
-      TokenType = 1
-      Expression = '(?<=\s)\#.*'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
@@ -363,9 +355,8 @@ object SyntAnal27: TLibSyntAnalyzer
     ''
     'class OtherThing'
     
-      #9'static var _sum: number'#9'          # only class can read and wri' +
-      'te'
-    #9'public static var result: number  # anybody can read and write'
+      #9'static var _sum: number'
+    #9'public static var result: number'
     #9'def Bar(): number'
     #9'  return this._Foo()'
     #9'enddef'
@@ -378,9 +369,8 @@ object SyntAnal27: TLibSyntAnalyzer
     'String'
     'Number')
   Extentions = 'vim'
-  LexerName = 'VimL'
+  LexerName = 'Vimscript'
   Notes.Strings = (
     'Alexey Torgashin (CudaText)')
-  LineComment = ' #'
   Charset = DEFAULT_CHARSET
 end
