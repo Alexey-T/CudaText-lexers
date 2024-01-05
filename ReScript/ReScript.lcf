@@ -79,6 +79,14 @@ object SyntAnal18: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = '#Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -125,7 +133,7 @@ object SyntAnal18: TLibSyntAnalyzer
       DisplayName = 'Char'
       StyleName = 'String'
       TokenType = 4
-      Expression = #39'.*?('#39'|$)'
+      Expression = #39'[^'#39']{1,2}'#39
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -176,6 +184,14 @@ object SyntAnal18: TLibSyntAnalyzer
       StyleName = '@Id'
       TokenType = 10
       Expression = '(%%?|@@?)[a-z_][\w\.]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#Id'
+      StyleName = '#Id'
+      TokenType = 11
+      Expression = '[\#'#39'][a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -372,13 +388,11 @@ object SyntAnal18: TLibSyntAnalyzer
     'let s = `test`+'#39'a'#39'+10L+0xFFn+1.2e-3 /* Comment'
     '*/'
     'module Warning = {'
-    '  @react.component'
-    '  let make = (~version: string, ~route: string) => {'
-    '    let url = Url.parse(route)'
+    '  @@test.component'
+    '  let make = (~version: string, ~route: bool) => {'
     '    let latestUrl ='
-    '      ("/latest/" ++ Js.Array2.joinWith(url.pagepath, "/")))'
-    ''
-    '    <div className="mb-10">'
+    '      ("text/" ++ #Change(url.pagepath, "/")))'
+    '    <div className="tt">'
     '    </div>'
     '  }'
     '}')
@@ -393,7 +407,8 @@ object SyntAnal18: TLibSyntAnalyzer
     'Symbol ()'
     'Symbol {}'
     'String tick'
-    '@Id')
+    '@Id'
+    '#Id')
   Extentions = 'res resi'
   LexerName = 'ReScript'
   Notes.Strings = (
