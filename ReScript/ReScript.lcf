@@ -59,7 +59,7 @@ object SyntAnal18: TLibSyntAnalyzer
     item
       DisplayName = 'Tag'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
+      Font.Color = clFuchsia
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -82,6 +82,14 @@ object SyntAnal18: TLibSyntAnalyzer
     end
     item
       DisplayName = '#Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = #39'Id'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clNavy
       Font.Height = -13
@@ -133,7 +141,7 @@ object SyntAnal18: TLibSyntAnalyzer
       DisplayName = 'Char'
       StyleName = 'String'
       TokenType = 4
-      Expression = #39'[^'#39']{1,2}'#39
+      Expression = #39'[\x20-\x7F]'#39
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -188,14 +196,6 @@ object SyntAnal18: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = '#Id'
-      StyleName = '#Id'
-      TokenType = 11
-      Expression = '[\#'#39'][a-z_]\w*'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Symbol { }'
       StyleName = 'Symbol'
       TokenType = 8
@@ -216,8 +216,24 @@ object SyntAnal18: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        ':=|:>|/\.|[\[\],;:\?/~%\#@]|\.+|'#13#10'\->|=>|\+\+|\-\-|\|\||&&|'#13#10'[!\' +
-        '-\+\*/=<>&\|\^]=*'#13#10
+        ':=|:>|/\.|[\[\],;:\?/~%]|\.+|'#13#10'\->|=>|\+\+|\-\-|\|\||&&|'#13#10'[!\-\+' +
+        '\*/=<>&\|\^]=*'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '#Id'
+      StyleName = '#Id'
+      TokenType = 11
+      Expression = '\#\s*[a-z_]\w*|'#13#10'\#\s*\.\.\.'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = #39'Id'
+      StyleName = #39'Id'
+      TokenType = 12
+      Expression = #39'[a-z_]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -385,16 +401,18 @@ object SyntAnal18: TLibSyntAnalyzer
   SubAnalyzers = <>
   SampleText.Strings = (
     '//Comment'
-    'let s = `test`+'#39'a'#39'+10L+0xFFn+1.2e-3 /* Comment'
+    'let s = `test`+'#39'a'#39'+'#39'name+'
+    '  10L+0xFFn+1.2e-3 /* Comment'
     '*/'
-    'module Warning = {'
-    '  @@test.component'
-    '  let make = (~version: string, ~route: bool) => {'
-    '    let latestUrl ='
-    '      ("text/" ++ #Change(url.pagepath, "/")))'
+    'module Some = {'
+    '  @@aa.aa %bb'
+    '  let make = (~ver: string, ~route: bool) => {'
+    '    let s ='
+    '      ("text/" ++ # Change(ver.aa, "/") ++ #...)'
     '    <div className="tt">'
     '    </div>'
     '  }'
+    '  type some = { }'
     '}')
   TokenTypeNames.Strings = (
     'Unknown'
@@ -408,7 +426,8 @@ object SyntAnal18: TLibSyntAnalyzer
     'Symbol {}'
     'String tick'
     '@Id'
-    '#Id')
+    '#Id'
+    #39'Id')
   Extentions = 'res resi'
   LexerName = 'ReScript'
   Notes.Strings = (
