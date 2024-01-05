@@ -1,0 +1,7 @@
+[info]
+title=ReScript
+type=lexer
+subdir=-
+
+[lexer1]
+file=ReScript
