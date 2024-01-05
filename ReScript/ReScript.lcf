@@ -142,6 +142,8 @@ object SyntAnal18: TLibSyntAnalyzer
     item
       DisplayName = 'JS end'
       StyleName = 'JS borders'
+      StatesRemove = 1
+      StatesPresent = 1
       TokenType = 14
       Expression = '`\)'
       ColumnFrom = 0
@@ -150,6 +152,8 @@ object SyntAnal18: TLibSyntAnalyzer
     item
       DisplayName = 'JS begin'
       StyleName = 'JS borders'
+      StatesAdd = 1
+      StatesAbsent = 1
       TokenType = 13
       Expression = '(?-i)%%?raw\(\s*`'
       ColumnFrom = 0
