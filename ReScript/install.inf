@@ -5,3 +5,4 @@ subdir=-
 
 [lexer1]
 file=ReScript
+link1=JavaScript

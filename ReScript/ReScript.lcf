@@ -95,6 +95,24 @@ object SyntAnal18: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'JS backgnd'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'JS borders'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
     item
@@ -118,6 +136,22 @@ object SyntAnal18: TLibSyntAnalyzer
       StyleName = 'Comment'
       TokenType = 1
       Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'JS end'
+      StyleName = 'JS borders'
+      TokenType = 14
+      Expression = '`\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'JS begin'
+      StyleName = 'JS borders'
+      TokenType = 13
+      Expression = '(?-i)%%?raw\(\s*`'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -398,7 +432,14 @@ object SyntAnal18: TLibSyntAnalyzer
       IgnoreAsParent = False
     end>
   CodeTemplates = <>
-  SubAnalyzers = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'Raw JS'
+      StyleName = 'JS backgnd'
+      StartExpression = '(?-i)%%?raw\(\s*`'
+      EndExpression = '`\)'
+      SyntAnalyzer = SyntAnal9
+    end>
   SampleText.Strings = (
     '//Comment'
     'let s = `test`+'#39'a'#39'+'#39'name+'
@@ -427,7 +468,9 @@ object SyntAnal18: TLibSyntAnalyzer
     'String tick'
     '@Id'
     '#Id'
-    #39'Id')
+    #39'Id'
+    'JS begin'
+    'JS end')
   Extentions = 'res resi'
   LexerName = 'ReScript'
   Notes.Strings = (
