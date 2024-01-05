@@ -109,7 +109,7 @@ object SyntAnal18: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '("|'#39')(\\.|.)*?(\1|$)'
+      Expression = '(?s)"(\\.|.)*?("|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -118,6 +118,14 @@ object SyntAnal18: TLibSyntAnalyzer
       StyleName = 'String tick'
       TokenType = 9
       Expression = '(?s)`.*?(`|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Char'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = #39'.*?('#39'|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -141,7 +149,7 @@ object SyntAnal18: TLibSyntAnalyzer
       DisplayName = 'Number hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x[0-9a-f_]+n?\b | 0b[01_]+n?\b | 0o[0-7_]+n?\b'
+      Expression = '0x[0-9a-f_]+[ln]?\b|'#13#10'0b[01_]+[ln]?\b|'#13#10'0o[0-7_]+[ln]?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -159,7 +167,7 @@ object SyntAnal18: TLibSyntAnalyzer
       DisplayName = 'Number dec'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d[\d_]*n?\b'
+      Expression = '\b\d[\d_]*[ln]?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -167,7 +175,7 @@ object SyntAnal18: TLibSyntAnalyzer
       DisplayName = '@Id'
       StyleName = '@Id'
       TokenType = 10
-      Expression = '@[\w\.]+'
+      Expression = '(%%?|@@?)[a-z_][\w\.]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -192,8 +200,8 @@ object SyntAnal18: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        ':=|:>|[\[\],;:\?/~%\#@]|\.+|'#13#10'\->|=>|\+\+|\-\-|\|\||&&|'#13#10'[!\-\+\' +
-        '*/=<>&\|\^]=*'#13#10
+        ':=|:>|/\.|[\[\],;:\?/~%\#@]|\.+|'#13#10'\->|=>|\+\+|\-\-|\|\||&&|'#13#10'[!\' +
+        '-\+\*/=<>&\|\^]=*'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -212,7 +220,6 @@ object SyntAnal18: TLibSyntAnalyzer
             'else'
             'exception'
             'external'
-            'false'
             'for'
             'if'
             'in'
@@ -225,7 +232,6 @@ object SyntAnal18: TLibSyntAnalyzer
             'open'
             'rec'
             'switch'
-            'true'
             'try'
             'type'
             'when'
@@ -244,9 +250,11 @@ object SyntAnal18: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'bool'
+            'false'
             'float'
             'int'
             'string'
+            'true'
             'unit'
             'unknown')
           TokenTypes = 4
@@ -361,7 +369,7 @@ object SyntAnal18: TLibSyntAnalyzer
   SubAnalyzers = <>
   SampleText.Strings = (
     '//Comment'
-    'let s = `test` + '#39'a'#39' + 10 + 1.2e3 /* Comment'
+    'let s = `test`+'#39'a'#39'+10L+0xFFn+1.2e-3 /* Comment'
     '*/'
     'module Warning = {'
     '  @react.component'
