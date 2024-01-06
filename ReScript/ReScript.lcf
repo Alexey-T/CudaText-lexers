@@ -144,8 +144,7 @@ object SyntAnal18: TLibSyntAnalyzer
       StyleName = 'JS borders'
       StatesRemove = 1
       StatesPresent = 1
-      TokenType = 14
-      Expression = '`\)'
+      Expression = '[`"]\)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -154,8 +153,7 @@ object SyntAnal18: TLibSyntAnalyzer
       StyleName = 'JS borders'
       StatesAdd = 1
       StatesAbsent = 1
-      TokenType = 13
-      Expression = '(?-i)%%?raw\(\s*`'
+      Expression = '(?-i)%%?raw\(\s*[`"]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -242,6 +240,14 @@ object SyntAnal18: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Symbols '#39'()'#39
+      StyleName = 'Symbol'
+      TokenType = 14
+      Expression = '\(\)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol ( )'
       StyleName = 'Symbol'
       TokenType = 7
@@ -250,12 +256,20 @@ object SyntAnal18: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Symbol =>'
+      StyleName = 'Symbol'
+      TokenType = 13
+      Expression = '=>'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        ':=|:>|/\.|[\[\],;:\?/~%]|\.+|'#13#10'\->|=>|\+\+|\-\-|\|\||&&|'#13#10'[!\-\+' +
-        '\*/=<>&\|\^]=*'#13#10
+        ':=|:>|/\.|[\[\],;:\?/~%]|\.+|'#13#10'\->|\+\+|\-\-|\|\||&&|'#13#10'[!\-\+\*/' +
+        '=<>&\|\^]=*'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -364,6 +378,67 @@ object SyntAnal18: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
+      DisplayName = 'func'
+      ConditionList = <
+        item
+          TokenTypes = 8192
+        end
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 128
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 24126
+        end
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 128
+        end
+        item
+          TagList.Strings = (
+            '=')
+          TokenTypes = 8
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'let')
+          TokenTypes = 4
+        end>
+      NameFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      CollapseFmt = '%s-1 ...'
+      NoEndRule = True
+      TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'type'
+      ConditionList = <
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'type')
+          TokenTypes = 4
+        end>
+      NameFmt = '%s-1'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = 'type %s-1 ...'
+      NoEndRule = True
+      TreeItemImage = 1
+      IgnoreAsParent = False
+    end
+    item
       DisplayName = '{'
       ConditionList = <
         item
@@ -415,33 +490,14 @@ object SyntAnal18: TLibSyntAnalyzer
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'type'
-      ConditionList = <
-        item
-          TokenTypes = 4
-        end
-        item
-          TagList.Strings = (
-            'type')
-          TokenTypes = 4
-        end>
-      NameFmt = '%s-1'
-      RefToCondEnd = True
-      HighlightPos = cpAny
-      CollapseFmt = 'type %s-1 ...'
-      NoEndRule = True
-      TreeItemImage = 1
-      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <
     item
       DisplayName = 'Raw JS'
       StyleName = 'JS backgnd'
-      StartExpression = '(?-i)%%?raw\(\s*`'
-      EndExpression = '`\)'
+      StartExpression = '(?-i)%%?raw\(\s*[`"]'
+      EndExpression = '[`"]\)'
       SyntAnalyzer = SyntAnal9
     end>
   SampleText.Strings = (
@@ -458,7 +514,13 @@ object SyntAnal18: TLibSyntAnalyzer
     '    </div>'
     '  }'
     '  type some = { }'
-    '}')
+    '}'
+    ''
+    'let tabElements = B.map(m, (i, tab) => {})'
+    'let render = (~h=[], ~d=false, ()) => {}'
+    'type encoder<'#39'a> = '#39'a => Js.Json.t'
+    'let scrollToTop: unit => unit = %raw(`function() { return 0 }'
+    '`)')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
@@ -473,8 +535,8 @@ object SyntAnal18: TLibSyntAnalyzer
     '@Id'
     '#Id'
     #39'Id'
-    'JS begin'
-    'JS end')
+    'Symbol =>'
+    'Symbols '#39'()'#39)
   Extentions = 'res resi'
   LexerName = 'ReScript'
   Notes.Strings = (
