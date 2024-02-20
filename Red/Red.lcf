@@ -998,6 +998,7 @@ object SyntAnal19: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+			'#['
             '[')
           TokenTypes = 1024
         end>
@@ -1025,7 +1026,7 @@ object SyntAnal19: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
-            '#['
+            '#('
             '(')
           TokenTypes = 1024
         end>
