@@ -49,14 +49,6 @@ object SyntAnal20: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'Id types'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clPurple
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
       DisplayName = 'Comment doc'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
@@ -137,20 +129,12 @@ object SyntAnal20: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Symbol {}'
-      StyleName = 'Symbol'
-      TokenType = 7
-      Expression = '[\{\}]'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
         '</>|<\?>|<\||<=|\|\||&&|>=|\|>|\|=|\|\.|'#13#10'<\-|\->|\+\+|::|/=|==|' +
-        '//|>+|<+|!=|'#13#10'[\(\):\.,=\\\^\+\-/\*%]'
+        '//|>+|<+|!=|'#13#10'[\(\)\{\}:\.,=\\\^\+\-/\*%!]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -227,23 +211,6 @@ object SyntAnal20: TLibSyntAnalyzer
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
-    end
-    item
-      DisplayName = 'Types'
-      StyleName = 'Id types'
-      BlockType = btTagDetect
-      ConditionList = <
-        item
-          TagList.Strings = (
-            'I32'
-            'I64'
-            'List'
-            'Num'
-            'Str')
-          TokenTypes = 1
-        end>
-      HighlightPos = cpAny
-      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
@@ -265,7 +232,7 @@ object SyntAnal20: TLibSyntAnalyzer
     '^String'
     'Number'
     '^Symbol []'
-    'Symbol {}')
+    '')
   Extentions = 'roc'
   LexerName = 'Roc'
   Notes.Strings = (
