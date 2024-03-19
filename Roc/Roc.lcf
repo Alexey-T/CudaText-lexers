@@ -150,7 +150,7 @@ object SyntAnal20: TLibSyntAnalyzer
       TokenType = 3
       Expression = 
         '</>|<\?>|<\||<=|\|\||&&|>=|\|>|\|=|\|\.|'#13#10'<\-|\->|\+\+|::|/=|==|' +
-        '//|>+|<+|'#13#10'[\(\):\.,=\\\^\+\-/\*%]'
+        '//|>+|<+|!=|'#13#10'[\(\):\.,=\\\^\+\-/\*%]'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -261,7 +261,7 @@ object SyntAnal20: TLibSyntAnalyzer
     'Id'
     '^Comment'
     '^Id'
-    'Symbol'
+    '^Symbol'
     '^String'
     'Number'
     '^Symbol []'
