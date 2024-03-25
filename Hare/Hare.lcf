@@ -1,4 +1,4 @@
-object SyntAnal8: TLibSyntAnalyzer
+object SyntAnal24: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -93,7 +93,7 @@ object SyntAnal8: TLibSyntAnalyzer
       DisplayName = 'Symbol ()'
       StyleName = 'Symbol'
       TokenType = 7
-      Expression = '[\(\)]'
+      Expression = '\)\*|[\(\)]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -102,8 +102,8 @@ object SyntAnal8: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        '\.|,|;|:+|\[|\]|\<<|>>|=>|=|\+=|\-=|\*=|/=|%=|<<=|>>=|&=|\|=|\^=' +
-        '|&&=|\|\|=|\^\^=|'#13#10'\+|\-|~|!|\*|&|/|%|\^|\||\?|<|>|<=|>=|==|!='
+        '=>|={1,2}|\.+|,|;|:+|\[|\]|\?|'#13#10'\+=|\-=|\*=|/=|%=|<{1,2}=?|>{1,2' +
+        '}=?|&=|\|&&=|'#13#10'\+|\-|~|!=?|\*|&{1,2}=?|/|%|\^{1,2}=?|\|{1,2}=?'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -226,7 +226,11 @@ object SyntAnal8: TLibSyntAnalyzer
             'i64'
             'i8'
             'int'
+            'never'
             'null'
+            'opaque'
+            'rune'
+            'size'
             'str'
             'true'
             'u16'
@@ -234,10 +238,7 @@ object SyntAnal8: TLibSyntAnalyzer
             'u64'
             'u8'
             'uint'
-            'size'
-            'rune'
             'uintptr'
-            'opaque'
             'valist'
             'void')
           TokenTypes = 4
