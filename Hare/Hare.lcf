@@ -77,7 +77,7 @@ object SyntAnal8: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(["`])(\\.|.)*?(\1|$)'
+      Expression = '(["'#39'])(\\.|.)*?(\1|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -198,8 +198,6 @@ object SyntAnal8: TLibSyntAnalyzer
             'nullable'
             'offset'
             'return'
-            'rune'
-            'size'
             'static'
             'struct'
             'switch'
@@ -220,7 +218,6 @@ object SyntAnal8: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'bool'
-            'char'
             'f32'
             'f64'
             'false'
@@ -237,7 +234,11 @@ object SyntAnal8: TLibSyntAnalyzer
             'u64'
             'u8'
             'uint'
+            'size'
+            'rune'
             'uintptr'
+            'opaque'
+            'valist'
             'void')
           TokenTypes = 4
         end>
