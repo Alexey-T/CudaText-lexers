@@ -1,0 +1,7 @@
+[info]
+title=Pkl
+type=lexer
+subdir=-
+
+[lexer1]
+file=Pkl
