@@ -93,7 +93,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Rune'
       StyleName = 'Number'
       TokenType = 5
-      Expression = #39'(0x\h+|0o[0-7]+|0b[01]+|.|\\.|\d+)'#39
+      Expression = '(?-i)'#39'(\\x\h{2}|\\u\h{4}|\\U\h{8}|.|\\.)'#39
       ColumnFrom = 0
       ColumnTo = 0
     end
