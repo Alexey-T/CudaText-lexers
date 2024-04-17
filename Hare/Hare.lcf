@@ -85,7 +85,7 @@ object SyntAnal7: TLibSyntAnalyzer
       DisplayName = 'String raw'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)`.*?`'
+      Expression = '(?s)`.*?(`|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
