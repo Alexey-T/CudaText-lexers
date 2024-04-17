@@ -82,10 +82,10 @@ object SyntAnal7: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String ticks'
+      DisplayName = 'String raw'
       StyleName = 'String'
       TokenType = 4
-      Expression = '`.*?(`|$)'
+      Expression = '(?s)`.*?`'
       ColumnFrom = 0
       ColumnTo = 0
     end
