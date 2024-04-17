@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal7: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -77,7 +77,23 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(["'#39'])(\\.|.)*?(\1|$)'
+      Expression = '"(\\.|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String ticks'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '`.*?(`|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Rune'
+      StyleName = 'Number'
+      TokenType = 9
+      Expression = '(?-i)'#39'(\\x\h{2}|\\u\h{4}|\\U\h{8}|\\[0abfnrtv\\'#39'"]|[^\\'#39'])'#39
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -296,6 +312,7 @@ object SyntAnal24: TLibSyntAnalyzer
     ''
     'export fn main() void = {'
     '    n = 12.34 + 0xFFAA + 0b1100 + 0o7700 + 1.2e3f32'
+    '    n2 = '#39'\xAB'#39' + '#39'\uABCD'#39' + '#39'\'#39#39' + '#39'\n'#39' + '#39't'#39
     #9'const source = strings::split(source, "\n");'
     #9'first(source);'
     #9'fmt::printfln("{} + {} = {}", i, j, i + j)!;'
@@ -303,7 +320,7 @@ object SyntAnal24: TLibSyntAnalyzer
     ''
     '@init'
     'fn first(lines: []str) void = {'
-    #9'fmt::println("Text")!;'
+    #9'fmt::println(`Text`)!;'
     '};')
   TokenTypeNames.Strings = (
     'Unknown'
@@ -314,7 +331,8 @@ object SyntAnal24: TLibSyntAnalyzer
     'Number'
     'Symbol {}'
     'Symbol ()'
-    'Decorator')
+    'Decorator'
+    'Rune')
   Extentions = 'ha'
   LexerName = 'Hare'
   Notes.Strings = (
