@@ -1,4 +1,4 @@
-object SyntAnal15: TLibSyntAnalyzer
+object SyntAnal24: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -90,12 +90,26 @@ object SyntAnal15: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String 2'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '\{\|.*?(\Z|\|\})'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String 2b'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '\{(\w+)\|.*?(\Z|\|\1\})'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Char'
       StyleName = 'String2'
       TokenType = 8
-      Expression = 
-        #39'[^\\]'#39' |'#13#10#39'\\ [\\"'#39'ntbr]'#39' |'#13#10#39'\\ \d\d\d'#39' |'#13#10#39'\\x [\da-f][\da-f]' +
-        #39
+      Expression = #39'[^\\]'#39'|'#13#10#39'\\[\\"'#39'ntbr]'#39'|'#13#10#39'\\\d\d\d'#39'|'#13#10#39'\\x\h\h'#39
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -119,7 +133,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Number hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x[\da-f][\da-f_]*\b |'#13#10'0o[0-7][0-7_]*\b |'#13#10'0b[01][01_]*\b'
+      Expression = '0x\h[\da-f_]*\b|'#13#10'0o[0-7][0-7_]*\b|'#13#10'0b[01][01_]*\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -144,9 +158,9 @@ object SyntAnal15: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        '!=|\#|&+|'#39'|\*|\+|,|'#13#10'->|<-|\-\.?|\.~|\.+|:=|:>|:+|;+|'#13#10'=|>\]|>}|' +
-        '>+|\?+|\[<|\[>|\[\||\[|\]|<:|<+|'#13#10'_|`|\{<|\|\]|\|+|\|\]|\|\||~|'#13 +
-        #10'\$:|\$+|\^|!'
+        '!=|\#|&+|'#39'|\*\.?|\+\.?|\-\.?|,|'#13#10'->|<-|\.~|\.+|:=|:>|:+|;+|'#13#10'=|>' +
+        '\]|>}|>+|\?+|\[<|\[>|\[\||\[|\]|<:|<+|'#13#10'_|`|\{<|\|\]|\|+|\|\]|\|' +
+        '\||~|'#13#10'\$:|\$+|\^|!'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -492,7 +506,8 @@ object SyntAnal15: TLibSyntAnalyzer
     'print_string ", nice to meet you!\n";'
     'exit 0;;'
     '... ['#39'\\'#39' '#39'\"'#39' '#39#39#39' '#39'n'#39' '#39'r'#39' '#39't'#39' '#39'b'#39' '#39' '#39'] as c'
-    '          { Some (char_for_backslash c) }')
+    '          { Some (char_for_backslash c) }'
+    '{|str|} ^ {sep|text|}text|sep} + '#39'\n'#39)
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
@@ -506,7 +521,7 @@ object SyntAnal15: TLibSyntAnalyzer
   Extentions = 'ml mli'
   LexerName = 'OCaml'
   Notes.Strings = (
-    'Alexey (CudaText)')
+    'Alexey Torgashin (CudaText)')
   RestartFromLineStart = True
   Charset = DEFAULT_CHARSET
 end
