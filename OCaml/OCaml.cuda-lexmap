@@ -1,7 +1,7 @@
 [comments]
 str1=(*
 str2=*)
-styles_cmt=Comment
+styles_cmt=Comment,Comment doc
 styles_str=String
 
 [map]
@@ -14,3 +14,4 @@ Id keyword=IdKeyword
 Id std=Id2
 Id'=Id1
 String2=String2
+Comment doc=CommentDoc

@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Comment'
@@ -71,13 +71,29 @@ object SyntAnal24: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Comment doc'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clLime
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
     end>
   TokenRules = <
+    item
+      DisplayName = 'Comment doc'
+      StyleName = 'Comment doc'
+      TokenType = 1
+      Expression = '(?s)\(\*\* (\(\*.*?\*\)|.)*? (\*\)|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
     item
       DisplayName = 'Comment'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '(?s) \(\* (\(\*.*?\*\)|.)*? (\*\)|\Z)'
+      Expression = '(?s)\(\* (\(\*.*?\*\)|.)*? (\*\)|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -85,7 +101,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s) " (\\"|.)*? ("|\Z)'
+      Expression = '(?s)"(\\.|.)*?("|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -93,7 +109,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'String 2'
       StyleName = 'String'
       TokenType = 4
-      Expression = '\{\|.*?(\Z|\|\})'
+      Expression = '(?s)\{\|.*?(\Z|\|\})'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -101,7 +117,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'String 2b'
       StyleName = 'String'
       TokenType = 4
-      Expression = '\{(\w+)\|.*?(\Z|\|\1\})'
+      Expression = '(?s)\{(\w+)\|.*?(\Z|\|\1\})'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -133,7 +149,9 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Number hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x\h[\da-f_]*\b|'#13#10'0o[0-7][0-7_]*\b|'#13#10'0b[01][01_]*\b'
+      Expression = 
+        '0x\h[\da-f_]*\.[\da-f_]*(p[\-\+]?[\d_]+)?|'#13#10'0x\h[\da-f_]*n?\b|'#13#10 +
+        '0o[0-7][0-7_]*n?\b|'#13#10'0b[01][01_]*n?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -149,7 +167,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Number dec'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d[\d_]*\b'
+      Expression = '\d[\d_]*n?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -499,7 +517,8 @@ object SyntAnal24: TLibSyntAnalyzer
     '(*...(* nested comment '
     '.... *)............*)'
     '#load "test.txt";;'
-    '1._2 + 1.2e+0_3 + 0b11_00 + 0o12_ + 0xFF_AA'
+    '1._2 + 1.2e+0_3 + 0b11_00 + 0o12_ + 0xFF_AA +'
+    '0xa.b  0xa.ep1 0xa.ep-_1'
     #39'a'#39' + '#39'\n'#39' + '#39'\'#39#39' + '#39'\"'#39' + '#39'\123'#39' + '#39'\xAB'#39
     'let answer = input_line stdin in'
     'print_string ("Hello " ^ answer);'
@@ -507,7 +526,8 @@ object SyntAnal24: TLibSyntAnalyzer
     'exit 0;;'
     '... ['#39'\\'#39' '#39'\"'#39' '#39#39#39' '#39'n'#39' '#39'r'#39' '#39't'#39' '#39'b'#39' '#39' '#39'] as c'
     '          { Some (char_for_backslash c) }'
-    '{|str|} ^ {sep|text|}text|sep} + '#39'\n'#39)
+    '{|str|} ^ {sep|text|}text|sep} + '#39'\n'#39' (** doc comment *)'
+    '')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
