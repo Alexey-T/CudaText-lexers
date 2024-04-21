@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal25: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -172,7 +172,7 @@ object SyntAnal23: TLibSyntAnalyzer
       DisplayName = 'Id type'
       StyleName = 'Id type'
       TokenType = 9
-      Expression = '(?<=\[)\w[\w\-]*(?=\])'
+      Expression = '(?<=[^\w]\[)\w[\w\-\.]*(?=[\[\]])'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -437,6 +437,7 @@ object SyntAnal23: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Types'
+      Enabled = False
       StyleName = 'Id type'
       BlockType = btTagDetect
       ConditionList = <
@@ -478,10 +479,10 @@ object SyntAnal23: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
+            '$$'
+            '$?'
             '$^'
             '$_'
-            '$?'
-            '$$'
             '$args'
             '$ConfirmPreference'
             '$ConsoleFileName'
@@ -665,10 +666,10 @@ object SyntAnal23: TLibSyntAnalyzer
     'Operator'
     'Var'
     'Id type')
-  Extentions = 'ps1'
+  Extentions = 'ps1 psd1 psm1 pssc psrc'
   LexerName = 'PowerShell'
   Notes.Strings = (
-    'Alexey (CudaText)'
+    'Alexey Torgashin (CudaText)'
     'Tests: http://www.robvanderwoude.com/powershellexamples.php'
     
       'Numbers: https://docs.microsoft.com/en-us/powershell/module/micr' +
