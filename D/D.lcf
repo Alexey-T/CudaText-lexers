@@ -1,4 +1,4 @@
-object SyntAnal22: TLibSyntAnalyzer
+object SyntAnal7: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -85,7 +85,7 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '"(\\.|.)*?("|$) [cwd]?'
+      Expression = '(?s)q?"(\\.|.)*?("|\Z) [cwd]?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -132,18 +132,18 @@ object SyntAnal22: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Float'
+      DisplayName = 'Number float'
       StyleName = 'Number'
       TokenType = 5
       Expression = 
-        '(?-i) ( '#13#10'\. [\d_]+ [eE] [\+\-]? [\d_]+ |'#13#10'[\d_]+ (\. [\d_]+)? [' +
-        'eE] [\+\-]? [\d_]+ |'#13#10'0x [\da-fA-F_]+ (\. [\da-fA-F_]+)? [pP] [\' +
-        '+\-]? [\da-fA-F_]+ |'#13#10'[\d_]* \. [\d_]+ '#13#10') '#13#10'[fFL]? i?\b'
+        '(?-i)('#13#10'\.[\d_]+[eE][\+\-]?[\d_]+|'#13#10'[\d_]+ (\.[\d_]+)?[eE][\+\-]' +
+        '?[\d_]+|'#13#10'0[xX][\da-fA-F_]+(\.[\da-fA-F_]+)?[pP][\+\-]?[\da-fA-F' +
+        '_]+|'#13#10'[\d_]*\.[\d_]+'#13#10')[fFL]?i?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Hex float'
+      DisplayName = 'Number hex float'
       StyleName = 'Number'
       TokenType = 5
       Expression = '0x[\h_]*\.[\h_]+p[\-\+]?[\d_]+\b'
@@ -151,18 +151,26 @@ object SyntAnal22: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Hex'
+      DisplayName = 'Number binary'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '0x[\da-f_]+\b |'#13#10'0b[01_]+f?\b'
+      Expression = '(?-i)0[bB][01_]+(Lu|LU|uL|UL|L|u|U|f|F)?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Integer'
+      DisplayName = 'Number hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '(?-i) \d[\d_]* (Lu|LU|uL|UL|L|u|U|f)? \b'
+      Expression = '(?-i)0[xX][\h_]+(Lu|LU|uL|UL|L|u|U|f|F)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number decimal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '[\d_]+\.|'#13#10'(?-i)\d[\d_]*(Lu|LU|uL|UL|L|u|U|f|F)?\b'#13#10
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -210,7 +218,9 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[/\+\-\*=<>&/\|\^~\.%]+'
+      Expression = 
+        '/=?|\.+|&+=?|\|+=?|\-+=?|\++=?|<+=?|>+=?|'#13#10'=>|!=?|=+|[\*%~]=?|\^' +
+        '+=?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -218,7 +228,7 @@ object SyntAnal22: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[,;@\?!\$]'
+      Expression = '[,;@\?\$]'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -406,6 +416,7 @@ object SyntAnal22: TLibSyntAnalyzer
             '__DATE__'
             '__EOF__'
             '__FILE__'
+            '__FILE_FULL_PATH__'
             '__FUNCTION__'
             '__gshared'
             '__LINE__'
@@ -674,7 +685,7 @@ object SyntAnal22: TLibSyntAnalyzer
   Extentions = 'd di'
   LexerName = 'D'
   Notes.Strings = (
-    'Alexey (CudaText)'
+    'Alexey Torgashin (CudaText)'
     'Doc about tokens: http://dlang.org/lex.html#IntegerLiteral')
   LineComment = '//'
   Charset = DEFAULT_CHARSET
