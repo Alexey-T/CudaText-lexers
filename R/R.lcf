@@ -33,7 +33,7 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Identifier'
+      DisplayName = 'Id'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -13
@@ -41,7 +41,7 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Reserved word'
+      DisplayName = 'Id keyword'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -49,9 +49,25 @@ object SyntAnal17: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'Std func'
+      DisplayName = 'Id func'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id plotting'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id datasets'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -75,7 +91,7 @@ object SyntAnal17: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Id'
-      StyleName = 'Identifier'
+      StyleName = 'Id'
       TokenType = 2
       Expression = '[a-z_][\w\.]*'
       ColumnFrom = 0
@@ -116,7 +132,7 @@ object SyntAnal17: TLibSyntAnalyzer
   BlockRules = <
     item
       DisplayName = 'Id keywords'
-      StyleName = 'Reserved word'
+      StyleName = 'Id keyword'
       BlockType = btTagDetect
       ConditionList = <
         item
@@ -161,7 +177,7 @@ object SyntAnal17: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Id funcs'
-      StyleName = 'Std func'
+      StyleName = 'Id func'
       BlockType = btTagDetect
       ConditionList = <
         item
@@ -2417,8 +2433,8 @@ object SyntAnal17: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Id funcs - graphics'
-      StyleName = 'Std func'
+      DisplayName = 'Id plotting'
+      StyleName = 'Id plotting'
       BlockType = btTagDetect
       ConditionList = <
         item
@@ -2633,8 +2649,8 @@ object SyntAnal17: TLibSyntAnalyzer
       IgnoreAsParent = False
     end
     item
-      DisplayName = 'Id funcs - datasets'
-      StyleName = 'Std func'
+      DisplayName = 'Id datasets'
+      StyleName = 'Id datasets'
       BlockType = btTagDetect
       ConditionList = <
         item

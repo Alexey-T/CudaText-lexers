@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal15: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -104,7 +104,7 @@ object SyntAnal24: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '&?[a-z_]\w*'
+      Expression = '&?[a-z_]\w*(<[\w\x20,]+>)?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -509,6 +509,7 @@ object SyntAnal24: TLibSyntAnalyzer
       ConditionList = <
         item
           TokenTypes = 4
+          IgnoreCase = True
         end
         item
           TagList.Strings = (
@@ -743,6 +744,7 @@ object SyntAnal24: TLibSyntAnalyzer
       CancelNextRules = True
       CollapseFmt = '%sz0'
       TreeItemImage = 6
+      TreeGroupImage = 1
       IgnoreAsParent = False
     end
     item
@@ -785,6 +787,7 @@ object SyntAnal24: TLibSyntAnalyzer
       CancelNextRules = True
       CollapseFmt = '%sz0'
       TreeItemImage = 6
+      TreeGroupImage = 1
       IgnoreAsParent = False
     end
     item
