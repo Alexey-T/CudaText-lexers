@@ -176,9 +176,7 @@ object SyntAnal20: TLibSyntAnalyzer
       DisplayName = 'Num hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = 
-        '0x[0-9a-f_]+ ([iu]\d*)?\b |'#13#10'0b[01_]+ ([iu]\d*)?\b |'#13#10'0o[0-7_]+ ' +
-        '([iu]\d*)?\b |'#13#10
+      Expression = '(0x[0-9a-f_]+|0b[01_]+|0o[0-7_]+)([iu](8|16|32|64|128|size))?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -186,7 +184,7 @@ object SyntAnal20: TLibSyntAnalyzer
       DisplayName = 'Num decimal'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d[\d_]* ([uif]\d*|[ui]size)?\b'
+      Expression = '\d[\d_]* ([uif](8|16|32|64|128|size))?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
