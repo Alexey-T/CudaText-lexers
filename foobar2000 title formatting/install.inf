@@ -1,0 +1,7 @@
+[info]
+title=foobar2000 title formatting
+type=lexer
+subdir=-
+
+[lexer1]
+file=foobar2000 title formatting

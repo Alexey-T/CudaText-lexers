@@ -1,0 +1,22 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comments,Separator_fold
+styles_str=Text
+
+[map]
+Regex1=String2
+Regex2=String3
+Regex_num=Id4
+Separator_fold=Label
+Separator=Label
+Comments=Comment
+Escaping_char=Symbol
+Query=String
+Color control=Color
+var=IdVar
+setstyle=Id3
+Functions=Id1
+FunctionsMeta=Id2
+Numbers=Number
+Text=Id

@@ -1,0 +1,394 @@
+object SyntAnal3: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Regex1'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 6594660
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Regex2'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 7219450
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Regex_num'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16745130
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Separator_fold'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 14474340
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Separator'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 14474340
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comments'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 7895160
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Escaping_char'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 11837440
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Query'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 7265510
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Color control'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2004730
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 3335850
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'setstyle'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 9869020
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Functions'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 7219450
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'FunctionsMeta'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744703
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Numbers'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16745130
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Text'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 14474460
+      Font.Height = -15
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Regex1'
+      StyleName = 'Regex1'
+      Expression = '(\\[^0-9\s%'#39'\r\n])?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex2'
+      StyleName = 'Regex2'
+      TokenType = 1
+      Expression = '(?<=\()(\?([\#<:]{1}[=!]?|[=!]{1}|(?=\(?)))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex_num1'
+      StyleName = 'Regex_num'
+      TokenType = 2
+      Expression = '{[0-9]+(,[0-9]*)?}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Regex_num2'
+      StyleName = 'Regex_num'
+      TokenType = 2
+      Expression = '(\$|\\)[0-9]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Separator_fold'
+      StyleName = 'Separator_fold'
+      TokenType = 3
+      Expression = '(?<=(^|\t*|\s*))(-|_|=){2,}(?![-_=]).+?(?<![-_=])(-|_|=){2,}$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Separator'
+      StyleName = 'Separator'
+      TokenType = 4
+      Expression = '^(\t|\s)*?(-|_|=){2,}(-|_|=){2,}$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comments'
+      StyleName = 'Comments'
+      TokenType = 5
+      Expression = '^//.*?$'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Escaping_char'
+      StyleName = 'Escaping_char'
+      StrictParent = True
+      TokenType = 6
+      Expression = #39'[\[\]\(\)\#\$\%\'#39']*'#39
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Query'
+      StyleName = 'Query'
+      TokenType = 7
+      Expression = 
+        '\b(?-i)(WEEKS|WEEK|SORT|SINCE|SECONDS|SECOND|PRESENT|OR|NOT|MISS' +
+        'ING|MINUTES|MINUTE|LESS|LAST|IS|HOURS|HOUR|HAS|GREATER|EQUAL|DUR' +
+        'ING|DESCENDING|DAYS|DAY|BY|BEFORE|AND|AFTER)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Color control'
+      StyleName = 'Color control'
+      TokenType = 8
+      Expression = '(<|>){1,3}[^<>\s\r\n]+?(<|>){1,3}'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'var'
+      StyleName = 'var'
+      TokenType = 9
+      Expression = '%[^%=<>\r\n]+?%'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'setstyle'
+      StyleName = 'setstyle'
+      TokenType = 10
+      Expression = 
+        '(?<=\$set_style\()(text|back|frame-(left|top|right|bottom))(?=\,' +
+        ')'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'put(s)var'
+      StyleName = 'setstyle'
+      TokenType = 10
+      Expression = '(?<=\$put(s)?\()[^%=<>\r\n]+?(?=\,)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'getvar'
+      StyleName = 'setstyle'
+      TokenType = 10
+      Expression = '(?<=\$get\()[^%=<>\r\n]+?(?=\))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'setglobal'
+      StyleName = 'setstyle'
+      TokenType = 10
+      Expression = '(?<=\$set_global\()[^%=<>\r\n]+?(?=\,)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'getglobal'
+      StyleName = 'setstyle'
+      TokenType = 10
+      Expression = '(?<=\$get_global\()[^%=<>\r\n]+?(?=\))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Functions'
+      StyleName = 'Functions'
+      TokenType = 11
+      Expression = '\$(?!meta)\w+?(?=\()'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'FunctionsMeta'
+      StyleName = 'FunctionsMeta'
+      TokenType = 12
+      Expression = '\$meta\w*?(?=\()'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'metavar'
+      StyleName = 'var'
+      TokenType = 9
+      Expression = '(?<=\$meta\w*?\()[^%=<>\r\n]+?(?=(,|\)))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Numbers'
+      StyleName = 'Numbers'
+      TokenType = 13
+      Expression = '(?<!\w)[0-9]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Text'
+      StyleName = 'Text'
+      TokenType = 14
+      Expression = '\b(?<!\w+'#39'{2,})\w+(?!'#39'{2,}\w+)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Sep_fold'
+      ConditionList = <
+        item
+          CondType = tcMask
+          TokenTypes = 8
+        end>
+      BlockEnd = 'Sep_end'
+      EndOfTextClose = True
+      Highlight = True
+      HighlightPos = cpAny
+      SelfClose = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Sep_end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 16
+        end>
+      BlockEnd = 'Sep_fold'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'This is raw text'
+    '// This is a comment (always from the start of the line)'
+    '      //  This won'#39't work as a comment'
+    'Numbers: 1 2 3 4 5 6 7 8 9 0'
+    
+      'Symbols: ~ ` ! @ \ # $ % ^ & * ( ) _ + - = { } [ ] | '#168' ? ; : " '#39 +
+      ' , < > . ? /'
+    'Query words: AFTER AND BEFORE DURING'
+    'Color control: <test> >>test<< >test<'
+    ''
+    'Variables:   %album%   [%album%]'
+    ''
+    'Functions colors:'
+    #9'Basic:'
+    #9#9'$if(%var%,text,$meta(var))'
+    #9#9'$left(%var%,Y)'
+    #9'For $meta only:'
+    #9#9'$meta(var)'
+    #9'For Columns UI globals:'
+    #9#9'$set_style(text,$rgb(255,0,0),$rgb(0,255,0),$rgb(0,0,255))'
+    ''
+    '--This is a fold--'
+    'Some text'
+    '------------------'
+    ''
+    'This is a separator'
+    '----------------------------'
+    ''
+    'Escaping characters with '#39#39' always in pair:'
+    ''
+    'Use '#39']'#39' if you want to add this characters   []()#$%   in foobar'
+    'Use '#39#39' if you want to add a single   '#39
+    ''
+    '----------------------------'
+    ''
+    '--Regex in Mp3tag--'
+    ''
+    
+      '$regexp(%TITLE%,(\b\s)?\s*\bf(ea)?t(uring)?\b\.?(?:(\s*|[^\w])),' +
+      '\1feat. ,1)')
+  TokenTypeNames.Strings = (
+    'Regex1'
+    'Regex2'
+    'Regex_num'
+    'Separator_fold'
+    'Separator'
+    'Comments'
+    'Escaping_char'
+    'Query'
+    'Color control'
+    'var'
+    'setstyle'
+    'Functions'
+    'FunctionsMeta'
+    'Numbers'
+    'Text')
+  DefaultStyleName = 'Text'
+  LexerName = 'foobar2000 title formatting'
+  SkipSpaces = False
+  Notes.Strings = (
+    'Stem75   ( Stefanos Miloulis )'
+    ''
+    'Title formatting syntax highlighting for foobar2000 and Mp3tag.'
+    ''
+    'It is made for a DARK theme with a background rgb of (40,40,40)'
+    '')
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end
