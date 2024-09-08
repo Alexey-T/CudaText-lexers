@@ -1,0 +1,412 @@
+object SyntAnal15: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id type'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id std func'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '\-\-.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment block'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)\{\-.*?(\-\}|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_][\w'#39']*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\(\)\[\]\{\}]|[\.,\|!%\$\#\?~\+:\-\*&=</>\\@]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\.|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+(\.\d+)?(e[\+\-]?\d+)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Number dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Id keyword'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'ado'
+            'as'
+            'case'
+            'class'
+            'data'
+            'do'
+            'else'
+            'forall'
+            'foreign'
+            'hiding'
+            'if'
+            'import'
+            'in'
+            'infix'
+            'infixl'
+            'infixr'
+            'instance'
+            'let'
+            'module'
+            'newtype'
+            'of'
+            'qualified'
+            'then'
+            'type'
+            'where')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id type'
+      StyleName = 'Id type'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'Alternative'
+            'Applicative'
+            'Array'
+            'Bits'
+            'Boolean'
+            'BoolLike'
+            'Category'
+            'Char'
+            'Enum'
+            'Eq'
+            'false'
+            'Functor'
+            'infinity'
+            'Int'
+            'Monad'
+            'nan'
+            'Num'
+            'Number'
+            'Ord'
+            'Read'
+            'Show'
+            'String'
+            'true')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Id std func'
+      StyleName = 'Id std func'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'aceil'
+            'acos'
+            'all'
+            'any'
+            'asin'
+            'atan'
+            'atan2'
+            'bindEff'
+            'boolAnd'
+            'boolNot'
+            'boolOr'
+            'catchError'
+            'charAt'
+            'complement'
+            'concat'
+            'concatMap'
+            'const'
+            'cos'
+            'curry'
+            'decodeURI'
+            'decodeURIComponent'
+            'deleteAt'
+            'e'
+            'Eff'
+            'either'
+            'empty'
+            'encodeURI'
+            'encodeURIComponent'
+            'Error'
+            'exp'
+            'filter'
+            'find'
+            'flip'
+            'floor'
+            'foldl'
+            'foldM'
+            'foldr'
+            'forE'
+            'foreachE'
+            'fromEnum'
+            'fromMaybe'
+            'head'
+            'id'
+            'indexOf'
+            'indexOfS'
+            'insertAt'
+            'IORef'
+            'isEmpty'
+            'isFinite'
+            'isNaN'
+            'join'
+            'joinS'
+            'joinWith'
+            'Just'
+            'lastIndexOf'
+            'lastIndexOfS'
+            'Left'
+            'length'
+            'lengthS'
+            'liftRef'
+            'ln10'
+            'ln2'
+            'localeCompare'
+            'log'
+            'log10e'
+            'log2e'
+            'map'
+            'mapM'
+            'match'
+            'max'
+            'maybe'
+            'mconcat'
+            'mempty'
+            'min'
+            'modifyIORef'
+            'modifySTRef'
+            'Monoid'
+            'negate'
+            'newIORef'
+            'newSTArray'
+            'newSTRef'
+            'not'
+            'Nothing'
+            'numAdd'
+            'numAnd'
+            'numComplement'
+            'numDiv'
+            'numGreater'
+            'numGreaterEq'
+            'numLess'
+            'numLessEq'
+            'numMod'
+            'numMul'
+            'numNegate'
+            'numOr'
+            'numShl'
+            'numShr'
+            'numSub'
+            'numXor'
+            'numZshr'
+            'parseFloat'
+            'parseInt'
+            'peekSTArray'
+            'pi'
+            'pokeSTArray'
+            'pow'
+            'print'
+            'Pure'
+            'push'
+            'Random'
+            'range'
+            'read'
+            'readIORef'
+            'readNumber'
+            'readSTRef'
+            'Ref'
+            'refEq'
+            'refIneq'
+            'Regex'
+            'replace'
+            'replaceR'
+            'replicateM'
+            'retEff'
+            'return'
+            'reverse'
+            'Right'
+            'round'
+            'runPure'
+            'runST'
+            'runSTArray'
+            'search'
+            'sequence'
+            'shift'
+            'shl'
+            'show'
+            'showNumber'
+            'shr'
+            'sin'
+            'singleton'
+            'slice'
+            'sliceS'
+            'sort'
+            'split'
+            'sqrt'
+            'sqrt1_2'
+            'sqrt2'
+            'ST'
+            'STArray'
+            'STRef'
+            'substr'
+            'substring'
+            'tail'
+            'tan'
+            'test'
+            'throwError'
+            'toEnum'
+            'toExponential'
+            'toFixed'
+            'toLower'
+            'toPrecision'
+            'toUpper'
+            'Trace'
+            'trim'
+            'uncurry'
+            'unsafeRefEq'
+            'unsafeRefIneq'
+            'unsafeRunIORef'
+            'untilE'
+            'unzip'
+            'updateAt'
+            'when'
+            'whileE'
+            'writeIORef'
+            'writeSTRef'
+            'zip'
+            'zipWith'
+            'zshr')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '-- Cmt'
+    '{- Cmt'
+    '-} "Str" 1.2e+3'
+    'module Main where'
+    'import Effect.Console (log)'
+    'class Arg i o | i -> o'
+    ''
+    'argEg2 :: Proxy Int'
+    'argEg2 = arg (Proxy :: Proxy (Boolean -> Array Int))')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number')
+  Extentions = 'purs'
+  LexerName = 'PureScript'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+end
