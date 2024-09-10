@@ -39,6 +39,7 @@ keyword LIKE
 keyword LIMIT
 keyword NOT
 keyword NULL
+keyword ON
 keyword OR
 keyword ORDER
 keyword OUTER
