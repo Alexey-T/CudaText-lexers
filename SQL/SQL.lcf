@@ -330,6 +330,7 @@ object SyntAnal23: TLibSyntAnalyzer
             'LIMIT'
             'NOT'
             'NULL'
+            'ON'
             'OR'
             'ORDER'
             'OUTER'
@@ -348,8 +349,7 @@ object SyntAnal23: TLibSyntAnalyzer
             'UPDATE'
             'VALUES'
             'VIEW'
-            'WHERE'
-            'ON')
+            'WHERE')
           TokenTypes = 8
           IgnoreCase = True
         end>
