@@ -348,7 +348,8 @@ object SyntAnal23: TLibSyntAnalyzer
             'UPDATE'
             'VALUES'
             'VIEW'
-            'WHERE')
+            'WHERE'
+            'ON')
           TokenTypes = 8
           IgnoreCase = True
         end>
