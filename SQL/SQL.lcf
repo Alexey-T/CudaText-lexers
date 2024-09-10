@@ -330,6 +330,7 @@ object SyntAnal23: TLibSyntAnalyzer
             'LIMIT'
             'NOT'
             'NULL'
+            'ON'
             'OR'
             'ORDER'
             'OUTER'
