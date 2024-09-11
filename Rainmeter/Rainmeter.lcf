@@ -1,4 +1,4 @@
-object SyntAnal30: TLibSyntAnalyzer
+object SyntAnal17: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Default'
@@ -176,7 +176,7 @@ object SyntAnal30: TLibSyntAnalyzer
       DisplayName = 'Section'
       StyleName = 'Section'
       TokenType = 1
-      Expression = '^\[[a-z0-9]+\]'
+      Expression = '^\[.+\]$'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -679,10 +679,6 @@ object SyntAnal30: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    
-      '; Rainmeter syntax highlighter for SynWrite, created 2017-05-17 ' +
-      'by qwerky.'
-    ''
     '[Rainmeter]'
     'Update=1000'
     'AccurateText=1'
@@ -759,7 +755,7 @@ object SyntAnal30: TLibSyntAnalyzer
   Extentions = 'ini'
   LexerName = 'Rainmeter'
   Notes.Strings = (
-    'SynWrite Lexer for the Rainmeter language.'
+    'CudaText lexer for the Rainmeter language.'
     'Created 2017-05-17 by qwerky.'
     'Based on Rainmeter version 4.1.')
   ParseEndOfLine = True

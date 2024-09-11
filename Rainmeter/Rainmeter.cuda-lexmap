@@ -18,3 +18,8 @@ VariablesBG=SectionBG3
 MeasureBG=SectionBG4
 MeterBG=IncludeBG1
 SectionBG=IncludeBG2
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=
