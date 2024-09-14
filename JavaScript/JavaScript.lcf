@@ -81,24 +81,6 @@ object SyntAnal9: TLibSyntAnalyzer
       Font.Style = [fsItalic]
     end
     item
-      DisplayName = 'Current block'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMaroon
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      BgColor = 13369046
-      FormatType = ftBackGround
-      BorderTypeLeft = blSolid
-      BorderColorLeft = clGray
-      BorderTypeTop = blSolid
-      BorderColorTop = clGray
-      BorderTypeRight = blSolid
-      BorderColorRight = clGray
-      BorderTypeBottom = blSolid
-      BorderColorBottom = clGray
-    end
-    item
       DisplayName = 'PHP tag'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clRed
@@ -145,27 +127,41 @@ object SyntAnal9: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Sublexer BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clMoneyGreen
+      FormatType = ftBackGround
     end>
   TokenRules = <
     item
       DisplayName = 'Comment empty'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '/\*\*/'
+      Expression = '/\*{2,}/'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Comment doc'
+      DisplayName = 'Comment doc begin'
       StyleName = 'Comment doc'
+      StatesAdd = 1
+      StatesAbsent = 1
       TokenType = 1
-      Expression = '(?s)/\*\*.*?(\*/|\Z)'
+      Expression = '/\*{2,}'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Comment doc end-only'
+      DisplayName = 'Comment doc end'
       StyleName = 'Comment doc'
+      StatesRemove = 1
+      StatesPresent = 1
       TokenType = 1
       Expression = '\*/'
       ColumnFrom = 0
@@ -200,14 +196,6 @@ object SyntAnal9: TLibSyntAnalyzer
       StyleName = 'String'
       TokenType = 4
       Expression = '("|'#39') (\\\\|\\\1|\\\z|.)*? (\1|\Z)'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'String ticks'
-      StyleName = 'String ticks'
-      TokenType = 4
-      Expression = '(?s)`(\\`|\$\{ (\$\{.*?\}|.)*?\}|.)*?(`|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -253,6 +241,13 @@ object SyntAnal9: TLibSyntAnalyzer
       StyleName = 'HTML tag name'
       TokenType = 2
       Expression = '(?<=</?)\w+(?=[\x20/>\n])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Tick template tag'
+      StyleName = 'PHP tag'
+      Expression = '`|[a-z]\w*`'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -310,7 +305,7 @@ object SyntAnal9: TLibSyntAnalyzer
       DisplayName = 'PHP tag'
       StyleName = 'PHP tag'
       TokenType = 6
-      Expression = '<\?php | <\? | \?>'
+      Expression = '<\?php|<\?|\?>'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -423,9 +418,9 @@ object SyntAnal9: TLibSyntAnalyzer
       ConditionList = <
         item
           TagList.Strings = (
-            '$export'
             '__dirname'
             '__filename'
+            '$export'
             'AggregateError'
             'Array'
             'ArrayBuffer'
@@ -957,9 +952,32 @@ object SyntAnal9: TLibSyntAnalyzer
     end
     item
       DisplayName = 'JSDoc'
-      StartExpression = '/\*\*[^/\*]'
-      EndExpression = '[^/\*\n\r]*?\*/'
+      StatesAdd = 1
+      StatesRemove = 1
+      StartExpression = '/\*{2,}(?!/)'
+      EndExpression = '\*/'
       SyntAnalyzer = SyntAnal10
+    end
+    item
+      DisplayName = 'Template HTML'
+      StyleName = 'Sublexer BG'
+      StartExpression = '(?-i)\bhtml`'
+      EndExpression = '`'
+      SyntAnalyzer = SyntAnal8
+    end
+    item
+      DisplayName = 'Template JSON'
+      StyleName = 'Sublexer BG'
+      StartExpression = '(?-i)\bjson`'
+      EndExpression = '`'
+      SyntAnalyzer = SyntAnal11
+    end
+    item
+      DisplayName = 'Template CSS'
+      StyleName = 'Sublexer BG'
+      StartExpression = '(?-i)\bcss`'
+      EndExpression = '`'
+      SyntAnalyzer = SyntAnal6
     end>
   SampleText.Strings = (
     '#!/bin/bash                         '
@@ -974,7 +992,7 @@ object SyntAnal9: TLibSyntAnalyzer
     'var test = NaN + Object + $ + offset;'
     'var s_regex = /^<\/?\w.*?>/gi;'
     '    s_not_regex = 1 / 2 + (0xFF+10) / 3 + false-true;'
-    '    s_ticks = `some str`;'
+    '    s_template = css` br { background: #a00; }`;'
     '    s_mulline = " \'
     '      <div class='#39'"+some+"'#39'> \'
     '      <td width='#39'200'#39'> \'
@@ -1028,8 +1046,8 @@ object SyntAnal9: TLibSyntAnalyzer
   Extentions = 'js htc es6 pjs mjs'
   LexerName = 'JavaScript'
   Notes.Strings = (
-    'Based on lexer from EControl'
-    'Reworked by Alexey (CudaText)')
+    'It was based on lexer from EControl'
+    'Reworked by Alexey Torgashin (CudaText)')
   RestartFromLineStart = True
   LineComment = '//'
   Charset = DEFAULT_CHARSET
