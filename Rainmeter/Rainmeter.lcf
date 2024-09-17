@@ -1,4 +1,4 @@
-object SyntAnal17: TLibSyntAnalyzer
+object SyntAnal15: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Default'
@@ -176,7 +176,7 @@ object SyntAnal17: TLibSyntAnalyzer
       DisplayName = 'Section'
       StyleName = 'Section'
       TokenType = 1
-      Expression = '^\[.+\]$'
+      Expression = '^\[.+\]\x20*$'
       ColumnFrom = 0
       ColumnTo = 0
     end
