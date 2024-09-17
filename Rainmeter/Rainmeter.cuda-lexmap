@@ -1,7 +1,13 @@
+[comments]
+str1=
+str2=
+styles_cmt=Comment
+styles_str=
+
 [map]
-Default=-
+Default=Id
 Comment=Comment
-Section=TagId
+Section=Label
 Preprocessor=Id3
 KeyReserved=IdKeyword
 Key=Id1
@@ -18,8 +24,3 @@ VariablesBG=SectionBG3
 MeasureBG=SectionBG4
 MeterBG=IncludeBG1
 SectionBG=IncludeBG2
-[comments]
-str1=
-str2=
-styles_cmt=Comment
-styles_str=
