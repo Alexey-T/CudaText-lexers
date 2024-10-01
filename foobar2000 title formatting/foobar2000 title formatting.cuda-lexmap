@@ -1,7 +1,7 @@
 [comments]
 str1=
 str2=
-styles_cmt=Comments,Separator_fold
+styles_cmt=Separator_fold,Comments
 styles_str=Text
 
 [map]
