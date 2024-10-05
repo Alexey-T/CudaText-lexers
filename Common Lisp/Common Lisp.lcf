@@ -83,17 +83,18 @@ object SyntAnalCL: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = '(?s)"(\\"|.)*?(\")'
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = '\'#39'[\w-+!@\#:$%^&*\\./\d"'#39']+'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
-      DisplayName = 'Function call'
-      TokenType = 7
-      Expression = '(?<=\()[a-z-\+\!\%]+'
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)"(\\"|.)*?(\")'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -108,14 +109,21 @@ object SyntAnalCL: TLibSyntAnalyzer
     item
       DisplayName = 'Constant'
       StyleName = 'Global variable'
-      Expression = '\+[a-z-\d]+\+'
+      Expression = '(?<=[\s(])\+[\w-+!@\#$%^&*./\d]+\+(?=[\s)])'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
       DisplayName = 'Parameter'
       StyleName = 'Global variable'
-      Expression = '\*[a-z-\d]+\*'
+      Expression = '(?<=[\s(])\*[\w-+!@\#$%^&*./\d]+\*(?=[\s)])|(?<=[\s(])\%[\w-+!@\#$%^&*./\d]+\%(?=[\s)])'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Function call'
+      TokenType = 7
+      Expression = '(?<=\()[a-z-+!%]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -131,7 +139,7 @@ object SyntAnalCL: TLibSyntAnalyzer
       DisplayName = 'Integer'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '(?<=[\s\(])\d+\.\d+ (e[\+\-]\d+)?(?=[\s\)]) | (?<=[\s\(])\d+(?=[\s\)])'
+      Expression = '(?<=[\s(])\d+\.\d+ (e[\+\-]\d+)?(?=[\s)])|(?<=[\s(])\d+(?=[\s)])'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -145,14 +153,14 @@ object SyntAnalCL: TLibSyntAnalyzer
     item
       DisplayName = 'Keyword'
       StyleName = 'Symbol'
-      Expression = '(?<=[\s\(])\#?:[\w\-\+\/\.]+'
+      Expression = '(?<=[\s\(])\#?:[\w-+/.*%]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
     item
       DisplayName = 'Function special parameter'
       StyleName = 'Symbol'
-      Expression = '\&[a-z]+'
+      Expression = '\&[a-z-]+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
@@ -952,25 +960,29 @@ object SyntAnalCL: TLibSyntAnalyzer
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
-  SampleText.Strings = (
+ SampleText.Strings = (
     '(defpackage #:pkg'
-    #9'(:use #:cl))'
+    #9'(:use :cl))'
     ''
     '; Comment'
     '#|'
     #9'Multiline'
-    '    comment'
+    #9'comment'
     '|#'
     ''
-    '(defvar *val*'
-    #9'(list list #\1 #\Newline #\) #\" #(1.0) +val+'
-    '    '#9':val #:val #'#39'val '#39'cl:car "Multiline'
-    '        '#9'string"))'
+    '(defvar *value*'
+    #9'(list string'
+    #9#9#39'(value 1 "single string" '#39's\y/m.b_o:l #\a)'
+    #9#9'(:a #\Newline :b #\))'
+    #9#9'#(1.0 (char-code #\") %value%)'
+    #9#9':keyword #:unintern #'#39'fn '#39'symbol '#39'pkg:symbol'
+    #9#9'#'#39'(lambda (a :key c) a))'
     ''
     '(defmacro main (val &optional &rest args)'
-    #9'"Example of documentation"'
-    #9'(when'
-    #9#9'`(format t "\"~a\"" ,@args)))')
+    #9'"Multiline'
+    #9'string"'
+    #9'(let ((*value* (+ 0xFF 100)))'
+    #9#9'`(format t "\"~a\"" *value* ,@args)))')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'

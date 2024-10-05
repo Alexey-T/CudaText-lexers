@@ -5,12 +5,12 @@ styles_cmt=Comment
 styles_str=String
 
 [map]
-Symbol=Symbol
+Symbol=Id1
 Number=Number
 String=String
 Identifier=Id
 Reserved word=IdKeyword
 Comment=Comment
 Brackets=Symbol2
-Current block=SectionBG1
+Current block=BracketBG
 Global variable=IdVar
