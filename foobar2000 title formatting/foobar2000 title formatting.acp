@@ -1,0 +1,420 @@
+#chars $%
+fun $abbr%28%29 |Returns an abbreviation of   X   . Words which begin with an alphanumeric character are shortened to the first character. Spaces and parentheses are stripped
+fun $abbr%28,%29 |Returns an abbreviation of   X   if   X   is longer than   Y   characters. Otherwise returns full value of   X
+fun $add%28,,%29 |Adds   A   and   B  . Can be used with an arbitrary number of arguments
+fun $and%28,%29 |Returns true if   X   and   Y   are true
+fun $ansi%28%29 |Returns   X   with all characters not present in current system codepage replaced with closest matches
+fun $ascii%28%29 |Returns   X   with all   non-ASCII   characters replaced with closest ASCII matches
+fun $blend%28$rgb%280,0,0%29,$rgb%280,0,0%29,,%29 |Returns a color that is a blend between   color1   and   color2
+fun $caps%28%29 |Converts   first letter   in every word of   X   to   uppercase  , and   all other letters   to   lowercase
+fun $caps%28,%29 |Returns the given string   X   as   mixed case   . The second parameter   Y   is optional and specifies the characters that   trigger upper case
+fun $caps2%28%29 |Similar to $caps, but leaves uppercase letters as they are
+fun $caps2%28,%29 |Returns the given string   X   as   mixed case   without changing uppercase characters. The second parameter   Y   is optional and specifies the characters that   trigger upper case
+fun $caps3%28,%29 |Returns the given string   X   as   first-letter upper case   . The second parameter   Y   is optional and specifies additional characters that   trigger upper case
+fun $channels%28%29 |The number of channels in text format. Example: $channels() -> stereo
+fun $char%28%29 |Inserts Unicode character number   X
+fun $char%2810%29 |Line feed   ( LF )
+fun $char%2813%29 |Carriage return   ( CR )
+fun $char%2832%29 |Space
+fun $char%2834%29 |Double quotation marks
+fun $char%289%29 |Horizontal tab   ( tab )
+fun $crc32%28%29 |Computes the   CRC32   of the string   str   as a number. Intended for use in coloring scripts
+fun $crlf%28%29 |Inserts   end-of-line   marker   ( carriage return, line feed ). Can be used to generate multiple lines in the output
+fun $cut%28,%29 |Truncates   X   to   Y  characters
+fun $cutLeft%28,%29 |Removes the first   N   characters of string   X   and returns the result
+fun $cutRight%28,%29 |Removes the last   N   characters of string   X   and returns the result
+fun $date%28time%29 |Retrieves the date part   ( formatted as YYYY-MM-DD )   from a time/date string
+fun $day_of_month%28time%29 |Retrieves the day of month part   ( formatted as two digits )   from a time/date string
+fun $directory%28%29 |Extracts directory name from the file path X
+fun $directory%28,%29 |Extracts directory name from the file path X, going up by   N   directory levels
+fun $directory_path%28%29 |Extracts directory path from the file path X
+fun $distance%28,%29 |Computes the edit distance between strings   X   and   Y
+fun $div%28,%29 |Divides   X   by   Y   and rounds down to an integer. If   Y   evaluates to   ZERO   , it returns   X
+fun $eql%28,%29 |Returns true if   X   equals   Y
+fun $ext%28%29 |Extracts file extension from string path; a file name or full path
+fun $filename%28,%29 |Optional statement that sets the file name, file extension, and/or encoding of the exported file. Needs to appear at the beginning of the export configuration. The optional second parameter sets the encoding of the export file. Possible values are ansi, utf-8, and utf-16.
+fun $filename%28path%29 |Extracts file name from full path
+fun $fix_eol%28%29 |v1 Truncates multiline strings, adding   ” (...)”   at the end. If str contains an end-of-line marker   ( CR-LF )   , the end-of-line marker and all text to the right of it is replaced by   " (...)"   . Otherwise   str   is returned unaltered
+fun $fix_eol%28,%29 |v2 Truncates multiline strings, adding   ” (...)”   at the end. If   str   contains an end-of-line marker   ( CR-LF )   , the end-of-line marker and all text to the right of it is replaced by indicator. Otherwise   str   is returned unaltered
+fun $fmtDuration%28,,,%29 |Formats number   X   as a duration string. The optional parameter   Y   decides how the number is intepreted, where   M   is minutes,   S   is seconds (default), and   MS   is milliseconds. Optional parameters   H   and   MS   set to 1 enable the display of hours and milliseconds respectively in the formatted duration string.
+fun $fmtNum%28%29 |Formats number   X   with separator for thousands according to current locale settings
+fun $folderdepth%28%29 |Returns the number of folders in path   X
+fun $geql%28,%29 |Returns true if   X   is greater than or equal to   Y
+fun $get%28%29 |Returns the value of the variable named   name
+fun $get_global%28%29 |Variable name   is the name of the variable as defined in the   $set_global(variable name)
+fun $getenv%28%29 |Returns the value of the environment variable   X   . Use   MP3TAGAPP   for the app directory and   MP3TAGAPPDATA   for the configuration directory paths
+fun $greater%28,%29 |Returns   true   , if   X is greater than   Y   , otherwise   false
+fun $grtr%28,%29 |Returns true if   X   is greater than   Y
+fun $hex%28,%29 |Formats the integer number   int   in hexadecimal notation with   len   digits. Pads with   zeros   from the left if necessary
+fun $hsl%28%29 |Resets the text color to the default color
+fun $hsl%280,0,0%29 |Sets the color for text in the HSL color space. h, s and l are the hue, saturation, and lightness, ranges of h, s, and l are from 0 to 240
+fun $hsl%280,0,0,0,0,0%29 |Sets the color for text in the HSL color space. h, s and l are the hue, saturation, and lightness, ranges of h, s, and l are from 0 to 240
+fun $if%28,,%29 |If   X   is true,   Y   is returned, otherwise   Z
+fun $if2%28,%29 |If   X   is true,   X   is returned, otherwise   Y
+fun $if3%28,,,,%29 |Evaluates arguments   a1 ... aN   , until one is found that evaluates to true
+fun $ifequal%28,,,%29 |If the number   A   is equal to the number   B   , returns    C   , otherwise returns   D
+fun $ifgreater%28,,,%29 |If number   A   is greater than number   B   ,   X   is returned, otherwise   Y
+fun $iflonger%28,,,%29 |If the string   A   is longer than   B   characters, returns   C  , otherwise returns   D
+fun $info%28%29 |Returns tech info field named   X
+fun $info%28bitrate%29 |Returns tech info field named (bitrate)
+fun $info%28bitspersample%29 |Returns tech info field named (bitspersample)
+fun $info%28channel_mode%29 |Returns tech info field named (channel_mode)
+fun $info%28channels%29 |Returns tech info field named (channels)
+fun $info%28codec%29 |Returns tech info field named (codec)
+fun $info%28codec_profile%29 |Returns tech info field named (codec_profile)
+fun $info%28cue_embedded%29 |Returns tech info field named (cue_embedded)
+fun $info%28ENC_DELAY%29 |Returns tech info field named (ENC_DELAY)
+fun $info%28ENC_PADDING%29 |Returns tech info field named (ENC_PADDING)
+fun $info%28encoding%29 |Returns tech info field named (encoding)
+fun $info%28FLAGS%29 |Returns tech info field named (FLAGS)
+fun $info%28md5%29 |Returns tech info field named (md5)
+fun $info%28MP3_ACCURATE_LENGTH%29 |Returns tech info field named (MP3_ACCURATE_LENGTH)
+fun $info%28MP3_STEREO_MODE%29 |Returns tech info field named (MP3_STEREO_MODE)
+fun $info%28samplerate%29 |Returns tech info field named (samplerate)
+fun $info%28tagtype%29 |Returns tech info field named (tagtype)
+fun $info%28tool%29 |Returns tech info field named (tool)
+fun $info%28VERSION%29 |Returns tech info field named (VERSION)
+fun $insert%28,,%29 |Inserts string   B   into string   A   after   N   characters
+fun $isdigit%28%29 |Returns true if character   X   is a decimal number
+fun $left%28,%29 |Returns   Y   first characters of string   X
+fun $len%28%29 |Returns length of the string   X   in characters
+fun $len2%28%29 |Returns length of string   str   in characters
+fun $leql%28,%29 |Returns true if   X   is   less than   or   equal   to   Y
+fun $less%28,%29 |Returns true if   X   is   less than Y
+fun $list%28,,%29 |Returns a list of all read tag fields and their values that are stored in the file. The fields are prefixed by   X   ,   Y   is used as separator between field and value, and   Z   is used as suffix after the tag field’s value. Multiple values of a field are separated by   ,
+fun $longer%28,%29 |Compares two strings, tests if   X   is longer than   Y
+fun $longest%28,,,%29 |Compares lengths of of   A,B,C...   and returns the longest one
+fun $loop%28,%29 |Starts a new loop. The loop data is sorted by the given field name. The optional second parameter limits the loop output to a certain number of entries. This is useful to eliminate duplicate records (num=1)
+fun $loopend%28%29 |Ends a loop.
+fun $lower%28%29 |Converts   X   to lowercase
+fun $max%28,%29 |Returns the maximum of X and Y
+fun $meta%28%29 |Returns value of metadata field named   X
+fun $meta%28,%29 |Returns the   nth   value of field   X   ( where   n   starts at 0, e.g. $meta(artist,1) )
+fun $meta_branch%28%29 |Like $meta_branch_remap(name), but without the tag remapping
+fun $meta_branch_remap%28%29 |This is identical to   %<name>%   except it does not produce a "?", if the tag does not exist
+fun $meta_num%28%29 |Returns number of present values for metadata field   X
+fun $meta_sep%28,%29 |Returns metadata field named   X  , with custom separators for multiple values
+fun $meta_sep%28,,%29 |Returns value of tag called name. If multiple values exist,   sep   is used as separator between all but the last two values using   lastsep
+fun $meta_test%28%29 |Returns 1, if all given tags exist, undefined otherwise
+fun $mid%28,,%29 |Returns   N   characters of string   X   , starting at character position   i   . If   N   is omitted, the character at position   i   is returned
+fun $min%28,%29 |Returns the minimum of   X   and   Y
+fun $mod%28,%29 |Computes the remainder of dividing   X   through   Y
+fun $month%28time%29 |Retrieves the month part   ( formatted as two digits )   from a time/date string
+fun $mul%28,%29 |Multiplies   X   and   Y  . Can be used with an arbitrary number of arguments
+fun $muldiv%28,,%29 |Multiplies   A   and   B  , then divides by   C
+fun $neql%28,%29 |Returns true if   X   not equal to   Y
+fun $not%28%29 |Returns true if   X   is false. Logical Not
+fun $num%28,%29 |Displays   X   as a number and pads with   ZEROS   up to   Y   characters. Ignores anything from the first non-numeric character, or results in   0   if the string is not numeric
+fun $odd%28%29 |Returns true if   X   is odd
+fun $or%28,%29 |Returns true if   X   or   Y   ( or any additional argument given )   is true
+fun $ord%28%29 |Returns the decimal Unicode code point of the first character of string   X   . Currently supports characters up to U+FFFF
+fun $pad%28,%29 |Pads   X   with   SPACES   up to   Y   characters
+fun $pad%28,,%29 |Pads   X   with   Z   character up to   Y   characters
+fun $pad_right%28,%29 |Pads   X   with   SPACES   up to   Y   characters
+fun $pad_right%28,,%29 |Pads   X   with   Z   character up to   Y   characters
+fun $padcut%28,%29 |Pads   X   to   Y   characters and truncates to   Y   if longer
+fun $padcut%28,,%29 |Returns   first Y   characters from the   left of X   , if   X   is longer than   Y   characters. Otherwise   adds Z   to the   right of X   to make the result   Y   characters long.
+fun $padcut_right%28,%29 |Pads   X   to   Y   characters and truncates to   Y   if longer
+fun $padcut_right%28,,%29 |Returns   first Y   characters from the   left of X   , if   X   is longer than   Y   characters. Otherwise   adds Z   to the   left of X   to make the result   Y   characters long.
+fun $peak_to_db%28%29 |Converts audio peak value from 0..1 PCM to decibels
+fun $progress%28,,,,%29 |Creates a progress bar
+fun $progress2%28,,,,%29 |Creates a progress bar. Produces different appearance than $progress
+fun $put%28,%29 |Sets the variable named   name   to   text   and returns   text
+fun $puts%28,%29 |Silent version of $put(name,text), but returns an empty string
+fun $rand%28%29 |Returns a pseudorandom number
+fun $regexp%28,,,%29 |Replaces the pattern specified by the regular expression   E   in the string   X   by   R   . The optional fourth parameter   C   enables ignore case (1) or disables the ignore case setting (0). Please note that you have to escape comma and other special characters in   E
+fun $repeat%28,%29 |N   times
+fun $replace%28,,%29 |Replaces all occurrences of string   B   in string   A   with string   C   . Is generally not the same as   $replace($replace(str,search1,replace1),search2,replace2)
+fun $reverse%28%29 |Reverses the order of the characters in string   X
+fun $rgb%28%29 |Resets the text color to the default color
+fun $rgb%280,0,0%29 |Sets the color for text. r, g and b are the red, green and blue
+fun $rgb%280,0,0,0,0,0%29 |Sets the color for text. r1, g1 and b1 are for unselected text. r2, g2 and b2 are for selected text
+fun $right%28,%29 |Returns   Y   last characters of string   X
+fun $roman%28%29 |Formats the integer number   int   in roman notation
+fun $rot13%28%29 |Performs ROT13 transformation to given string
+fun $select%28,,,%29 |Returns   n-th   of   a1,a2,...aN   parameters. If the value of   n   is between 1 and N, (an) is evaluated and its value returned
+fun $set_global%28,%29 |Set variable name value
+fun $set_style%28back,$rgb%280,0,0%29,$rgb%280,0,0%29,$rgb%280,0,0%29%29 |Setting the background colour
+fun $set_style%28frame-bottom,1,$rgb%280,0,0%29%29 |Setting the bottom frame style. Enabled state is either   1 (true)   or   0 (false)
+fun $set_style%28frame-left,1,$rgb%280,0,0%29%29 |Setting the left frame style. Enabled state is either   1 (true)   or   0 (false)
+fun $set_style%28frame-right,1,$rgb%280,0,0%29%29 |Setting the right frame style. Enabled state is either   1 (true)   or   0 (false)
+fun $set_style%28frame-top,1,$rgb%280,0,0%29%29 |Setting the top frame style. Enabled state is either   1 (true)   or   0 (false)
+fun $set_style%28text,$rgb%280,0,0%29,$rgb%280,0,0%29,$rgb%280,0,0%29%29 |Setting the text colour
+fun $shortest%28,,,%29 |Returns the first shortest element of its arguments
+fun $strchr%28,%29 |Finds first occurrence of character   Y   in string   X
+fun $strcmp%28,%29 |Performs a   CASE-SENSITIVE   comparison of the strings   X   and   Y
+fun $stricmp%28,%29 |Performs a   NON-CASE-SENSITIVE   comparison of the strings   X   and   Y
+fun $stripprefix%28%29 |Removes   “A”   and   “The”   prefixes from   X
+fun $stripprefix%28,,,%29 |Removes the specified prefixes from   X
+fun $strrchr%28,%29 |Finds last occurrence of character   Y   in string   X
+fun $strstr%28,%29 |Finds first occurrence of string   Y   in string   X   . Function is   CASE-SENSITIVE
+fun $sub%28,%29 |Subtracts   Y   from   X   . Can be used with an arbitrary number of arguments
+fun $substr%28,,%29 |Returns   substring   of string   A   , starting from   B-th   character and ending at   C-th   character
+fun $swapprefix%28%29 |Moves   “A”   and   “The”   prefixes to the end of   X
+fun $swapprefix%28,,,%29 |Moves the   specified prefixes   to the end of   X
+fun $tab%28%29 |Generates a tab character; equivalent to   $char(9)
+fun $tab%28count%29 |Inserts count tabulator characters
+fun $time%28time%29 |Retrieves the time part   ( formatted as HH:MM:SS or HH:MM )   from a date/time string
+fun $transition%28,$rgb%280,0,0%29,$rgb%280,0,0%29%29 |Inserts color codes into string, so that the first character has color1, the last character has color2, and intermediate characters have blended colors
+fun $trim%28%29 |Trims leading/trailing space characters from   A
+fun $trim%28,%29 |Trims   all leading and trailing   whitespace from the string   X   . The optional second parameter   C   specifies the character to trim
+fun $trimLeft%28,%29 |Trims   all leading whitespace   from the string   X   . The optional second parameter   C   specifies the character to trim
+fun $trimRight%28,%29 |Trims   all trailing whitespace from the string   X   . The optional second parameter   C   specifies the character to trim
+fun $upper%28%29 |Converts   X   to   uppercase
+fun $validate%28,%29 |Returns the given file name/path   X   with all invalid characters /?*"<>|: replaced by the string   Y
+fun $xor%28,%29 |Logical Exclusive-or, $xor(expr,...) of an arbitrary number of arguments
+fun $year%28time%29 |Retrieves the year part   ( formatted as four digits )   from a time/date string
+fun %album%20artist%
+var %__bitrate% |$info(bitrate)
+var %__bitspersample% |$info(bitspersample)
+var %__channel_mode% |$info(channel_mode)
+var %__channels% |$info(channels)
+var %__codec% |$info(codec)
+var %__codec_profile% |$info(codec_profile)
+var %__cue_embedded% |$info(cue_embedded)
+var %__ENC_DELAY% |$info(ENC_DELAY)
+var %__ENC_PADDING% |$info(ENC_PADDING)
+var %__encoding% |$info(encoding)
+var %__FLAGS% |$info(FLAGS)
+var %__md5% |$info(md5)
+var %__MP3_ACCURATE_LENGTH% |$info(MP3_ACCURATE_LENGTH)
+var %__MP3_STEREO_MODE% |$info(MP3_STEREO_MODE)
+var %__samplerate% |$info(samplerate)
+var %__tagtype% |$info(tagtype)
+var %__tool% |$info(tool)
+var %__VERSION% |$info(VERSION)
+var %_app% |Mp3tag, e.g. Mp3tag v3.22
+var %_bitrate% |Bitrate in kbit/s
+var %_bitspersample% |Bits per sample (available only for some audio formats)
+var %_codec% |Codec
+var %_counter% |Current selection index of the file (ascending from 1)
+var %_cover_description% |Description of first cover art in the tag of the file
+var %_cover_height% |Cover height of first cover art in the tag of the file in pixels
+var %_cover_mimetype% |Mimetype of first cover art in the tag of the file
+var %_cover_size% |Size of first cover art in the tag of the file in bytes
+var %_cover_type% |Cover type of first cover art in the tag of the file
+var %_cover_width% |Cover width of first cover art in the tag of the file in pixels
+var %_covers% |Count of cover art in the tag of the file
+var %_crc% |CRC32 value of file content
+var %_date% |Short date
+var %_datetime% |Long date
+var %_directory% |Name of the file’s parent folder
+var %_extension% |File extension
+var %_file_create_date% |Short creation date
+var %_file_create_datetime% |Long creation date
+var %_file_create_datetime_raw% |Long creation date (unformatted)
+var %_file_mod_date% |Short modification date
+var %_file_mod_datetime% |Long modification date
+var %_file_mod_datetime_raw% |Long modification date (unformatted)
+var %_file_size% |File size in human readable format
+var %_file_size_bytes% |File size in bytes
+var %_file_size_kb% |File size in kilobytes
+var %_file_size_mb% |File size in megabytes
+var %_filename% |File name without extension
+var %_filename_ext% |File name with extension
+var %_filename_rel% |File path with extension, relative to Export output file if output and track files are on same drive, else absolute
+var %_filesize% |The exact file size in bytes. Old version.
+var %_folderpath% |Path without file name
+var %_folderpath_rel% |Folder path relative to Export output file if output and track files are on same drive, else absolute
+var %_foobar2000_version% |A string representing the version of foobar2000.
+var %_id3v2_character_encoding% |Encoding of the ID3v2 text frames of the file
+var %_id3v2_unknown_frames% |Set to 1 if the ID3v2 tag contains any of the unsupported ID3v2 frames
+var %_length% |Length (formatted)
+var %_length_seconds% |Length (in seconds)
+var %_max_counter% |Maximum value of counter of the last closed loop.
+var %_md5% |MD5-Hash of the file (slow!)
+var %_md5audio% |MD5-Hash of the audio part of the file (fast and natively supported for FLAC and WavPack, slow and dynamically calculated for ID3- and/or APE-only tagged files)
+var %_mode% |Mode
+var %_parent_directory% |Name of the file’s grandparent folder
+var %_path% |File name with path
+var %_path_raw% |The path as URL including the protocol scheme.
+var %_playlist_filename% |File name of current playlist without extension
+var %_playlist_filename_ext% |File name of current playlist with extension
+var %_playlist_folderpath% |Folderpath of current playlist
+var %_samplerate% |Sample rate
+var %_subsong% |Chapter index for files with chapters
+var %_subsong_count% |Chapter count for files with chapters
+var %_tag% |Available tag types in file
+var %_tag_read% |Displayed tag type
+var %_tag_size% |Size of all tags in bytes
+var %_tag_size_appended% |Size of all appended tags in bytes
+var %_tag_size_prepended% |Size of all prepended tags in bytes
+var %_time_elapsed% |The elapsed time in seconds. Old version.
+var %_time_remaining% |The time remaining until the track ends, formatted as (HH:)MM:SS. Old version.
+var %_time_remaining_seconds% |The time remaining until the track ends, in seconds. Old version.
+var %_time_total% |The length of the track formatted as hours, minutes, and seconds, rounded to the nearest second. Old version.
+var %_time_total_seconds% |The length of the track in seconds, rounded to the nearest second. Old version.
+var %_tool% |Additional codec information (not available for all supported audio formats)
+var %_total_files% |Total number of files
+var %_total_size% |Total file size (formatted output)
+var %_total_size_raw% |Total file size in bytes
+var %_total_time% |Total playing time (formatted output)
+var %_total_time2% |Total playing time (formatted output without days)
+var %_total_time_raw% |Total playing time in seconds
+var %_vbr% |Bitrate type or compression profile
+var %_video_bitrate% |Video bitrate for MP4/M4V/MKV video files
+var %_video_codec% |Video codec for MP4/M4V/MKV video files
+var %_video_height% |Video height for MP4/M4V/MKV video files
+var %_video_width% |Video width for MP4/M4V/MKV video files
+var %_volume% |Volume label
+var %_workingdir% |Name of current working directory
+var %_workingpath% |Path of current working directory
+var %acoustid%20fingerprint%
+var %acoustid%20id%
+var %acoustid_fingerprint%
+var %acoustid_id%
+var %album%
+var %albumartist%
+var %albumartistsort%
+var %albumartistsortorder%
+var %albumsort%
+var %albumsortorder%
+var %artist%
+var %artists%
+var %artistsort%
+var %artistsortorder%
+var %asin%
+var %barcode%
+var %bpm%
+var %catalognumber%
+var %comment%
+var %compilation%
+var %composer%
+var %composersort%
+var %composersortorder%
+var %conductor%
+var %contentgroup%
+var %copyright%
+var %count%
+var %date%
+var %director%
+var %directoryname% |The name of the parent directory only, not the complete path.
+var %discid%
+var %discnumber%
+var %discnumber%
+var %encoded%20by%
+var %encodedby%
+var %encodersettings%
+var %encoding%20settings%
+var %filename% |The filename without directory and extension.
+var %filename_ext% |The filename with extension, but without the directory.
+var %filesize% |The exact file size in bytes
+var %filesize_natural% |The approximate file size, automatically formatted in appropriate units such as megabytes or kilobytes, e.g. 8.49 MB
+var %genre%
+var %grouping%
+var %initial%20key%
+var %initialkey%
+var %involvedpeople%
+var %ispaused% |1 if playback is paused, empty string otherwise.
+var %isplaying% |1 if file is currently playing, empty string otherwise.
+var %isrc%
+var %itunescompilation%
+var %language%
+var %last_modified% |The date and time the file was last modified. Eg: 2005-12-22 00:04:10
+var %length%
+var %length% |The length of the track formatted as hours, minutes, and seconds, rounded to the nearest second.
+var %length_ex% |The length of the track formatted as hours, minutes, seconds, and milliseconds, rounded to the nearest millisecond.
+var %length_samples% |The length of the track in samples.
+var %length_seconds% |The length of the track in seconds, rounded to the nearest second.
+var %length_seconds_fp% |The length of the track in seconds as a floating point number.
+var %license%
+var %list_index% |A zero-padded playlist index of specified item. The first item is at index 1.
+var %list_total% |The number of items in the playlist.
+var %lyricist%
+var %lyrics%
+var %media%20type%
+var %mediatype%
+var %mixartist%
+var %mood%
+var %movement%
+var %movement%20count%
+var %movement%20index%
+var %movement%20name%
+var %movementname%
+var %movementtotal%
+var %musicbrainz%20album%20artist%20id%
+var %musicbrainz%20album%20id%
+var %musicbrainz%20album%20release%20country%
+var %musicbrainz%20album%20status%
+var %musicbrainz%20album%20type%
+var %musicbrainz%20artist%20id%
+var %musicbrainz%20disc%20id%
+var %musicbrainz%20original%20album%20id%
+var %musicbrainz%20original%20artist%20id%
+var %musicbrainz%20release%20group%20id%
+var %musicbrainz%20work%20id%
+var %musicbrainz_albumartistid%
+var %musicbrainz_albumid%
+var %musicbrainz_albumreleasecountry%
+var %musicbrainz_albumstatus%
+var %musicbrainz_albumtype%
+var %musicbrainz_artistid%
+var %musicbrainz_discid%
+var %musicbrainz_originalalbumid%
+var %musicbrainz_originalartistid%
+var %musicbrainz_release track id%
+var %musicbrainz_releasetrackid%
+var %musicbrainz_trackid%
+var %musicbrainz_workid%
+var %musicip%20puid%
+var %musicmagic%20fingerprint%
+var %origalbum%
+var %origartist%
+var %origfilename%
+var %original%20album%
+var %original%20artist%
+var %originalyear%
+var %path% |The complete path, including the filename and extension.
+var %performer%
+var %playback_time% |The elapsed time formatted as (HH:)MM:SS.
+var %playback_time_remaining% |The time remaining until the track ends, formatted as (HH:)MM:SS.
+var %playback_time_remaining_seconds% |The time remaining until the track ends, in seconds.
+var %playback_time_seconds% |The elapsed time in seconds.
+var %publisher%
+var %queue_index% |Index of the specified item in the playback queue. If the item has been queued multiple times, %queue_index% evaluates to the first index.
+var %queue_indexes% |List of indexes of the specified item in the playback queue. Same as %queue_index% unless the item has been queued more than once.
+var %queue_total% |Total amount of tracks in playback queue. Available only for queued tracks, for technical reasons.
+var %remixed%20by%
+var %replaygain_album_gain% |The ReplayGain album gain value.
+var %replaygain_album_peak% |The ReplayGain album peak value.
+var %replaygain_album_peak_db% |The ReplayGain album peak value in decibels.
+var %replaygain_album_range%
+var %replaygain_reference_loudness%
+var %replaygain_track_gain% |The ReplayGain track gain value.
+var %replaygain_track_peak% |The ReplayGain track peak value.
+var %replaygain_track_peak_db% |The ReplayGain track peak value in decibels.
+var %replaygain_track_range%
+var %script%
+var %set%20subtitle%
+var %setsubtitle%
+var %showmovement%
+var %skip%
+var %subsong% |The subsong index. The subsong index is used to distuingish multiple tracks in a single file, for example for cue sheets, tracker modules and various container formats.
+var %subtitle%
+var %title%
+var %titlesort%
+var %titlesortorder%
+var %totaldiscs%
+var %totaltracks%
+var %track%
+var %track%20artist%
+var %track%20number%
+var %tracknumber%
+var %unsynced lyrics%
+var %unsyncedlyrics%
+var %work%
+var %writer%
+var %year%
+
+
+
+
+
+
+
+
+
+
+
+
+

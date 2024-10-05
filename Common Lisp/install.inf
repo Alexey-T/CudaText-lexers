@@ -1,0 +1,7 @@
+[info]
+title=Common Lisp
+type=lexer
+subdir=-
+
+[lexer1]
+file=Common Lisp
