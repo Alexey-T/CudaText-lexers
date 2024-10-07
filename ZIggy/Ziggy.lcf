@@ -82,14 +82,6 @@ object SyntAnal21: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'String'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = '".*?("|$)'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
       DisplayName = 'Symbol {}'
       StyleName = 'Symbol'
       TokenType = 6
@@ -133,7 +125,7 @@ object SyntAnal21: TLibSyntAnalyzer
       DisplayName = 'Num hex'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '(?-i)0x[\h_]+|'#13#10'0o[0-7_]+|'#13#10'0b[01_]+'
+      Expression = '(?-i)0x[\h_]+|'#13#10'(?-i)0o[0-7_]+|'#13#10'(?-i)0b[01_]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -141,9 +133,7 @@ object SyntAnal21: TLibSyntAnalyzer
       DisplayName = 'Num float'
       StyleName = 'Number'
       TokenType = 5
-      Expression = 
-        '\d[\d_]*(\.[\d_]*)?e[\+\-]?\d+|'#13#10'\. [\d'#39']+ e[\+\-]? \d+ [Lf]? |'#13 +
-        #10'\d[\d'#39']* \. (\d[\d'#39']*)? [Lf]? |'#13#10'\. \d[\d'#39']* [Lf]?'
+      Expression = '\d[\d_]*(\.[\d_]*)?e[\+\-]?\d+|'#13#10'\d[\d_]*\.(\d[\d_]*)?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -151,7 +141,15 @@ object SyntAnal21: TLibSyntAnalyzer
       DisplayName = 'Num decimal'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d[\d'#39']* [ulf]*'
+      Expression = '\d[\d_]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '"(\\.|.)*?("|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -228,11 +226,13 @@ object SyntAnal21: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    
-      'true, false, null, 0xFF_AA_00 + 1.2e3, float, bool, @v("1.0"), ?' +
-      '@spdx'
+    'true, false, null, 0xFF_AA_00 + 1.2e3, float, bool'
     '{'
-    '  //test'
+    '  .name = @some("test\"end"), // comment'
+    '  .docs = '
+    '    \\# Test'
+    '    \\'
+    '    \\End.'
     '}'
     ' ')
   TokenTypeNames.Strings = (
