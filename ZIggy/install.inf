@@ -1,0 +1,7 @@
+[info]
+title=Ziggy
+type=lexer
+subdir=-
+
+[lexer1]
+file=Ziggy
