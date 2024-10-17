@@ -74,6 +74,14 @@ object SyntAnal18: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'return_line_start'
+      StyleName = 'Id keyword'
+      TokenType = 6
+      Expression = '^return\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
@@ -237,11 +245,24 @@ object SyntAnal18: TLibSyntAnalyzer
           TokenTypes = 4
           IgnoreCase = True
         end>
+      BlockEnd = 'func end'
+      EndOfTextClose = True
       NameFmt = '%s-1'
       RefToCondEnd = True
       HighlightPos = cpAny
-      NoEndRule = True
+      CollapseFmt = '%sz0'
+      SelfClose = True
       TreeItemImage = 5
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'func end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 64
+        end>
+      HighlightPos = cpAny
       IgnoreAsParent = False
     end
     item
@@ -256,10 +277,12 @@ object SyntAnal18: TLibSyntAnalyzer
           TokenTypes = 4
           IgnoreCase = True
         end>
+      EndOfTextClose = True
       NameFmt = '%s-1'
       RefToCondEnd = True
       HighlightPos = cpAny
-      NoEndRule = True
+      CollapseFmt = '%sz0'
+      SelfClose = True
       TreeItemImage = 1
       IgnoreAsParent = False
     end
@@ -353,22 +376,32 @@ object SyntAnal18: TLibSyntAnalyzer
   SampleText.Strings = (
     '  /* '
     '  Cmt'
-    '  */'
-    'func FuncName a, nTabs # Cmt'
+    '  */        '
+    'class Cls1'
+    '  '
+    'func Func1a a, nTabs # Cmt'
     #9#9'cOutput += true + null + "test" + '#39'test'#39' + `test`'
     #9#9'if isString(vValue)'
     #9#9#9'cOutput += Char(20+1.2e3) + vValue '
     #9#9'but isNumber(vValue)'
     #9#9#9'cOutput += "" + vValue '
     #9#9'ok'
-    #9'return cOutput')
+    #9'return cOutput'
+    ''
+    'def Func1b x'
+    'return 10'
+    ''
+    'class Cls2'
+    '  func Func2a')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
     'Id'
     'Symbol'
     'String'
-    'Number')
+    'Number'
+    'return_line_start'
+    '')
   Extentions = 'ring rh rform'
   LexerName = 'Ring'
   Notes.Strings = (
