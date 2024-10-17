@@ -1,0 +1,7 @@
+[info]
+title=Ring
+type=lexer
+subdir=-
+
+[lexer1]
+file=Ring
