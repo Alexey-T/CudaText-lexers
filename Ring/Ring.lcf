@@ -109,7 +109,7 @@ object SyntAnal18: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(["'#39'`])(\1.|.)*?(\1|$)'
+      Expression = '(?s)(["'#39'`])(\1.|.)*?(\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end>
