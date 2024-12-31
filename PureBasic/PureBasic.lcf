@@ -94,8 +94,8 @@ object SyntAnal16: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        '\.|=|,|\(|\)|\-|\+|/|\*|\\|@|\||&|<>|<<|>>|<|>|%|~|\$|:+|\[|\]|\' +
-        '?'
+        '\.|,|\(|\)|\[|\]|\-|\+|/|\*|\\|@|\||&|'#13#10'<>|<=|>=|=<|=>|=|<+|>+|%' +
+        '|~|\$|:+|\?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -140,6 +140,7 @@ object SyntAnal16: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'And'
+            'Array'
             'Break'
             'CallDebugger'
             'Case'
@@ -197,10 +198,12 @@ object SyntAnal16: TLibSyntAnalyzer
             'IncludeFile'
             'IncludePath'
             'Interface'
+            'List'
             'Macro'
             'MacroExpandedCount'
             'Module'
             'Next'
+            'Not'
             'Or'
             'Procedure'
             'ProcedureReturn'
@@ -220,7 +223,8 @@ object SyntAnal16: TLibSyntAnalyzer
             'Wend'
             'While'
             'With'
-            'XIncludeFile')
+            'XIncludeFile'
+            'Xor')
           TokenTypes = 4
           IgnoreCase = True
         end>
