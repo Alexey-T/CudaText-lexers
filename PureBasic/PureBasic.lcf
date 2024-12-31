@@ -601,6 +601,37 @@ object SyntAnal16: TLibSyntAnalyzer
         end>
       HighlightPos = cpAny
       IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DataSection'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'DataSection')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'DataSection end'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%sz0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DataSection end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'EndDataSection')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
