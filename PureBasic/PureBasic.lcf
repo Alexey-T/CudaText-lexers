@@ -57,6 +57,14 @@ object SyntAnal16: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
       DisplayName = 'Asm'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clPurple
@@ -112,6 +120,14 @@ object SyntAnal16: TLibSyntAnalyzer
       Expression = 
         '\.|,|\(|\)|\[|\]|\-|\+|/|\*|\\|@|\||&|'#13#10'<>|<=|>=|=<|=>|=|<+|>+|%' +
         '|:+|\?|~'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Label'
+      StyleName = 'Label'
+      TokenType = 7
+      Expression = '[a-z_]\w*:(?!:)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -590,20 +606,20 @@ object SyntAnal16: TLibSyntAnalyzer
   SubAnalyzers = <>
   SampleText.Strings = (
     '; Comment'
+    'Label1: #w = 4.20e-20 + ~20'
     'Procedure Callback(xi.i, yi.i)'
     '  Protected c.d = (Red(targetColor) / 255.0)'
     '  ProcedureReturn RGB(r, g, b)'
     'EndProcedure'
     ''
-    '#w = 4.20e-20 + ~20'
-    'If OpenWindow(0, 0, 0, #w, #h, ~"ttt\"ttt")'
-    '  If StartDrawing(CanvasOutput(0))'
+    'If OpenWindow(0, 0, 0, #w, #h, ~"tt\"tt")'
+    '  If StartDrawing(0)'
     '    Define r.i = 20.0, x.i, y.i'
     '    While y < #h'
     '    Wend'
     '  EndIf'
     '  Repeat'
-    '  Until WaitWindowEvent(20) = #PB_Event_CloseWindow'
+    '  Until WaitWindowEvent(10) = #PB_Event_CloseWindow'
     'EndIf')
   TokenTypeNames.Strings = (
     'Unknown'

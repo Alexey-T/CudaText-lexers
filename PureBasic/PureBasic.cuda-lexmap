@@ -12,4 +12,5 @@ Id=Id
 Id keyword=IdKeyword
 Id const=Id2
 Number=Number
+Label=Label
 Asm=Id4
