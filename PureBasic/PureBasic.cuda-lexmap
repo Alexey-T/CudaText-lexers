@@ -6,10 +6,10 @@ styles_str=String
 
 [map]
 Symbol=Symbol
-Number=Number
-String=String
 Comment=Comment
+String=String
 Id=Id
 Id keyword=IdKeyword
-Var=IdVar
+Id const=Id2
+Number=Number
 Asm=Id4

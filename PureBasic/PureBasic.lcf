@@ -9,12 +9,12 @@ object SyntAnal16: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'Number'
+      DisplayName = 'Comment'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clNavy
+      Font.Color = clGray
       Font.Height = -13
       Font.Name = 'Courier New'
-      Font.Style = [fsBold]
+      Font.Style = [fsItalic]
     end
     item
       DisplayName = 'String'
@@ -23,14 +23,6 @@ object SyntAnal16: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-    end
-    item
-      DisplayName = 'Comment'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = [fsItalic]
     end
     item
       DisplayName = 'Id'
@@ -49,12 +41,20 @@ object SyntAnal16: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'Var'
+      DisplayName = 'Id const'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
+      Font.Color = clPurple
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
     end
     item
       DisplayName = 'Asm'
@@ -77,7 +77,7 @@ object SyntAnal16: TLibSyntAnalyzer
       DisplayName = 'Number dec'
       StyleName = 'Number'
       TokenType = 5
-      Expression = '\d+(\.\d+)?\b'
+      Expression = '\d+(\.\d+)?(e[\+\-]\d+)?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -95,15 +95,7 @@ object SyntAnal16: TLibSyntAnalyzer
       TokenType = 3
       Expression = 
         '\.|,|\(|\)|\[|\]|\-|\+|/|\*|\\|@|\||&|'#13#10'<>|<=|>=|=<|=>|=|<+|>+|%' +
-        '|~|\$|:+|\?'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'IdHash'
-      StyleName = 'Var'
-      TokenType = 6
-      Expression = '\#[a-z_]\w*'
+        '|:+|\?|~'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -111,7 +103,23 @@ object SyntAnal16: TLibSyntAnalyzer
       DisplayName = 'Id'
       StyleName = 'Id'
       TokenType = 2
-      Expression = '[a-z_]\w*'
+      Expression = '[a-z_]\w*\$?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id const'
+      StyleName = 'Id const'
+      TokenType = 6
+      Expression = '\#[a-z_]\w*\$?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String escaped'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '~"(\\.|.)*?("|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -119,7 +127,7 @@ object SyntAnal16: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '"(\\.|.)*?("|$)'
+      Expression = '".*?("|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -177,6 +185,7 @@ object SyntAnal16: TLibSyntAnalyzer
             'EndDeclareModule'
             'EndEnumeration'
             'EndIf'
+            'EndImport'
             'EndInterface'
             'EndMacro'
             'EndModule'
@@ -195,6 +204,7 @@ object SyntAnal16: TLibSyntAnalyzer
             'Gosub'
             'Goto'
             'If'
+            'Import'
             'IncludeFile'
             'IncludePath'
             'Interface'
@@ -208,13 +218,17 @@ object SyntAnal16: TLibSyntAnalyzer
             'Procedure'
             'ProcedureReturn'
             'Protected'
+            'Prototype'
             'Read'
             'Repeat'
             'Restore'
+            'Return'
+            'Runtime'
             'Select'
             'Step'
             'Structure'
             'Swap'
+            'Threaded'
             'To'
             'UndefineMacro'
             'Until'
@@ -581,12 +595,11 @@ object SyntAnal16: TLibSyntAnalyzer
     '  ProcedureReturn RGB(r, g, b)'
     'EndProcedure'
     ''
-    '#w = 400'
-    'If OpenWindow(0, 0, 0, #w, #h, "Shader")'
+    '#w = 4.20e-20'
+    'If OpenWindow(~0, ~0, 0, #w, #h, ~"Shader")'
     '  If StartDrawing(CanvasOutput(0))'
-    '    Define r.i = 20, x.i, y.i'
+    '    Define r.i = 20.0, x.i, y.i'
     '    While y < #h'
-    '      x = r'
     '    Wend'
     '  EndIf'
     '  Repeat'
