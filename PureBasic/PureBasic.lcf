@@ -90,6 +90,22 @@ object SyntAnal16: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '".*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String escaped'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '~"(\\.|.)*?("|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
@@ -112,22 +128,6 @@ object SyntAnal16: TLibSyntAnalyzer
       StyleName = 'Id const'
       TokenType = 6
       Expression = '\#[a-z_]\w*\$?'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'String escaped'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = '~"(\\.|.)*?("|$)'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'String'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = '".*?("|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -595,8 +595,8 @@ object SyntAnal16: TLibSyntAnalyzer
     '  ProcedureReturn RGB(r, g, b)'
     'EndProcedure'
     ''
-    '#w = 4.20e-20'
-    'If OpenWindow(~0, ~0, 0, #w, #h, ~"Shader")'
+    '#w = 4.20e-20 + ~20'
+    'If OpenWindow(0, 0, 0, #w, #h, ~"ttt\"ttt")'
     '  If StartDrawing(CanvasOutput(0))'
     '    Define r.i = 20.0, x.i, y.i'
     '    While y < #h'
