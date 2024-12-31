@@ -1,4 +1,4 @@
-object SyntAnal24: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -238,6 +238,7 @@ object SyntAnal24: TLibSyntAnalyzer
         end>
       BlockEnd = 'Proc end'
       NameFmt = '%s0~[(]1'
+      RefToCondEnd = True
       HighlightPos = cpAny
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
@@ -268,6 +269,7 @@ object SyntAnal24: TLibSyntAnalyzer
         end>
       BlockEnd = 'While end'
       DisplayInTree = False
+      RefToCondEnd = True
       HighlightPos = cpAny
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
@@ -297,6 +299,7 @@ object SyntAnal24: TLibSyntAnalyzer
         end>
       BlockEnd = 'If end'
       DisplayInTree = False
+      RefToCondEnd = True
       HighlightPos = cpAny
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
@@ -326,6 +329,7 @@ object SyntAnal24: TLibSyntAnalyzer
         end>
       BlockEnd = 'Repeat end'
       DisplayInTree = False
+      RefToCondEnd = True
       HighlightPos = cpAny
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
@@ -356,6 +360,7 @@ object SyntAnal24: TLibSyntAnalyzer
         end>
       BlockEnd = 'Select end'
       DisplayInTree = False
+      RefToCondEnd = True
       HighlightPos = cpAny
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
@@ -385,6 +390,7 @@ object SyntAnal24: TLibSyntAnalyzer
         end>
       BlockEnd = 'CompilerIf end'
       DisplayInTree = False
+      RefToCondEnd = True
       HighlightPos = cpAny
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
@@ -415,6 +421,7 @@ object SyntAnal24: TLibSyntAnalyzer
         end>
       BlockEnd = 'For end'
       DisplayInTree = False
+      RefToCondEnd = True
       HighlightPos = cpAny
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
@@ -476,6 +483,7 @@ object SyntAnal24: TLibSyntAnalyzer
         end>
       BlockEnd = 'DeclModule end'
       NameFmt = '%s0 %s-1'
+      RefToCondEnd = True
       HighlightPos = cpAny
       DrawStaple = True
       CollapseFmt = '%sz0 ...'
@@ -528,28 +536,19 @@ object SyntAnal24: TLibSyntAnalyzer
   CodeTemplates = <>
   SubAnalyzers = <>
   SampleText.Strings = (
-    
-      'Procedure MahagoniFilterCallback(xi.i, yi.i, sourceColor.i, targ' +
-      'etColor.i)'
-    '  Protected c.d = Pow((Red(targetColor) / 255.0), 2.8)'
+    '; Comment'
+    'Procedure Callback(xi.i, yi.i)'
+    '  Protected c.d = (Red(targetColor) / 255.0)'
     '  ProcedureReturn RGB(r, g, b)'
     'EndProcedure'
     ''
     '#w = 400'
-    '#h = 300'
-    'If OpenWindow(0, 0, 0, #w, #h, "Mahagoni-Shader")'
-    '  CanvasGadget(0, 0, 0, #w, #h)'
-    '  '
+    'If OpenWindow(0, 0, 0, #w, #h, "Shader")'
     '  If StartDrawing(CanvasOutput(0))'
-    '    Box(0, 0, #w, #h, $ff)'
-    '    '
     '    Define r.i = 20, x.i, y.i'
-    '    y = r'
     '    While y < #h'
     '      x = r'
     '    Wend'
-    '    '
-    '    Box(0, 0, #w, #h)'
     '  EndIf'
     '  Repeat'
     '  Until WaitWindowEvent(20) = #PB_Event_CloseWindow'
