@@ -1,0 +1,301 @@
+object SyntAnal23: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Pragma'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment 1'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_]\w*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(")(\\.|.)*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num Hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0b[0-1]*|'#13#10'0o[0-7]*|'#13#10'0x\h*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num Dec'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '('#13#10'\B\.\d+|'#13#10'\b\d+(\.\d*)?'#13#10')(e[\-\+]?\d+)?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 6
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol single'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[\(\)\[\],;\.]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/\+\-\*=<>&/\|\^\$!%:~]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Pragma'
+      StyleName = 'Pragma'
+      TokenType = 7
+      Expression = '(?-i)\#(define|include)\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'action'
+            'actions'
+            'add'
+            'add_header'
+            'add_to_field'
+            'algorithm'
+            'apply'
+            'bit_and'
+            'bit_or'
+            'bit_xor'
+            'bytes'
+            'calculated_field'
+            'clone_egress_pkt_to_egress'
+            'clone_egress_pkt_to_ingress'
+            'clone_ingress_pkt_to_egress'
+            'clone_ingress_pkt_to_ingress'
+            'const'
+            'contained'
+            'control'
+            'copy_header'
+            'count'
+            'direct'
+            'drop'
+            'else'
+            'exact'
+            'execute_meter'
+            'extract'
+            'field_list'
+            'field_list_calculation'
+            'fields'
+            'FIXME'
+            'generate_digest'
+            'header'
+            'header_type'
+            'hit'
+            'if'
+            'in'
+            'inout'
+            'input'
+            'instance_count'
+            'length'
+            'lpm'
+            'max_length'
+            'max_size'
+            'metadata'
+            'min_size'
+            'min_width'
+            'miss'
+            'modify_field'
+            'modify_field_rng_uniform'
+            'modify_field_with_hash_based_offset'
+            'no_op'
+            'out'
+            'output_width'
+            'P4_PARSING_DONE'
+            'packets'
+            'parser'
+            'parser_value_set'
+            'pop'
+            'push'
+            'range'
+            'reads'
+            'recirculate'
+            'register_read'
+            'register_write'
+            'remove_header'
+            'resubmit'
+            'return'
+            'saturating'
+            'select'
+            'set_field_to_hash_index'
+            'set_metadata'
+            'shift_left'
+            'shift_right'
+            'size'
+            'state'
+            'static'
+            'struct'
+            'subtract'
+            'subtract_from_field'
+            'table'
+            'ternary'
+            'TODO'
+            'truncate'
+            'type'
+            'update'
+            'valid'
+            'verify')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 64
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpRange
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 64
+        end>
+      BlockEnd = '{'
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    '// SPDX-License-Identifier'
+    'v = 0b10+0o70+0xAA20+.2+1.2e-3'
+    '#include <core.p4>'
+    'const bit<16> TYPE_MYTUNNEL = 0x1212;'
+    'typedef bit<9>  egressSpec_t;'
+    ''
+    'header ethernet_t {'
+    '    macAddr_t dstAddr;'
+    '    macAddr_t srcAddr;'
+    '    bit<16>   etherType;'
+    '}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Symbol {}'
+    'Pragma')
+  Extentions = 'p4'
+  LexerName = 'P4'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end

@@ -1,0 +1,7 @@
+[info]
+title=P4
+type=lexer
+subdir=-
+
+[lexer1]
+file=P4
