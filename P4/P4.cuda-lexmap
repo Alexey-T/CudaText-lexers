@@ -2,7 +2,7 @@
 str1=/*
 str2=*/
 styles_cmt=Comment
-styles_str=String
+styles_str=
 
 [map]
 Symbol=Symbol
@@ -10,5 +10,4 @@ Id=Id
 Id keyword=IdKeyword
 Comment=Comment
 Number=Number
-String=String
 Pragma=Id3

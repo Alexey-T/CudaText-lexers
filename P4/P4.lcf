@@ -1,4 +1,4 @@
-object SyntAnal23: TLibSyntAnalyzer
+object SyntAnal15: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -41,14 +41,6 @@ object SyntAnal23: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'String'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clTeal
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
       DisplayName = 'Pragma'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
@@ -78,14 +70,6 @@ object SyntAnal23: TLibSyntAnalyzer
       StyleName = 'Id'
       TokenType = 2
       Expression = '[a-z_]\w*'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'String'
-      StyleName = 'String'
-      TokenType = 4
-      Expression = '(")(\\.|.)*?(\1|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -152,6 +136,7 @@ object SyntAnal23: TLibSyntAnalyzer
             'add_to_field'
             'algorithm'
             'apply'
+            'bit'
             'bit_and'
             'bit_or'
             'bit_xor'
@@ -169,8 +154,10 @@ object SyntAnal23: TLibSyntAnalyzer
             'direct'
             'drop'
             'else'
+            'enum'
             'exact'
             'execute_meter'
+            'extern'
             'extract'
             'field_list'
             'field_list_calculation'
@@ -225,14 +212,17 @@ object SyntAnal23: TLibSyntAnalyzer
             'struct'
             'subtract'
             'subtract_from_field'
+            'switch'
             'table'
             'ternary'
             'TODO'
             'truncate'
             'type'
+            'typedef'
             'update'
             'valid'
-            'verify')
+            'verify'
+            'void')
           TokenTypes = 4
         end>
       HighlightPos = cpBound
