@@ -1,4 +1,4 @@
-object SyntAnal21: TLibSyntAnalyzer
+object SyntAnal18: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -170,7 +170,7 @@ object SyntAnal21: TLibSyntAnalyzer
       DisplayName = 'Pragma'
       StyleName = 'Pragma'
       TokenType = 7
-      Expression = '\#\w+'
+      Expression = '\#[a-z_]\w*|(?-i)\$(if|else)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -186,7 +186,7 @@ object SyntAnal21: TLibSyntAnalyzer
       DisplayName = 'Symbol single'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\(\)\[\],\.;:\?]'
+      Expression = ':=|=+|\.+|[\(\)\[\],;:\?@]'
       ColumnFrom = 0
       ColumnTo = 0
     end
