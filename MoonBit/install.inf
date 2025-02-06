@@ -1,0 +1,7 @@
+[info]
+title=MoonBit
+type=lexer
+subdir=-
+
+[lexer1]
+file=MoonBit
