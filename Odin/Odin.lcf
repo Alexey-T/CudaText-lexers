@@ -134,8 +134,8 @@ object SyntAnal19: TLibSyntAnalyzer
       StyleName = 'Symbol'
       TokenType = 3
       Expression = 
-        ':=| [\[\],\.:\\\?@] |'#13#10'[\-\+<>\|\&\^]{2}=? | \#|'#13#10'[\+\-\*/&\|\^!' +
-        '<>=~%]=?'
+        ':=|\.+|:+|[\[\],\\\?@\#]|'#13#10'[\-\+<>\|\&\^]{2}=?|'#13#10'[\+\-\*/&\|\^!<' +
+        '>=~%]=?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -369,12 +369,7 @@ object SyntAnal19: TLibSyntAnalyzer
         end
         item
           TagList.Strings = (
-            ':')
-          TokenTypes = 8
-        end
-        item
-          TagList.Strings = (
-            ':')
+            '::')
           TokenTypes = 8
         end
         item
@@ -404,12 +399,7 @@ object SyntAnal19: TLibSyntAnalyzer
         end
         item
           TagList.Strings = (
-            ':')
-          TokenTypes = 8
-        end
-        item
-          TagList.Strings = (
-            ':')
+            '::')
           TokenTypes = 8
         end
         item
@@ -427,17 +417,17 @@ object SyntAnal19: TLibSyntAnalyzer
   SampleText.Strings = (
     '//Comment'
     'test :: struct{'
-    '      compressed: []u8,'
+    '      compressed: []u64,'
     '}'
     ''
     'somename :: proc(t: ^testing.T) {'
-    #9'TEST: []u8 = {'
+    #9'TEST: []u32 = {'
     #9#9'0x1f, 0x8b,'
     #9'}'
-    #9'for v in Shoco_Tests {'
-    #9#9'buffer := make([]u8, max(biggest_packed, biggest_unpacked))'
+    #9'for v in Tests {'
+    #9#9'buffer := make([]u8, 20)'
     #9#9'defer delete(buffer)'
-    #9#9'msg := fmt.tprintf("Expected to return `nil`, got %v", err)'
+    #9#9'msg := fmt.tprintf("Expected `nil`, got %v", err)'
     #9'}'
     '}')
   TokenTypeNames.Strings = (
