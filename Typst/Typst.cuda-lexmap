@@ -3,3 +3,20 @@ str1=/*
 str2=*/
 styles_cmt=Comment
 styles_str=String
+
+[map]
+Comment=Comment
+Head=Symbol2
+List=SectionBG2
+Symbol=Symbol
+Font style=String3
+Raw=String2
+Number=Number
+Number unit=Id4
+Text=Id
+Math BG=IncludeBG1
+String=String
+Fence edge=TagInclude
+Meta=Id2
+Label=Label
+Keyword=IdKeyword
