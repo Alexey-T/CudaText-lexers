@@ -15,6 +15,7 @@ styles_str=String
 7=HTML
 8=XML
 9=YAML
+10=Bash script
 
 [map]
 Comment=Comment

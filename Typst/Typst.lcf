@@ -380,6 +380,13 @@ object SyntAnal19: TLibSyntAnalyzer
       StartExpression = '`{3,}(yaml|yml)\b'
       EndExpression = '`{3,}(?!\w)'
       SyntAnalyzer = SyntAnal21
+    end
+    item
+      DisplayName = 'fenced-shell'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(shell-script|sh|bash|zsh)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal2
     end>
   SampleText.Strings = (
     '= Main'
