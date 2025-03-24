@@ -55,6 +55,8 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
+      BgColor = clSkyBlue
+      FormatType = ftColor
     end
     item
       DisplayName = 'Number'
@@ -185,9 +187,6 @@ object SyntAnal19: TLibSyntAnalyzer
     item
       DisplayName = '`begin'
       StyleName = '``` edge'
-      StatesAdd = 1024
-      StatesRemove = 7
-      StatesAbsent = 1024
       TokenType = 13
       Expression = '`{3,}[a-z]\w*'
       ColumnFrom = 0
@@ -196,8 +195,6 @@ object SyntAnal19: TLibSyntAnalyzer
     item
       DisplayName = '`end'
       StyleName = '``` edge'
-      StatesRemove = 1024
-      StatesPresent = 1024
       TokenType = 14
       Expression = '`{3,}(?!\w)'
       ColumnFrom = 0
