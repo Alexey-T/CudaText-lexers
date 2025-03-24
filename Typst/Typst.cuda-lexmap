@@ -4,6 +4,9 @@ str2=*/
 styles_cmt=Comment
 styles_str=String
 
+[ref]
+0=HTML
+
 [map]
 Comment=Comment
 Head=Label
@@ -16,7 +19,8 @@ Number unit=Id4
 Text=Id
 Math BG=IncludeBG1
 String=String
-Fence edge=TagInclude
+``` edge=TagInclude
 Meta=Id2
 Label=Id3
 Keyword=IdKeyword
+Codeblock BG=SectionBG1

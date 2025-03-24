@@ -23,7 +23,7 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = clSkyBlue
+      BgColor = clSilver
     end
     item
       DisplayName = 'Symbol'
@@ -92,7 +92,7 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Fence edge'
+      DisplayName = '``` edge'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clOlive
       Font.Height = -13
@@ -122,6 +122,16 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Codeblock BG'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clSkyBlue
+      FormatType = ftBackGround
     end>
   TokenRules = <
     item
@@ -190,10 +200,23 @@ object SyntAnal19: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Fence edge'
-      StyleName = 'Fence edge'
-      TokenType = 12
-      Expression = '```\w*'
+      DisplayName = '`begin'
+      StyleName = '``` edge'
+      StatesAdd = 1024
+      StatesRemove = 7
+      StatesAbsent = 1024
+      TokenType = 13
+      Expression = '`{3,}\w+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '`end'
+      StyleName = '``` edge'
+      StatesRemove = 1024
+      StatesPresent = 1024
+      TokenType = 14
+      Expression = '`{3,}(?!\w)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -209,7 +232,7 @@ object SyntAnal19: TLibSyntAnalyzer
       DisplayName = 'Number'
       StyleName = 'Number'
       TokenType = 7
-      Expression = '0b[01]+|'#13#10'0x\h+|'#13#10'0o[0-7]+|'#13#10'\d+(\.\d+)?(e\d+)?'
+      Expression = '0b[01]+|'#13#10'0x\h+|'#13#10'0o[0-7]+|'#13#10'\d+(\.\d+)?(e[\-\+]?\d+)?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -291,9 +314,55 @@ object SyntAnal19: TLibSyntAnalyzer
       HighlightPos = cpAny
       CancelNextRules = True
       IgnoreAsParent = False
+    end
+    item
+      DisplayName = '`begin'
+      StyleName = 'Codeblock BG'
+      ConditionList = <
+        item
+          TokenTypes = 8192
+        end>
+      BlockEnd = '`end'
+      DisplayInTree = False
+      DynHighlight = dhRange
+      HighlightPos = cpAny
+      CollapseFmt = '%sz0'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '`end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 16384
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
     end>
   CodeTemplates = <>
-  SubAnalyzers = <>
+  SubAnalyzers = <
+    item
+      DisplayName = 'Fenced block'
+      StartExpression = '(?<=^\x20*)`{3,}\x20*\w.*$'
+      EndExpression = '(?<=^\x20*)`{3,}\x20*$'
+      SyntAnalyzer = SyntAnal9
+    end>
+  SampleText.Strings = (
+    '_Text_ *text* <label1> "Str" + `Str`'
+    '#let a=10pt '
+    '#0xFF #1.2e3'
+    '$ Math block $'
+    '- List item'
+    ''
+    '```js'
+    'function a() { return 0; }'
+    '```'
+    '  '
+    '#let f() = {'
+    '  let a = ```py'
+    '  def a():'
+    '    pass'
+    '  ```.text')
   TokenTypeNames.Strings = (
     'Head'
     'Comment'
@@ -308,13 +377,14 @@ object SyntAnal19: TLibSyntAnalyzer
     'Meta'
     'String'
     'Fence edge'
-    ''
-    '')
+    '`begin'
+    '`end')
   Extentions = 'typ'
   LexerName = 'Typst'
   SkipSpaces = False
   Notes.Strings = (
     'Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
   LineComment = '//'
   Charset = DEFAULT_CHARSET
 end
