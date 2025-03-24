@@ -366,6 +366,20 @@ object SyntAnal19: TLibSyntAnalyzer
       StartExpression = '`{3,}(html)\b'
       EndExpression = '`{3,}(?!\w)'
       SyntAnalyzer = SyntAnal9
+    end
+    item
+      DisplayName = 'fenced-xml'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(atom|plist|svg|xjb|xml|xsd|xsl)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal20
+    end
+    item
+      DisplayName = 'fenced-yaml'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(yaml|yml)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal21
     end>
   SampleText.Strings = (
     '= Main'

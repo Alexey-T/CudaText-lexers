@@ -13,6 +13,8 @@ styles_str=String
 5=CSS
 6=JSON
 7=HTML
+8=XML
+9=YAML
 
 [map]
 Comment=Comment
