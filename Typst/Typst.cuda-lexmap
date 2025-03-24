@@ -5,22 +5,28 @@ styles_cmt=Comment
 styles_str=String
 
 [ref]
-0=HTML
+0=Python
+1=JavaScript
+2=C++
+3=C
+4=C#
+5=CSS
+6=JSON
+7=HTML
 
 [map]
 Comment=Comment
 Head=Label
-List=LightBG5
+Text=Id
+Keyword=IdKeyword
 Symbol=Symbol
 Font style=Symbol2
-Raw=String2
+Code=IncludeBG2
 Number=Number
 Number unit=Id4
-Text=Id
-Math BG=IncludeBG1
 String=String
+List=LightBG5
 ``` edge=TagInclude
-Meta=Id2
 Label=Id3
-Keyword=IdKeyword
+Math BG=IncludeBG1
 Codeblock BG=SectionBG1

@@ -5,3 +5,11 @@ subdir=-
 
 [lexer1]
 file=Typst
+link1=Python
+link2=JavaScript
+link3=C++
+link4=C
+link5=C#
+link6=CSS
+link7=JSON
+link8=HTML

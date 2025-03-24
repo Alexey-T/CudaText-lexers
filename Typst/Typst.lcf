@@ -17,13 +17,20 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Style = [fsBold]
     end
     item
-      DisplayName = 'List'
+      DisplayName = 'Text'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-      BgColor = clSilver
+    end
+    item
+      DisplayName = 'Keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
     end
     item
       DisplayName = 'Symbol'
@@ -42,7 +49,7 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Raw'
+      DisplayName = 'Code'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clTeal
       Font.Height = -13
@@ -66,9 +73,34 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Style = []
     end
     item
-      DisplayName = 'Text'
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'List'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+      BgColor = clSilver
+    end
+    item
+      DisplayName = '``` edge'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Label'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clFuchsia
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -82,46 +114,6 @@ object SyntAnal19: TLibSyntAnalyzer
       Font.Style = []
       BgColor = clMoneyGreen
       FormatType = ftBackGround
-    end
-    item
-      DisplayName = 'String'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clTeal
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
-      DisplayName = '``` edge'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clOlive
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-    end
-    item
-      DisplayName = 'Meta'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clPurple
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
-      DisplayName = 'Label'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clFuchsia
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-    end
-    item
-      DisplayName = 'Keyword'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = [fsBold]
     end
     item
       DisplayName = 'Codeblock BG'
@@ -153,7 +145,7 @@ object SyntAnal19: TLibSyntAnalyzer
     item
       DisplayName = 'Head'
       StyleName = 'Head'
-      Expression = '^=.*'
+      Expression = '^[\x20\x09]*=+.*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -162,15 +154,6 @@ object SyntAnal19: TLibSyntAnalyzer
       StyleName = 'List'
       TokenType = 3
       Expression = '^[\x09\x20]*\-\x20'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Meta'
-      StyleName = 'Meta'
-      StatesAbsent = 1
-      TokenType = 10
-      Expression = '(?<!\w)\#[a-z][\w\-]*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -206,7 +189,7 @@ object SyntAnal19: TLibSyntAnalyzer
       StatesRemove = 7
       StatesAbsent = 1024
       TokenType = 13
-      Expression = '`{3,}\w+'
+      Expression = '`{3,}[a-z]\w*'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -221,8 +204,8 @@ object SyntAnal19: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Raw'
-      StyleName = 'Raw'
+      DisplayName = 'Code'
+      StyleName = 'Code'
       TokenType = 6
       Expression = '`.*?(`|$)'
       ColumnFrom = 0
@@ -270,12 +253,26 @@ object SyntAnal19: TLibSyntAnalyzer
           TagList.Strings = (
             'and'
             'as'
+            'auto'
+            'break'
+            'context'
+            'continue'
             'else'
+            'false'
+            'for'
             'if'
+            'import'
             'in'
+            'include'
             'let'
+            'none'
             'not'
-            'or')
+            'or'
+            'return'
+            'set'
+            'show'
+            'true'
+            'while')
           TokenTypes = 4
         end>
       HighlightPos = cpAny
@@ -314,46 +311,73 @@ object SyntAnal19: TLibSyntAnalyzer
       HighlightPos = cpAny
       CancelNextRules = True
       IgnoreAsParent = False
-    end
-    item
-      DisplayName = '`begin'
-      StyleName = 'Codeblock BG'
-      ConditionList = <
-        item
-          TokenTypes = 8192
-        end>
-      BlockEnd = '`end'
-      DisplayInTree = False
-      DynHighlight = dhRange
-      HighlightPos = cpAny
-      CollapseFmt = '%sz0'
-      IgnoreAsParent = False
-    end
-    item
-      DisplayName = '`end'
-      BlockType = btRangeEnd
-      ConditionList = <
-        item
-          TokenTypes = 16384
-        end>
-      HighlightPos = cpAny
-      IgnoreAsParent = False
     end>
   CodeTemplates = <>
   SubAnalyzers = <
     item
-      DisplayName = 'Fenced block'
-      StartExpression = '(?<=^\x20*)`{3,}\x20*\w.*$'
-      EndExpression = '(?<=^\x20*)`{3,}\x20*$'
+      DisplayName = 'fenced-python'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(python|py)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal17
+    end
+    item
+      DisplayName = 'fenced-js'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(javascript|js)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal10
+    end
+    item
+      DisplayName = 'fenced-cpp'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(c\+\+|cc|cpp|cxx|h\+\+|hpp|hxx)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal6
+    end
+    item
+      DisplayName = 'fenced-c'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(c|h)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal5
+    end
+    item
+      DisplayName = 'fenced-csharp'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(csharp|c\#|cs)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal4
+    end
+    item
+      DisplayName = 'fenced-css'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(css)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal7
+    end
+    item
+      DisplayName = 'fenced-json'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(jsonc?)\b'
+      EndExpression = '`{3,}(?!\w)'
+      SyntAnalyzer = SyntAnal12
+    end
+    item
+      DisplayName = 'fenced-html'
+      StyleName = 'Codeblock BG'
+      StartExpression = '`{3,}(html)\b'
+      EndExpression = '`{3,}(?!\w)'
       SyntAnalyzer = SyntAnal9
     end>
   SampleText.Strings = (
+    '= Main'
     '_Text_ *text* <label1> "Str" + `Str`'
-    '#let a=10pt '
-    '#0xFF #1.2e3'
     '$ Math block $'
-    '- List item'
+    '#let a=10pt #0xFF #1.2e3'
+    '  - List'
     ''
+    '== Sublexers  '
     '```js'
     'function a() { return 0; }'
     '```'
@@ -362,7 +386,11 @@ object SyntAnal19: TLibSyntAnalyzer
     '  let a = ```py'
     '  def a():'
     '    pass'
-    '  ```.text')
+    '  ```.text'
+    ''
+    '```c return 0; ```'
+    '```cpp return 0; ```'
+    '```css p { color: #abc } ```')
   TokenTypeNames.Strings = (
     'Head'
     'Comment'
@@ -370,11 +398,11 @@ object SyntAnal19: TLibSyntAnalyzer
     'List'
     'Symbol'
     'Font style'
-    'Raw'
+    'Code'
     'Number'
     'Number unit'
     'Label'
-    'Meta'
+    '--'
     'String'
     'Fence edge'
     '`begin'
