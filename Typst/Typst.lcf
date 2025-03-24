@@ -246,7 +246,11 @@ object SyntAnal19: TLibSyntAnalyzer
         item
           TagList.Strings = (
             'and'
+            'as'
+            'else'
+            'if'
             'in'
+            'let'
             'not'
             'or')
           TokenTypes = 4

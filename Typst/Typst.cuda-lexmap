@@ -6,10 +6,10 @@ styles_str=String
 
 [map]
 Comment=Comment
-Head=Symbol2
-List=SectionBG2
+Head=Label
+List=LightBG5
 Symbol=Symbol
-Font style=String3
+Font style=Symbol2
 Raw=String2
 Number=Number
 Number unit=Id4
@@ -18,5 +18,5 @@ Math BG=IncludeBG1
 String=String
 Fence edge=TagInclude
 Meta=Id2
-Label=Label
+Label=Id3
 Keyword=IdKeyword
