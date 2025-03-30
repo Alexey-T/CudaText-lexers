@@ -1,0 +1,7 @@
+[info]
+title=Lua
+type=lexer
+subdir=-
+
+[lexer1]
+file=Lua
