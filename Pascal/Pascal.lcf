@@ -286,6 +286,7 @@ object SyntAnal15: TLibSyntAnalyzer
             'label'
             'library'
             'mod'
+            'nil'
             'not'
             'object'
             'of'
