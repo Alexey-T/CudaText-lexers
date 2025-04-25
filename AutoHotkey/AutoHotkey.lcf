@@ -1,4 +1,4 @@
-object SyntAnal2: TLibSyntAnalyzer
+object SyntAnal1: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -149,7 +149,7 @@ object SyntAnal2: TLibSyntAnalyzer
       DisplayName = 'Comment2'
       StyleName = 'Comment'
       TokenType = 1
-      Expression = '(?s)^\s*/\*.*?(^\s*\*/|\Z)'
+      Expression = '(?s)^\s*/\*.*?(\*/$|^\s*\*/|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -1192,7 +1192,14 @@ object SyntAnal2: TLibSyntAnalyzer
     '#!^+&<>*~$Key:Test'
     'MsgBox testing... 20.30 + A_AppData + %2%'
     'FileExist() %VarName% `n'
-    ''
+    '/*'
+    'MsgBox "This line is commented out (disabled)."'
+    'MsgBox "Common mistake:" */ " this does not end the comment."'
+    'MsgBox "This line is commented out."'
+    '*/'
+    'MsgBox "This line is not commented out."'
+    '/* This is also valid, but no other code can share the line. */'
+    'MsgBox "This line is not commented out."'
     'Tray:'
     '{'
     'WinWait, "Test" + 100 + LButton'
