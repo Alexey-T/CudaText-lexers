@@ -68,7 +68,7 @@ object SyntAnal20: TLibSyntAnalyzer
       DisplayName = 'Tag'
       StyleName = 'Tag'
       TokenType = 4
-      Expression = '<[^>]*[^>]>'
+      Expression = '<[^>]+>'
       ColumnFrom = 0
       ColumnTo = 0
     end
