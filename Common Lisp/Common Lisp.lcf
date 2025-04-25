@@ -123,7 +123,7 @@ object SyntAnalCL: TLibSyntAnalyzer
     item
       DisplayName = 'Function call'
       TokenType = 7
-      Expression = '(?<=\()[a-z-+!%]+'
+      Expression = '(?<=\()[a-z-+!%\d]+'
       ColumnFrom = 0
       ColumnTo = 0
     end
