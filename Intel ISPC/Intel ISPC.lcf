@@ -71,16 +71,6 @@ object SyntAnal10: TLibSyntAnalyzer
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
-    end
-    item
-      DisplayName = 'Incorrect'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Courier New'
-      Font.Style = []
-      BorderTypeBottom = blSolid
-      BorderColorBottom = clRed
     end>
   TokenRules = <
     item
@@ -95,7 +85,7 @@ object SyntAnal10: TLibSyntAnalyzer
       DisplayName = 'Id keyword'
       StyleName = 'Id keyword'
       TokenType = 7
-      Expression = '(?-i)\b(else|foreach(_active)?|for|if|switch|while|catch)\b'
+      Expression = '(?-i)\b(else|foreach_active|foreach|for|if|switch|while|catch)\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -140,7 +130,7 @@ object SyntAnal10: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Comment 1'
+      DisplayName = 'Comment block'
       StyleName = 'Comment'
       TokenType = 1
       Expression = '(?s)/\*.*?(\*/|\Z)'
@@ -148,7 +138,7 @@ object SyntAnal10: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
-      DisplayName = 'Comment 2'
+      DisplayName = 'Comment line'
       StyleName = 'Comment'
       TokenType = 1
       Expression = '//.*'
@@ -183,9 +173,7 @@ object SyntAnal10: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = 
-        '[\[\],~\.\\\?:]|'#13#10'[\-\+<>\|\&\^]{2}=?|\#{1,2}|'#13#10'[\+\-\*/&\|\^!<>' +
-        '=~%]=?'
+      Expression = '[\[\],~\.\\\?:\#]|'#13#10'[\-\+<>\|\&\^]{2}=?|'#13#10'[\+\-\*/&\|\^!<>=~%]=?'
       ColumnFrom = 0
       ColumnTo = 0
     end
