@@ -98,6 +98,16 @@ object SyntAnal10: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Num float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '\d+('#39'\d+)*'#13#10'( \. (\d*('#39'\d+)*) E(\+|-)? (\d*('#39'\d+)*)'#13#10'| \. (\d*('#39 +
+        '\d+)*)'#13#10'| E(\+|-)? (\d+('#39'\d+)*)'#13#10')(d|f16|f)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Num integer'
       StyleName = 'Number'
       TokenType = 5
@@ -106,16 +116,6 @@ object SyntAnal10: TLibSyntAnalyzer
         '0b ( [0-1]+       ('#39'[0-1]+)* )?        # Binary'#13#10'|0  ( [0-7]+   ' +
         '    ('#39'[0-7]+)* )         # Octal'#13#10'|   ( [0-9]+       ('#39'[0-9]+)* ' +
         ')         # Decimal'#13#10')'#13#10'( ([uUfF] | u?ll? | U?LL?)\b | \b )'
-      ColumnFrom = 0
-      ColumnTo = 0
-    end
-    item
-      DisplayName = 'Num float'
-      StyleName = 'Number'
-      TokenType = 5
-      Expression = 
-        '( \d+ ('#39'\d+)* )?'#13#10'( \. (\d+('#39'\d+)*) E(\+|-)? (\d+('#39'\d+)*)'#13#10'| \. ' +
-        '(\d+('#39'\d+)*)'#13#10'| E(\+|-)? (\d+('#39'\d+)*)'#13#10')d?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
