@@ -98,12 +98,22 @@ object SyntAnal10: TLibSyntAnalyzer
       ColumnTo = 0
     end
     item
+      DisplayName = 'Num float hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '0x\h+('#39'\h+)*'#13#10'( \. (\h*('#39'\h+)*) (P(\+|-)? (\h+('#39'\h+)*))?'#13#10'| P(\+' +
+        '|-)? (\h+('#39'\h+)*)'#13#10')(d|f16|f)?\b'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
       DisplayName = 'Num float'
       StyleName = 'Number'
       TokenType = 5
       Expression = 
-        '\d+('#39'\d+)*'#13#10'( \. (\d*('#39'\d+)*) E(\+|-)? (\d*('#39'\d+)*)'#13#10'| \. (\d*('#39 +
-        '\d+)*)'#13#10'| E(\+|-)? (\d+('#39'\d+)*)'#13#10')(d|f16|f)?\b'
+        '\d+('#39'\d+)*'#13#10'( \. (\d*('#39'\d+)*) (E(\+|-)? (\d+('#39'\d+)*))?'#13#10'| E(\+|-' +
+        ')? (\d+('#39'\d+)*)'#13#10')(d|f16|f)?\b'
       ColumnFrom = 0
       ColumnTo = 0
     end
