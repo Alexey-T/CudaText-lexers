@@ -237,10 +237,12 @@ object SyntAnal10: TLibSyntAnalyzer
             'return'
             'sizeof'
             'soa'
+            'struct'
             'switch'
             'sync'
             'task'
             'template'
+            'typedef'
             'unmasked'
             'while')
           TokenTypes = 4
@@ -261,6 +263,7 @@ object SyntAnal10: TLibSyntAnalyzer
             'final'
             'inline'
             'noexcept'
+            'noinline'
             'override'
             'static'
             'uniform'
@@ -292,8 +295,6 @@ object SyntAnal10: TLibSyntAnalyzer
             'long'
             'short'
             'signed'
-            'struct'
-            'typedef'
             'uint16'
             'uint32'
             'uint64'
@@ -433,6 +434,15 @@ object SyntAnal10: TLibSyntAnalyzer
     end>
   CodeTemplates = <>
   SubAnalyzers = <>
+  SampleText.Strings = (
+    '//Comment'
+    '  #define F_STDLIB(T)                                       \'
+    '    export void func_stdlib_##T(uniform T *uniform input) { \'
+    '        uniform int chunk = 3 * programCount;               \'
+    '        for (uniform int i = 0; i < iterations; i++) {      \'
+    '            func(input[i * 3]);       \'
+    '        }                             \'
+    '    }')
   TokenTypeNames.Strings = (
     'Unknown'
     'Comment'
@@ -447,6 +457,7 @@ object SyntAnal10: TLibSyntAnalyzer
     'Symbol ;')
   Extentions = 'ispc isph'
   LexerName = 'Intel ISPC'
+  SkipSpaces = False
   Notes.Strings = (
     'Alexey Torgashin (CudaText)')
   RestartFromLineStart = True
