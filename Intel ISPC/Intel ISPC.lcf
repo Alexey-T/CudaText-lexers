@@ -183,7 +183,9 @@ object SyntAnal10: TLibSyntAnalyzer
       DisplayName = 'Symbol'
       StyleName = 'Symbol'
       TokenType = 3
-      Expression = '[\[\],~\.\\\?:\#]|'#13#10'[\-\+<>\|\&\^]{2}=?|'#13#10'[\+\-\*/&\|\^!<>=~%]=?'
+      Expression = 
+        '\.+|[\[\],~\\\?:\#]|'#13#10'[\-\+<>\|\&\^]{2}=?|'#13#10'[\+\-\*/&\|\^!<>=~%]' +
+        '=?'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -229,6 +231,7 @@ object SyntAnal10: TLibSyntAnalyzer
             'switch'
             'sync'
             'task'
+            'template'
             'unmasked'
             'while')
           TokenTypes = 4
