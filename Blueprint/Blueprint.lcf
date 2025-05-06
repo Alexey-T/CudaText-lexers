@@ -237,10 +237,12 @@ object SyntAnal4: TLibSyntAnalyzer
           TokenTypes = 4
         end>
       BlockEnd = '}'
+      NameFmt = '%s0'
       RefToCondEnd = True
       HighlightPos = cpAny
       CancelNextRules = True
       DrawStaple = True
+      CollapseFmt = '%s0 { ... }'
       IgnoreAsParent = False
     end
     item
