@@ -1,0 +1,318 @@
+object SyntAnal4: TLibSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsItalic]
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Id keyword'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Id types'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Var'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Id'
+      StyleName = 'Id'
+      TokenType = 2
+      Expression = '[a-z_][\w\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)("|'#39')(\\.|.)*?(\1|$)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num hex'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '0x[\h_]+|'#13#10'0b[01_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num float'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = 
+        '\d[\d_]* (\.[\d_]*)? e[\+\-]? \d+ |'#13#10'\. [\d_]+ e[\+\-]? \d+ |'#13#10'\' +
+        'd[\d_]* \. (\d[\d_]*)? |'#13#10'\. \d[\d_]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Num decimal'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d[\d_]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 1'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Comment 2'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '//.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Var'
+      StyleName = 'Var'
+      TokenType = 6
+      Expression = '\$[a-z_][\w\-]*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ;'
+      StyleName = 'Symbol'
+      TokenType = 10
+      Expression = ';'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol {}'
+      StyleName = 'Symbol'
+      TokenType = 8
+      Expression = '[\{\}]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol ()'
+      StyleName = 'Symbol'
+      TokenType = 9
+      Expression = '[\(\)]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = 
+        ':+|=>|[\[\],~\.\\\?]|'#13#10'[\-\+<>\|\&\^]{2}=? |'#13#10'[\+\-\*/&\|\^!<>=~' +
+        '%]=?'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'id keywords'
+      StyleName = 'Id keyword'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'as'
+            'bind'
+            'false'
+            'item'
+            'menu'
+            'null'
+            'section'
+            'submenu'
+            'template'
+            'true'
+            'using')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'id types'
+      StyleName = 'Id types'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'AboutDialog'
+            'Adjustment'
+            'BoolFilter'
+            'Box'
+            'Button'
+            'ColorButton'
+            'ComboBoxText'
+            'Dialog'
+            'DropDown'
+            'Entry'
+            'FileFilter'
+            'Grid'
+            'HeaderBar'
+            'InfoBar'
+            'Label'
+            'Object'
+            'Overlay'
+            'Picture'
+            'Scale'
+            'ScrolledWindow'
+            'Shortcut'
+            'StringList'
+            'Widget'
+            'Window')
+          TokenTypes = 4
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Name {'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end
+        item
+          TokenTypes = 4
+        end>
+      BlockEnd = '}'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CancelNextRules = True
+      DrawStaple = True
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '{'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '{')
+          TokenTypes = 256
+        end>
+      BlockEnd = '}'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '{ ... }'
+      IgnoreAsParent = False
+      AutoCloseMode = acmCloseNearest
+      AutoCloseText = '}'
+    end
+    item
+      DisplayName = '}'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 256
+        end>
+      HighlightPos = cpBound
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <>
+  SubAnalyzers = <>
+  SampleText.Strings = (
+    'using Gtk 4.0;'
+    ''
+    'template $MyTemplate: Label {'
+    '  /** comment'
+    '   */'
+    '  StringList {'
+    '    strings ['
+    '      "Hello",'
+    '      C_("Greeting", "World"),'
+    '    ]'
+    '  }'
+    ''
+    '  flags: a | b;'
+    ''
+    '  [child]'
+    '  Label {}'
+    ''
+    '  value: bind (1.0) as <double>;'
+    '  signal => $on_signal() after; // Inline comment'
+    '  type_value: typeof<$MyTemplate>;'
+    '}')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Id'
+    'Symbol'
+    'String'
+    'Number'
+    'Var'
+    'Id keyword'
+    'Symbol {}'
+    'Symbol ()'
+    'Symbol ;')
+  Extentions = 'blp'
+  LexerName = 'Blueprint'
+  Notes.Strings = (
+    'Alexey Torgashin (CudaText)')
+  RestartFromLineStart = True
+  LineComment = '//'
+  Charset = DEFAULT_CHARSET
+end
