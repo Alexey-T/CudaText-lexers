@@ -184,7 +184,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Last Preprocessor'
       StyleName = 'Preprocessor'
       TokenType = 3
-      Expression = '^@[a-z0-9]+(?=(=.*\z)(^\z|;.*\z)*(\[|\Z))'
+      Expression = '^@\w+(?=(=.*\z)(^\z|;.*\z)*(\[|\Z))'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -192,7 +192,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Preprocessor'
       StyleName = 'Preprocessor'
       TokenType = 2
-      Expression = '(^@[a-z0-9]+) | \#\@\#'
+      Expression = '(^@\w+)|\#\@\#'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -200,7 +200,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Last Key'
       StyleName = 'Key'
       TokenType = 3
-      Expression = '^[a-z0-9]+(?=(=.*\z)(^\z|;.*\z)*(\[|\Z))'
+      Expression = '^[^=\n\r]+(?=(=.*\z)(^\z|;.*\z)*(\[|\Z))'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -208,7 +208,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Key'
       StyleName = 'Key'
       TokenType = 4
-      Expression = '^[a-z0-9]+(?==)'
+      Expression = '^[^=\n\r]+(?==)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -224,7 +224,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Bang'
       StyleName = 'Bang'
       TokenType = 6
-      Expression = '![a-z0-9]+'
+      Expression = '!\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -232,7 +232,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Variable'
       StyleName = 'Variable'
       TokenType = 7
-      Expression = '\#[a-z0-9]+\#'
+      Expression = '\#\w+\#'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -240,7 +240,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 8
-      Expression = '['#39'"].*?(['#39'"]|$)'
+      Expression = '(['#39'"]).*?(\1|$)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -264,7 +264,7 @@ object SyntAnal15: TLibSyntAnalyzer
       DisplayName = 'Identifier'
       StyleName = 'Identifier'
       TokenType = 11
-      Expression = '[a-z0-9]+'
+      Expression = '\w+'
       ColumnFrom = 0
       ColumnTo = 0
     end>
