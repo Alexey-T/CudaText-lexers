@@ -1,0 +1,9 @@
+[info]
+title=C
+type=lexer
+subdir=-
+
+[lexer1]
+file=C
+link1=Assembly
+link2=Assembly
