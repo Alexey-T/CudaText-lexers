@@ -1,4 +1,4 @@
-object SyntAnal25: TLibSyntAnalyzer
+object SyntAnal16: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -20,6 +20,14 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'String'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String '#39
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -143,7 +151,15 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'String'
       StyleName = 'String'
       TokenType = 4
-      Expression = '(?s)("|'#39')(\\\1|.)*?(\1|\Z)'
+      Expression = '(?s)(")(\\\1|.)*?(\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String '#39
+      StyleName = 'String '#39
+      TokenType = 5
+      Expression = '(?s)('#39')(\\\1|.)*?(\1|\Z)'
       ColumnFrom = 0
       ColumnTo = 0
     end
@@ -598,6 +614,7 @@ object SyntAnal25: TLibSyntAnalyzer
     'Id'
     'Symbol'
     'String'
+    'String 2'
     'Number'
     'If_begin')
   Extentions = 

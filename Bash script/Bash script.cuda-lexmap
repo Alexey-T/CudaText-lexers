@@ -10,6 +10,7 @@ Comment shebang=Comment2
 Keywords=IdKeyword
 Command=Id
 String=String
+String '=String
 Symbol=Symbol
 Var=IdVar
 Number=Number

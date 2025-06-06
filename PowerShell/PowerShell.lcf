@@ -1,4 +1,4 @@
-object SyntAnal25: TLibSyntAnalyzer
+object SyntAnal12: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -20,6 +20,14 @@ object SyntAnal25: TLibSyntAnalyzer
       DisplayName = 'String'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clTeal
+      Font.Height = -13
+      Font.Name = 'Courier New'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String '#39
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
       Font.Height = -13
       Font.Name = 'Courier New'
       Font.Style = []
@@ -138,8 +146,8 @@ object SyntAnal25: TLibSyntAnalyzer
     end
     item
       DisplayName = 'String2'
-      StyleName = 'String'
-      TokenType = 4
+      StyleName = 'String '#39
+      TokenType = 5
       Expression = #39' .*? ('#39'|$)'
       ColumnFrom = 0
       ColumnTo = 0
@@ -661,6 +669,7 @@ object SyntAnal25: TLibSyntAnalyzer
     'Id'
     'Symbol'
     'String'
+    'String 2'
     'Number'
     'String here'
     'Operator'
@@ -674,6 +683,6 @@ object SyntAnal25: TLibSyntAnalyzer
     
       'Numbers: https://docs.microsoft.com/en-us/powershell/module/micr' +
       'osoft.powershell.core/about/about_numeric_literals')
-  LineComment = '# '
+  LineComment = '#'
   Charset = DEFAULT_CHARSET
 end

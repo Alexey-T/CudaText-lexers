@@ -10,6 +10,7 @@ str2=
 Symbol=Symbol
 Number=Number
 String=String
+String '=String
 String here=String2
 Comment=Comment
 Id=Id
