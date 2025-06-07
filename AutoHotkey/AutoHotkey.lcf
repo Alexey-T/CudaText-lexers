@@ -1,4 +1,4 @@
-object SyntAnal1: TLibSyntAnalyzer
+object SyntAnal2: TLibSyntAnalyzer
   Formats = <
     item
       DisplayName = 'Symbol'
@@ -257,6 +257,7 @@ object SyntAnal1: TLibSyntAnalyzer
     end
     item
       DisplayName = 'Id after wordchar'
+      Enabled = False
       StyleName = 'Id'
       TokenType = 2
       Expression = '(?<=\w[\x20\x09]+)\w+'
@@ -525,7 +526,7 @@ object SyntAnal1: TLibSyntAnalyzer
             'WinWaitActive'
             'WinWaitClose'
             'WinWaitNotActive')
-          TokenTypes = 4
+          TokenTypes = 2052
           IgnoreCase = True
         end>
       HighlightPos = cpAny
@@ -1230,7 +1231,7 @@ object SyntAnal1: TLibSyntAnalyzer
   SkipSpaces = False
   Notes.Strings = (
     'Original by RedTiF at ghisler.ch'
-    'Reworked by Alexey (CudaText)')
+    'Reworked by Alexey Torgashin (CudaText)')
   LineComment = ';'
   Charset = DEFAULT_CHARSET
 end
