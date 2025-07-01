@@ -1,0 +1,7 @@
+[info]
+title=Bazelrc
+type=lexer
+subdir=-
+
+[lexer1]
+file=Bazelrc
